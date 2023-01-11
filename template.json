@@ -1,0 +1,47 @@
+{
+	"customer": "Michal Gerhát",
+	"supplyer": {
+		"company_name": "STAV-IL s.r.o.",
+		"ico": "56 945 124",
+		"dic": "5487961254",
+		"phone": "0945687214",
+		"email": "stavil@gmail.com",
+		"web": "www.stavil.sk"
+	},
+	"headers": [
+		["Č.", "Č."],
+		["kcn", "service_type"],
+		["kp", "item_id"],
+		["title", "title"],
+		["mj", "unit"],
+		["mc", "quantity"],
+		["cdj", "unit_delivery_price"],
+		["cmj", "unit_construction_price"],
+		["cdc", "total_delivery_price"],
+		["cmc", "total_construction_price"]
+	],
+	"blocks": [
+		{
+			"info": {
+				"title": "Zdravotechnika - vnútorná kanalizácia",
+				"total_delivery_price": 643.41,
+				"total_construction_price": 211.74,
+				"total_price": 123
+			},
+			"items": [
+				{
+					"service_type": 345,
+					"item_id": 345710009300,
+					"title": "Rúrka ohybná vlnitá pancierová PVC-U, FXP DN 63",
+					"unit": "m",
+					"quantity": 40,
+					"unit_delivery_price": 1.05,
+					"unit_construction_price": 0.25,
+					"total_delivery_price": 643.41,
+					"total_construction_price": 211.74,
+					"total": 0
+				}
+			]
+		}
+	]
+}

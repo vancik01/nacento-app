@@ -1,26 +1,148 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 * {
-  box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+h1, h2{
+    @apply md:text-[30px] text-[24px] font-medium;
 }
+
+h3{
+    @apply text-[20px] md:text-[24px];
+}
+
+p{
+    @apply text-[16px] font-light;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid white;
+}
+
+td:first-child,
+th:first-child {
+  border-radius: 10px 0 0 10px;
+}
+td:last-child,
+th:last-child {
+  border-radius: 0 10px 10px 0;
+}
+
+tbody tr:nth-child(odd){
+    @apply bg-row-regular;
+}
+tbody tr:nth-child(even){
+    @apply bg-row-odd;
+}
+
+td, th{
+    @apply py-2 px-3;
+}
+td {
+    @apply h-[100px];
+}
+
+/*spinner*/
+
+.spinner circle {
+    stroke: white;
+    strokeLinecap: round;
+    animation: dash 1.5s ease-in-out infinite;
+  }
+  
+  .spinner {
+    stroke: white;
+    animation: rotate 1s linear infinite;
+    z-index: 2;
+    width: 22px;
+    height: 22px;
+  }
+  
+  .spinner .path {
+    stroke:black;
+    strokeLinecap: round;
+    animation: dash 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes dash {
+    0% {
+        stroke-dasharray: 1, 150;
+        stroke-dashoffset: 0;
+    }
+  
+    50% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -35;
+    }
+  
+    100% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -124;
+    }
+  }
+
+  .table_row{
+    display: grid;
+    grid-template-columns: 15px 30px 120px 6fr 30px 50px 1fr 1fr 1fr 1fr 50px;
+    @apply text-[12px] items-center min-h-[60px];
+    column-gap: 24px;  
+  }
+
+  .table_row.content.dragging{
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+  }
+
+  .table_row.content{
+    display: grid;
+    @apply bg-row-regular py-2 px-4 mb-3;
+    box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.056) 0px 0px 8px;
+  }
+
+  .table_row.heading{
+    align-items: center;
+    @apply px-4 pb-1 pt-8;
+    
+  }
+
+  li.table_row > div:nth-child(1){
+    text-align: center;
+    justify-self: center;
+  }
+  .table_row .kcn, .table_row .mj{
+    text-align: center;
+    justify-self: center;
+  }
+.table_row .cdj, .table_row .cmj, .table_row .cdc, .table_row .cmc{
+  text-align: center;
+  justify-self: center;
+}
+
+  .table_row svg.cancel *{
+    transition: all 0.2s;
+  }
+  .table_row svg.cancel:hover *{
+    fill: red;
+  }
+
+  .table_row svg.draggable *{
+    transition: all 0.2s;
+  }
+  .table_row svg.draggable:hover *{
+    fill: black;
+  }
+
+  .bottom-bar{
+    
+    box-shadow: rgb(13 9 34 / 7%) 1px -20px 20px 0px;
+  }
