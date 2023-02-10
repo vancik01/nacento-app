@@ -424,8 +424,8 @@ export function AppWrap({children}){
 
     return(
         <DataContext.Provider value={value}>
-            <FullPageLoading loading={loading} />
-            {children}
+            
+            {!loading && children}
         </DataContext.Provider>
     )
     

@@ -170,11 +170,11 @@ export default function Sidebar() {
                                 Stiahnuť ponuku 
                             </ButtonPrimary>
 
-                            <div className="flex w-full mt-6">
-                                <button className='w-2 ml-auto' onClick={()=>{setdisplaySidebar(false)}}>
-                                    <CloseSidebar></CloseSidebar>
-                                </button>
-                            </div>
+                            <button className="flex w-full mt-6">
+                                <div className='p-2 ml-auto' onClick={()=>{setdisplaySidebar(false)}}>
+                                    <div className='w-2'><CloseSidebar></CloseSidebar></div>
+                                </div>
+                            </button>
                         </div>
                     </div>
             </div>
