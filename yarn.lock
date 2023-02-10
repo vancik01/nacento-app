@@ -2566,6 +2566,11 @@
     "loose-envify" "^1.4.0"
     "prop-types" "^15.6.2"
 
+"react-zoom-pan-pinch@^2.5.0":
+  "integrity" "sha512-5o3DKACPRNXM5Yr1dfQ5sZsGpstEsam3ih3dNmaDUfpghwD7ENwCVAupbNiBHlJ1Jbowd6o9qamp/2FiWu2Jcg=="
+  "resolved" "https://registry.npmjs.org/react-zoom-pan-pinch/-/react-zoom-pan-pinch-2.5.0.tgz"
+  "version" "2.5.0"
+
 "react@18.2.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"

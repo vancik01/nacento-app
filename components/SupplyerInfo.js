@@ -3,14 +3,15 @@ import { Input } from '@mui/material';
 import React, { useState } from 'react'
 import { useData } from '../context/AppWrap'
 import EditPen from '../public/SVG/EditPen';
+import ButtonPrimary from './ButtonPrimary';
 
 export default function SupplyerInfo() {
     const {data, changeSupplyerData} = useData();
-    const [editing, setediting] = useState(false);    
+    const [editing, setediting] = useState(true);    
     const [supplyer, setsupplyer] = useState(data.supplyer);
     
     function handleChange(e){
-        console.log(e.target.value)
+        
         var newData = {...supplyer}
         newData[e.target.name] = e.target.value;
         setsupplyer(newData);
@@ -23,38 +24,38 @@ export default function SupplyerInfo() {
 
     if(!editing){
         return (
-            <>
+            <div className='min-w-[200px]'>
                 <div className='relative w-fit'>
-                    <h3>Dodávateľ:</h3>
+                    <div className='mb-2 text-gray-300 capitalize'>DODÁVATEL:</div>
                     <button onClick={()=>{setediting(true)}} className='absolute top-0 -right-5 w-3'>
                         <EditPen></EditPen>
                     </button>
                 </div>
                 
-                <div className=''>
+                <div className='text-sm'>
                     <div>{supplyer.company_name}</div>
-                    <div>ico: {data.supplyer.ico}</div>
-                    <div>dic: {data.supplyer.dic}</div>
+                    <div>IČO: {data.supplyer.ico}</div>
+                    <div>DIČ: {data.supplyer.dic}</div>
                     <div>Tel.: {data.supplyer.phone}</div>
                     <div>Email: {data.supplyer.email}</div>
                     <div>{data.supplyer.web}</div>
                 </div>
-            </>
+            </div>
         )
     }else{
         return(
-            <>
-                <h3>Dodávateľ:</h3>
-                <div className='flex flex-col gap-6'>
-                    <TextField onChange={handleChange} name="company_name" variant='standard' fullWidth label="Názov Spoločnosti" value={supplyer.company_name}></TextField>
-                    <TextField onChange={handleChange} name="ico" variant='standard' fullWidth label="IČO" value={supplyer.ico}></TextField>
-                    <TextField onChange={handleChange} name="dic" variant='standard' fullWidth label="DIČ" value={supplyer.dic}></TextField>
-                    <TextField onChange={handleChange} name="phone" variant='standard' fullWidth label="Tel" value={supplyer.phone}></TextField>
-                    <TextField onChange={handleChange} name="email" variant='standard' fullWidth label="Email" value={supplyer.email}></TextField>
-                    <TextField onChange={handleChange} name="web" variant='standard' fullWidth label="Web" value={supplyer.web}></TextField>
+            <div className='min-w-[200px]'>
+                <div className='mb-2 text-gray-300 capitalize'>DODÁVATEL:</div>
+                <div className='flex flex-col gap-1 text-sm'>
+                    <input onChange={handleChange} name="company_name" variant='standard'  placeholder="Názov Spoločnosti" value={supplyer.company_name}></input>
+                    <input onChange={handleChange} name="ico" variant='standard'  placeholder="IČO" value={supplyer.ico}></input>
+                    <input onChange={handleChange} name="dic" variant='standard'  placeholder="DIČ" value={supplyer.dic}></input>
+                    <input onChange={handleChange} name="phone" variant='standard'  placeholder="Tel" value={supplyer.phone}></input>
+                    <input onChange={handleChange} name="email" variant='standard'  placeholder="Email" value={supplyer.email}></input>
+                    <input onChange={handleChange} name="web" variant='standard'  placeholder="Web" value={supplyer.web}></input>
                 </div>
-                <button className='mt-4' onClick={handleSave}>Uložiť</button>
-            </>
+                <ButtonPrimary className='mt-4' onClick={handleSave}>Uložiť</ButtonPrimary>
+            </div>
         )
     }
 }

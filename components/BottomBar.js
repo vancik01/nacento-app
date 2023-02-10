@@ -1,43 +1,69 @@
 import React, { useEffect, useState } from 'react'
 import { useData } from '../context/AppWrap'
+import { numberWithCommas } from '../lib/helpers'
+import EditPen from '../public/SVG/EditPen'
 import Layout from './Layout'
+import PriceChangeIndicator from './PriceChangeIndicator'
 
 export default function BottomBar() {
-    const {total,initialTotal} = useData()
-    const [changeDodavka, setchangeDodavka] = useState(total.dodavka - initialTotal.dodavka)
+    const {total,initialTotal, openBulkEdit, bulkEdit, toggleTotals} = useData()
+    const [changeDodavka, setchangeDodavka] = useState(total.total_delivery_price - initialTotal.dodavka)
     const [changeMontaz, setchangeMontaz] = useState(0)
     const [changeTotal, setchangeTotal] = useState(0)
+    
 
     function scrollToTop(){
         window.scrollTo({top: 0, behavior: 'smooth'});
     }
 
     useEffect(() => {
-        setchangeDodavka((total.dodavka - initialTotal.dodavka).toFixed(2))
-        setchangeMontaz((total.montaz - initialTotal.montaz).toFixed(2))
+        setchangeDodavka((total.total_delivery_price - initialTotal.total_delivery_price).toFixed(2))
+        setchangeMontaz((total.total_construction_price - initialTotal.total_construction_price).toFixed(2))
         setchangeTotal((total.total - initialTotal.total).toFixed(2))      
     }, [total])
     
 
   return (
     
-    <div className="bottom-bar bg-white h-24  z-50 p-6">
-        <Layout className="flex flex-row h-full">
-            <div className='flex flex-row justify-start  w-full gap-10'>
-                <div>
-                    <div>Cena Montáže: {total.dodavka.toFixed(2)} €</div>
-                    <Change val={changeDodavka} />
-                </div>
-                <div>
-                    <div>Cena Dodávky: {total.montaz.toFixed(2)}€</div>
-                    <Change val={changeMontaz} />
+    <div className="bottom-bar bg-white h-16 z-30 p-6">
+        <Layout className="flex flex-row h-full relative">
+            <div className='flex flex-row justify-start items-center w-full gap-10'>
+
+                <div className='relative w-fit'>
+                    <PriceChangeIndicator val={changeMontaz} />
+                    <div>Cena Montáže: {numberWithCommas(total.total_construction_price.toFixed(2))} €</div>
+                    {!bulkEdit&&<button 
+                        onClick={()=>{ openBulkEdit(
+                            {blockId:-1, value: total.total_construction_price, valueId:"total_construction_price", mode:"whole"})}}
+                        className='absolute top-0 -right-3 w-2'>
+                        <EditPen></EditPen>
+                    </button>}
                 </div>
 
-                <div>
-                    <div>Cena spolu: {total.total.toFixed(2)}€</div>
-                    <Change val={changeTotal} />
+                <div className='relative w-fit'>
+                    <PriceChangeIndicator val={changeDodavka} />
+                    <div>Cena Dodávky: {numberWithCommas(total.total_delivery_price.toFixed(2))} €</div>
+                    {!bulkEdit&&<button 
+                        onClick={()=>{ openBulkEdit(
+                            {blockId:-1, value: total.total_delivery_price, valueId:"total_delivery_price", mode:"whole"})}}
+                        className='absolute top-0 -right-3 w-2'>
+                        <EditPen></EditPen>
+                    </button>}
+                    
+                </div>            
+                
+                <div className='relative w-fit'>
+                    <PriceChangeIndicator val={changeTotal} />
+                    <div>Spolu: {numberWithCommas(total.total.toFixed(2))} € <span className='text-[10px]'>bez DPH</span></div>
+                    {!bulkEdit&&<button 
+                        onClick={()=>{ openBulkEdit(
+                            {blockId:-1, value: total.total, valueId:"total", mode:"whole"})}}
+                        className='absolute top-0 -right-3 w-2'>
+                        <EditPen></EditPen>
+                    </button>}
                 </div>
-                <button onClick={scrollToTop} className="h-fit">Top</button>
+                
+                
             </div>
 
             
@@ -46,18 +72,3 @@ export default function BottomBar() {
   )
 }
 
-function Change({val}){
-   if(val >= 0){
-        return(
-            <div className='text-[#2b8f3b]'>
-                +{val} €
-            </div>
-        )
-   }else{
-        return(
-            <div className='text-[#8f2b2b]'>
-                {val} €
-            </div>
-        )
-   }
-}

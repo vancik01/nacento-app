@@ -9,6 +9,8 @@ import { Input } from '@mui/material';
 import { Button } from '@mui/material';
 import Logo from '../public/SVG/Logo';
 import { Image } from '@react-pdf/renderer';
+import { useLayout } from '../context/LayoutContext';
+import ButtonPrimary from './ButtonPrimary';
 
 // Create styles
 Font.register({family:"Poppins", fonts:[
@@ -16,282 +18,469 @@ Font.register({family:"Poppins", fonts:[
     fontStyle:"normal", 
     fontWeight:400, 
     src:"https://fonts.cdnfonts.com/s/16009/Poppins-Regular.woff"
+  },
+  {
+    fontStyle:"normal", 
+    fontWeight:600, 
+    src:"https://fonts.cdnfonts.com/s/16009/Poppins-Bold.woff"
+  },
+  {
+    fontStyle:"normal", 
+    fontWeight:500, 
+    src:"https://fonts.cdnfonts.com/s/16009/Poppins-Medium.woff"
   }
 ]
 })
 
-const styles = StyleSheet.create({
-  page: {
-    backgroundColor: '#fff',
-    fontFamily:"Poppins",    
-    paddingTop:40,
-    paddingBottom:40,
-  },
-  logo:{
-    width:50,
-  },
-  row:{
-    flexDirection:"row",
-    flexGrow:4,
-  },
-  section: {
-    margin: 10,
-    padding: 10,
-  },
-  heading:{
-    fontFamily:"Poppins",
-    fontSize:20,
-    fontWeight:700,
-    marginBottom:10,
-  },
-  blockSummary:{
-    display:"flex",
-    flexDirection:"row",
-    justifyContent:"space-between",
-    alignItems:"flex-start",
-    marginBottom:4,
-  }, 
-  blockHeading:{
-    fontFamily:"Poppins",
-    fontSize:14,
-    fontWeight:700,
-    marginBottom:10,
-  },
-
-  text:{
-    fontFamily:"Poppins",
-    fontSize:10,
-  },
-  textBold:{
-    fontFamily:"Poppins",
-    fontSize:10,
-    fontWeight:600,
-  },
-  tableRow:{
-    display:"flex",
-    flexDirection:"row",
-    justifyContent:"space-between",
-    alignItems:"flex-start",
-    marginBottom:10,
-    paddingHorizontal:8,
-  },
-
-  tableHeading:{
-    display:"flex",
-    flexDirection:"row",
-    justifyContent:"space-between",
-    alignItems:"flex-start",
-    marginBottom:10,
-    borderRadius:7,
-    fontWeight:700,
-
-    paddingVertical:10,
-    paddingHorizontal:8,
-    backgroundColor:"#2B2D42",
-    color:"#fff"
-  },
-
-  tableText:{
-    fontSize:7,
-    marginRight:8,
-  },
-  col_service_type:{
-    width:30,
-    fontSize:7,
-    marginRight:8,
-
-  },
-  col_item_id:{
-    width:80,
-    fontSize:7,
-    marginRight:8,
-
-  },
-  col_title:{
-    width:100,
-    fontSize:7,
-    marginRight:8,
-  },
-  col_unit:{
-    width:30,
-    fontSize:7,
-    marginRight:8,
-  },
-  col_quantity:{
-    width:60,
-    fontSize:7,
-    marginRight:8,
-  },
-  col_unit_delivery_price:{
-    width:50,
-    fontSize:7,
-    marginRight:8,
-  },
-  col_unit_construction_price:{
-    width:50,
-    fontSize:7,
-    marginRight:8,
-  },
-  col_total_delivery_price:{
-    width:50,
-    fontSize:7,
-    marginRight:8,
-  },
-  col_total_construction_price:{
-    width:50,
-    fontSize:7,
-    marginRight:8,
-  },
-  tableUnit:{
-    marginRight:8,
-  },
-  footer: {
-    position: 'absolute',
-    fontSize: 12,
-    bottom: 20,
-    left: 20,
-    right: 20,
-    fontFamily:"Poppins",
-    display:"flex",
-    justifyContent:"space-between",
-    alignItems:"center",
-    flexDirection:"row"
-  },
-  footerText:{
-    fontSize:7,
-  },
-
-  header: {
-    position: 'absolute',
-    fontSize: 12,
-    top: 20,
-    left: 20,
-    right: 20,
-    fontFamily:"Poppins",
-    display:"flex",
-    justifyContent:"space-between",
-    alignItems:"center",
-    flexDirection:"row"
-  },
-  headerText:{
-    fontSize:7,
-  }
 
 
-});
+export const DownloadLink = ({close}) => {
+  const {data, getTitle,name, logo, total} = useData();
+  
+  const [displayLink, setdisplayLink] = useState(false)
+  const [title, settitle] = useState(name.toLowerCase())
+  const layout = useLayout()
+  const [pdfUrl, setpdfUrl] = useState(null)
+  
+  return (
+    <>
+      <div>
+        <Input type='text' className='w-full my-6'  value={title} endAdornment=".pdf" onChange={(e)=>{settitle(e.target.value)}} />
+        {!displayLink && <ButtonPrimary className="w-full" onClick={()=>{setdisplayLink(true)}} scale={0.98} >Generovať cenovú ponuku</ButtonPrimary>}
+      </div>
+      {displayLink && (
+        <PDFDownloadLink document={
+          <Pdf data={data} title={name} getTitle={getTitle} logo={logo} isHorizontal={layout.isHorizontal} layout={layout} totals={total} />
+        } fileName={`${title}.pdf`}
+          onClick={close}
+        >
+          {({ blob, url, loading, error }) => (
+              <>
+                <ButtonPrimary disabled={loading} >{loading? "Načítavam..." : "Stiahnuť ponuku"}</ButtonPrimary>
+              </>
+          )}
+        </PDFDownloadLink> 
+      )}
+    </>
+  );
+}
 
 
 
 // Create Document Component
-export const Pdf = ({data, getTitle, title}) => (
-  <Document title={title}>
-    <Page size="A4" style={styles.page} >
-      <View style={styles.header} fixed>
-        <Text style={styles.headerText}>{title}</Text>
-        
-        <Image
-          style={styles.logo}
-          src="/logo.png"
-        />
+export function Pdf ({data, getTitle, title, logo, layout, totals, isHorizontal}){
 
-      </View>
+  const styles = StyleSheet.create({
+    page: {
+      backgroundColor: '#fff',
+      fontFamily:"Poppins",    
+      paddingTop:20,
+      paddingBottom:20,
+    },
+    logo:{
+      maxWidth:60,
+      maxHeight:60,
+    },
+    row:{
+      flexDirection:"row",
+      flexGrow:4,
+    },
 
-      <View style={styles.section}>
-        <Text style={styles.heading}>Objednávatel</Text>
-        <Text style={styles.text}>{data.customer}</Text>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.heading}>Dodávateľ:</Text>
-        <Text style={styles.text}>{data.supplyer.company_name}</Text>
-        <Text style={styles.text}>ico: {data.supplyer.ico}</Text>
-        <Text style={styles.text}>dic: {data.supplyer.dic}</Text>
-        <Text style={styles.text}>Tel.: {data.supplyer.phone}</Text>
-        <Text style={styles.text}>Email: {data.supplyer.email}</Text>
-        <Text style={styles.text}>{data.supplyer.web}</Text>
-      </View>
+
+    infoWraper:{
+      display:"flex",
+      flexDirection:"row",
+      justifyContent:"flex-start",
+      alignItems:"flex-start",
+    },  
+
+    infoHeading:{
+      fontFamily:"Poppins",
+      fontSize:16,
+      fontWeight:500,
+      marginBottom:4,
+      color:"#d1d5db",
+    },
+
+    section: {
+      marginHorizontal: 40,
+      marginVertical:10,
       
-      {data.blocks.map((block, i)=>{
-        return(
-          <View style={styles.section} wrap={false}>
-            <Text style={styles.blockHeading}>{i+1}. {block.info.title}</Text> 
-            <View style={styles.blockSummary}>
-              <Text style={styles.text}>Cena dodávky celkom: {block.info.total_delivery_price.toFixed(2)} €</Text>
-              <Text style={styles.text}>Cena montáže celkom: {block.info.total_construction_price.toFixed(2)} €</Text>
-              <Text style={styles.textBold}>Spolu: {(block.info.total_delivery_price + block.info.total_construction_price).toFixed(2)} €</Text>
-            </View>
+    },
+    heading:{
+      fontFamily:"Poppins",
+      fontSize:26,
+      fontWeight:500,
+      marginTop:10,
+    },
+
+    name:{
+      marginVertical:30,
+    },
+
+    blockSummary:{
+      display:"flex",
+      flexDirection:"row",
+      justifyContent:"flex-start",
+      alignItems:"flex-start",
+      marginTop:8,
+    }, 
+
+    blockHeading:{
+      fontFamily:"Poppins",
+      fontSize:15,
+      fontWeight:600,
+      marginBottom:10,
+    },
+
+    line:{
+      width:"100%",
+      height:"1px",
+      backgroundColor:"#000",
+    },
+  
+    text:{
+      fontFamily:"Poppins",
+      fontSize:10,
+    },
+
+    textBold:{
+      fontFamily:"Poppins",
+      fontSize:10,
+      fontWeight:600,
+    },
+
+    tableRow:{
+      display:"flex",
+      flexDirection:"row",
+      justifyContent:"space-between",
+      alignItems:"center",
+      //paddingHorizontal:8,
+      
+      
+      minHeight:20,
+      backgroundColor:"#f3f4f6"
+    },
+  
+    tableHeading:{
+      display:"flex",
+      flexDirection:"row",
+      justifyContent:"space-between",
+      alignItems:"center",
+      fontWeight:500,
+      //paddingVertical:6,
+      backgroundColor: layout.primaryColor,
+      color:"#fff",
+      minHeight:20,
+      paddingHorizontal:4,
+    },
+
+    headerUnit:{
+      paddingRight:6,
+      paddingLeft:4,
+      
+    },
+  
+    tableText:{
+      fontSize:8,
+    },
+
+    col_service_type:{
+      width:30,
+      fontSize:8,
+      
+  
+    },
+    col_item_id:{
+      width:80,
+      fontSize:8,
+      
+  
+    },
+    col_title:{
+      width:"100%",
+      fontSize:8,
+      paddingRight:16,
+    },
+    col_unit:{
+      width:50,
+      fontSize:8,
+      
+    },
+    col_quantity:{
+      width:60,
+      fontSize:8,
+      
+    },
+    col_unit_delivery_price:{
+      width:100,
+      fontSize:8,
+      
+    },
+    col_unit_construction_price:{
+      width:100,
+      fontSize:8,
+      
+    },
+    col_total_delivery_price:{
+      width:100,
+      fontSize:8,
+      
+    },
+    col_total_construction_price:{
+      width:100,
+      fontSize:8,
+      
+    },
+
+    col_total:{
+      width:100,
+      fontSize:8,
+      
+    },
+    tableUnit:{
+      borderBottom:"1px solid #d1d5db",
+      borderRight:"1px solid #d1d5db",
+      height:"100%",
+      paddingRight:6,
+      paddingLeft:4,
+      paddingVertical:2,
+      marginVertical:"auto",
+    },
+
+    tableUnitFirst:{
+      borderLeft:"1px solid #d1d5db",
+    },
+
+    footer: {
+      position: 'absolute',
+      fontSize: 12,
+      bottom: 20,
+      left: 20,
+      right: 20,
+      fontFamily:"Poppins",
+      display:"flex",
+      justifyContent:"space-between",
+      alignItems:"center",
+      flexDirection:"row"
+    },
+    footerText:{
+      fontSize:8,
+    },
+  
+    header: {
+      position: 'absolute',
+      fontSize: 12,
+      top: 20,
+      left: 20,
+      right: 20,
+      fontFamily:"Poppins",
+      display:"flex",
+      justifyContent:"space-between",
+      alignItems:"center",
+      flexDirection:"row",
+    },
+    headerText:{
+      fontSize:8,
+    },
+
+    sectionWrap:{
+      
+      border:"1px solid black",
+      padding:8
+    },
+
+    sectionHeading:{
+      fontSize:18,
+      fontWeight:500,
+    }
+
+    
+  
+  
+  });
+
+  return(
+    <Document title={title} >
+      
+      <Page orientation={isHorizontal && 'landscape'} size="A4" style={styles.page} >
+        <View style={{height:50, backgroundColor:layout.primaryColor, width:"100%", marginTop:"-40px"}}><Text> </Text></View>
+        
+        {/* <View style={styles.header} fixed>
+          <Text style={styles.headerText}>{title}</Text>
+          
+          
+
+        </View> */}
+        <View style={styles.section}>
+          <View style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"space-between"}}>
             <View >
-              {block.items.length > 0&& <View style={styles.tableHeading}>
-                <Text style={styles.tableText}>Č.</Text>
-                <Text style={styles.col_service_type}>{(getTitle("service_type","sk")).short}</Text>
-                <Text style={styles.col_item_id}>{getTitle("item_id","sk").short}</Text>
-                <Text style={styles.col_title}>{getTitle("title","sk").short}</Text>
-                <Text style={styles.col_unit}>{getTitle("unit","sk").short}</Text>
-                <Text style={styles.col_quantity}>{getTitle("quantity","sk").short}</Text>
-                <Text style={styles.col_unit_delivery_price}>{getTitle("unit_delivery_price","sk").short}</Text>
-                <Text style={styles.col_unit_construction_price}>{getTitle("unit_construction_price","sk").short}</Text>
-                <Text style={styles.col_total_delivery_price}>{getTitle("total_delivery_price","sk").short}</Text>
-                <Text style={styles.col_total_construction_price}>{getTitle("total_construction_price","sk").short}</Text>
-              </View>}
-              {block?.items.map((item,itemId)=>{
-                return(
-                  <View style={styles.tableRow}>
-                    <Text style={styles.tableText}>{itemId}</Text>
-                      <Text style={styles.col_service_type}>{item.service_type}</Text>
-                      <Text style={styles.col_item_id}>{item.item_id}</Text>
-                      <Text style={styles.col_title}>{item.title}</Text>
-                      <Text style={styles.col_unit}>{item.unit}</Text>
-                      <Text style={styles.col_quantity}>{item.quantity}</Text>
-                      <Text style={styles.col_unit_delivery_price}>{item.unit_delivery_price.toFixed(2)} €</Text>
-                      <Text style={styles.col_unit_construction_price}>{item.unit_construction_price.toFixed(2)} €</Text>
-                      <Text style={styles.col_total_delivery_price}>{item.total_delivery_price.toFixed(2)} €</Text>
-                      <Text style={styles.col_total_construction_price}>{item.total_construction_price.toFixed(2)} €</Text>
-                  </View>
-                )
-              })}
+              <Text style={styles.heading}>Cenová ponuka</Text>
+              <Text style={styles.infoHeading}>#1234</Text>
+            </View>
+
+            <View>
+              {logo&&<Image
+                style={styles.logo}
+                src={logo}
+              />}
             </View>
           </View>
-        )
-      })}
-      <View style={styles.footer} fixed>
-        <Text style={styles.footerText}>{data.supplyer.company_name}</Text>
+
+        </View>
+        <View style={[styles.infoWraper, styles.section]}>
+          <View style={[{marginRight:40}]}>
+            <Text style={styles.infoHeading}>OBJEDNÁVATEL</Text>
+            <Text style={styles.text}>{data.customer.name}</Text>
+          </View>
+
+          <View style={{marginRight:40}}>
+            <Text style={styles.infoHeading}>DODÁVATEL:</Text>
+            <Text style={styles.text}>{data.supplyer.company_name}</Text>
+            <Text style={styles.text}>ico: {data.supplyer.ico}</Text>
+            <Text style={styles.text}>dic: {data.supplyer.dic}</Text>
+            <Text style={styles.text}>Tel.: {data.supplyer.phone}</Text>
+            <Text style={styles.text}>Email: {data.supplyer.email}</Text>
+            <Text style={styles.text}>{data.supplyer.web}</Text>
+          </View>
+
+          <View style={{marginLeft:40}}>
+            <Text style={styles.infoHeading}>CENA:</Text>
+            <Text style={styles.text}>Cena montáže celkom: {totals.total_construction_price.toFixed(2)} €</Text>
+            <Text style={styles.text}>Cena dodávky celkom: {totals.total_delivery_price.toFixed(2)} €</Text>
+            <Text style={[styles.text, {marginTop:16}]}>Spolu: {totals.total.toFixed(2)} € bez DPH</Text>
+            <Text style={[styles.text]}>DPH 20%: {(totals.total.toFixed(2) * 0.2).toFixed(2)} € </Text>
+            <Text style={[styles.textBold, {fontSize:16, marginTop:10}]}>Cena Spolu: {(totals.total + totals.total * 0.2).toFixed(2)} € s DPH</Text>
+          </View>
+        </View>
+
+        <View style={[styles.section]}>
+          <View style={styles.line}></View>
+          <Text style={[styles.heading, {textAlign:"center", fontSize:"18", marginVertical:"20"}]}>{title}</Text>
+          <View style={styles.line}></View>
+        </View>
         
-        <Text style={styles.footerText} render={({ pageNumber, totalPages}) => (
-          `${pageNumber} / ${totalPages}`
-        )} fixed />
+        {data.sections.map((section,sectionId)=>{
+          return(
+            <View break>
+              <View style={[styles.section, styles.sectionWrap]} >
+                <Text style={styles.sectionHeading}>
+                  {section.info.title}
+                </Text>
+                <View style={styles.blockSummary}>
+                  <Text style={[styles.text, {marginRight:18}]}>Cena dodávky celkom: {section.info.total_delivery_price} €</Text>
+                  <Text style={[styles.text, {marginRight:18}]}>Cena montáže celkom: {section.info.total_construction_price} €</Text>
+                  <Text style={[styles.textBold, {marginRight:18}]}>Spolu: {section.info.total} €</Text>
+                </View>
+
+              </View>
+              {section.blocks.map((block, i)=>{
+                return(
+                  <View style={[styles.section, {marginBottom:30}]} wrap={false}>
+
+                    <Text style={styles.blockHeading}>{i+1}. {block.info.title}</Text> 
+                        <View>
+                          {block.items.length > 0&& <View style={styles.tableHeading}>
+                            <Text style={{fontSize:8, width:25}}>N.</Text>
+                            {data.headers.map((header,i)=>{
+                              
+                              if(layout.displayColumns.includes(header)){
+                                return(
+                                    <Text style={[styles[`col_${header}`], styles.headerUnit]}>{(getTitle(header,"sk")).short}</Text>
+                                )
+                              }
+                            })}
+                            
+                          </View>}
+                          {block?.items.map((item,itemId)=>{
+                            return(
+                              <View style={styles.tableRow}>
+                                <Text style={[{fontSize:8, width:25}, styles.tableUnit, styles.tableUnitFirst]}>{itemId}</Text>
+                                {data.headers.map((header,i)=>{
+                                  if(layout.displayColumns.includes(header)){
+                                      const displayCurrency = ["unit_delivery_price","unit_construction_price","total_delivery_price","total_construction_price","total"]
+                                      return(
+                                        <Text style={[styles[`col_${header}`], styles.tableUnit]}>{!isNaN(item[header]) ? parseFloat(item[header]).toFixed(2) : item[header] }{displayCurrency.includes(header) && " €"}</Text> 
+                                      )
+                                    }
+                                  })}
+                              </View>
+                            )
+                          })}
+                        </View>
+                        <View style={styles.blockSummary}>
+                          <Text style={[styles.text, {marginRight:18}]}>Cena dodávky celkom: {block.info.total_delivery_price.toFixed(2)} €</Text>
+                          <Text style={[styles.text, {marginRight:18}]}>Cena montáže celkom: {block.info.total_construction_price.toFixed(2)} €</Text>
+                          <Text style={[styles.textBold, {marginRight:18}]}>Spolu: {(block.info.total_delivery_price + block.info.total_construction_price).toFixed(2)} €</Text>
+                        </View>
+                      </View>
+                    )
+                  })}
+            </View>
+          )
+        })}
+
+        <View style={styles.section} break>
+          <Text>Zhrnutie:</Text>
+            <View>
+              {data.sections.map((section, i)=>{
+                return(
+                  <View style={[{marginBottom:30}]} wrap={false}>
+
+                    <Text style={styles.blockHeading}>{section.info.title}</Text> 
+                        <View>
+                          <View style={styles.tableHeading}>
+                              <Text style={{fontSize:8, width:25}}>N.</Text>
+                              <Text style={[styles[`col_title`],{width:"100%"}, styles.headerUnit]}>Položka</Text>
+                              <Text style={[styles[`col_total_delivery_price`],{width:120} , styles.headerUnit]}>Cena montáže</Text>
+                              <Text style={[styles[`col_total_delivery_price`],{width:120} , styles.headerUnit]}>Cena dodávky</Text>
+                              <Text style={[styles[`col_total_delivery_price`],{width:120} , styles.headerUnit]}>Cena spolu</Text>
+                              
+                            </View>
+                            {section?.blocks.map((block,itemId)=>{
+                              return(
+                                <View style={styles.tableRow}>
+                                  <Text style={[{fontSize:8, width:25}, styles.tableUnit, styles.tableUnitFirst]}>{itemId}</Text>
+                                  <Text style={[styles[`col_title`],{width:"100%"}, styles.tableUnit]}>{block.info.title}</Text> 
+                                  <Text style={[styles[`col_total_delivery_price`],{width:120} , styles.tableUnit]}>{parseFloat(block.info.total_construction_price).toFixed(2)}  €</Text> 
+                                  <Text style={[styles[`col_total_delivery_price`],{width:120} , styles.tableUnit]}>{parseFloat(block.info.total_delivery_price).toFixed(2)}  €</Text> 
+                                  <Text style={[styles[`col_total_delivery_price`],{width:120} , styles.tableUnit]}>{parseFloat(block.info.total).toFixed(2)} €</Text>
+                                </View>
+                              )
+                            })}
+                        </View>
+                      </View>
+                    )
+              })}
+            </View>
+              
+
+          
+
+              <View>
+                <Text style={{font:26, fontWeight:500, marginTop:10}}>Cena Spolu: {totals.total} €</Text>
+              </View>
+
+        </View>
         
-        <Text style={styles.footerText}>{new Date().toLocaleDateString()}</Text>
+        <View style={styles.footer} fixed>
+          <Text style={styles.footerText}>{data.supplyer.company_name}</Text>
+          
+          <Text style={styles.footerText} render={({ pageNumber, totalPages}) => (
+            `${pageNumber} / ${totalPages}`
+          )} fixed />
+          
+          <Text style={styles.footerText}>{new Date().toLocaleDateString()}</Text>
 
-      </View>
+        </View>
 
-      
-    </Page>
-  </Document>
-);
+        
+      </Page>
+    </Document>
+  )
 
-export const DownloadLink = ({close}) => {
-    const {data, getTitle,name} = useData();
-    const [displayLink, setdisplayLink] = useState(false)
-    const [title, settitle] = useState(name.toLowerCase())
-  
-    return (
-      <>
-        <div>
-          <Input type='text' className='w-full my-6'  value={title} endAdornment=".pdf" onChange={(e)=>{settitle(e.target.value)}} />
-          {!displayLink && <Button onClick={()=>{setdisplayLink(true)}} fullWidth={true} >Generovať cenovú ponuku</Button>}
-        </div>
-        {displayLink && (
-          <PDFDownloadLink document={
-            <Pdf data={data} title={name} getTitle={getTitle}/>
-          } fileName={`${title}.pdf`}
-            onClick={close}
-          >
-            {({ blob, url, loading, error }) => (
-                <Button disabled={loading} >{loading? "Načítavam..." : "Stiahnuť ponuku"}</Button>
-            )}
-          </PDFDownloadLink> 
-        )}
-      </>
-    );
-  }
+}
+
+
 
   

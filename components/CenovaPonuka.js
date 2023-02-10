@@ -13,123 +13,232 @@ import Logo from '../public/SVG/Logo'
 import { Input } from '@mui/material'
 import { TextField } from '@mui/material'
 import SupplyerInfo from './SupplyerInfo'
+import EditPen from '../public/SVG/EditPen'
+import { numberWithCommas } from '../lib/helpers'
+import Layout from './Layout'
+import A4 from './A4'
+import { useLayout } from '../context/LayoutContext'
+import { TransformWrapper } from 'react-zoom-pan-pinch'
+import { TransformComponent } from 'react-zoom-pan-pinch'
+import ButtonPrimary from './ButtonPrimary'
+import BulkEdit from './BulkEdit'
+import CustomerInfo from './CustomerInfo'
+import Close from '../public/SVG/Close'
+import Section from './Section'
 
 export default function CenovaPonuka() {
     const [winReady, setwinReady] = useState(false)
     const [scrollPosition, setScrollPosition] = useState(0);
-    const [reorderingBlocks, setreorderingBlocks] = useState(false)
-    const {data,headers,total,reorderBlocks, name, setname} = useData()
-    const [download, setdownload] = useState(false)
+    const [editingTitle, seteditingTitle] = useState(false)
+    //const [reorderingBlocks, setreorderingBlocks] = useState(false)
+    const {
+        data,
+        headers,
+        total,
+        name, 
+        setname, 
+        bulkEdit,
+        bulkEditData,
+        openBulkEdit,
+        closeBulkEdit,
+        getTitle,
+        displayTotals,
+        toggleTotals,
+        reorderingBlocks,
+        setreorderingBlocks,
+        download, 
+        setdownload,
+
+        setselectedFile,
+        logo,
+
+    } = useData()
+    
+
+    const {primaryColor} = useLayout()
+
     useEffect(() => {
       setwinReady(true)      
     },)
 
-    useEffect(() => {
-        window.addEventListener("scroll", ()=>{setScrollPosition(window.pageYOffset)});
-
-        return () => {
-            window.removeEventListener("scroll", ()=>{null});
-        };
-
-    }, []);
-
-    
-    
-
-    function numberWithCommas(x) {
-        return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, " ");
-    }
     return (
-        <div className='mx-auto max-w-6xl my-20 py-10'>
+        <div className='pt-10 pb-32'>
             <AnimatePresence>
-                { scrollPosition > 300 &&
-                    
-                        <motion.div initial={{y:"100%"}} exit={{y:"100%"}} animate={{y:0}} className="fixed bottom-0 left-0 right-0 z-50 ">
-                            <BottomBar></BottomBar>
-                        </motion.div>
+                {displayTotals&&
+                    <motion.div initial={{y:"100%"}} exit={{y:"100%"}} animate={{y:0}} className="z-30 fixed left-0 right-0 bottom-0 ml-[300px] ">
+                        <BottomBar></BottomBar>
+                    </motion.div>
                 }
             </AnimatePresence>
-            <div className='w-32'>
-                <Logo></Logo>
-            </div>
-            <div className='mt-10'>
-                <Input 
-                    className='text-3xl w-3/4' 
-                    variant="outlined" 
-                    placeholder="Zadajte názov..." 
-                    value={name} 
-                    onChange={(e)=>{setname(e.target.value)}} 
-                />
-               
-            </div>
-            <div className="flex flex-row gap-20 my-8">
-                <div>
-                    <h3>Objednavatel:</h3>
-                    <div>
-                        <div>{data.customer}</div>
-                    </div>
-                </div>
 
-                <div>
-                    <SupplyerInfo></SupplyerInfo>
-                </div>
-
-                <div>
-                <h3>Cena:</h3>
-                <div>
-                    <div>Cena Montáže: {numberWithCommas(total.montaz.toFixed(2))} €</div>
-                    <div>Cena Dodávky: {numberWithCommas(total.dodavka.toFixed(2))} €</div>
-                    <div className="w-full h-[1px] bg-row-odd my-3"></div>
-                    <div>Spolu: {numberWithCommas(total.total.toFixed(2))} € <span className='text-[10px]'>bez DPH</span></div>
-                    <div>DPH 20%: {numberWithCommas((total.total * 0.2).toFixed(2))} €</div>
-                    <div className='mt-2 font-medium text-lg'>Cena spolu: {numberWithCommas((total.total * 1.2).toFixed(2))} € <span className='text-[10px]'>vrátane DPH</span></div>
-                </div>
-                </div>  
-
-            </div>
-            <AnimatePresence>
-                {
-                    download &&
-                    <Modal title="Stiahnuť ponuku" close={()=>{setdownload(false)}} >
-                        <DownloadLink close={()=>{setdownload(false)}} />
+            {bulkEdit && 
+                    <Modal title="Upraviť cenu" close={closeBulkEdit} >
+                        <BulkEdit blockTitle={bulkEditData.title} />
                     </Modal>
                 }
-            </AnimatePresence>
+                
+            <div className="flex items-start justify-start w-full px-8 overflow-x-auto">
+                
+                <A4>
+                    <div className='h-20' style={{backgroundColor:primaryColor}}>
 
-            <div className='flex-row gap-7 flex items-center justify-between'>
-                <div className='flex  items-center'>
-                    <div onClick={()=>{setreorderingBlocks(!reorderingBlocks)}}>Usporiadať bloky</div>
-                    <Switch value={reorderingBlocks} onChange={()=>{setreorderingBlocks(!reorderingBlocks)}}/>
-                </div>
-                <div className='flex items-center'>
-                    <Button variant='contained' className='text-row-header hover:text-white' onClick={()=>{setdownload(!download)}}> Stiahnuť ponuku </Button>
-                </div>
+                    </div>
+                    <div className="px-16 py-16">
+                        <div className='flex justify-between items-center mb-20'>
+                            <div className=''>
+                                <div className='text-4xl'>Cenová ponuka</div>
+                                <div className='text-gray-300'>#2341</div>
+                            </div>
+                            
+                            <div className='flex justify-between items-center relative'>
+                                    <label htmlFor='upload-logo'>
+                                        {!logo && <div className='text-xl px-6 py-2 border' style={{color:primaryColor, borderColor:primaryColor}}>
+                                            Nahrať logo
+                                        </div>}
+                                    </label>
+                                    {logo &&<img src={logo} alt="logo" className='max-w-32 max-h-16' />}
+                                    {logo &&<button onClick={()=>{setselectedFile(null)}} className='absolute -top-3 -right-2'>
+                                        <Close color={"red"}></Close>
+                                    </button>}
+                                
 
-            </div>
-            
-            <DragDropContext onDragEnd={reorderBlocks} onDragUpdate={(e)=>{console.log(e)}} >
-                <Droppable droppableId={`block`}>
-                    {(provided)=>(
-                        <div {...provided.droppableProps} ref={provided.innerRef}>
-                            {winReady && data.blocks.map((block,i)=>{
-                                    return(                                        
-                                        <Draggable key={i} draggableId={`block-${i}`} index={i}>
-                                            {(provided)=>(
-                                                <div {...provided.draggableProps} ref={provided.innerRef}  >
-                                                    <Block key={i} block={block} headers={headers} number={i} collapsed={reorderingBlocks} dragHandleProps={{...provided.dragHandleProps}} />
+                                <input accept=".jpg,.jpeg,.png" type="file" onChange={setselectedFile} className="hidden" name="" id="upload-logo" />
+                            </div>
+                        </div>
+                        
+                        <div className="flex flex-row gap-10 justify-start mt-4" >
+                            <div>
+                                <CustomerInfo></CustomerInfo>
+                            </div>
+
+                            <div>
+                                <SupplyerInfo></SupplyerInfo>
+                            </div>
+
+                            <div>
+                                <div className='mb-1 text-gray-300 capitalize'>CENA:</div>
+
+                                <div className='text-sm'>
+                                    <div className='relative w-fit text-sm'>
+                                        <div>Cena Montáže: {numberWithCommas(total.total_construction_price.toFixed(2))} €</div>
+                                        {!bulkEdit&&<button 
+                                            onClick={()=>{ openBulkEdit(
+                                                {blockId:-1, value: total.total_construction_price, valueId:"total_construction_price", mode:"whole"})}}
+                                            className='absolute top-0 -right-3 w-2'>
+                                            <EditPen></EditPen>
+                                        </button>}
+                                    </div>
+
+                                    <div className='relative w-fit text-sm'>
+                                        <div>Cena Dodávky: {numberWithCommas(total.total_delivery_price.toFixed(2))} €</div>
+                                        {!bulkEdit&&<button 
+                                            onClick={()=>{ openBulkEdit(
+                                                {blockId:-1, value: total.total_delivery_price, valueId:"total_delivery_price", mode:"whole"})}}
+                                            className='absolute top-0 -right-3 w-2'>
+                                            <EditPen></EditPen>
+                                        </button>}
+                                    </div>
+
+                                    
+                                
+                                    <div className="w-full h-[1px] my-2" style={{backgroundColor:primaryColor, opacity:0.7}}></div>
+                                    <div className='relative w-fit'>
+                                        <div>Spolu: {numberWithCommas(total.total.toFixed(2))} € <span className='text-[10px]'>bez DPH</span></div>
+                                        {!bulkEdit&&<button 
+                                            onClick={()=>{ openBulkEdit(
+                                                {blockId:-1, value: total.total, valueId:"total", mode:"whole"})}}
+                                            className='absolute top-0 -right-3 w-2'>
+                                            <EditPen></EditPen>
+                                        </button>}
+                                    </div>
+                                    
+                                    <div>DPH 20%: {numberWithCommas((total.total * 0.2).toFixed(2))} €</div>
+                                    
+                                    <div className='relative w-fit'>
+                                        <div className='mt-2 font-medium text-xl'>Cena spolu:</div>
+                                        {!bulkEdit&&<button 
+                                            onClick={()=>{ openBulkEdit(
+                                                {blockId:-1, value: total.total * 1.2, valueId:"total_vat", mode:"whole"})}}
+                                            className='absolute top-0 -right-3 w-2'>
+                                            <EditPen></EditPen>
+                                        </button>}
+                                    </div>
+
+                                    <div className='mt-2 font-medium text-xl'> {numberWithCommas((total.total * 1.2).toFixed(2))} € <span className='text-[10px]'>vrátane DPH</span></div>
+                                </div>
+                            </div>  
+                        </div>
+
+                        <div className='my-10'>
+                            <div className='w-full h-[1px] bg-black'></div>
+                            <div className='py-4'>
+                                
+                                
+                                <div className='w-full flex justify-center'>
+                                    {!editingTitle&&
+                                        <button onClick={()=>{ seteditingTitle(true)}}>
+                                            <h1 className='text-center relative'>
+                                                {name}
+                                                <div 
+                                                    
+                                                    className='absolute top-0 -right-3 w-2'>
+                                                    <EditPen></EditPen>
                                                 </div>
-                                            )}
-                                        </Draggable>
-                                    )
-                                })
+                                            </h1>
+                                        </button>
+                                    }
+                                    
+                                    {editingTitle&&
+                                        <div className='flex items-baseline justify-center'>
+                                            <Input 
+                                                className='w-full min-w-[400px]'
+                                                variant="outlined" 
+                                                placeholder="Zadajte názov..." 
+                                                value={name}
+                                                style={{fontSize:24}}
+                                                
+                                                onChange={(e)=>{setname(e.target.value)}} 
+                                            />
+                                            <ButtonPrimary className="ml-4" onClick={()=>{seteditingTitle(false)}}>Uložiť</ButtonPrimary>
+                                        </div>
+                                    }
+
+                                </div>
+                                    
+                               
+                                
+                            </div>
+                            <div className='w-full h-[1px] bg-black'></div>
+                        </div>
+                        
+                        <AnimatePresence>
+                            {
+                                download &&
+                                <Modal title="Stiahnuť ponuku" close={()=>{setdownload(false)}} >
+                                    <DownloadLink close={()=>{setdownload(false)}} />
+                                </Modal>
                             }
-                            {provided.placeholder}
+                        </AnimatePresence>
+                            <div >
+                                {winReady && data.sections.map((section,i)=>{
+                                        return(                                        
+                                            <div key={`section-${i}`}>
+                                                <Section section={section} sectionId={i}></Section>
+                                                
+                                                
+                                            </div>
+                                        )
+                                    })
+                                }                                
                         </div>                        
-                    )}
-                </Droppable>
-            </DragDropContext>            
+                    </div>
+                </A4>
+            </div>
         </div>
     )
 }
+
+
+
 
 

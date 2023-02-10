@@ -10,30 +10,26 @@ import { AppWrap, useData } from '../context/AppWrap';
 import CenovaPonuka from '../components/CenovaPonuka';
 import Pdf, { DownloadLink, ResumeContainer } from '../components/Pdf';
 import ReactDOM from '@react-pdf/renderer';
+import Sidebar from '../components/Sidebar';
+import LayoutContext from '../context/LayoutContext';
+import ScreenLayout from '../components/ScreenLayout';
 
 export default function Home() {
-  
   const theme = createTheme({
     typography: {
       fontFamily: "Poppins",
       fontSize: 10,
     },
-    
   });
-  function download(){
-    ReactDOM.renderToFile(<Pdf />);
-  }
-  
-  
 
   return (
-    
-      <ThemeProvider theme={theme}>
-        <AppWrap>
-          <CenovaPonuka></CenovaPonuka>
-        </AppWrap>
-      </ThemeProvider>
-    
+    <ThemeProvider theme={theme}>
+      <AppWrap>
+        <LayoutContext>
+          <ScreenLayout />
+        </LayoutContext>
+      </AppWrap>
+    </ThemeProvider>
   )
 }
 

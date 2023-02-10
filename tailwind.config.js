@@ -5,13 +5,16 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
-    colors:{
-      "row-regular": "#fff",
-      "row-odd": "#EDF2F4",
-      "row-header": "#2B2D42",
-      "white": "#fff",
-    }
+    extend: {
+      colors:{
+        "row-regular": "#fff",
+        "row-odd": "#EDF2F4",
+        "row-header": "#2B2D42",
+        "white": "#fff",
+        primary:"#006f85"
+      }
+    },
+    
   },
   
   plugins: [],

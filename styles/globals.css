@@ -11,7 +11,7 @@ h1, h2{
 }
 
 h3{
-    @apply text-[20px] md:text-[24px];
+    @apply text-[18px] md:text-[18px] font-medium;
 }
 
 p{
@@ -94,9 +94,9 @@ td {
 
   .table_row{
     display: grid;
-    grid-template-columns: 15px 30px 120px 6fr 30px 50px 1fr 1fr 1fr 1fr 50px;
-    @apply text-[12px] items-center min-h-[60px];
-    column-gap: 24px;  
+    /* grid-template-columns: 15px 30px 120px 4fr 30px 50px 1fr 1fr 1fr 1fr 50px; */
+    @apply text-[12px] items-center min-h-[40px];
+    
   }
 
   .table_row.content.dragging{
@@ -105,13 +105,13 @@ td {
 
   .table_row.content{
     display: grid;
-    @apply bg-row-regular py-2 px-4 mb-3;
-    box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.056) 0px 0px 8px;
+    @apply bg-gray-100;
+    /* box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.056) 0px 0px 8px; */
   }
 
   .table_row.heading{
     align-items: center;
-    @apply px-4 pb-1 pt-8;
+    @apply px-1 py-3 min-h-0;
     
   }
 
@@ -123,9 +123,22 @@ td {
     text-align: center;
     justify-self: center;
   }
+
+  .table_row.content .table_unit{
+    @apply border-gray-300 border-t border-r;
+  }
+
+  .table_row.content .table_unit:first-child{
+    @apply border-l;
+  }
+
+  div.table_wrap .table_row.last .table_unit{
+    @apply border-b;
+  }
+
 .table_row .cdj, .table_row .cmj, .table_row .cdc, .table_row .cmc{
-  text-align: center;
-  justify-self: center;
+  text-align: start;
+  justify-self: start;
 }
 
   .table_row svg.cancel *{
@@ -143,6 +156,9 @@ td {
   }
 
   .bottom-bar{
-    
     box-shadow: rgb(13 9 34 / 7%) 1px -20px 20px 0px;
+  }
+
+  .block-shadow{
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
   }
