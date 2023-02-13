@@ -1,6 +1,6 @@
 import { AnimatePresence } from 'framer-motion';
 import React, { useContext, useEffect, useState } from 'react'
-import { lang } from '../../languages';
+import { lang } from "../languages/languages"
 import BulkEdit from '../components/BulkEdit';
 import FullPageLoading from '../components/loading/FullPageLoading';
 import Modal from '../components/Modal';

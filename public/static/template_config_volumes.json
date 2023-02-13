@@ -1,0 +1,118 @@
+[
+    {
+        "id":"zaklady",
+        "label":"Základy",
+        "items":[
+            {
+                "id":"ryhy",
+                "label":"Ryha",
+                "items":[
+                    {
+                        "id":"dlzka",
+                        "label":"Dĺžka",
+                        "value":160,
+                        "unit":"m"
+                    },
+                    {
+                        "id":"sirka",
+                        "label":"Šírka",
+                        "value":60,
+                        "unit":"m"
+                    },
+                    {
+                        "id":"hlbka",
+                        "label":"Hĺbka",
+                        "value":80,
+                        "unit":"m"
+                    }
+                ]
+            },
+            {
+                "id": "obvod",
+                "label": "Obvod",
+                "value": 116,
+                "unit":"m"
+            },
+            {
+                "id": "obsah",
+                "label": "Obsah",
+                "value": 126,
+                "unit":"m2"
+            },
+            {
+                "id": "dt",
+                "label":"Dt",
+                "items" : [
+                    {
+                        "id":"30",
+                        "label":"30",
+                        "value": 130,
+                        "unit":"ks"
+                    },
+                    {
+                        "id":"20",
+                        "label":"20",
+                        "value": 0,
+                        "unit":"ks"
+                    },
+                    {
+                        "id":"40",
+                        "label":"40",
+                        "value": 20,
+                        "unit":"ks"
+                    }
+                ]
+                
+            }
+        ]
+    },
+    {
+        "id":"murivo",
+        "label":"Murivo",
+        "items":[
+            {
+                "id":"10",
+                "label":"10",
+                "value": 0,
+                "unit":"ks"
+            },
+            {
+                "id":"15", 
+                "label":"15", 
+                "value": 10,
+                "unit":"ks"
+            },
+            {
+                "id":"25", 
+                "label":"25", 
+                "value": 20,
+                "unit":"ks"
+            },
+            {
+                "id":"30", 
+                "label":"30", 
+                "value": 0,
+                "unit":"ks"
+            },
+            {
+                "id":"45", 
+                "label":"45", 
+                "value": 100,
+                "unit":"ks"
+            }
+        ]
+    },
+    {
+        "id":"strecha",
+        "label":"Strecha",
+        "items":[
+            {
+                "id":"obsah",
+                "label":"Obsah",
+                "value":36,
+                "unit":"m2"
+            }
+        ]
+
+    }
+]

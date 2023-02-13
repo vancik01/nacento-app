@@ -2,11 +2,10 @@
 import { Input } from '@mui/material'
 import React, { useState } from 'react'
 import Layout from '../components/Layout'
-import { template_config } from '../data'
 
-export default function Config() {
+export default function Preds(props) {
 
-    const [data, setdata] = useState(template_config)
+    const [data, setdata] = useState(props.preds)
 
     function handleChange(e)
     {
@@ -26,13 +25,15 @@ export default function Config() {
 
   return (
     <Layout className="my-28">
-        <h1 className='text-center'>Dáta, ktoré sme z projektov vyčítali</h1>
+        <h1 className='text-center font-bold text-2xl pb-3'>Potvrďte prosím údaje o stavbe</h1>
+        <div className='w-[80%]' style={{margin: "0 auto"}}>Nižšie sa nachádzajú parametre stavby, ktoré sme z projektov vypočítali. Prosíme vás aby ste ich overili, poprípade upresnili zadaním presnej hodnoty. Po potvrdené údajov sa vám vytvorí cenová ponuka. </div>
+
         {data.map((block1,i)=>{
             return(
                 <div className='mt-16'>
-                    <h2>
+                    <span className='text-xl font-semibold'>
                         {block1.label}
-                    </h2>
+                    </span>
                     <div>
                         {block1?.items.map((item,q)=>{
                             if("value" in item){
@@ -50,7 +51,7 @@ export default function Config() {
                         })}
                     </div>
 
-                    <div className='flex justify-start gap-8'>
+                    <div className='flex justify-center gap-8'>
                         {block1?.items.map((block2,j)=>{
                             return(
                                 <div className=''>
@@ -60,7 +61,7 @@ export default function Config() {
                                                 <h3>
                                                     {block2.label}
                                                 </h3>
-                                                <div>
+                                                <div className='flexs row justify-center'>
                                                     {block2.items.map((block3,k)=>{
                                                         return(
                                                             <InputValue 
