@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import Link from 'next/link'
 import FunctionsDiv from './FunctionDiv'
 import FunctionDiv_p from './FunctionDiv_p'
 
@@ -111,7 +112,7 @@ function Functions() {
         }
     }
 
-    var preds = [{
+    var predikcie = [{
         "id":"zaklady",
         "label":"Základová doska",
         "items":[
@@ -187,7 +188,7 @@ function Functions() {
     }]
 
 
-    setPreds(preds)
+    setPreds(predikcie)
 
 
     // fetch(`/api/aspdf/`, {
@@ -278,7 +279,9 @@ function Functions() {
             <>
               <Preds preds={preds}/>
               <div className="absolute right-0 hidden mt-2 pt-6 mr-24 navbar-btn sm:inline-block lg:mt-0 lg:static lg:mr-0">
-              <button className="main-btn font-bold" rel="nofollow" onClick={createPonuka}> Potvrdiť údaje </button>
+              {/* <Link className="main-btn font-bold" href="/cenova-ponuka" rel="nofollow" onClick={createPonuka}> Potvrdiť údaje </Link> */}
+              <Link className="main-btn font-bold" href="/cenova-ponuka" rel="nofollow" onClick={() => Router.push('/cenova-ponuka')}> Potvrdiť údaje </Link>
+
               </div>
             </>}
 
