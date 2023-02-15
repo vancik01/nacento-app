@@ -5,11 +5,13 @@ import BulkEdit from "../components/BulkEdit";
 import FullPageLoading from "../components/loading/FullPageLoading";
 import Modal from "../components/Modal";
 import { d, newd } from "../data";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { firestore } from "../lib/firebase";
 
 const DataContext = React.createContext();
 
 export function AppWrap({ children }) {
-	const [data, setdata] = useState(newd);
+	const [data, setdata] = useState(null);
 	const [headers, setheaders] = useState(d.headers);
 	const [loading, setloading] = useState(true);
 	const [name, setname] = useState("Zadajte názov...");
@@ -21,6 +23,7 @@ export function AppWrap({ children }) {
 	const [selectedFile, setselectedFile] = useState(null);
 	const [logo, setlogo] = useState(null);
 	const [displaySidebar, setdisplaySidebar] = useState(true);
+	const [saving, setsaving] = useState(false);
 
 	const [total, settotal] = useState({
 		total_delivery_price: 0,
@@ -30,33 +33,75 @@ export function AppWrap({ children }) {
 	const [initialTotal, setinitialTotal] = useState(total);
 
 	useEffect(() => {
-		var t = {
-			total_delivery_price: 0,
-			total_construction_price: 0,
-			total: 0,
-		};
-		data.sections.map((section) => {
-			section.blocks.map((block) => {
-				t.total_delivery_price += parseFloat(
-					block.info["total_delivery_price"]
-				);
-				t.total_construction_price += parseFloat(
-					block.info["total_construction_price"]
-				);
+		//nacitanie dat z db
+		const offerId = localStorage.getItem("offer_id");
+		if (!offerId) {
+			console.log("error, missing ID");
+		} else {
+			const docRef = doc(firestore, `/offers/${offerId}`);
+			getDoc(docRef).then((snap) => {
+				setdata(snap.data().data);
+				console.log(snap.data().data);
+				setloading(false);
 			});
-		});
+		}
+	}, []);
 
-		t.total = t.total_delivery_price + t.total_construction_price;
-		setloading(false);
-		settotal(t);
+	function handleSave() {
+		const offerId = localStorage.getItem("offer_id");
+		if (!offerId) {
+			console.log("error, missing ID");
+			return;
+		} else {
+			setsaving(true);
+			const docRef = doc(firestore, `/offers/${offerId}`);
+			updateDoc(docRef, { data: data, name: name }).then((snap) => {
+				setdata(snap.data().data);
+				console.log(snap.data().data);
+				setsaving(false);
+			});
+		}
+	}
+
+	useEffect(() => {
+		// vypocet total price
+		if (data) {
+			var t = {
+				total_delivery_price: 0,
+				total_construction_price: 0,
+				total: 0,
+			};
+			data.sections.map((section) => {
+				section.blocks.map((block) => {
+					t.total_delivery_price += parseFloat(
+						block.info["total_delivery_price"]
+					);
+					t.total_construction_price += parseFloat(
+						block.info["total_construction_price"]
+					);
+				});
+			});
+
+			t.total = t.total_delivery_price + t.total_construction_price;
+			settotal(t);
+		}
 	}, [data]);
 
 	useEffect(() => {
+		//kalkulácia ceny totalnej z blokov a pod...
+		if (data) {
+			dataInit();
+		}
+	}, [loading]);
+
+	function dataInit() {
+		// inizializacia dat
 		var t = {
 			total_delivery_price: 0,
 			total_construction_price: 0,
 			total: 0,
 		};
+
 		data.sections.map((section) => {
 			section.blocks.map((block) => {
 				t.total_delivery_price += parseFloat(
@@ -69,11 +114,8 @@ export function AppWrap({ children }) {
 		});
 
 		t.total = t.total_delivery_price + t.total_construction_price;
-		setloading(false);
 		setinitialTotal(t);
-	}, []);
 
-	useEffect(() => {
 		var newData = { ...data };
 		var section_total = 0,
 			section_total_delivery_price = 0,
@@ -127,7 +169,7 @@ export function AppWrap({ children }) {
 			).toFixed(2);
 		});
 		setdata(newData);
-	}, []);
+	}
 
 	function changeValue(obj) {
 		var newData = { ...data };
@@ -336,41 +378,6 @@ export function AppWrap({ children }) {
 
 		setdata(newData);
 	}
-
-	// function deleteRowOld(obj){
-	//     console.log(obj)
-
-	//     var newData = {...data}
-	//     var polozkaRemoved
-	//     data.blocks.map((block, blockId)=>{
-	//         if(obj.blockId === blockId){
-	//             var newPolozky = []
-	//             block.items.map((polozka,polozkaId)=>{
-	//                 if(polozkaId !== obj.polozkaId){
-	//                     newPolozky.push(polozka)
-	//                 }else{
-	//                     polozkaRemoved = polozka;
-	//                 }
-	//             })
-	//             newData.sections[sectionId].blocks[blockId].items = newPolozky;
-	//             var newPolozky = []
-	//             var cdc = newData.sections[sectionId].blocks[blockId].info['total_delivery_price']
-	//             var cmc = newData.sections[sectionId].blocks[blockId].info['total_construction_price']
-	//             var itemsCount = newData.sections[sectionId].blocks[blockId].items.length
-
-	//             newData.sections[sectionId].blocks[blockId].items.map((polozka,polozkaId)=>{
-	//                 polozka["total_construction_price"] += parseFloat(polozkaRemoved["total_construction_price"] / itemsCount)
-	//                 polozka["total_delivery_price"] += parseFloat(polozkaRemoved["total_delivery_price"] / itemsCount)
-
-	//                 newPolozky.push(polozka)
-	//             })
-	//             newData.sections[sectionId].blocks[blockId].items = newPolozky;
-
-	//         }
-	//     })
-
-	//     setdata(newData);
-	// }
 
 	function deleteRow(obj) {
 		var newData = { ...data };
@@ -597,6 +604,11 @@ export function AppWrap({ children }) {
 
 		displaySidebar,
 		setdisplaySidebar,
+
+		handleSave,
+
+		saving,
+		setsaving,
 	};
 
 	useEffect(() => {
@@ -610,6 +622,7 @@ export function AppWrap({ children }) {
 	return (
 		<DataContext.Provider value={value}>
 			{!loading && children}
+			<FullPageLoading loading={loading}></FullPageLoading>
 		</DataContext.Provider>
 	);
 }

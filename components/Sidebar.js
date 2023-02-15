@@ -20,6 +20,7 @@ import CloseSidebar from "../public/SVG/CloseSidebar";
 import VariantIcon from "../public/SVG/VariantIcon";
 import PageIcon from "../public/SVG/PageIcon";
 import BlockIcon from "../public/SVG/BlockIcon";
+import Pro from "./Pro";
 
 export default function Sidebar() {
 	const {
@@ -31,6 +32,7 @@ export default function Sidebar() {
 		download,
 		displaySidebar,
 		setdisplaySidebar,
+		handleSave,
 	} = useData();
 	const {
 		displayColumns,
@@ -160,7 +162,10 @@ export default function Sidebar() {
 								>
 									<div className="flex items-center gap-2">
 										<TableIcon color={primaryColor}></TableIcon>
-										<div>Tabulka</div>
+										<div className="flex flex-row gap-3 items-center">
+											<div>Tabulka</div>
+											<Pro></Pro>
+										</div>
 									</div>
 								</AccordionSummary>
 								<AccordionDetails>
@@ -270,15 +275,20 @@ export default function Sidebar() {
 											Štandard
 										</ButtonPrimary>
 
-										<ButtonPrimary
-											onClick={() => {
-												changeVariant("pro");
-											}}
-											className="text-sm w-full"
-											color={variant.id !== "pro" ? "#d5d5d5" : ""}
-										>
-											Profesionálna
-										</ButtonPrimary>
+										<div className="relative w-full mt-10">
+											<ButtonPrimary
+												onClick={() => {
+													changeVariant("pro");
+												}}
+												className="text-sm w-full"
+												color={variant.id !== "pro" ? "#d5d5d5" : ""}
+											>
+												Profesionálna
+											</ButtonPrimary>
+											<div className="absolute -top-2 -right-2">
+												<Pro></Pro>
+											</div>
+										</div>
 									</div>
 								</AccordionDetails>
 							</Accordion>
@@ -287,13 +297,25 @@ export default function Sidebar() {
 						<div className="mt-auto w-full">
 							<ButtonPrimary
 								scale={0.98}
-								className="w-full"
+								className="w-full text-sm"
 								onClick={() => {
 									setdownload(!download);
 								}}
+								style={{ color: primaryColor }}
+							>
+								Uložiť zmeny
+							</ButtonPrimary>
+
+							<button
+								scale={0.98}
+								className="w-full text-sm mt-6"
+								onClick={() => {
+									handleSave();
+								}}
+								style={{ color: primaryColor }}
 							>
 								Stiahnuť ponuku
-							</ButtonPrimary>
+							</button>
 
 							<button className="flex w-full mt-6">
 								<div
