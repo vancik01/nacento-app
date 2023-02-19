@@ -52,26 +52,13 @@ export default function CenovaPonuka() {
 
 	return (
 		<div className="pt-10 pb-32">
-			<AnimatePresence>
-				{displayTotals && (
-					<motion.div
-						initial={{ y: "100%" }}
-						exit={{ y: "100%" }}
-						animate={{ y: 0 }}
-						className="z-30 fixed left-0 right-0 bottom-0 ml-[300px] "
-					>
-						<BottomBar></BottomBar>
-					</motion.div>
-				)}
-			</AnimatePresence>
-
 			{bulkEdit && (
 				<Modal title="Upraviť cenu" close={closeBulkEdit}>
 					<BulkEdit blockTitle={bulkEditData.title} />
 				</Modal>
 			)}
 
-			<div className="flex items-start justify-start w-full px-8 overflow-x-auto">
+			<div className="flex items-start justify-start w-full px-8 overflow-x-auto pb-20">
 				<A4>
 					<div className="h-20" style={{ backgroundColor: primaryColor }}></div>
 					<div className="px-16 py-16">

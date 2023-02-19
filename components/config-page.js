@@ -1,9 +1,9 @@
 import { Input } from "@mui/material";
 import React, { useState } from "react";
-import Layout from "../components/Layout";
+import Layout from "./Layout";
 
 export default function Preds(props) {
-	const [data, setdata] = useState(props.preds)
+	const [data, setdata] = useState(props.preds);
 	// const [data, setdata] = useState([]);
 
 	function handleChange(e) {

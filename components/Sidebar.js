@@ -17,6 +17,10 @@ import Paper from "../public/SVG/Paper";
 import { AnimatePresence } from "framer-motion";
 import { AnimateSharedLayout } from "framer-motion";
 import CloseSidebar from "../public/SVG/CloseSidebar";
+import VariantIcon from "../public/SVG/VariantIcon";
+import PageIcon from "../public/SVG/PageIcon";
+import BlockIcon from "../public/SVG/BlockIcon";
+import Pro from "./Pro";
 
 export default function Sidebar() {
 	const {
@@ -28,6 +32,7 @@ export default function Sidebar() {
 		download,
 		displaySidebar,
 		setdisplaySidebar,
+		handleSave,
 	} = useData();
 	const {
 		displayColumns,
@@ -37,6 +42,7 @@ export default function Sidebar() {
 		isHorizontal,
 		setisHorizontal,
 		changeVariant,
+		variant,
 	} = useLayout();
 	const [opened, setopened] = useState("");
 
@@ -69,7 +75,9 @@ export default function Sidebar() {
 									}}
 								>
 									<div className="flex items-center gap-2">
-										<TableIcon color={primaryColor}></TableIcon>
+										<div className="w-4">
+											<PageIcon color={primaryColor}></PageIcon>
+										</div>
 										<div>Strana</div>
 									</div>
 								</AccordionSummary>
@@ -122,7 +130,9 @@ export default function Sidebar() {
 									}}
 								>
 									<div className="flex items-center gap-2">
-										<TableIcon color={primaryColor}></TableIcon>
+										<div className="w-4">
+											<BlockIcon color={primaryColor}></BlockIcon>
+										</div>
 										<div>Blok</div>
 									</div>
 								</AccordionSummary>
@@ -152,33 +162,39 @@ export default function Sidebar() {
 								>
 									<div className="flex items-center gap-2">
 										<TableIcon color={primaryColor}></TableIcon>
-										<div>Tabulka</div>
+										<div className="flex flex-row gap-3 items-center">
+											<div>Tabulka</div>
+											<Pro></Pro>
+										</div>
 									</div>
 								</AccordionSummary>
 								<AccordionDetails>
-									<div className="flex flex-col items-start justify-between flex-wrap gap-4">
-										{headers.map((header, i) => {
-											return (
-												<div
-													key={i}
-													className="flex items-center justify-between w-full text-xs"
-												>
-													<div>
-														{getTitle(header, "sk").long}{" "}
-														<span className="text-gray-300">
-															({getTitle(header, "sk").short})
-														</span>
+									<div>
+										<h3>Zobraziť stĺpce</h3>
+										<div className="flex flex-col items-start justify-between flex-wrap gap-2 mt-4">
+											{headers.map((header, i) => {
+												return (
+													<div
+														key={i}
+														className="flex items-center justify-between w-full text-xs"
+													>
+														<div>
+															{getTitle(header, "sk").long}{" "}
+															<span className="text-gray-300">
+																({getTitle(header, "sk").short})
+															</span>
+														</div>
+														<Switch
+															size="small"
+															defaultChecked={displayColumns.includes(header)}
+															onChange={() => {
+																handleDisplayColumnsChange(header);
+															}}
+														/>
 													</div>
-													<Switch
-														size="small"
-														defaultChecked={displayColumns.includes(header)}
-														onChange={() => {
-															handleDisplayColumnsChange(header);
-														}}
-													/>
-												</div>
-											);
-										})}
+												);
+											})}
+										</div>
 									</div>
 								</AccordionDetails>
 							</Accordion>
@@ -230,36 +246,49 @@ export default function Sidebar() {
 								>
 									<div className="flex items-center gap-2">
 										<div className="w-4">
-											<PaintBrush color={primaryColor}></PaintBrush>
+											<VariantIcon color={primaryColor} />
 										</div>
 										<div>Variant</div>
 									</div>
 								</AccordionSummary>
 
 								<AccordionDetails>
-									<div className="mb-2 font-medium">Variant cenovej ponuky</div>
-									<div className="flex justify-center items-center flex-col gap-8">
+									<div className="mb-4 font-medium">Variant cenovej ponuky</div>
+									<div className="flex justify-center items-center flex-col gap-2">
 										<ButtonPrimary
+											className="text-sm w-full"
 											onClick={() => {
 												changeVariant("basic");
 											}}
+											color={variant.id !== "basic" ? "#d5d5d5" : ""}
 										>
+											{console.log(variant)}
 											Jednoduchá
 										</ButtonPrimary>
 										<ButtonPrimary
 											onClick={() => {
 												changeVariant("normal");
 											}}
+											className="text-sm w-full"
+											color={variant.id !== "normal" ? "#d5d5d5" : ""}
 										>
 											Štandard
 										</ButtonPrimary>
-										<ButtonPrimary
-											onClick={() => {
-												changeVariant("pro");
-											}}
-										>
-											Profesionálna
-										</ButtonPrimary>
+
+										<div className="relative w-full mt-10">
+											<ButtonPrimary
+												onClick={() => {
+													changeVariant("pro");
+												}}
+												className="text-sm w-full"
+												color={variant.id !== "pro" ? "#d5d5d5" : ""}
+											>
+												Profesionálna
+											</ButtonPrimary>
+											<div className="absolute -top-2 -right-2">
+												<Pro></Pro>
+											</div>
+										</div>
 									</div>
 								</AccordionDetails>
 							</Accordion>
@@ -268,13 +297,25 @@ export default function Sidebar() {
 						<div className="mt-auto w-full">
 							<ButtonPrimary
 								scale={0.98}
-								className="w-full"
+								className="w-full text-sm"
 								onClick={() => {
 									setdownload(!download);
 								}}
+								style={{ color: primaryColor }}
+							>
+								Uložiť zmeny
+							</ButtonPrimary>
+
+							<button
+								scale={0.98}
+								className="w-full text-sm mt-6"
+								onClick={() => {
+									setdownload(true);
+								}}
+								style={{ color: primaryColor }}
 							>
 								Stiahnuť ponuku
-							</ButtonPrimary>
+							</button>
 
 							<button className="flex w-full mt-6">
 								<div
