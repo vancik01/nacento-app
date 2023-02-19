@@ -58,7 +58,6 @@ export default function LayoutContext({ children }) {
 
 	function changeVariant(variant) {
 		setvariant(getVariantConfig(variant));
-		console.log(variant);
 	}
 
 	const value = {

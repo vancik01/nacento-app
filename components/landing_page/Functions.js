@@ -105,7 +105,6 @@ function Functions() {
 		let obvod = rozmery.items[0].value;
 		let plocha = rozmery.items[1].value;
 
-		console.log(plocha, obvod, ryhy, dt);
 		create_zakladova_doska(plocha, obvod, ryhy, dt);
 		setloading(true);
 		const collectionRef = doc(collection(firestore, "/offers"));
@@ -122,7 +121,6 @@ function Functions() {
 			.catch((err) => {
 				console.log(err);
 			});
-		console.log(CP);
 	}
 
 	function handleClick() {
