@@ -11,7 +11,7 @@ import { firestore } from "../lib/firebase";
 const DataContext = React.createContext();
 
 export function AppWrap({ children }) {
-	const [data, setdata] = useState(null);
+	const [data, setdata] = useState(newd);
 	const [headers, setheaders] = useState(d.headers);
 	const [loading, setloading] = useState(true);
 	const [name, setname] = useState("Zadajte názov...");
@@ -34,17 +34,19 @@ export function AppWrap({ children }) {
 
 	useEffect(() => {
 		//nacitanie dat z db
-		const offerId = localStorage.getItem("offer_id");
-		if (!offerId) {
-			console.log("error, missing ID");
-		} else {
-			const docRef = doc(firestore, `/offers/${offerId}`);
-			getDoc(docRef).then((snap) => {
-				setdata(snap.data().data);
-				console.log(snap.data().data);
-				setloading(false);
-			});
-		}
+		// const offerId = localStorage.getItem("offer_id");
+		// if (!offerId) {
+		// 	setloading(false);
+		// 	console.log("error, missing ID");
+		// } else {
+		// 	const docRef = doc(firestore, `/offers/${offerId}`);
+		// 	getDoc(docRef).then((snap) => {
+		// 		//setdata(snap.data().data);
+		// 		console.log(snap.data().data);
+		// 		setloading(false);
+		// 	});
+		// }
+		setloading(false);
 	}, []);
 
 	function handleSave() {

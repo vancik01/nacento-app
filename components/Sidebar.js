@@ -310,7 +310,7 @@ export default function Sidebar() {
 								scale={0.98}
 								className="w-full text-sm mt-6"
 								onClick={() => {
-									handleSave();
+									setdownload(true);
 								}}
 								style={{ color: primaryColor }}
 							>

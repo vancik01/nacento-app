@@ -3,7 +3,7 @@ import Link from "next/link";
 import FunctionsDiv from "./FunctionDiv";
 import FunctionDiv_p from "./FunctionDiv_p";
 
-import Preds from "../../pages/config-page";
+import Preds from "../config-page";
 
 import Zaklady from "../../public/static/Zaklady.png";
 import Murivo from "../../public/static/Murivo.png";
@@ -328,19 +328,6 @@ function Functions() {
 					</div>
 				)}
 
-				{(zakaldyPdf || podorysyPdf.length || strechaPdf) && (
-					<div className="absolute right-0 hidden mt-2 pt-6 mr-24 navbar-btn sm:inline-block lg:mt-0 lg:static lg:mr-0">
-						<button
-							className="main-btn font-bold"
-							rel="nofollow"
-							onClick={handleClick}
-						>
-							{" "}
-							Vytvoriť cenovú ponuku{" "}
-						</button>
-					</div>
-				)}
-
 				{!(zakaldyPdf || podorysyPdf.length || strechaPdf) && (
 					<div className="absolute right-0 hidden mt-2 pt-6 mr-24 navbar-btn sm:inline-block lg:mt-0 lg:static lg:mr-0">
 						<button
@@ -358,15 +345,12 @@ function Functions() {
 						<Preds preds={preds} />
 						<div className="absolute right-0 hidden mt-2 pt-6 mr-24 navbar-btn sm:inline-block lg:mt-0 lg:static lg:mr-0">
 							{/* <Link className="main-btn font-bold" href="/cenova-ponuka" rel="nofollow" onClick={createPonuka}> Potvrdiť údaje </Link> */}
-							<Link
+							<button
 								className="main-btn font-bold"
-								href="/cenova-ponuka"
-								rel="nofollow"
-								onClick={() => Router.push("/cenova-ponuka")}
+								onClick={() => router.push("/cenova-ponuka")}
 							>
-								{" "}
-								Potvrdiť údaje{" "}
-							</Link>
+								Potvrdiť údaje
+							</button>
 						</div>
 					</>
 				)}
