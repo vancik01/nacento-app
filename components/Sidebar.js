@@ -262,7 +262,6 @@ export default function Sidebar() {
 											}}
 											color={variant.id !== "basic" ? "#d5d5d5" : ""}
 										>
-											{console.log(variant)}
 											Jednoduchá
 										</ButtonPrimary>
 										<ButtonPrimary

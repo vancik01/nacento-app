@@ -59,7 +59,7 @@ export function AppWrap({ children }) {
 			const docRef = doc(firestore, `/offers/${offerId}`);
 			updateDoc(docRef, { data: data, name: name }).then((snap) => {
 				setdata(snap.data().data);
-				console.log(snap.data().data);
+
 				setsaving(false);
 			});
 		}
@@ -487,7 +487,6 @@ export function AppWrap({ children }) {
 	}
 
 	function openBulkEdit(data) {
-		console.log(data);
 		setbulkEdit(true);
 		setbulkEditData(data);
 	}
@@ -539,12 +538,12 @@ export function AppWrap({ children }) {
 
 		if (allZero) {
 			newData.sections[sectionId].blocks[blockId].items.map((item, i) => {
-				console.log(
-					`${((item[valueId] / sum) * 100).toFixed(2)}% -> + ${(
-						(item[valueId] / sum) *
-						value
-					).toFixed(2)}`
-				);
+				// console.log(
+				// 	`${((item[valueId] / sum) * 100).toFixed(2)}% -> + ${(
+				// 		(item[valueId] / sum) *
+				// 		value
+				// 	).toFixed(2)}`
+				// );
 				changeValue({
 					blockId: blockId,
 					sectionId: sectionId,

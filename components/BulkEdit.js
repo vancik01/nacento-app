@@ -140,7 +140,6 @@ export default function BulkEdit({ blockTitle }) {
 						// console.log(`${block.info[bulkEditData.valueId] / totalSection[bulkEditData.valueId]}% -> ${sum}` )
 					}
 				);
-				console.log("SUM", totalValue, valueToAdd);
 			}
 		} else if (bulkEditData.mode === "whole") {
 			if (
@@ -157,7 +156,7 @@ export default function BulkEdit({ blockTitle }) {
 					(total["total_construction_price"] / total.total) * valueToAdd;
 				var add_total_delivery_price =
 					(total["total_delivery_price"] / total.total) * valueToAdd;
-				console.log(add_total_construction_price, add_total_delivery_price);
+
 				var add = [];
 				var s = 0;
 
@@ -171,12 +170,6 @@ export default function BulkEdit({ blockTitle }) {
 						(section.info["total_construction_price"] /
 							total["total_construction_price"]) *
 						add_total_construction_price;
-					console.log(
-						"Pridat",
-						sum,
-						section.info["total_construction_price"] /
-							total["total_construction_price"]
-					);
 
 					section.blocks.map((block, blockId) => {
 						add[sectionId].cp.push(
@@ -214,9 +207,6 @@ export default function BulkEdit({ blockTitle }) {
 					});
 				});
 
-				console.log("ADD", add);
-				console.log("SUM", s);
-
 				newData.sections.map((section, sectionId) => {
 					section.blocks.map((block, blockId) => {
 						saveBulkEdit(
@@ -238,11 +228,7 @@ export default function BulkEdit({ blockTitle }) {
 					var sum =
 						(section.info[bulkEditData.valueId] / total[bulkEditData.valueId]) *
 						valueToAdd;
-					console.log(
-						"Pridat",
-						sum,
-						section.info[bulkEditData.valueId] / total[bulkEditData.valueId]
-					);
+
 					var add = [];
 					section.blocks.map((block, blockId) => {
 						add.push(
