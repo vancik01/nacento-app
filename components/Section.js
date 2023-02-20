@@ -162,7 +162,7 @@ export default function Section({ section, sectionId }) {
 									key={j}
 									block={block}
 									headers={headers}
-									number={j}
+									blockId={j}
 									collapsed={reorderingBlocks}
 								/>
 							</div>

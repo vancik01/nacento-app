@@ -566,6 +566,32 @@ export function AppWrap({ children }) {
 		setdisplayTotals(!displayTotals);
 	}
 
+	function addTableRow(blockId, sectionId) {}
+
+	function changeTableRow(value, valueId, rowId, blockId, sectionId) {
+		var newData = { ...data };
+		newData.sections[sectionId].blocks[blockId].items[rowId][valueId] = value;
+		setdata(newData);
+	}
+
+	function addTableRow(blockId, sectionId) {
+		var newData = { ...data };
+		newData.sections[sectionId].blocks[blockId].items.push({
+			service_type: "R",
+			item_id: "123",
+			title: "",
+			unit: "",
+			quantity: 0,
+			unit_delivery_price: 0,
+			unit_construction_price: 0,
+			total_delivery_price: 0,
+			total_construction_price: 0,
+			total: 0,
+		});
+
+		setdata(newData);
+	}
+
 	const value = {
 		data,
 		headers,
@@ -610,6 +636,9 @@ export function AppWrap({ children }) {
 
 		saving,
 		setsaving,
+
+		changeTableRow,
+		addTableRow,
 	};
 
 	useEffect(() => {
