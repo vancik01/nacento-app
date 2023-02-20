@@ -1,5 +1,5 @@
 import { AnimatePresence } from "framer-motion";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { lang } from "../languages/languages";
 import BulkEdit from "../components/BulkEdit";
 import FullPageLoading from "../components/loading/FullPageLoading";
@@ -7,6 +7,7 @@ import Modal from "../components/Modal";
 import { d, newd } from "../data";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { firestore } from "../lib/firebase";
+import debounce from "lodash.debounce";
 
 const DataContext = React.createContext();
 
@@ -65,27 +66,38 @@ export function AppWrap({ children }) {
 		}
 	}
 
+	function calculateTotals() {
+		var t = {
+			total_delivery_price: 0,
+			total_construction_price: 0,
+			total: 0,
+		};
+		data.sections.map((section) => {
+			section.blocks.map((block)=>{
+				t.total_delivery_price += parseFloat(
+					block.info["total_delivery_price"]
+				);
+
+				t.total_construction_price += parseFloat(
+					block.info["total_construction_price"]
+				);
+			})
+			
+		});
+
+		t.total = t.total_construction_price + t.total_delivery_price
+		return t
+	}
+	const loadTotals = useRef(debounce(() => {
+		console.log("called totals")
+		// 😕 debounced function never called
+		settotal(calculateTotals())
+	  }, 1000)).current
+
 	useEffect(() => {
 		// vypocet total price
 		if (data) {
-			var t = {
-				total_delivery_price: 0,
-				total_construction_price: 0,
-				total: 0,
-			};
-			data.sections.map((section) => {
-				section.blocks.map((block) => {
-					t.total_delivery_price += parseFloat(
-						block.info["total_delivery_price"]
-					);
-					t.total_construction_price += parseFloat(
-						block.info["total_construction_price"]
-					);
-				});
-			});
-
-			t.total = t.total_delivery_price + t.total_construction_price;
-			settotal(t);
+			loadTotals()
 		}
 	}, [data]);
 
@@ -93,6 +105,7 @@ export function AppWrap({ children }) {
 		//kalkulácia ceny totalnej z blokov a pod...
 		if (data) {
 			dataInit();
+			
 		}
 	}, [loading]);
 
@@ -117,6 +130,7 @@ export function AppWrap({ children }) {
 
 		t.total = t.total_delivery_price + t.total_construction_price;
 		setinitialTotal(t);
+		settotal(t)
 
 		var newData = { ...data };
 		var section_total = 0,

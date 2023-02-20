@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "cenova-ponuka"
-  }
+  },
+  "targets": {
+    "cenova-ponuka": {
+      "hosting": {
+        "deploy": [
+          "nacento-deploy"
+        ],
+        "dev": [
+          "cenova-ponuka"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
