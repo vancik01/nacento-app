@@ -1,6 +1,8 @@
 import { Input } from "@mui/material";
 import React, { useState } from "react";
 import { useData } from "../context/AppWrap";
+import { useLayout } from "../context/LayoutContext";
+import AddRow from "../public/SVG/AddRow";
 import DragableIcon from "../public/SVG/Dragable";
 import EditPen from "../public/SVG/EditPen";
 import ButtonPrimary from "./ButtonPrimary";
@@ -9,29 +11,31 @@ import Table from "./Table";
 export default function Block({
 	headers,
 	block,
-	number,
+	blockId,
 	collapsed,
 	dragHandleProps,
 	sectionId,
 }) {
-	const { editBlockTitle, bulkEdit, openBulkEdit, getTitle } = useData();
+	const { editBlockTitle, bulkEdit, openBulkEdit, getTitle, addTableRow } =
+		useData();
+	const { primaryColor } = useLayout();
 	const [editingTitle, seteditingTitle] = useState(false);
 	const [blockTitle, setblockTitle] = useState(block.info.title);
 	function handleEditTitle() {
-		editBlockTitle(blockTitle, sectionId, number);
+		editBlockTitle(blockTitle, sectionId, blockId);
 		seteditingTitle(false);
 	}
 	return (
 		<div className="">
 			<div
 				className={`bg-white rounded-md ${collapsed ? "py-6" : "py-6"}`}
-				key={number}
+				key={blockId}
 			>
 				<div className="flex justify-between items-end mb-4">
 					{!editingTitle && (
 						<div className="relative w-fit">
 							<h3 className="text-2xl">
-								{number + 1}. {block.info.title}
+								{blockId + 1}. {block.info.title}
 							</h3>
 							<button
 								onClick={() => {
@@ -46,7 +50,7 @@ export default function Block({
 
 					{editingTitle && (
 						<div className="flex justify-center items-baseline">
-							<div className="text-2xl mr-1">{number + 1}. </div>
+							<div className="text-2xl mr-1">{blockId + 1}. </div>
 							<Input
 								type="text"
 								value={blockTitle}
@@ -71,11 +75,25 @@ export default function Block({
 				{!collapsed && (
 					<Table
 						sectionId={sectionId}
-						blockId={number}
+						blockId={blockId}
 						items={block.items}
 						headers={headers}
 					/>
 				)}
+
+				<button
+					onClick={() => {
+						addTableRow(blockId, sectionId);
+					}}
+					className="flex justify-center items-center gap-4 mt-4"
+				>
+					<div className="w-3">
+						<AddRow color={primaryColor}></AddRow>
+					</div>
+					<div className="text-sm" style={{ color: primaryColor }}>
+						Pridať riadok
+					</div>
+				</button>
 
 				{!collapsed && (
 					<div className="flex flex-row gap-10 text-sm items-end justify-end mt-8">
@@ -88,7 +106,7 @@ export default function Block({
 								<button
 									onClick={() => {
 										openBulkEdit({
-											blockId: number,
+											blockId: blockId,
 											sectionId: sectionId,
 											value: block.info["total_delivery_price"],
 											valueId: "total_delivery_price",
@@ -113,7 +131,7 @@ export default function Block({
 								<button
 									onClick={() => {
 										openBulkEdit({
-											blockId: number,
+											blockId: blockId,
 											sectionId: sectionId,
 											value: block.info["total_construction_price"],
 											valueId: "total_construction_price",
@@ -136,7 +154,7 @@ export default function Block({
 								<button
 									onClick={() => {
 										openBulkEdit({
-											blockId: number,
+											blockId: blockId,
 											sectionId: sectionId,
 											value: block.info.total,
 											valueId: "total",

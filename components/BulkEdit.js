@@ -189,11 +189,7 @@ export default function BulkEdit({ blockTitle }) {
 						(section.info["total_delivery_price"] /
 							total["total_delivery_price"]) *
 						add_total_delivery_price;
-					console.log(
-						"Pridat",
-						sum,
-						section.info["total_delivery_price"] / total["total_delivery_price"]
-					);
+
 					section.blocks.map((block, blockId) => {
 						add[sectionId].dp.push(
 							(block.info["total_delivery_price"] /
