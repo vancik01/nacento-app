@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build && next export",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy-both": "firebase deploy --only hosting:dev && firebase deploy --only hosting:deploy"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
