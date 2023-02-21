@@ -21,6 +21,8 @@ import VariantIcon from "../public/SVG/VariantIcon";
 import PageIcon from "../public/SVG/PageIcon";
 import BlockIcon from "../public/SVG/BlockIcon";
 import Pro from "./Pro";
+import { createTheme } from "@mui/material";
+import { ThemeProvider } from "@emotion/react";
 
 export default function Sidebar() {
 	const {
@@ -57,281 +59,297 @@ export default function Sidebar() {
 		}
 	}
 
+	const theme = createTheme({
+		typography: {
+			fontFamily: "Poppins",
+			fontSize: 10,
+		},
+		palette:{
+			primary:{
+				main: primaryColor
+			}
+		}
+	});
+
 	return (
-		<div className="fixed left-0 top-0 bottom-0 z-40 w-[300px] ">
-			<div className="relative w-fit">
-				<div className="py-10 px-6  shadow-lg bg-white h-screen">
-					<div className="flex flex-col min-h-full">
-						<div className="min-w-28 w-28">
-							<Logo></Logo>
-						</div>
+		<ThemeProvider theme={theme}>
+			<div className="fixed left-0 top-0 bottom-0 z-40 w-[300px] ">
+				<div className="relative w-fit">
+					<div className="py-10 px-6  shadow-lg bg-white h-screen">
+						<div className="flex flex-col min-h-full">
+							<div className="min-w-28 w-28">
+								<Logo color={primaryColor}></Logo>
+							</div>
 
-						<div className="mt-10">
-							<Accordion expanded={opened === "strana"}>
-								<AccordionSummary
-									expandIcon={<ArrowDown />}
-									onClick={() => {
-										handleSetOpen("strana");
-									}}
-								>
-									<div className="flex items-center gap-2">
-										<div className="w-4">
-											<PageIcon color={primaryColor}></PageIcon>
+							<div className="mt-10">
+								<Accordion expanded={opened === "strana"}>
+									<AccordionSummary
+										expandIcon={<ArrowDown />}
+										onClick={() => {
+											handleSetOpen("strana");
+										}}
+									>
+										<div className="flex items-center gap-2">
+											<div className="w-4">
+												<PageIcon color={primaryColor}></PageIcon>
+											</div>
+											<div>Strana</div>
 										</div>
-										<div>Strana</div>
-									</div>
-								</AccordionSummary>
+									</AccordionSummary>
 
-								<AccordionDetails>
-									<div>
-										<h3>Orientácia:</h3>
-										<div className="flex items-center gap-4 mt-3">
-											<button
-												onClick={() => {
-													setisHorizontal(false);
-												}}
-												style={{
-													backgroundColor: !isHorizontal ? primaryColor : "",
-												}}
-												className="w-10 h-10 bg-gray-100 flex items-center justify-center rounded-md"
-											>
-												<div className="w-5">
-													<Paper
-														color={isHorizontal ? "#d6d6d6" : "#fff"}
-													></Paper>
-												</div>
-											</button>
-
-											<button
-												onClick={() => {
-													setisHorizontal(true);
-												}}
-												style={{
-													backgroundColor: isHorizontal ? primaryColor : "",
-												}}
-												className="w-10 h-10 bg-gray-100 flex items-center justify-center rounded-md"
-											>
-												<div className="w-5 -rotate-90">
-													<Paper
-														color={!isHorizontal ? "#d6d6d6" : "#fff"}
-													></Paper>
-												</div>
-											</button>
-										</div>
-									</div>
-								</AccordionDetails>
-							</Accordion>
-
-							<Accordion expanded={opened === "blok"}>
-								<AccordionSummary
-									expandIcon={<ArrowDown />}
-									onClick={() => {
-										handleSetOpen("blok");
-									}}
-								>
-									<div className="flex items-center gap-2">
-										<div className="w-4">
-											<BlockIcon color={primaryColor}></BlockIcon>
-										</div>
-										<div>Blok</div>
-									</div>
-								</AccordionSummary>
-
-								<AccordionDetails>
-									<div className="flex  items-center">
-										<ButtonPrimary
-											className="w-full"
-											variant="outlined"
-											style={{ fontSize: 12 }}
-											onClick={() => {
-												setreorderingBlocks(!reorderingBlocks);
-											}}
-										>
-											{reorderingBlocks ? "Uložiť" : "Usporiadať bloky"}
-										</ButtonPrimary>
-									</div>
-								</AccordionDetails>
-							</Accordion>
-
-							<Accordion expanded={opened === "tabulka"}>
-								<AccordionSummary
-									expandIcon={<ArrowDown />}
-									onClick={() => {
-										handleSetOpen("tabulka");
-									}}
-								>
-									<div className="flex items-center gap-2">
-										<TableIcon color={primaryColor}></TableIcon>
-										<div className="flex flex-row gap-3 items-center">
-											<div>Tabulka</div>
-											<Pro></Pro>
-										</div>
-									</div>
-								</AccordionSummary>
-								<AccordionDetails>
-									<div>
-										<h3>Zobraziť stĺpce</h3>
-										<div className="flex flex-col items-start justify-between flex-wrap gap-2 mt-4">
-											{headers.map((header, i) => {
-												return (
-													<div
-														key={i}
-														className="flex items-center justify-between w-full text-xs"
-													>
-														<div>
-															{getTitle(header, "sk").long}{" "}
-															<span className="text-gray-300">
-																({getTitle(header, "sk").short})
-															</span>
-														</div>
-														<Switch
-															size="small"
-															defaultChecked={displayColumns.includes(header)}
-															onChange={() => {
-																handleDisplayColumnsChange(header);
-															}}
-														/>
-													</div>
-												);
-											})}
-										</div>
-									</div>
-								</AccordionDetails>
-							</Accordion>
-
-							<Accordion expanded={opened === "vzhlad"}>
-								<AccordionSummary
-									expandIcon={<ArrowDown />}
-									onClick={() => {
-										handleSetOpen("vzhlad");
-									}}
-								>
-									<div className="flex items-center gap-2">
-										<div className="w-4">
-											<PaintBrush color={primaryColor}></PaintBrush>
-										</div>
-										<div>Vzhľad</div>
-									</div>
-								</AccordionSummary>
-								<AccordionDetails>
-									<div className="mb-2 font-medium">Hlavná farba</div>
-
-									<div className="grid grid-cols-5 gap-2 w-52">
-										{layoutConfig.defaultColors.map((color, i) => {
-											return (
+									<AccordionDetails>
+										<div>
+											<h3>Orientácia:</h3>
+											<div className="flex items-center gap-4 mt-3">
 												<button
-													key={i}
-													className={`rounded-lg w-full aspect-square bg-opacity-40 transition-all duration-75 ${
-														color == primaryColor
-															? "shadow-md border-white border-opacity-60 border-4"
-															: ""
-													}`}
-													style={{ backgroundColor: color }}
 													onClick={() => {
-														setprimaryColor(color);
+														setisHorizontal(false);
 													}}
-												></button>
-											);
-										})}
-									</div>
-								</AccordionDetails>
-							</Accordion>
+													style={{
+														backgroundColor: !isHorizontal ? primaryColor : "",
+													}}
+													className="w-10 h-10 bg-gray-100 flex items-center justify-center rounded-md"
+												>
+													<div className="w-5">
+														<Paper
+															color={isHorizontal ? "#d6d6d6" : "#fff"}
+														></Paper>
+													</div>
+												</button>
 
-							<Accordion expanded={opened === "variant"}>
-								<AccordionSummary
-									expandIcon={<ArrowDown />}
-									onClick={() => {
-										handleSetOpen("variant");
-									}}
-								>
-									<div className="flex items-center gap-2">
-										<div className="w-4">
-											<VariantIcon color={primaryColor} />
+												<button
+													onClick={() => {
+														setisHorizontal(true);
+													}}
+													style={{
+														backgroundColor: isHorizontal ? primaryColor : "",
+													}}
+													className="w-10 h-10 bg-gray-100 flex items-center justify-center rounded-md"
+												>
+													<div className="w-5 -rotate-90">
+														<Paper
+															color={!isHorizontal ? "#d6d6d6" : "#fff"}
+														></Paper>
+													</div>
+												</button>
+											</div>
 										</div>
-										<div>Variant</div>
-									</div>
-								</AccordionSummary>
+									</AccordionDetails>
+								</Accordion>
 
-								<AccordionDetails>
-									<div className="mb-4 font-medium">Variant cenovej ponuky</div>
-									<div className="flex justify-center items-center flex-col gap-2">
-										<ButtonPrimary
-											className="text-sm w-full"
-											onClick={() => {
-												changeVariant("basic");
-											}}
-											color={variant.id !== "basic" ? "#d5d5d5" : ""}
-										>
-											Jednoduchá
-										</ButtonPrimary>
-										<ButtonPrimary
-											onClick={() => {
-												changeVariant("normal");
-											}}
-											className="text-sm w-full"
-											color={variant.id !== "normal" ? "#d5d5d5" : ""}
-										>
-											Štandard
-										</ButtonPrimary>
+								<Accordion expanded={opened === "blok"}>
+									<AccordionSummary
+										expandIcon={<ArrowDown />}
+										onClick={() => {
+											handleSetOpen("blok");
+										}}
+									>
+										<div className="flex items-center gap-2">
+											<div className="w-4">
+												<BlockIcon color={primaryColor}></BlockIcon>
+											</div>
+											<div>Blok</div>
+										</div>
+									</AccordionSummary>
 
-										<div className="relative w-full mt-10">
+									<AccordionDetails>
+										<div className="flex  items-center">
 											<ButtonPrimary
+												className="w-full"
+												variant="outlined"
+												style={{ fontSize: 12 }}
 												onClick={() => {
-													changeVariant("pro");
+													setreorderingBlocks(!reorderingBlocks);
 												}}
-												className="text-sm w-full"
-												color={variant.id !== "pro" ? "#d5d5d5" : ""}
 											>
-												Profesionálna
+												{reorderingBlocks ? "Uložiť" : "Usporiadať bloky"}
 											</ButtonPrimary>
-											<div className="absolute -top-2 -right-2">
+										</div>
+									</AccordionDetails>
+								</Accordion>
+
+								<Accordion expanded={opened === "tabulka"}>
+									<AccordionSummary
+										expandIcon={<ArrowDown />}
+										onClick={() => {
+											handleSetOpen("tabulka");
+										}}
+									>
+										<div className="flex items-center gap-2">
+											<TableIcon color={primaryColor}></TableIcon>
+											<div className="flex flex-row gap-3 items-center">
+												<div>Tabulka</div>
 												<Pro></Pro>
 											</div>
 										</div>
-									</div>
-								</AccordionDetails>
-							</Accordion>
-						</div>
+									</AccordionSummary>
+									<AccordionDetails>
+										<div>
+											<h3>Zobraziť stĺpce</h3>
+											<div className="flex flex-col items-start justify-between flex-wrap gap-2 mt-4">
+												{headers.map((header, i) => {
+													return (
+														<div
+															key={i}
+															className="flex items-center justify-between w-full text-xs"
+														>
+															<div>
+																{getTitle(header, "sk").long}{" "}
+																<span className="text-gray-300">
+																	({getTitle(header, "sk").short})
+																</span>
+															</div>
+															<Switch
+																size="small"
+																defaultChecked={displayColumns.includes(header)}
+																onChange={() => {
+																	handleDisplayColumnsChange(header);
+																}}
+																
+																
+															/>
+														</div>
+													);
+												})}
+											</div>
+										</div>
+									</AccordionDetails>
+								</Accordion>
 
-						<div className="mt-auto w-full">
-							<ButtonPrimary
-								scale={0.98}
-								className="w-full text-sm"
-								onClick={() => {
-									setdownload(!download);
-								}}
-								style={{ color: primaryColor }}
-							>
-								Uložiť zmeny
-							</ButtonPrimary>
+								<Accordion expanded={opened === "vzhlad"}>
+									<AccordionSummary
+										expandIcon={<ArrowDown />}
+										onClick={() => {
+											handleSetOpen("vzhlad");
+										}}
+									>
+										<div className="flex items-center gap-2">
+											<div className="w-4">
+												<PaintBrush color={primaryColor}></PaintBrush>
+											</div>
+											<div>Vzhľad</div>
+										</div>
+									</AccordionSummary>
+									<AccordionDetails>
+										<div className="mb-2 font-medium">Hlavná farba</div>
 
-							<button
-								scale={0.98}
-								className="w-full text-sm mt-6"
-								onClick={() => {
-									setdownload(true);
-								}}
-								style={{ color: primaryColor }}
-							>
-								Stiahnuť ponuku
-							</button>
+										<div className="grid grid-cols-5 gap-2 w-52">
+											{layoutConfig.defaultColors.map((color, i) => {
+												return (
+													<button
+														key={i}
+														className={`rounded-lg w-full aspect-square bg-opacity-40 transition-all duration-75 ${
+															color == primaryColor
+																? "shadow-md border-white border-opacity-60 border-4"
+																: ""
+														}`}
+														style={{ backgroundColor: color }}
+														onClick={() => {
+															setprimaryColor(color);
+														}}
+													></button>
+												);
+											})}
+										</div>
+									</AccordionDetails>
+								</Accordion>
 
-							<button className="flex w-full mt-6">
-								<div
-									className="p-2 ml-auto"
+								<Accordion expanded={opened === "variant"}>
+									<AccordionSummary
+										expandIcon={<ArrowDown />}
+										onClick={() => {
+											handleSetOpen("variant");
+										}}
+									>
+										<div className="flex items-center gap-2">
+											<div className="w-4">
+												<VariantIcon color={primaryColor} />
+											</div>
+											<div>Variant</div>
+										</div>
+									</AccordionSummary>
+
+									<AccordionDetails>
+										<div className="mb-4 font-medium">Variant cenovej ponuky</div>
+										<div className="flex justify-center items-center flex-col gap-2">
+											<ButtonPrimary
+												className="text-sm w-full"
+												onClick={() => {
+													changeVariant("basic");
+												}}
+												color={variant.id !== "basic" ? "#d5d5d5" : ""}
+											>
+												Jednoduchá
+											</ButtonPrimary>
+											<ButtonPrimary
+												onClick={() => {
+													changeVariant("normal");
+												}}
+												className="text-sm w-full"
+												color={variant.id !== "normal" ? "#d5d5d5" : ""}
+											>
+												Štandard
+											</ButtonPrimary>
+
+											<div className="relative w-full mt-10">
+												<ButtonPrimary
+													onClick={() => {
+														changeVariant("pro");
+													}}
+													className="text-sm w-full"
+													color={variant.id !== "pro" ? "#d5d5d5" : ""}
+												>
+													Profesionálna
+												</ButtonPrimary>
+												<div className="absolute -top-2 -right-2">
+													<Pro></Pro>
+												</div>
+											</div>
+										</div>
+									</AccordionDetails>
+								</Accordion>
+							</div>
+
+							<div className="mt-auto w-full">
+								<ButtonPrimary
+									scale={0.98}
+									className="w-full text-sm"
 									onClick={() => {
-										setdisplaySidebar(false);
+										setdownload(!download);
 									}}
+									style={{ color: primaryColor }}
 								>
-									<div className="w-2">
-										<CloseSidebar></CloseSidebar>
+									Uložiť zmeny
+								</ButtonPrimary>
+
+								<button
+									scale={0.98}
+									className="w-full text-sm mt-6"
+									onClick={() => {
+										setdownload(true);
+									}}
+									style={{ color: primaryColor }}
+								>
+									Stiahnuť ponuku
+								</button>
+
+								<button className="flex w-full mt-6">
+									<div
+										className="p-2 ml-auto"
+										onClick={() => {
+											setdisplaySidebar(false);
+										}}
+									>
+										<div className="w-2">
+											<CloseSidebar></CloseSidebar>
+										</div>
 									</div>
-								</div>
-							</button>
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</ThemeProvider>
 	);
 }

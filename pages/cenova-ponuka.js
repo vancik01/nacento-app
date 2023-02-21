@@ -15,11 +15,14 @@ import LayoutContext from "../context/LayoutContext";
 import ScreenLayout from "../components/ScreenLayout";
 
 export default function Home() {
+
+	
 	const theme = createTheme({
 		typography: {
 			fontFamily: "Poppins",
 			fontSize: 10,
 		},
+		
 	});
 
 	return (
