@@ -88,8 +88,6 @@ function Functions() {
 		CP.sections[0].blocks[5].items[1].quantity = uzemnovacie_vedenie; //uzmenovancie vedenie
 		CP.sections[0].blocks[5].items[2].quantity = uzemnovacie_vedenie; //uzemnovacia pasovina
 		CP.sections[0].blocks[5].items[3].quantity = 48; //drot bleskozvodovy
-
-		//create();
 	}
 
 	function round(num) {
@@ -113,7 +111,7 @@ function Functions() {
 
 		setDoc(collectionRef, {
 			id: collectionRef.id,
-			data: CP,
+			data: newd,
 		})
 			.then((response) => {
 				router.push(`/cenova-ponuka/${collectionRef.id}`);

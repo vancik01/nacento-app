@@ -43,6 +43,7 @@ export function AppWrap({ children }) {
 	const router = useRouter();
 
 	useEffect(() => {
+		seterrorLoading(false);
 		//nacitanie dat z db
 		const { projectId } = router.query;
 		console.log(projectId);
@@ -148,12 +149,22 @@ export function AppWrap({ children }) {
 
 		var newData = { ...data };
 
+		var section_total = 0,
+			section_total_delivery_price = 0,
+			section_total_construction_price = 0;
 		newData.sections.map((section, k) => {
 			var section_total = 0,
 				section_total_delivery_price = 0,
 				section_total_construction_price = 0;
-
 			section.blocks.map((block, i) => {
+				newData.sections[k].blocks[i].info.total =
+					block.info["total_construction_price"] +
+					block.info["total_delivery_price"];
+				section_total_construction_price +=
+					block.info["total_construction_price"];
+				section_total_delivery_price += block.info["total_delivery_price"];
+				section_total += newData.sections[k].blocks[i].info.total;
+
 				block.items.map((item, j) => {
 					newData.sections[k].blocks[i].items[j].total =
 						newData.sections[k].blocks[i].items[j].total_construction_price +
@@ -163,7 +174,6 @@ export function AppWrap({ children }) {
 						parseFloat(
 							newData.sections[k].blocks[i].items[j].total_construction_price
 						).toFixed(2);
-
 					newData.sections[k].blocks[i].items[j].total_delivery_price =
 						parseFloat(
 							newData.sections[k].blocks[i].items[j].total_delivery_price
@@ -182,14 +192,6 @@ export function AppWrap({ children }) {
 						newData.sections[k].blocks[i].items[j].total
 					).toFixed(2);
 				});
-
-				newData.sections[k].blocks[i].info.total =
-					block.info["total_construction_price"] +
-					block.info["total_delivery_price"];
-				section_total_construction_price +=
-					block.info["total_construction_price"];
-				section_total_delivery_price += block.info["total_delivery_price"];
-				section_total += newData.sections[k].blocks[i].info.total;
 			});
 
 			newData.sections[k].info.total = parseFloat(section_total).toFixed(2);

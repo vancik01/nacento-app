@@ -122,7 +122,7 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 					<div
 						{...provided.draggableProps}
 						ref={provided.innerRef}
-						className="relative"
+						className=""
 					>
 						<div
 							className={`table_row content ${
@@ -178,7 +178,7 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 			</Draggable>
 
 			{didChange && (
-				<button className="absolute -left-8 top-0 bottom-0 flex items-center z-50">
+				<button className="absolute -left-8 top-0 bottom-0 flex items-center z-30">
 					<Save color={primaryColor}></Save>
 				</button>
 			)}
