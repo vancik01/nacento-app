@@ -64,16 +64,16 @@ export default function Sidebar() {
 			fontFamily: "Poppins",
 			fontSize: 10,
 		},
-		palette:{
-			primary:{
-				main: primaryColor
-			}
-		}
+		palette: {
+			primary: {
+				main: primaryColor,
+			},
+		},
 	});
 
 	return (
 		<ThemeProvider theme={theme}>
-			<div className="fixed left-0 top-0 bottom-0 z-40 w-[300px] ">
+			<div className="fixed left-0 top-0 bottom-0 z-50 w-[300px] ">
 				<div className="relative w-fit">
 					<div className="py-10 px-6  shadow-lg bg-white h-screen">
 						<div className="flex flex-col min-h-full">
@@ -205,8 +205,6 @@ export default function Sidebar() {
 																onChange={() => {
 																	handleDisplayColumnsChange(header);
 																}}
-																
-																
 															/>
 														</div>
 													);
@@ -270,7 +268,9 @@ export default function Sidebar() {
 									</AccordionSummary>
 
 									<AccordionDetails>
-										<div className="mb-4 font-medium">Variant cenovej ponuky</div>
+										<div className="mb-4 font-medium">
+											Variant cenovej ponuky
+										</div>
 										<div className="flex justify-center items-center flex-col gap-2">
 											<ButtonPrimary
 												className="text-sm w-full"

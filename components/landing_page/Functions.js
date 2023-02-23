@@ -114,8 +114,7 @@ function Functions() {
 			data: newd,
 		})
 			.then((response) => {
-				localStorage.setItem("offer_id", collectionRef.id);
-				router.push("/cenova-ponuka/");
+				router.push(`/cenova-ponuka/${collectionRef.id}`);
 				setloading(false);
 			})
 			.catch((err) => {
@@ -343,10 +342,7 @@ function Functions() {
 						<Preds preds={preds} />
 						<div className="absolute right-0 hidden mt-2 pt-6 mr-24 navbar-btn sm:inline-block lg:mt-0 lg:static lg:mr-0">
 							{/* <Link className="main-btn font-bold" href="/cenova-ponuka" rel="nofollow" onClick={createPonuka}> Potvrdiť údaje </Link> */}
-							<button
-								className="main-btn font-bold"
-								onClick={() => router.push("/cenova-ponuka")}
-							>
+							<button className="main-btn font-bold" onClick={createPonuka}>
 								Potvrdiť údaje
 							</button>
 						</div>
