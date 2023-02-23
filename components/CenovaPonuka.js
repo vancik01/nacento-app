@@ -52,6 +52,7 @@ export default function CenovaPonuka() {
 
 	return (
 		<>
+			{console.log(data, "Data")}
 			<div className="pt-10 pb-32">
 				{bulkEdit && (
 					<Modal title="Upraviť cenu" close={closeBulkEdit}>

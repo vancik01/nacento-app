@@ -11,8 +11,7 @@ import BottomBar from "./BottomBar";
 import EditorHeader from "./EditorHeader";
 
 export default function ScreenLayout() {
-	const { displaySidebar, setdisplaySidebar, loading, displayTotals } =
-		useData();
+	const { displaySidebar, setdisplaySidebar, loading } = useData();
 	return (
 		<>
 			{!loading && (

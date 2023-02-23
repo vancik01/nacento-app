@@ -1,19 +1,27 @@
 import { AnimatePresence } from "framer-motion";
-import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
+import React, {
+	useCallback,
+	useContext,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 import { lang } from "../languages/languages";
 import BulkEdit from "../components/BulkEdit";
 import FullPageLoading from "../components/loading/FullPageLoading";
 import Modal from "../components/Modal";
-import { d, newd } from "../data";
+import { d, empty, newd, template_config } from "../data";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { firestore } from "../lib/firebase";
 import debounce from "lodash.debounce";
+import { useRouter } from "next/router";
 
 const DataContext = React.createContext();
 
 export function AppWrap({ children }) {
-	const [data, setdata] = useState(newd);
-	const [headers, setheaders] = useState(d.headers);
+	const [data, setdata] = useState(null);
+	const [headers, setheaders] = useState(null);
+	const [errorLoading, seterrorLoading] = useState(false);
 	const [loading, setloading] = useState(true);
 	const [name, setname] = useState("Zadajte názov...");
 	const [bulkEdit, setbulkEdit] = useState(false);
@@ -32,23 +40,28 @@ export function AppWrap({ children }) {
 		total: 0,
 	});
 	const [initialTotal, setinitialTotal] = useState(total);
+	const router = useRouter();
 
 	useEffect(() => {
 		//nacitanie dat z db
-		// const offerId = localStorage.getItem("offer_id");
-		// if (!offerId) {
-		// 	setloading(false);
-		// 	console.log("error, missing ID");
-		// } else {
-		// 	const docRef = doc(firestore, `/offers/${offerId}`);
-		// 	getDoc(docRef).then((snap) => {
-		// 		//setdata(snap.data().data);
-		// 		console.log(snap.data().data);
-		// 		setloading(false);
-		// 	});
-		// }
-		setloading(false);
-	}, []);
+		const { projectId } = router.query;
+		console.log(projectId);
+
+		if (projectId) {
+			console.log(projectId);
+			const docRef = doc(firestore, `/offers/${projectId}`);
+			getDoc(docRef).then((snap) => {
+				if (snap.exists()) {
+					setdata({ ...snap.data().data });
+					setheaders(snap.data().data.headers);
+					console.log(snap.data().data);
+				} else {
+					seterrorLoading(true);
+				}
+				setloading(false);
+			});
+		}
+	}, [router]);
 
 	function handleSave() {
 		const offerId = localStorage.getItem("offer_id");
@@ -72,8 +85,9 @@ export function AppWrap({ children }) {
 			total_construction_price: 0,
 			total: 0,
 		};
+
 		data.sections.map((section) => {
-			section.blocks.map((block)=>{
+			section.blocks.map((block) => {
 				t.total_delivery_price += parseFloat(
 					block.info["total_delivery_price"]
 				);
@@ -81,23 +95,24 @@ export function AppWrap({ children }) {
 				t.total_construction_price += parseFloat(
 					block.info["total_construction_price"]
 				);
-			})
-			
+			});
 		});
 
-		t.total = t.total_construction_price + t.total_delivery_price
-		return t
+		t.total = t.total_construction_price + t.total_delivery_price;
+		return t;
 	}
-	const loadTotals = useRef(debounce(() => {
-		console.log("called totals")
-		// 😕 debounced function never called
-		settotal(calculateTotals())
-	  }, 1000)).current
+	const loadTotals = useRef(
+		debounce(() => {
+			console.log("called totals");
+			// 😕 debounced function never called
+			settotal(calculateTotals());
+		}, 1000)
+	).current;
 
 	useEffect(() => {
 		// vypocet total price
 		if (data) {
-			loadTotals()
+			calculateTotals();
 		}
 	}, [data]);
 
@@ -105,7 +120,6 @@ export function AppWrap({ children }) {
 		//kalkulácia ceny totalnej z blokov a pod...
 		if (data) {
 			dataInit();
-			
 		}
 	}, [loading]);
 
@@ -130,25 +144,16 @@ export function AppWrap({ children }) {
 
 		t.total = t.total_delivery_price + t.total_construction_price;
 		setinitialTotal(t);
-		settotal(t)
+		settotal(t);
 
 		var newData = { ...data };
-		var section_total = 0,
-			section_total_delivery_price = 0,
-			section_total_construction_price = 0;
+
 		newData.sections.map((section, k) => {
 			var section_total = 0,
 				section_total_delivery_price = 0,
 				section_total_construction_price = 0;
-			section.blocks.map((block, i) => {
-				newData.sections[k].blocks[i].info.total =
-					block.info["total_construction_price"] +
-					block.info["total_delivery_price"];
-				section_total_construction_price +=
-					block.info["total_construction_price"];
-				section_total_delivery_price += block.info["total_delivery_price"];
-				section_total += newData.sections[k].blocks[i].info.total;
 
+			section.blocks.map((block, i) => {
 				block.items.map((item, j) => {
 					newData.sections[k].blocks[i].items[j].total =
 						newData.sections[k].blocks[i].items[j].total_construction_price +
@@ -158,14 +163,17 @@ export function AppWrap({ children }) {
 						parseFloat(
 							newData.sections[k].blocks[i].items[j].total_construction_price
 						).toFixed(2);
+
 					newData.sections[k].blocks[i].items[j].total_delivery_price =
 						parseFloat(
 							newData.sections[k].blocks[i].items[j].total_delivery_price
 						).toFixed(2);
+
 					newData.sections[k].blocks[i].items[j].unit_construction_price =
 						parseFloat(
 							newData.sections[k].blocks[i].items[j].unit_construction_price
 						).toFixed(2);
+
 					newData.sections[k].blocks[i].items[j].unit_delivery_price =
 						parseFloat(
 							newData.sections[k].blocks[i].items[j].unit_delivery_price
@@ -174,6 +182,14 @@ export function AppWrap({ children }) {
 						newData.sections[k].blocks[i].items[j].total
 					).toFixed(2);
 				});
+
+				newData.sections[k].blocks[i].info.total =
+					block.info["total_construction_price"] +
+					block.info["total_delivery_price"];
+				section_total_construction_price +=
+					block.info["total_construction_price"];
+				section_total_delivery_price += block.info["total_delivery_price"];
+				section_total += newData.sections[k].blocks[i].info.total;
 			});
 
 			newData.sections[k].info.total = parseFloat(section_total).toFixed(2);
@@ -665,7 +681,12 @@ export function AppWrap({ children }) {
 
 	return (
 		<DataContext.Provider value={value}>
-			{!loading && children}
+			{!loading && (
+				<>
+					{!errorLoading && children}
+					{errorLoading && <div>Cenová ponuka sa nenašla</div>}
+				</>
+			)}
 			<FullPageLoading loading={loading}></FullPageLoading>
 		</DataContext.Provider>
 	);
