@@ -8,6 +8,7 @@ import Sidebar from "./Sidebar";
 import { motion } from "framer-motion";
 import OpenSidebar from "../public/SVG/OpenSidebar";
 import BottomBar from "./BottomBar";
+import EditorHeader from "./EditorHeader";
 
 export default function ScreenLayout() {
 	const { displaySidebar, setdisplaySidebar, loading, displayTotals } =
@@ -41,7 +42,7 @@ export default function ScreenLayout() {
 										onClick={() => {
 											setdisplaySidebar(!displaySidebar);
 										}}
-										className="fixed top-12 p-3 left-0 z-50 bg-white shadow-lg"
+										className="fixed bottom-28 p-3 left-0 z-50 bg-white shadow-lg"
 									>
 										<div className="w-6 ">
 											<OpenSidebar></OpenSidebar>
@@ -65,6 +66,7 @@ export default function ScreenLayout() {
 									</motion.div>
 								}
 							</AnimatePresence>
+							<EditorHeader></EditorHeader>
 							<CenovaPonuka></CenovaPonuka>
 						</div>
 					</div>
