@@ -1853,3 +1853,40 @@ export const empty = {
 		},
 	],
 };
+
+export const customBuild = {
+	customer: {
+		name: "",
+	},
+	supplyer: {
+		company_name: "",
+		ico: "",
+		dic: "",
+		phone: "",
+		email: "",
+		web: "",
+	},
+	headers: [
+		"service_type",
+		"item_id",
+		"title",
+		"unit",
+		"quantity",
+		"unit_delivery_price",
+		"unit_construction_price",
+		"total_delivery_price",
+		"total_construction_price",
+		"total",
+	],
+	sections: [
+		{
+			info: {
+				title: "Základová doska",
+				total_delivery_price: 0,
+				total_construction_price: 0,
+				total: 0,
+			},
+			blocks: [],
+		},
+	],
+};

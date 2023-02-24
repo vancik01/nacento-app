@@ -108,7 +108,7 @@ function Functions() {
 		create_zakladova_doska(plocha, obvod, ryhy, dt);
 		setloading(true);
 		const collectionRef = doc(collection(firestore, "/offers"));
-
+		//customBuild variable empty template
 		setDoc(collectionRef, {
 			id: collectionRef.id,
 			data: newd,

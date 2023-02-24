@@ -175,7 +175,7 @@ export default function Section({ section, sectionId }) {
 				<ReorderingBlocks section={section} sectionId={sectionId} />
 			)}
 
-			<AddBlock />
+			<AddBlock sectionId={sectionId} />
 		</div>
 	);
 }

@@ -209,80 +209,80 @@ export function AppWrap({ children }) {
 		if (obj.value < 0 || obj.value === NaN || isNaN(obj.value) || !obj.value) {
 			obj.value = 0;
 		}
+
 		if (obj.valueId != "total") {
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.polozkaId][
+			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
 				obj.valueId
 			] = parseFloat(obj.value);
 		}
 
 		if (obj.valueId === "total_construction_price") {
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.polozkaId][
+			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
 				"unit_construction_price"
 			] = parseFloat(
 				parseFloat(obj.value) /
-					newData.sections[obj.sectionId].blocks[obj.blockId].items[
-						obj.polozkaId
-					]["quantity"]
+					newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
+						"quantity"
+					]
 			).toFixed(2);
 			newData.sections[obj.sectionId].blocks[obj.blockId].items[
-				obj.polozkaId
+				obj.itemId
 			].total = parseFloat(
 				parseFloat(
-					newData.sections[obj.sectionId].blocks[obj.blockId].items[
-						obj.polozkaId
-					].total_construction_price
+					newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
+						.total_construction_price
 				) +
 					parseFloat(
 						newData.sections[obj.sectionId].blocks[obj.blockId].items[
-							obj.polozkaId
+							obj.itemId
 						].total_delivery_price
 					)
 			).toFixed(2);
 		} else if (obj.valueId === "total_delivery_price") {
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.polozkaId][
+			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
 				"unit_delivery_price"
 			] = (
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[
-					obj.polozkaId
-				][obj.valueId] /
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[
-					obj.polozkaId
-				]["quantity"]
+				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
+					obj.valueId
+				] /
+				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
+					"quantity"
+				]
 			).toFixed(2);
+
 			newData.sections[obj.sectionId].blocks[obj.blockId].items[
-				obj.polozkaId
+				obj.itemId
+			].total_delivery_price = obj.value;
+
+			newData.sections[obj.sectionId].blocks[obj.blockId].items[
+				obj.itemId
 			].total = parseFloat(
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.polozkaId]
+				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
 					.total_construction_price +
-					newData.sections[obj.sectionId].blocks[obj.blockId].items[
-						obj.polozkaId
-					].total_delivery_price
+					newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
+						.total_delivery_price
 			).toFixed(2);
 		} else if (obj.valueId === "total") {
 			var valueChange =
 				obj.value -
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.polozkaId]
+				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
 					.total;
 			var cmcIndex;
 			var cdcIndex;
 			if (
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.polozkaId]
+				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
 					.total !== 0
 			) {
 				var cmcIndex =
-					newData.sections[obj.sectionId].blocks[obj.blockId].items[
-						obj.polozkaId
-					].total_construction_price /
-					newData.sections[obj.sectionId].blocks[obj.blockId].items[
-						obj.polozkaId
-					].total;
+					newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
+						.total_construction_price /
+					newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
+						.total;
 				var cdcIndex =
-					newData.sections[obj.sectionId].blocks[obj.blockId].items[
-						obj.polozkaId
-					].total_delivery_price /
-					newData.sections[obj.sectionId].blocks[obj.blockId].items[
-						obj.polozkaId
-					].total;
+					newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
+						.total_delivery_price /
+					newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
+						.total;
 			} else {
 				var cmcIndex = 0.5;
 				var cdcIndex = 0.5;
@@ -292,76 +292,74 @@ export function AppWrap({ children }) {
 			// console.log("cdc -> ", cdcIndex *100, "%->", parseFloat(valueChange * cdcIndex))
 
 			newData.sections[obj.sectionId].blocks[obj.blockId].items[
-				obj.polozkaId
+				obj.itemId
 			].total_construction_price = (
 				parseFloat(
-					newData.sections[obj.sectionId].blocks[obj.blockId].items[
-						obj.polozkaId
-					].total_construction_price
+					newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
+						.total_construction_price
 				) + parseFloat(valueChange * cmcIndex)
 			).toFixed(2);
 			newData.sections[obj.sectionId].blocks[obj.blockId].items[
-				obj.polozkaId
+				obj.itemId
 			].total_delivery_price = (
 				parseFloat(
-					newData.sections[obj.sectionId].blocks[obj.blockId].items[
-						obj.polozkaId
-					].total_delivery_price
+					newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
+						.total_delivery_price
 				) + parseFloat(valueChange * cdcIndex)
 			).toFixed(2);
 
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.polozkaId][
+			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
 				obj.valueId
 			] = parseFloat(obj.value);
 		} else {
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.polozkaId][
+			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
 				"total_construction_price"
 			] =
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[
-					obj.polozkaId
-				]["unit_construction_price"] *
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[
-					obj.polozkaId
-				]["quantity"];
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.polozkaId][
+				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
+					"unit_construction_price"
+				] *
+				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
+					"quantity"
+				];
+			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
 				"total_delivery_price"
 			] =
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[
-					obj.polozkaId
-				]["unit_delivery_price"] *
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[
-					obj.polozkaId
-				]["quantity"];
+				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
+					"unit_delivery_price"
+				] *
+				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
+					"quantity"
+				];
 			newData.sections[obj.sectionId].blocks[obj.blockId].items[
-				obj.polozkaId
+				obj.itemId
 			].total =
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[
-					obj.polozkaId
-				]["total_construction_price"] +
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[
-					obj.polozkaId
-				]["total_delivery_price"];
+				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
+					"total_construction_price"
+				] +
+				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
+					"total_delivery_price"
+				];
 			//2 desatinné miesta
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.polozkaId][
+			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
 				"total_construction_price"
 			] = parseFloat(
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[
-					obj.polozkaId
-				]["total_construction_price"]
+				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
+					"total_construction_price"
+				]
 			).toFixed(2);
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.polozkaId][
+			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
 				"unit_construction_price"
 			] = parseFloat(
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[
-					obj.polozkaId
-				]["unit_construction_price"]
+				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
+					"unit_construction_price"
+				]
 			).toFixed(2);
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.polozkaId][
+			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
 				"total"
 			] = parseFloat(
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[
-					obj.polozkaId
-				]["total"]
+				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
+					"total"
+				]
 			).toFixed(2);
 		}
 
@@ -415,10 +413,10 @@ export function AppWrap({ children }) {
 	function deleteRow(obj) {
 		var newData = { ...data };
 		var polozkaRemoved =
-			data.sections[obj.sectionId].blocks[obj.blockId].items[obj.polozkaId];
+			data.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId];
 		var newPolozky = data.sections[obj.sectionId].blocks[obj.blockId].items;
 		newData.sections[obj.sectionId].blocks[obj.blockId].items = newPolozky;
-		newPolozky.splice(obj.polozkaId, 1);
+		newPolozky.splice(obj.itemId, 1);
 
 		var cdc =
 			newData.sections[obj.sectionId].blocks[obj.blockId].info[
@@ -432,18 +430,18 @@ export function AppWrap({ children }) {
 		var itemsCount =
 			newData.sections[obj.sectionId].blocks[obj.blockId].items.length;
 
-		newPolozky.map((polozka, polozkaId) => {
-			newPolozky[polozkaId]["total_construction_price"] = (
-				parseFloat(newPolozky[polozkaId]["total_construction_price"]) +
+		newPolozky.map((polozka, itemId) => {
+			newPolozky[itemId]["total_construction_price"] = (
+				parseFloat(newPolozky[itemId]["total_construction_price"]) +
 				parseFloat(polozkaRemoved["total_construction_price"] / itemsCount)
 			).toFixed(2);
-			newPolozky[polozkaId]["total_delivery_price"] = (
-				parseFloat(newPolozky[polozkaId]["total_delivery_price"]) +
+			newPolozky[itemId]["total_delivery_price"] = (
+				parseFloat(newPolozky[itemId]["total_delivery_price"]) +
 				parseFloat(polozkaRemoved["total_delivery_price"] / itemsCount)
 			).toFixed(2);
-			newPolozky[polozkaId].total = (
-				parseFloat(newPolozky[polozkaId]["total_delivery_price"]) +
-				parseFloat(newPolozky[polozkaId]["total_construction_price"])
+			newPolozky[itemId].total = (
+				parseFloat(newPolozky[itemId]["total_delivery_price"]) +
+				parseFloat(newPolozky[itemId]["total_construction_price"])
 			).toFixed(2);
 		});
 
@@ -490,6 +488,21 @@ export function AppWrap({ children }) {
 			e.destination.index
 		);
 		newData.sections[sectionId].blocks = items;
+
+		setdata(newData);
+	}
+
+	function addBlock(sectionId) {
+		var newData = { ...data };
+		newData.sections[sectionId].blocks.push({
+			info: {
+				title: "",
+				total_delivery_price: 0,
+				total_construction_price: 0,
+				total: 0,
+			},
+			items: [],
+		});
 
 		setdata(newData);
 	}
@@ -555,7 +568,7 @@ export function AppWrap({ children }) {
 				changeValue({
 					blockId: blockId,
 					sectionId: sectionId,
-					polozkaId: i,
+					itemId: i,
 					valueId: valueId,
 					value: parseFloat(
 						parseFloat(
@@ -578,7 +591,7 @@ export function AppWrap({ children }) {
 				changeValue({
 					blockId: blockId,
 					sectionId: sectionId,
-					polozkaId: i,
+					itemId: i,
 					valueId: valueId,
 					value: (
 						parseFloat(
@@ -596,8 +609,6 @@ export function AppWrap({ children }) {
 	function toggleTotals() {
 		setdisplayTotals(!displayTotals);
 	}
-
-	function addTableRow(blockId, sectionId) {}
 
 	function changeTableRow(value, valueId, rowId, blockId, sectionId) {
 		var newData = { ...data };
@@ -632,7 +643,9 @@ export function AppWrap({ children }) {
 		deleteRow,
 		reorderRows,
 		getTitle,
+
 		reorderBlocks,
+		addBlock,
 
 		name,
 		setname,
