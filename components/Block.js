@@ -16,8 +16,14 @@ export default function Block({
 	dragHandleProps,
 	sectionId,
 }) {
-	const { editBlockTitle, bulkEdit, openBulkEdit, getTitle, addTableRow } =
-		useData();
+	const {
+		editBlockTitle,
+		bulkEdit,
+		openBulkEdit,
+		getTitle,
+		addTableRow,
+		reorderingBlocks,
+	} = useData();
 	const { primaryColor } = useLayout();
 	const [editingTitle, seteditingTitle] = useState(false);
 	const [blockTitle, setblockTitle] = useState(block.info.title);
@@ -81,19 +87,21 @@ export default function Block({
 					/>
 				)}
 
-				<button
-					onClick={() => {
-						addTableRow(blockId, sectionId);
-					}}
-					className="flex justify-center items-center gap-4 mt-4"
-				>
-					<div className="w-3">
-						<AddRow color={primaryColor}></AddRow>
-					</div>
-					<div className="text-sm" style={{ color: primaryColor }}>
-						Pridať riadok
-					</div>
-				</button>
+				{!reorderingBlocks && (
+					<button
+						onClick={() => {
+							addTableRow(blockId, sectionId);
+						}}
+						className="flex justify-center items-center gap-4 mt-4"
+					>
+						<div className="w-3">
+							<AddRow color={primaryColor}></AddRow>
+						</div>
+						<div className="text-sm" style={{ color: primaryColor }}>
+							Pridať riadok
+						</div>
+					</button>
+				)}
 
 				{!collapsed && (
 					<div className="flex flex-row gap-10 text-sm items-end justify-end mt-8">

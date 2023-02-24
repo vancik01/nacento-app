@@ -5,6 +5,7 @@ import { useLayout } from "../context/LayoutContext";
 import { numberWithCommas } from "../lib/helpers";
 import EditPen from "../public/SVG/EditPen";
 import Block from "./Block";
+import AddBlock from "./editor/AddBlock";
 
 export default function Section({ section, sectionId }) {
 	const {
@@ -173,6 +174,8 @@ export default function Section({ section, sectionId }) {
 			{reorderingBlocks && (
 				<ReorderingBlocks section={section} sectionId={sectionId} />
 			)}
+
+			<AddBlock sectionId={sectionId} />
 		</div>
 	);
 }
@@ -200,6 +203,7 @@ function ReorderingBlocks({ section, sectionId }) {
 												number={i}
 												collapsed={true}
 												sectionId={sectionId}
+												blockId={i}
 												dragHandleProps={{ ...provided.dragHandleProps }}
 											/>
 										</div>

@@ -14,16 +14,17 @@ import { TextareaAutosize } from "@mui/material";
 import { Select } from "@mui/material";
 import ButtonPrimary from "./ButtonPrimary";
 import Save from "../public/SVG/Save";
+import _ from "lodash";
 
 export default function Table({ items, headers, blockId, sectionId }) {
 	const { deleteRow, reorderRows, getTitle, changeTableRow } = useData();
 	const { displayColumns, tableRowTemplate, primaryColor } = useLayout();
 	const [hovering, sethovering] = useState("");
 
-	function removeRow(blockId, polozkaId) {
+	function removeRow(blockId, itemId) {
 		deleteRow({
 			blockId,
-			polozkaId,
+			itemId,
 			sectionId,
 		});
 	}
@@ -67,9 +68,6 @@ export default function Table({ items, headers, blockId, sectionId }) {
 					</div>
 
 					<DragDropContext
-						onDragStart={() => {
-							console.log("start");
-						}}
 						onDragEnd={(e) => {
 							reorderRows(blockId, sectionId, e);
 						}}
@@ -142,12 +140,12 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 								if (displayColumns.includes(item)) {
 									return (
 										<div
-											key={`table-${sectionId}-${blockId}-${item}`}
+											key={`value-${sectionId}-${blockId}-${item}-${item}`}
 											className="h-full flex items-center justify-start py-1 px-2 table_unit"
 										>
 											<TableUnit
 												sectionId={sectionId}
-												polozkaId={i}
+												itemId={i}
 												blockId={blockId}
 												item={item}
 												polozka={polozka}
@@ -186,19 +184,19 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 	);
 }
 
-function TableUnit({ item, polozka, blockId, polozkaId, label, sectionId }) {
+function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 	const { changeValue, changeTableRow } = useData();
 
 	function handleRowChange(e) {
 		// setdidChange(true);
 		//data, valueId, rowId, blockId, sectionId;
-		changeTableRow(e.target.value, item, polozkaId, blockId, sectionId);
+		changeTableRow(e.target.value, item, itemId, blockId, sectionId);
 	}
 
 	function update(e) {
 		changeValue({
 			blockId: blockId,
-			polozkaId: polozkaId,
+			itemId: itemId,
 			sectionId: sectionId,
 			valueId: item,
 			value: e.target.value,

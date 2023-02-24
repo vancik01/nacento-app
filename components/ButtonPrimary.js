@@ -17,14 +17,19 @@ export default function ButtonPrimary({
 		<motion.button
 			whileHover={{
 				scale: scale ? scale : 0.95,
-				boxShadow: "none",
+				boxShadow:
+					"rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
 				transition: { duration: 0.4, ease: "circOut" },
 			}}
 			whileTap={{ scale: 0.9 }}
-			className={`text-white transition-colors py-1 px-4 font-medium disabled:!bg-gray-300 rounded-sm shadow-xl ${
+			className={`text-white transition-colors py-1 px-4 font-medium disabled:!bg-gray-300 rounded-sm ${
 				className ? className : ""
 			}`}
-			style={{ backgroundColor: color ? color : primaryColor }}
+			style={{
+				backgroundColor: color ? color : primaryColor,
+				boxShadow:
+					"rgba(50, 50, 93, 0.12) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px",
+			}}
 			onClick={onClick}
 			disabled={disabled}
 		>
