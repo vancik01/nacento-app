@@ -67,9 +67,6 @@ export default function Table({ items, headers, blockId, sectionId }) {
 					</div>
 
 					<DragDropContext
-						onDragStart={() => {
-							console.log("start");
-						}}
 						onDragEnd={(e) => {
 							reorderRows(blockId, sectionId, e);
 						}}

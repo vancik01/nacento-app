@@ -46,10 +46,8 @@ export function AppWrap({ children }) {
 		seterrorLoading(false);
 		//nacitanie dat z db
 		const { projectId } = router.query;
-		console.log(projectId);
 
 		if (projectId) {
-			console.log(projectId);
 			const docRef = doc(firestore, `/offers/${projectId}`);
 			getDoc(docRef).then((snap) => {
 				if (snap.exists()) {
@@ -87,7 +85,9 @@ export function AppWrap({ children }) {
 			total: 0,
 		};
 
-		data.sections.map((section) => {
+		var newData = { ...data };
+
+		newData.sections.map((section) => {
 			section.blocks.map((block) => {
 				t.total_delivery_price += parseFloat(
 					block.info["total_delivery_price"]
@@ -102,18 +102,16 @@ export function AppWrap({ children }) {
 		t.total = t.total_construction_price + t.total_delivery_price;
 		return t;
 	}
-	const loadTotals = useRef(
-		debounce(() => {
-			console.log("called totals");
-			// 😕 debounced function never called
-			settotal(calculateTotals());
-		}, 1000)
-	).current;
+
+	const loadTotals = useCallback(
+		debounce(() => settotal(calculateTotals()), 500),
+		[loading]
+	);
 
 	useEffect(() => {
 		// vypocet total price
-		if (data) {
-			calculateTotals();
+		if (data != null) {
+			loadTotals();
 		}
 	}, [data]);
 
@@ -121,18 +119,21 @@ export function AppWrap({ children }) {
 		//kalkulácia ceny totalnej z blokov a pod...
 		if (data) {
 			dataInit();
+			loadTotals();
 		}
 	}, [loading]);
 
 	function dataInit() {
 		// inizializacia dat
+
+		var newData = { ...data };
 		var t = {
 			total_delivery_price: 0,
 			total_construction_price: 0,
 			total: 0,
 		};
 
-		data.sections.map((section) => {
+		newData.sections.map((section) => {
 			section.blocks.map((block) => {
 				t.total_delivery_price += parseFloat(
 					block.info["total_delivery_price"]
@@ -146,8 +147,6 @@ export function AppWrap({ children }) {
 		t.total = t.total_delivery_price + t.total_construction_price;
 		setinitialTotal(t);
 		settotal(t);
-
-		var newData = { ...data };
 
 		var section_total = 0,
 			section_total_delivery_price = 0,
