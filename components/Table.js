@@ -21,14 +21,6 @@ export default function Table({ items, headers, blockId, sectionId }) {
 	const { displayColumns, tableRowTemplate, primaryColor } = useLayout();
 	const [hovering, sethovering] = useState("");
 
-	function removeRow(blockId, itemId) {
-		deleteRow({
-			blockId,
-			itemId,
-			sectionId,
-		});
-	}
-
 	return (
 		<>
 			{items.length > 0 && (
@@ -102,7 +94,7 @@ export default function Table({ items, headers, blockId, sectionId }) {
 }
 
 function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
-	const { getTitle, headers, changeTableRow } = useData();
+	const { getTitle, headers, changeTableRow, deleteRow } = useData();
 	const { displayColumns, tableRowTemplate, primaryColor } = useLayout();
 
 	const [text, settext] = useState(polozka.title);
@@ -160,7 +152,7 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 								<div className="flex justify-end gap-1 select-none absolute -right-12">
 									<div
 										onClick={() => {
-											removeRow(blockId, i);
+											deleteRow({ sectionId, blockId, itemId: i });
 										}}
 									>
 										<Cancel color={primaryColor} />
@@ -249,7 +241,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 			<div className={`flex align-middle items-center ${label.short}`}>
 				<Input
 					disableUnderline
-					inputProps={{ min: 0 }}
+					inputProps={{ min: 1 }}
 					type="number"
 					onChange={update}
 					value={polozka.quantity}

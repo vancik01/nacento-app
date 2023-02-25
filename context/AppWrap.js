@@ -53,7 +53,6 @@ export function AppWrap({ children }) {
 				if (snap.exists()) {
 					setdata({ ...snap.data().data });
 					setheaders(snap.data().data.headers);
-					console.log(snap.data().data);
 				} else {
 					seterrorLoading(true);
 				}
@@ -217,6 +216,16 @@ export function AppWrap({ children }) {
 		}
 
 		if (obj.valueId === "total_construction_price") {
+			//ak je quantity 0 nastav na 1
+			if (
+				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
+					.quantity == 0
+			) {
+				newData.sections[obj.sectionId].blocks[obj.blockId].items[
+					obj.itemId
+				].quantity = 1;
+			}
+
 			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
 				"unit_construction_price"
 			] = parseFloat(
@@ -257,32 +266,27 @@ export function AppWrap({ children }) {
 			newData.sections[obj.sectionId].blocks[obj.blockId].items[
 				obj.itemId
 			].total = parseFloat(
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
-					.total_construction_price +
+				parseFloat(
 					newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
-						.total_delivery_price
+						.total_construction_price
+				) +
+					parseFloat(
+						newData.sections[obj.sectionId].blocks[obj.blockId].items[
+							obj.itemId
+						].total_delivery_price
+					)
 			).toFixed(2);
 		} else if (obj.valueId === "total") {
-			var valueChange =
-				obj.value -
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
-					.total;
+			var valueChange = obj.value - getValue(newData, obj, obj.valueId);
 			var cmcIndex;
 			var cdcIndex;
-			if (
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
-					.total !== 0
-			) {
+			if (parseFloat(getValue(newData, obj, obj.valueId)) !== 0) {
 				var cmcIndex =
-					newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
-						.total_construction_price /
-					newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
-						.total;
+					getValue(newData, obj, "total_construction_price") /
+					getValue(newData, obj, "total");
 				var cdcIndex =
-					newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
-						.total_delivery_price /
-					newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
-						.total;
+					getValue(newData, obj, "total_delivery_price") /
+					getValue(newData, obj, "total");
 			} else {
 				var cmcIndex = 0.5;
 				var cdcIndex = 0.5;
@@ -294,18 +298,28 @@ export function AppWrap({ children }) {
 			newData.sections[obj.sectionId].blocks[obj.blockId].items[
 				obj.itemId
 			].total_construction_price = (
-				parseFloat(
-					newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
-						.total_construction_price
-				) + parseFloat(valueChange * cmcIndex)
+				parseFloat(getValue(newData, obj, "total_construction_price")) +
+				parseFloat(valueChange * cmcIndex)
 			).toFixed(2);
 			newData.sections[obj.sectionId].blocks[obj.blockId].items[
 				obj.itemId
 			].total_delivery_price = (
-				parseFloat(
-					newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
-						.total_delivery_price
-				) + parseFloat(valueChange * cdcIndex)
+				parseFloat(parseFloat(getValue(newData, obj, "total_delivery_price"))) +
+				parseFloat(valueChange * cdcIndex)
+			).toFixed(2);
+
+			newData.sections[obj.sectionId].blocks[obj.blockId].items[
+				obj.itemId
+			].unit_construction_price = parseFloat(
+				getValue(newData, obj, "total_construction_price") /
+					getValue(newData, obj, "quantity")
+			).toFixed(2);
+
+			newData.sections[obj.sectionId].blocks[obj.blockId].items[
+				obj.itemId
+			].unit_delivery_price = parseFloat(
+				getValue(newData, obj, "total_delivery_price") /
+					getValue(newData, obj, "quantity")
 			).toFixed(2);
 
 			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
@@ -407,45 +421,58 @@ export function AppWrap({ children }) {
 				block.info["total_delivery_price"];
 		});
 
+		var x = getValue(newData, obj, "total");
+		x = 696969;
+
 		setdata(newData);
+	}
+
+	function getValue(
+		newData,
+		{ sectionId = null, blockId = null, itemId = null },
+		valueId = null
+	) {
+		if (
+			sectionId != null &&
+			blockId != null &&
+			itemId != null &&
+			valueId != null
+		) {
+			return newData.sections[sectionId].blocks[blockId].items[itemId][valueId];
+		} else if (sectionId != null && blockId != null) {
+			return newData.sections[sectionId].blocks[blockId][valueId];
+		} else if (sectionId != null && valueId != null) {
+			return newData.sections[sectionId][valueId];
+		} else {
+			return "err";
+		}
 	}
 
 	function deleteRow(obj) {
 		var newData = { ...data };
 		var polozkaRemoved =
-			data.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId];
-		var newPolozky = data.sections[obj.sectionId].blocks[obj.blockId].items;
-		newData.sections[obj.sectionId].blocks[obj.blockId].items = newPolozky;
+			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId];
+		var newPolozky = newData.sections[obj.sectionId].blocks[obj.blockId].items;
+		console.log(polozkaRemoved, "removed");
+
 		newPolozky.splice(obj.itemId, 1);
+		newData.sections[obj.sectionId].blocks[
+			obj.blockId
+		].info.total_construction_price -= parseFloat(
+			polozkaRemoved.total_construction_price
+		).toFixed(2);
 
-		var cdc =
-			newData.sections[obj.sectionId].blocks[obj.blockId].info[
-				"total_delivery_price"
-			];
-		var cmc =
-			newData.sections[obj.sectionId].blocks[obj.blockId].info[
-				"total_construction_price"
-			];
+		newData.sections[obj.sectionId].blocks[
+			obj.blockId
+		].info.total_delivery_price -= parseFloat(
+			polozkaRemoved.total_delivery_price
+		).toFixed(2);
 
-		var itemsCount =
-			newData.sections[obj.sectionId].blocks[obj.blockId].items.length;
-
-		newPolozky.map((polozka, itemId) => {
-			newPolozky[itemId]["total_construction_price"] = (
-				parseFloat(newPolozky[itemId]["total_construction_price"]) +
-				parseFloat(polozkaRemoved["total_construction_price"] / itemsCount)
+		newData.sections[obj.sectionId].blocks[obj.blockId].info.total -=
+			parseFloat(
+				polozkaRemoved.total_delivery_price * 1 +
+					polozkaRemoved.total_construction_price * 1
 			).toFixed(2);
-			newPolozky[itemId]["total_delivery_price"] = (
-				parseFloat(newPolozky[itemId]["total_delivery_price"]) +
-				parseFloat(polozkaRemoved["total_delivery_price"] / itemsCount)
-			).toFixed(2);
-			newPolozky[itemId].total = (
-				parseFloat(newPolozky[itemId]["total_delivery_price"]) +
-				parseFloat(newPolozky[itemId]["total_construction_price"])
-			).toFixed(2);
-		});
-
-		newData.sections[obj.sectionId].blocks[obj.blockId].items = newPolozky;
 
 		setdata(newData);
 	}
@@ -488,7 +515,6 @@ export function AppWrap({ children }) {
 			e.destination.index
 		);
 		newData.sections[sectionId].blocks = items;
-
 		setdata(newData);
 	}
 
@@ -619,11 +645,11 @@ export function AppWrap({ children }) {
 	function addTableRow(blockId, sectionId) {
 		var newData = { ...data };
 		newData.sections[sectionId].blocks[blockId].items.push({
-			service_type: "R",
-			item_id: "123",
+			service_type: "",
+			item_id: "",
 			title: "",
 			unit: "",
-			quantity: 0,
+			quantity: 1,
 			unit_delivery_price: 0,
 			unit_construction_price: 0,
 			total_delivery_price: 0,

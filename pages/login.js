@@ -33,7 +33,6 @@ export default function Login() {
 			.catch((err) => {
 				setuserloading(false);
 				seterror("Nesprávne meno alebo heslo");
-				console.log(err);
 			});
 	}
 

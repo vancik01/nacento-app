@@ -81,7 +81,6 @@ export default function CreateAccount() {
 			setuserloading(true);
 			createUser(email, pass)
 				.then((user) => {
-					console.log(user);
 					router.push("/");
 				})
 				.catch((err) => {
