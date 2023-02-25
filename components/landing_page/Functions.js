@@ -19,7 +19,7 @@ import {
 	setDoc,
 } from "firebase/firestore";
 import { firestore } from "../../lib/firebase";
-import { newd } from "../../data";
+import { customBuild, newd } from "../../data";
 import { useRouter } from "next/router";
 
 function Functions() {
@@ -111,7 +111,7 @@ function Functions() {
 		//customBuild variable empty template
 		setDoc(collectionRef, {
 			id: collectionRef.id,
-			data: newd,
+			data: customBuild,
 		})
 			.then((response) => {
 				router.push(`/cenova-ponuka/${collectionRef.id}`);

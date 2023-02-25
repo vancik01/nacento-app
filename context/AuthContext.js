@@ -13,7 +13,6 @@ const Auth = React.createContext();
 import { GoogleAuthProvider } from "firebase/auth";
 export default function AuthContext({ children }) {
 	const [user, loading, error] = useAuthState(auth);
-	console.log(user);
 
 	function signInWithGoogle() {
 		const provider = new GoogleAuthProvider();

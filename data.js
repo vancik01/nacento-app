@@ -1886,7 +1886,29 @@ export const customBuild = {
 				total_construction_price: 0,
 				total: 0,
 			},
-			blocks: [],
+			blocks: [
+				{
+					info: {
+						title: "Názov",
+						total_delivery_price: 0,
+						total_construction_price: 0,
+						total: 0,
+					},
+					items: [
+						{
+							service_type: 345,
+							item_id: 345710009300,
+							title: "Rúrka ohybná vlnitá pancierová PVC-U, FXP DN 63",
+							unit: "m",
+							quantity: 0,
+							unit_delivery_price: 1.05,
+							unit_construction_price: 0.25,
+							total_delivery_price: 0,
+							total_construction_price: 0,
+						},
+					],
+				},
+			],
 		},
 	],
 };
