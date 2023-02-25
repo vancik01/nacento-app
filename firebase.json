@@ -2,6 +2,7 @@
   "hosting": [
     {
       "public": "out",
+      "cleanUrls":true,
       "target": "deploy",
       "ignore": [
         "firebase.json",
@@ -11,6 +12,7 @@
     },
     {
       "public": "out",
+      "cleanUrls":true,
       "target": "dev",
       "ignore": [
         "firebase.json",
