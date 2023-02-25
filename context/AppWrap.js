@@ -45,9 +45,12 @@ export function AppWrap({ children }) {
 	useEffect(() => {
 		seterrorLoading(false);
 		//nacitanie dat z db
-		const { projectId } = router.query;
+		//const { projectId } = router.query;
 
-		if (projectId) {
+		const projectId = localStorage.getItem("offerId");
+		console.log(projectId);
+
+		if (projectId && projectId != "") {
 			const docRef = doc(firestore, `/offers/${projectId}`);
 			getDoc(docRef).then((snap) => {
 				if (snap.exists()) {
@@ -58,6 +61,8 @@ export function AppWrap({ children }) {
 				}
 				setloading(false);
 			});
+		} else {
+			router.push("/cenova-ponuka/select-project/");
 		}
 	}, [router]);
 

@@ -114,7 +114,9 @@ function Functions() {
 			data: customBuild,
 		})
 			.then((response) => {
-				router.push(`/cenova-ponuka/${collectionRef.id}`);
+				// router.push(`/cenova-ponuka/${collectionRef.id}`);
+				localStorage.setItem("offerId", collectionRef.id);
+				router.push(`/cenova-ponuka/`);
 				setloading(false);
 			})
 			.catch((err) => {
