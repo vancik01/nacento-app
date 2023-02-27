@@ -301,7 +301,11 @@ export default function CenovaPonuka() {
 									data.sections.map((section, i) => {
 										return (
 											<div key={`section-${i}`}>
-												<Section section={section} sectionId={i}></Section>
+												<Section
+													isLast={i === data.sections.length - 1}
+													section={section}
+													sectionId={i}
+												></Section>
 											</div>
 										);
 									})}
