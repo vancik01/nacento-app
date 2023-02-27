@@ -5,8 +5,11 @@ import ntbk from "../../public/static/imgs/ntbk.png";
 import bg from "../../public/static/bg.svg";
 import LogoHomepage from "../../public/SVG/LogoHomepage";
 import Link from "next/link";
+import { useAuth } from "../../context/AuthContext";
+import UserInfoHeader from "../user_components/UserInfoHeader";
 
 function HomeArea() {
+	const { user, loading } = useAuth();
 	return (
 		<>
 			<header
@@ -64,15 +67,24 @@ function HomeArea() {
 										</ul>
 									</div>
 
-									<div className="absolute right-0 hidden mt-2 mr-24 navbar-btn sm:inline-block lg:mt-0 lg:static lg:mr-0">
-										<Link
-											className="main-btn gradient-btn"
-											data-scroll-nav="0"
-											href="/login/"
-											rel="nofollow"
-										>
-											Prihlásiť sa
-										</Link>
+									<div>
+										{!loading && (
+											<>
+												{!user && (
+													<div className="absolute right-0 hidden mt-2 mr-24 navbar-btn sm:inline-block lg:mt-0 lg:static lg:mr-0">
+														<Link
+															className="main-btn gradient-btn"
+															data-scroll-nav="0"
+															href="/login/"
+															rel="nofollow"
+														>
+															Prihlásiť sa
+														</Link>
+													</div>
+												)}
+												{user && <UserInfoHeader></UserInfoHeader>}
+											</>
+										)}
 									</div>
 								</nav>
 							</div>

@@ -187,7 +187,7 @@ export default function Sidebar() {
 										<div>
 											<h3>Zobraziť stĺpce</h3>
 											<div className="flex flex-col items-start justify-between flex-wrap gap-2 mt-4">
-												{headers.map((header, i) => {
+												{headers?.map((header, i) => {
 													return (
 														<div
 															key={i}

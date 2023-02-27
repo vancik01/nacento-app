@@ -15,6 +15,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { firestore } from "../lib/firebase";
 import debounce from "lodash.debounce";
 import { useRouter } from "next/router";
+import ButtonPrimary from "../components/ButtonPrimary";
 
 const DataContext = React.createContext();
 
@@ -802,7 +803,7 @@ export function AppWrap({ children }) {
 			{!loading && (
 				<>
 					{!errorLoading && children}
-					{errorLoading && <div>Cenová ponuka sa nenašla</div>}
+					{errorLoading && <DoesNotExist />}
 				</>
 			)}
 			<FullPageLoading loading={loading}></FullPageLoading>
@@ -812,4 +813,20 @@ export function AppWrap({ children }) {
 
 export function useData() {
 	return useContext(DataContext);
+}
+
+function DoesNotExist() {
+	const router = useRouter();
+	function handleSelect() {
+		localStorage.removeItem("offerId");
+		router.push("/cenova-ponuka/select-project/");
+	}
+	return (
+		<div className="h-screen flex justify-center items-center flex-col">
+			<div className="text-2xl">Cenová ponuka sa nenašla</div>
+			<ButtonPrimary onClick={handleSelect} className="mt-10" color="#006f85">
+				Zoznam projektov
+			</ButtonPrimary>
+		</div>
+	);
 }

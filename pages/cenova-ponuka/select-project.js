@@ -1,19 +1,39 @@
+import { collection, getDocs } from "firebase/firestore";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import FullPageLoading from "../../components/loading/FullPageLoading";
 import { LoggedIn } from "../../components/LoggedIn";
+import { firestore } from "../../lib/firebase";
 import Logo from "../../public/SVG/Logo";
 
 export default function index() {
 	const router = useRouter();
-	const [loading, setloading] = useState(false);
+	const [loading, setloading] = useState(true);
+	const [data, setdata] = useState(null);
 	function handleSelectId(id) {
 		setloading(true);
 		localStorage.setItem("offerId", id);
 		router.push("/cenova-ponuka/");
 	}
+
+	useEffect(() => {
+		var newData = [];
+
+		const collectionRef = collection(firestore, "/offers");
+		getDocs(collectionRef).then((docs) => {
+			if (!docs.empty) {
+				docs.docs.map((doc) => {
+					newData.push(doc.data());
+				});
+			}
+			console.log(newData);
+
+			setloading(false);
+		});
+	}, []);
+
 	return (
 		<>
 			<FullPageLoading loading={loading}></FullPageLoading>
@@ -34,23 +54,32 @@ export default function index() {
 								Zoznam projektov
 							</h1>
 							<div className="grid grid-cols-3 w-full mt-10 gap-8">
-								{Array(10)
-									.fill()
-									.map((project, projectId) => {
-										return (
-											<button
-												onClick={() => {
-													handleSelectId(projectId);
-												}}
-											>
-												<div className="bg-gray-50 rounded-lg min-h-[200px] p-4">
-													<div className="text-2xl font-light text-start">
-														Projekt {projectId + 1}
-													</div>
+								<button
+									onClick={() => {
+										handleSelectId(projectId);
+									}}
+								>
+									<div className="bg-gray-50 rounded-lg min-h-[200px] p-4 flex items-center justify-center">
+										<div className="text-2xl font-light text-start">
+											Pridať nový projekt
+										</div>
+									</div>
+								</button>
+								{data?.map((project, projectId) => {
+									return (
+										<button
+											onClick={() => {
+												handleSelectId(projectId);
+											}}
+										>
+											<div className="bg-gray-50 rounded-lg min-h-[200px] p-4">
+												<div className="text-2xl font-light text-start">
+													Projekt {projectId + 1}
 												</div>
-											</button>
-										);
-									})}
+											</div>
+										</button>
+									);
+								})}
 							</div>
 						</div>
 					}

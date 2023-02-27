@@ -7,6 +7,13 @@ import RecentClock from "../../public/SVG/editor/RecentClock";
 
 export default function SelectProjectToolbar() {
 	const [toolbar, settoolbar] = useState(false);
+	const router = useRouter();
+
+	function handleSelect() {
+		localStorage.removeItem("offerId");
+		router.reload();
+	}
+
 	return (
 		<div className="relative">
 			<button
@@ -31,7 +38,7 @@ export default function SelectProjectToolbar() {
 					className="absolute top-8 left-0 shadow-hardShadow bg-white rounded-md"
 				>
 					<div className="py-4 px-3 w-64 min-h-[200px]">
-						<MenuItem href="/cenova-ponuka/">
+						<MenuItem onClick={handleSelect}>
 							<div className="flex justify-between items-center gap-3 text-base font-light">
 								<AllProjects></AllProjects>
 								<div>Zobraziť všetky</div>

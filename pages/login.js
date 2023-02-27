@@ -54,7 +54,9 @@ export default function Login() {
 
 			<Layout className="pt-8">
 				<div className="w-32">
-					<Logo></Logo>
+					<Link href="/">
+						<Logo></Logo>
+					</Link>
 				</div>
 			</Layout>
 

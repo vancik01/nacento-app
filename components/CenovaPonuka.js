@@ -24,7 +24,6 @@ export default function CenovaPonuka() {
 	//const [reorderingBlocks, setreorderingBlocks] = useState(false)
 	const {
 		data,
-		headers,
 		total,
 		name,
 		setname,
