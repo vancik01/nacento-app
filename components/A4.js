@@ -10,7 +10,7 @@ export default function A4({ children }) {
 	return (
 		<div
 			style={{ width: isHorizontal ? "1254px" : "894px" }}
-			className="mx-auto shadow-xl h-fit overflow-x-scroll transition-all"
+			className="mx-auto shadow-xl h-fit w-fit transition-all"
 			id="a4-page"
 		>
 			{children}

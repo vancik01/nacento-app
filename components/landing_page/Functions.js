@@ -112,6 +112,7 @@ function Functions() {
 		setDoc(collectionRef, {
 			id: collectionRef.id,
 			data: customBuild,
+			name: "Nová cenová ponuka",
 		})
 			.then((response) => {
 				// router.push(`/cenova-ponuka/${collectionRef.id}`);

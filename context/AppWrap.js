@@ -756,7 +756,13 @@ export function AppWrap({ children }) {
 			},
 			blocks: [],
 		});
+
 		setdata(newData);
+		setTimeout(() => {
+			document
+				.getElementById("last-section")
+				.scrollIntoView({ behavior: "smooth" });
+		}, 100);
 	}
 
 	function changeSectionTitle(sectionId, newTitle) {

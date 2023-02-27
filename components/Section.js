@@ -8,7 +8,7 @@ import Block from "./Block";
 import ButtonPrimary from "./ButtonPrimary";
 import AddBlock from "./editor/AddBlock";
 
-export default function Section({ section, sectionId }) {
+export default function Section({ section, sectionId, isLast }) {
 	const {
 		headers,
 		reorderingBlocks,
@@ -38,7 +38,7 @@ export default function Section({ section, sectionId }) {
 	};
 
 	return (
-		<div className="pt-10">
+		<div className="pt-10" id={isLast ? "last-section" : ""}>
 			<div className="p-8 border-2">
 				<div className="flex justify-center items-center mb-4">
 					{!editingTitle && (

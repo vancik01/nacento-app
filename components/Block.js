@@ -114,7 +114,7 @@ export default function Block({
 							<AddRow color={primaryColor}></AddRow>
 						</div>
 						<div className="text-sm" style={{ color: primaryColor }}>
-							Pridať riadok
+							{block.items.length === 0 ? "Pridať tabuľku" : "Pridať riadok"}
 						</div>
 					</button>
 				)}
