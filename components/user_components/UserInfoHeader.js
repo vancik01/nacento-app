@@ -12,7 +12,7 @@ export default function UserInfoHeader() {
 	return (
 		<>
 			{user ? (
-				<div className="relative">
+				<div className="relative z-50">
 					<button
 						onClick={() => {
 							settoolbar(!toolbar);

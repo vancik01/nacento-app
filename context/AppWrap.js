@@ -15,6 +15,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { firestore } from "../lib/firebase";
 import debounce from "lodash.debounce";
 import { useRouter } from "next/router";
+import ButtonPrimary from "../components/ButtonPrimary";
 
 const DataContext = React.createContext();
 
@@ -56,6 +57,7 @@ export function AppWrap({ children }) {
 				if (snap.exists()) {
 					setdata({ ...snap.data().data });
 					setheaders(snap.data().data.headers);
+					setname(snap.data().name);
 				} else {
 					seterrorLoading(true);
 				}
@@ -67,18 +69,24 @@ export function AppWrap({ children }) {
 	}, [router]);
 
 	function handleSave() {
-		const offerId = localStorage.getItem("offer_id");
+		const offerId = localStorage.getItem("offerId");
 		if (!offerId) {
 			console.log("error, missing ID");
 			return;
 		} else {
+			console.log(offerId);
 			setsaving(true);
 			const docRef = doc(firestore, `/offers/${offerId}`);
-			updateDoc(docRef, { data: data, name: name }).then((snap) => {
-				setdata(snap.data().data);
 
-				setsaving(false);
-			});
+			updateDoc(docRef, { data: data, name: name })
+				.then((snap) => {
+					//setdata(snap.data().data);
+
+					setsaving(false);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 		}
 	}
 
@@ -482,6 +490,21 @@ export function AppWrap({ children }) {
 		setdata(newData);
 	}
 
+	function deleteBlock(sectionId, blockId) {
+		var newData = { ...data };
+
+		const [removed] = newData.sections[sectionId].blocks.splice(blockId, 1);
+		console.log(removed);
+
+		newData.sections[sectionId].info.total_construction_price -=
+			removed.info.total_construction_price;
+		newData.sections[sectionId].info.total_delivery_price -=
+			removed.info.total_delivery_price;
+		newData.sections[sectionId].info.total -= removed.info.total;
+
+		setdata(newData);
+	}
+
 	const reorder = (list, startIndex, endIndex) => {
 		const result = Array.from(list);
 		const [removed] = result.splice(startIndex, 1);
@@ -580,8 +603,65 @@ export function AppWrap({ children }) {
 			blockId >= 0 &&
 			newData.sections[sectionId].blocks[blockId].items.length == 0
 		) {
-			newData.sections[sectionId].blocks[blockId].info[valueId] =
-				newData.sections[sectionId].blocks[blockId].info[valueId] + value;
+			if (valueId == "total") {
+				if (newData.sections[sectionId].blocks[blockId].info["total"] === 0) {
+					newData.sections[sectionId].blocks[blockId].info[
+						"total_construction_price"
+					] = parseFloat(value / 2).toFixed(2);
+
+					newData.sections[sectionId].blocks[blockId].info[
+						"total_delivery_price"
+					] = parseFloat(value / 2).toFixed(2);
+
+					newData.sections[sectionId].blocks[blockId].info["total"] =
+						parseFloat(value).toFixed(2);
+				} else {
+					var cdcIndex =
+						newData.sections[sectionId].blocks[blockId].info[
+							"total_delivery_price"
+						] / newData.sections[sectionId].blocks[blockId].info["total"];
+
+					var cmcIndex =
+						newData.sections[sectionId].blocks[blockId].info[
+							"total_construction_price"
+						] / newData.sections[sectionId].blocks[blockId].info["total"];
+
+					newData.sections[sectionId].blocks[blockId].info["total"] =
+						parseFloat(
+							newData.sections[sectionId].blocks[blockId].info["total"]
+						) + parseFloat(value);
+
+					console.log(cdcIndex, cmcIndex);
+					newData.sections[sectionId].blocks[blockId].info[
+						"total_construction_price"
+					] =
+						parseFloat(
+							newData.sections[sectionId].blocks[blockId].info[
+								"total_construction_price"
+							]
+						) + parseFloat(value * cmcIndex);
+
+					newData.sections[sectionId].blocks[blockId].info[
+						"total_delivery_price"
+					] =
+						parseFloat(
+							newData.sections[sectionId].blocks[blockId].info[
+								"total_delivery_price"
+							]
+						) + parseFloat(value * cdcIndex);
+				}
+			} else {
+				newData.sections[sectionId].blocks[blockId].info[valueId] =
+					parseFloat(
+						newData.sections[sectionId].blocks[blockId].info[valueId]
+					) + parseFloat(value);
+
+				newData.sections[sectionId].blocks[blockId].info["total"] =
+					parseFloat(
+						newData.sections[sectionId].blocks[blockId].info["total"]
+					) + parseFloat(value);
+			}
+
 			setdata(newData);
 			return;
 		}
@@ -677,6 +757,7 @@ export function AppWrap({ children }) {
 
 		reorderBlocks,
 		addBlock,
+		deleteBlock,
 
 		name,
 		setname,
@@ -729,7 +810,7 @@ export function AppWrap({ children }) {
 			{!loading && (
 				<>
 					{!errorLoading && children}
-					{errorLoading && <div>Cenová ponuka sa nenašla</div>}
+					{errorLoading && <DoesNotExist />}
 				</>
 			)}
 			<FullPageLoading loading={loading}></FullPageLoading>
@@ -739,4 +820,20 @@ export function AppWrap({ children }) {
 
 export function useData() {
 	return useContext(DataContext);
+}
+
+function DoesNotExist() {
+	const router = useRouter();
+	function handleSelect() {
+		localStorage.removeItem("offerId");
+		router.push("/cenova-ponuka/select-project/");
+	}
+	return (
+		<div className="h-screen flex justify-center items-center flex-col">
+			<div className="text-2xl">Cenová ponuka sa nenašla</div>
+			<ButtonPrimary onClick={handleSelect} className="mt-10" color="#006f85">
+				Zoznam projektov
+			</ButtonPrimary>
+		</div>
+	);
 }

@@ -4,9 +4,18 @@ import ArrowDown from "../../public/SVG/ArrowDown";
 import AllProjects from "../../public/SVG/editor/AllProjects";
 import AddNewProject from "../../public/SVG/editor/AddNewProject";
 import RecentClock from "../../public/SVG/editor/RecentClock";
+import { useData } from "../../context/AppWrap";
 
 export default function SelectProjectToolbar() {
 	const [toolbar, settoolbar] = useState(false);
+	const router = useRouter();
+
+	function handleSelect() {
+		localStorage.removeItem("offerId");
+		router.reload();
+	}
+	const { name } = useData();
+
 	return (
 		<div className="relative">
 			<button
@@ -15,7 +24,7 @@ export default function SelectProjectToolbar() {
 				}}
 			>
 				<div className="flex justify-start items-center gap-2">
-					<div className="font-light text-gray-400">Cenova ponuka 1</div>
+					<div className="font-light text-gray-400">{name}</div>
 					<div
 						className="transition-all"
 						style={{ rotate: toolbar ? "180deg" : "0deg" }}
@@ -31,7 +40,7 @@ export default function SelectProjectToolbar() {
 					className="absolute top-8 left-0 shadow-hardShadow bg-white rounded-md"
 				>
 					<div className="py-4 px-3 w-64 min-h-[200px]">
-						<MenuItem href="/cenova-ponuka/">
+						<MenuItem onClick={handleSelect}>
 							<div className="flex justify-between items-center gap-3 text-base font-light">
 								<AllProjects></AllProjects>
 								<div>Zobraziť všetky</div>

@@ -35,7 +35,9 @@ export default function Sidebar() {
 		displaySidebar,
 		setdisplaySidebar,
 		handleSave,
+		saving,
 	} = useData();
+
 	const {
 		displayColumns,
 		handleDisplayColumnsChange,
@@ -187,7 +189,7 @@ export default function Sidebar() {
 										<div>
 											<h3>Zobraziť stĺpce</h3>
 											<div className="flex flex-col items-start justify-between flex-wrap gap-2 mt-4">
-												{headers.map((header, i) => {
+												{headers?.map((header, i) => {
 													return (
 														<div
 															key={i}
@@ -314,10 +316,9 @@ export default function Sidebar() {
 								<ButtonPrimary
 									scale={0.98}
 									className="w-full text-sm"
-									onClick={() => {
-										setdownload(!download);
-									}}
+									onClick={handleSave}
 									style={{ color: primaryColor }}
+									disabled={saving}
 								>
 									Uložiť zmeny
 								</ButtonPrimary>

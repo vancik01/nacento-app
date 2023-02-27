@@ -12,7 +12,10 @@ export default function ButtonPrimary({
 	href,
 	color,
 }) {
-	const { primaryColor } = useLayout();
+	const layout = useLayout();
+
+	if (!color) color = layout?.primaryColor;
+
 	return (
 		<motion.button
 			whileHover={{
@@ -26,7 +29,7 @@ export default function ButtonPrimary({
 				className ? className : ""
 			}`}
 			style={{
-				backgroundColor: color ? color : primaryColor,
+				backgroundColor: color,
 				boxShadow:
 					"rgba(50, 50, 93, 0.12) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px",
 			}}
