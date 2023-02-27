@@ -745,6 +745,25 @@ export function AppWrap({ children }) {
 		setdata(newData);
 	}
 
+	function addSection() {
+		var newData = { ...data };
+		newData.sections.push({
+			info: {
+				title: "Nová sekcia",
+				total_delivery_price: 0,
+				total_construction_price: 0,
+				total: 0,
+			},
+			blocks: [],
+		});
+		setdata(newData);
+	}
+
+	function changeSectionTitle(sectionId, newTitle) {
+		var newData = { ...data };
+		newData.sections[sectionId].info.title = newTitle;
+	}
+
 	const value = {
 		data,
 		headers,
@@ -795,6 +814,9 @@ export function AppWrap({ children }) {
 
 		changeTableRow,
 		addTableRow,
+
+		changeSectionTitle,
+		addSection,
 	};
 
 	useEffect(() => {

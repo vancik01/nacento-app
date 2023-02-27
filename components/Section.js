@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useData } from "../context/AppWrap";
 import { useLayout } from "../context/LayoutContext";
 import { numberWithCommas } from "../lib/helpers";
 import EditPen from "../public/SVG/EditPen";
 import Block from "./Block";
+import ButtonPrimary from "./ButtonPrimary";
 import AddBlock from "./editor/AddBlock";
 
 export default function Section({ section, sectionId }) {
@@ -15,8 +16,16 @@ export default function Section({ section, sectionId }) {
 		bulkEdit,
 		setBulkEdit,
 		openBulkEdit,
+		changeSectionTitle,
 	} = useData();
 	const { primaryColor, variant } = useLayout();
+	const [editingTitle, seteditingTitle] = useState(false);
+	const [sectionTitle, setSectionTitle] = useState(section.info.title);
+
+	function handleEditTitle() {
+		seteditingTitle(false);
+		changeSectionTitle(sectionId, sectionTitle);
+	}
 
 	var total = {
 		total: parseFloat(data.sections[sectionId].info.total),
@@ -31,7 +40,40 @@ export default function Section({ section, sectionId }) {
 	return (
 		<div className="pt-10">
 			<div className="p-8 border-2">
-				<h1 className="text-center ">{section.info.title}</h1>
+				<div className="flex justify-center items-center mb-4">
+					{!editingTitle && (
+						<div className="relative w-fit">
+							<h1 className="text-center ">{section.info.title}</h1>
+							<button
+								onClick={() => {
+									seteditingTitle(true);
+								}}
+								className="absolute top-0 -right-5 w-3"
+							>
+								<EditPen></EditPen>
+							</button>
+						</div>
+					)}
+
+					{editingTitle && (
+						<div className="flex justify-center items-center">
+							<input
+								type="text"
+								className="outline-none"
+								value={sectionTitle}
+								placeholder="Zadajte názov bloku..."
+								onChange={(e) => {
+									setSectionTitle(e.target.value);
+								}}
+								style={{ fontSize: 16 }}
+							/>
+							<ButtonPrimary className="ml-8" onClick={handleEditTitle}>
+								Uložiť
+							</ButtonPrimary>
+						</div>
+					)}
+				</div>
+
 				<div className="mb-1 text-gray-300 capitalize">CENA:</div>
 
 				<div className="text-sm flex flex-row items-center justify-between">
@@ -181,7 +223,7 @@ export default function Section({ section, sectionId }) {
 }
 
 function ReorderingBlocks({ section, sectionId }) {
-	const { headers, total, reorderBlocks, name, setname } = useData();
+	const { headers, total, reorderBlocks } = useData();
 	return (
 		<DragDropContext
 			onDragEnd={(e) => {

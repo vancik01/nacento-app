@@ -36,6 +36,7 @@ export default function Sidebar() {
 		setdisplaySidebar,
 		handleSave,
 		saving,
+		addSection,
 	} = useData();
 
 	const {
@@ -135,6 +136,29 @@ export default function Sidebar() {
 													</div>
 												</button>
 											</div>
+										</div>
+									</AccordionDetails>
+								</Accordion>
+								<Accordion expanded={opened === "sekcia"}>
+									<AccordionSummary
+										expandIcon={<ArrowDown />}
+										onClick={() => {
+											handleSetOpen("sekcia");
+										}}
+									>
+										<div className="flex items-center gap-2">
+											<div className="w-4">
+												<PageIcon color={primaryColor}></PageIcon>
+											</div>
+											<div>Sekcia</div>
+										</div>
+									</AccordionSummary>
+
+									<AccordionDetails>
+										<div>
+											<ButtonPrimary className="w-full" onClick={addSection}>
+												Pridať sekciu
+											</ButtonPrimary>
 										</div>
 									</AccordionDetails>
 								</Accordion>
