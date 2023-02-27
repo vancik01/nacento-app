@@ -35,7 +35,9 @@ export default function Sidebar() {
 		displaySidebar,
 		setdisplaySidebar,
 		handleSave,
+		saving,
 	} = useData();
+
 	const {
 		displayColumns,
 		handleDisplayColumnsChange,
@@ -316,6 +318,7 @@ export default function Sidebar() {
 									className="w-full text-sm"
 									onClick={handleSave}
 									style={{ color: primaryColor }}
+									disabled={saving}
 								>
 									Uložiť zmeny
 								</ButtonPrimary>
