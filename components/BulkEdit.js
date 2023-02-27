@@ -15,14 +15,16 @@ export default function BulkEdit({ blockTitle }) {
 		newData.value = parseFloat(e.target.value);
 		setchangedData(newData);
 	}
+
 	useEffect(() => {
 		setchangedData(bulkEditData);
 	}, [bulkEditData]);
 
 	function changeBy(val) {
 		var newData = { ...changedData };
-		newData.value += parseFloat(val);
+		newData.value = parseFloat(newData.value) + parseFloat(val);
 		setchangedData(newData);
+		console.log(val, newData.value);
 	}
 
 	function handleSave() {
@@ -137,7 +139,11 @@ export default function BulkEdit({ blockTitle }) {
 							bulkEditData.sectionId,
 							bulkEditData.valueId
 						);
-						// console.log(`${block.info[bulkEditData.valueId] / totalSection[bulkEditData.valueId]}% -> ${sum}` )
+						//
+						`${
+							block.info[bulkEditData.valueId] /
+							totalSection[bulkEditData.valueId]
+						}% -> ${sum}`;
 					}
 				);
 			}
@@ -282,6 +288,7 @@ export default function BulkEdit({ blockTitle }) {
 				>
 					- 100€
 				</ButtonTag>
+
 				<ButtonTag
 					onClick={() => {
 						changeBy(100);

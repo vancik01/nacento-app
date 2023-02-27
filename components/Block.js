@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { useData } from "../context/AppWrap";
 import { useLayout } from "../context/LayoutContext";
 import AddRow from "../public/SVG/AddRow";
+import BlockIcon from "../public/SVG/BlockIcon";
+import Cancel from "../public/SVG/Cancel";
 import DragableIcon from "../public/SVG/Dragable";
 import EditPen from "../public/SVG/EditPen";
 import ButtonPrimary from "./ButtonPrimary";
@@ -23,6 +25,7 @@ export default function Block({
 		getTitle,
 		addTableRow,
 		reorderingBlocks,
+		deleteBlock,
 	} = useData();
 	const { primaryColor } = useLayout();
 	const [editingTitle, seteditingTitle] = useState(false);
@@ -55,15 +58,17 @@ export default function Block({
 					)}
 
 					{editingTitle && (
-						<div className="flex justify-center items-baseline">
-							<div className="text-2xl mr-1">{blockId + 1}. </div>
-							<Input
+						<div className="flex justify-center items-center">
+							<div className="text-2xl mr-2">{blockId + 1}. </div>
+							<input
 								type="text"
+								className="outline-none"
 								value={blockTitle}
+								placeholder="Zadajte názov bloku..."
 								onChange={(e) => {
 									setblockTitle(e.target.value);
 								}}
-								className="text-2xl"
+								style={{ fontSize: 24 }}
 							/>
 							<ButtonPrimary className="ml-8" onClick={handleEditTitle}>
 								Uložiť
@@ -71,11 +76,22 @@ export default function Block({
 						</div>
 					)}
 
-					{collapsed && (
-						<div {...dragHandleProps}>
-							<DragableIcon></DragableIcon>
-						</div>
-					)}
+					<div className="flex items-center gap-4">
+						<button
+							onClick={() => {
+								deleteBlock(sectionId, blockId);
+							}}
+							className="flex items-center justify-center gap-2"
+						>
+							<Cancel color="#ef4444"></Cancel>
+							<div className="text-sm text-red-500">Zmazať blok</div>
+						</button>
+						{collapsed && (
+							<div {...dragHandleProps}>
+								<DragableIcon></DragableIcon>
+							</div>
+						)}
+					</div>
 				</div>
 
 				{!collapsed && (
@@ -92,7 +108,7 @@ export default function Block({
 						onClick={() => {
 							addTableRow(blockId, sectionId);
 						}}
-						className="flex justify-center items-center gap-4 mt-4"
+						className="flex justify-center items-center gap-4 mt-2"
 					>
 						<div className="w-3">
 							<AddRow color={primaryColor}></AddRow>

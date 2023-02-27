@@ -482,6 +482,21 @@ export function AppWrap({ children }) {
 		setdata(newData);
 	}
 
+	function deleteBlock(sectionId, blockId) {
+		var newData = { ...data };
+
+		const [removed] = newData.sections[sectionId].blocks.splice(blockId, 1);
+		console.log(removed);
+
+		newData.sections[sectionId].info.total_construction_price -=
+			removed.info.total_construction_price;
+		newData.sections[sectionId].info.total_delivery_price -=
+			removed.info.total_delivery_price;
+		newData.sections[sectionId].info.total -= removed.info.total;
+
+		setdata(newData);
+	}
+
 	const reorder = (list, startIndex, endIndex) => {
 		const result = Array.from(list);
 		const [removed] = result.splice(startIndex, 1);
@@ -580,8 +595,65 @@ export function AppWrap({ children }) {
 			blockId >= 0 &&
 			newData.sections[sectionId].blocks[blockId].items.length == 0
 		) {
-			newData.sections[sectionId].blocks[blockId].info[valueId] =
-				newData.sections[sectionId].blocks[blockId].info[valueId] + value;
+			if (valueId == "total") {
+				if (newData.sections[sectionId].blocks[blockId].info["total"] === 0) {
+					newData.sections[sectionId].blocks[blockId].info[
+						"total_construction_price"
+					] = parseFloat(value / 2).toFixed(2);
+
+					newData.sections[sectionId].blocks[blockId].info[
+						"total_delivery_price"
+					] = parseFloat(value / 2).toFixed(2);
+
+					newData.sections[sectionId].blocks[blockId].info["total"] =
+						parseFloat(value).toFixed(2);
+				} else {
+					var cdcIndex =
+						newData.sections[sectionId].blocks[blockId].info[
+							"total_delivery_price"
+						] / newData.sections[sectionId].blocks[blockId].info["total"];
+
+					var cmcIndex =
+						newData.sections[sectionId].blocks[blockId].info[
+							"total_construction_price"
+						] / newData.sections[sectionId].blocks[blockId].info["total"];
+
+					newData.sections[sectionId].blocks[blockId].info["total"] =
+						parseFloat(
+							newData.sections[sectionId].blocks[blockId].info["total"]
+						) + parseFloat(value);
+
+					console.log(cdcIndex, cmcIndex);
+					newData.sections[sectionId].blocks[blockId].info[
+						"total_construction_price"
+					] =
+						parseFloat(
+							newData.sections[sectionId].blocks[blockId].info[
+								"total_construction_price"
+							]
+						) + parseFloat(value * cmcIndex);
+
+					newData.sections[sectionId].blocks[blockId].info[
+						"total_delivery_price"
+					] =
+						parseFloat(
+							newData.sections[sectionId].blocks[blockId].info[
+								"total_delivery_price"
+							]
+						) + parseFloat(value * cdcIndex);
+				}
+			} else {
+				newData.sections[sectionId].blocks[blockId].info[valueId] =
+					parseFloat(
+						newData.sections[sectionId].blocks[blockId].info[valueId]
+					) + parseFloat(value);
+
+				newData.sections[sectionId].blocks[blockId].info["total"] =
+					parseFloat(
+						newData.sections[sectionId].blocks[blockId].info["total"]
+					) + parseFloat(value);
+			}
+
 			setdata(newData);
 			return;
 		}
@@ -677,6 +749,7 @@ export function AppWrap({ children }) {
 
 		reorderBlocks,
 		addBlock,
+		deleteBlock,
 
 		name,
 		setname,
