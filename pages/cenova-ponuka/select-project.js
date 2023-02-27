@@ -27,6 +27,7 @@ export default function index() {
 				docs.docs.map((doc) => {
 					newData.push(doc.data());
 				});
+				setdata(newData);
 			}
 			console.log(newData);
 
@@ -54,27 +55,27 @@ export default function index() {
 								Zoznam projektov
 							</h1>
 							<div className="grid grid-cols-3 w-full mt-10 gap-8">
-								<button
-									onClick={() => {
-										handleSelectId(projectId);
-									}}
-								>
+								<Link href="/cenova-ponuka/novy-projekt">
 									<div className="bg-gray-50 rounded-lg min-h-[200px] p-4 flex items-center justify-center">
 										<div className="text-2xl font-light text-start">
 											Pridať nový projekt
 										</div>
 									</div>
-								</button>
+								</Link>
+								{console.log(data, "data")}
 								{data?.map((project, projectId) => {
 									return (
 										<button
 											onClick={() => {
-												handleSelectId(projectId);
+												handleSelectId(project.id);
 											}}
 										>
 											<div className="bg-gray-50 rounded-lg min-h-[200px] p-4">
 												<div className="text-2xl font-light text-start">
-													Projekt {projectId + 1}
+													{project.name}
+												</div>
+												<div className="text-left text-sm text-gray-500 mt-3">
+													{project.id}
 												</div>
 											</div>
 										</button>

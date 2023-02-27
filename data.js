@@ -423,6 +423,7 @@ export const d = {
 };
 
 export const newd = {
+	name: "Nový cenová ponuka",
 	customer: {
 		name: "Michal Gerhát",
 	},
@@ -1266,6 +1267,7 @@ export const newd = {
 
 const template = {
 	customer: "Michal Gerhát",
+	name: "Nový cenová ponuka",
 	supplyer: {
 		company_name: "STAV-IL s.r.o.",
 		ico: "56 945 124",
@@ -1429,6 +1431,7 @@ export const template_config = [
 ];
 
 export const empty = {
+	name: "Nový cenová ponuka",
 	customer: {
 		name: "",
 	},
@@ -1855,6 +1858,7 @@ export const empty = {
 };
 
 export const customBuild = {
+	name: "Nový cenová ponuka",
 	customer: {
 		name: "",
 	},

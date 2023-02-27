@@ -314,9 +314,7 @@ export default function Sidebar() {
 								<ButtonPrimary
 									scale={0.98}
 									className="w-full text-sm"
-									onClick={() => {
-										setdownload(!download);
-									}}
+									onClick={handleSave}
 									style={{ color: primaryColor }}
 								>
 									Uložiť zmeny

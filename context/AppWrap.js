@@ -57,6 +57,7 @@ export function AppWrap({ children }) {
 				if (snap.exists()) {
 					setdata({ ...snap.data().data });
 					setheaders(snap.data().data.headers);
+					setname(snap.data().name);
 				} else {
 					seterrorLoading(true);
 				}
@@ -68,18 +69,24 @@ export function AppWrap({ children }) {
 	}, [router]);
 
 	function handleSave() {
-		const offerId = localStorage.getItem("offer_id");
+		const offerId = localStorage.getItem("offerId");
 		if (!offerId) {
 			console.log("error, missing ID");
 			return;
 		} else {
+			console.log(offerId);
 			setsaving(true);
 			const docRef = doc(firestore, `/offers/${offerId}`);
-			updateDoc(docRef, { data: data, name: name }).then((snap) => {
-				setdata(snap.data().data);
 
-				setsaving(false);
-			});
+			updateDoc(docRef, { data: data, name: name })
+				.then((snap) => {
+					//setdata(snap.data().data);
+
+					setsaving(false);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 		}
 	}
 

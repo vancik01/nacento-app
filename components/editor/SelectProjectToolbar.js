@@ -4,6 +4,7 @@ import ArrowDown from "../../public/SVG/ArrowDown";
 import AllProjects from "../../public/SVG/editor/AllProjects";
 import AddNewProject from "../../public/SVG/editor/AddNewProject";
 import RecentClock from "../../public/SVG/editor/RecentClock";
+import { useData } from "../../context/AppWrap";
 
 export default function SelectProjectToolbar() {
 	const [toolbar, settoolbar] = useState(false);
@@ -13,6 +14,7 @@ export default function SelectProjectToolbar() {
 		localStorage.removeItem("offerId");
 		router.reload();
 	}
+	const { name } = useData();
 
 	return (
 		<div className="relative">
@@ -22,7 +24,7 @@ export default function SelectProjectToolbar() {
 				}}
 			>
 				<div className="flex justify-start items-center gap-2">
-					<div className="font-light text-gray-400">Cenova ponuka 1</div>
+					<div className="font-light text-gray-400">{name}</div>
 					<div
 						className="transition-all"
 						style={{ rotate: toolbar ? "180deg" : "0deg" }}
