@@ -7,9 +7,7 @@ import React, {
 	useState,
 } from "react";
 import { lang } from "../languages/languages";
-import BulkEdit from "../components/BulkEdit";
 import FullPageLoading from "../components/loading/FullPageLoading";
-import Modal from "../components/Modal";
 import { d, empty, newd, template_config } from "../data";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { firestore } from "../lib/firebase";
@@ -34,6 +32,7 @@ export function AppWrap({ children }) {
 	const [logo, setlogo] = useState(null);
 	const [displaySidebar, setdisplaySidebar] = useState(true);
 	const [saving, setsaving] = useState(false);
+	const [test, settest] = useState(null);
 
 	const [total, settotal] = useState({
 		total_delivery_price: 0,
@@ -823,6 +822,9 @@ export function AppWrap({ children }) {
 
 		changeSectionTitle,
 		addSection,
+
+		test,
+		settest,
 	};
 
 	useEffect(() => {

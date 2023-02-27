@@ -62,10 +62,11 @@ export default function index() {
 										</div>
 									</div>
 								</Link>
-								{console.log(data, "data")}
-								{data?.map((project, projectId) => {
+
+								{data?.map((project, i) => {
 									return (
 										<button
+											key={i}
 											onClick={() => {
 												handleSelectId(project.id);
 											}}

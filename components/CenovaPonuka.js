@@ -16,6 +16,8 @@ import BulkEdit from "./BulkEdit";
 import CustomerInfo from "./CustomerInfo";
 import Close from "../public/SVG/Close";
 import Section from "./Section";
+import EditText from "./editor/EditText";
+import AddSection from "./editor/AddSection";
 
 export default function CenovaPonuka() {
 	const [winReady, setwinReady] = useState(false);
@@ -237,45 +239,12 @@ export default function CenovaPonuka() {
 							<div className="my-10">
 								<div className="w-full h-[1px] bg-black"></div>
 								<div className="py-4">
-									<div className="w-full flex justify-center">
-										{!editingTitle && (
-											<button
-												onClick={() => {
-													seteditingTitle(true);
-												}}
-											>
-												<h1 className="text-center relative">
-													{name}
-													<div className="absolute top-0 -right-3 w-2">
-														<EditPen></EditPen>
-													</div>
-												</h1>
-											</button>
-										)}
-
-										{editingTitle && (
-											<div className="flex items-baseline justify-center">
-												<Input
-													className="w-full min-w-[400px]"
-													variant="outlined"
-													placeholder="Zadajte názov..."
-													value={name}
-													style={{ fontSize: 24 }}
-													onChange={(e) => {
-														setname(e.target.value);
-													}}
-												/>
-												<ButtonPrimary
-													className="ml-4"
-													onClick={() => {
-														seteditingTitle(false);
-													}}
-												>
-													Uložiť
-												</ButtonPrimary>
-											</div>
-										)}
-									</div>
+									<EditText
+										initialValue={name}
+										onSave={(value) => {
+											setname(value);
+										}}
+									/>
 								</div>
 								<div className="w-full h-[1px] bg-black"></div>
 							</div>
@@ -309,6 +278,7 @@ export default function CenovaPonuka() {
 											</div>
 										);
 									})}
+								<AddSection></AddSection>
 							</div>
 						</div>
 					</A4>
