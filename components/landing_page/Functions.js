@@ -22,8 +22,86 @@ import { firestore } from "../../lib/firebase";
 import { customBuild, newd } from "../../data";
 import { useRouter } from "next/router";
 
+
+var predikcie = [
+	{
+		id: "zaklady",
+		label: "Základová doska",
+		items: [
+			{
+				id: "ryhy",
+				label: "Výkopové pásy",
+				items: [
+					{
+						id: "dlzka",
+						label: "Dĺžka",
+						value: 30,
+						unit: "m",
+					},
+					{
+						id: "sirka",
+						label: "Šírka",
+						value: 40,
+						unit: "m",
+					},
+					{
+						id: "hlbka",
+						label: "Hĺbka",
+						value: 10,
+						unit: "m",
+					},
+				],
+			},
+			{
+				id: "dt",
+				label: "Debniace tvárnice",
+				items: [
+					{
+						id: "50x20x25",
+						label: "20",
+						value: 10,
+						unit: "ks",
+					},
+					{
+						id: "50x30x25",
+						label: "30",
+						value: 125,
+						unit: "ks",
+					},
+					{
+						id: "50x40x25",
+						label: "40",
+						value: 100,
+						unit: "ks",
+					},
+				],
+			},
+			{
+				id: "rozmery_stvby",
+				label: "Rozmery stavby",
+				items: [
+					{
+						id: "obsah",
+						label: "Obsah",
+						value: 120,
+						unit: "m2",
+					},
+					{
+						id: "obvod",
+						label: "Obvod",
+						value: 80,
+						unit: "m2",
+					},
+				],
+			},
+		],
+	},
+];
+
+
+
 function Functions() {
-	const [preds, setPreds] = useState([]);
+	const [preds, setPreds] = useState(predikcie);
 	const [zakaldyPdf, setZaklady] = useState("");
 	const [podorysyPdf, setPodorysy] = useState([]);
 	const [strechaPdf, setStrecha] = useState("");
@@ -139,82 +217,8 @@ function Functions() {
 			},
 		};
 
-		var predikcie = [
-			{
-				id: "zaklady",
-				label: "Základová doska",
-				items: [
-					{
-						id: "ryhy",
-						label: "Výkopové pásy",
-						items: [
-							{
-								id: "dlzka",
-								label: "Dĺžka",
-								value: 30,
-								unit: "m",
-							},
-							{
-								id: "sirka",
-								label: "Šírka",
-								value: 40,
-								unit: "m",
-							},
-							{
-								id: "hlbka",
-								label: "Hĺbka",
-								value: 10,
-								unit: "m",
-							},
-						],
-					},
-					{
-						id: "dt",
-						label: "Debniace tvárnice",
-						items: [
-							{
-								id: "50x20x25",
-								label: "20",
-								value: 10,
-								unit: "ks",
-							},
-							{
-								id: "50x30x25",
-								label: "30",
-								value: 125,
-								unit: "ks",
-							},
-							{
-								id: "50x40x25",
-								label: "40",
-								value: 100,
-								unit: "ks",
-							},
-						],
-					},
-					{
-						id: "rozmery_stvby",
-						label: "Rozmery stavby",
-						items: [
-							{
-								id: "obsah",
-								label: "Obsah",
-								value: 120,
-								unit: "m2",
-							},
-							{
-								id: "obvod",
-								label: "Obvod",
-								value: 80,
-								unit: "m2",
-							},
-						],
-					},
-				],
-			},
-		];
-
-		setPreds(predikcie);
+		
+		
 
 		// fetch(`/api/aspdf/`, {
 		//     method:'POST',
@@ -276,7 +280,7 @@ function Functions() {
 		<section id="features" className="services-area pt-120">
 			<FullPageLoading loading={loading}></FullPageLoading>
 			<div className="container text-center">
-				<div className="justify-center row">
+				{/* <div className="justify-center row">
 					<div className="w-full lg:w-2/3">
 						<div className="pb-10 text-center section-title">
 							<div className="m-auto line"></div>
@@ -328,6 +332,7 @@ function Functions() {
 					</div>
 				)}
 
+
 				{!(zakaldyPdf || podorysyPdf.length || strechaPdf) && (
 					<div className="absolute right-0 hidden mt-2 pt-6 mr-24 navbar-btn sm:inline-block lg:mt-0 lg:static lg:mr-0">
 						<button
@@ -338,7 +343,7 @@ function Functions() {
 							Vytvoriť cenovú ponuku{" "}
 						</button>
 					</div>
-				)}
+				)} */}
 
 				{preds.length > 0 && (
 					<>
