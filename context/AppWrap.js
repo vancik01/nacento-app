@@ -7,9 +7,7 @@ import React, {
 	useState,
 } from "react";
 import { lang } from "../languages/languages";
-import BulkEdit from "../components/BulkEdit";
 import FullPageLoading from "../components/loading/FullPageLoading";
-import Modal from "../components/Modal";
 import { d, empty, newd, template_config } from "../data";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { firestore } from "../lib/firebase";
@@ -34,6 +32,7 @@ export function AppWrap({ children }) {
 	const [logo, setlogo] = useState(null);
 	const [displaySidebar, setdisplaySidebar] = useState(true);
 	const [saving, setsaving] = useState(false);
+	const [test, settest] = useState(null);
 
 	const [total, settotal] = useState({
 		total_delivery_price: 0,
@@ -584,9 +583,18 @@ export function AppWrap({ children }) {
 		setdata(newData);
 	}
 
-	function openBulkEdit(data) {
+	function openBulkEdit(data, e) {
+		const clientWidth = document.body.clientWidth;
+		var pageX = e.pageX;
+		var pageY = e.pageY - 30;
+
+		if (pageX + 400 > clientWidth)
+			pageX = pageX - 100 - (pageX + 400 - clientWidth);
+
+		console.log(clientWidth);
 		setbulkEdit(true);
-		setbulkEditData(data);
+		setbulkEditData({ ...data, x: pageX, y: pageY });
+		console.log({ ...data, x: e.pageX, y: e.pageY });
 	}
 
 	function closeBulkEdit(data) {
@@ -823,6 +831,9 @@ export function AppWrap({ children }) {
 
 		changeSectionTitle,
 		addSection,
+
+		test,
+		settest,
 	};
 
 	useEffect(() => {

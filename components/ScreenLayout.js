@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import { AnimateSharedLayout } from "framer-motion";
-import React from "react";
+import React, { useEffect } from "react";
 import { useData } from "../context/AppWrap";
 import { useLayout } from "../context/LayoutContext";
 import CenovaPonuka from "./CenovaPonuka";
@@ -9,8 +9,15 @@ import { motion } from "framer-motion";
 import OpenSidebar from "../public/SVG/OpenSidebar";
 import BottomBar from "./BottomBar";
 import EditorHeader from "./EditorHeader";
+import { toast } from "react-toastify";
 
 export default function ScreenLayout() {
+	useEffect(() => {
+		setTimeout(() => {
+			toast("wocap", { autoClose: 3000, type: "info" });
+		}, 1000);
+	}, []);
+
 	const { displaySidebar, setdisplaySidebar, loading } = useData();
 	return (
 		<>

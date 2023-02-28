@@ -8,6 +8,7 @@ import Cancel from "../public/SVG/Cancel";
 import DragableIcon from "../public/SVG/Dragable";
 import EditPen from "../public/SVG/EditPen";
 import ButtonPrimary from "./ButtonPrimary";
+import EditText from "./editor/EditText";
 import Table from "./Table";
 
 export default function Block({
@@ -41,7 +42,7 @@ export default function Block({
 				key={blockId}
 			>
 				<div className="flex justify-between items-end mb-4">
-					{!editingTitle && (
+					{/* {!editingTitle && (
 						<div className="relative w-fit">
 							<h3 className="text-2xl">
 								{blockId + 1}. {block.info.title}
@@ -74,7 +75,16 @@ export default function Block({
 								Uložiť
 							</ButtonPrimary>
 						</div>
-					)}
+					)} */}
+
+					<EditText
+						initialValue={block.info.title}
+						classInput="w-fit"
+						classText="!justify-start"
+						onSave={(value) => {
+							editBlockTitle(value, sectionId, blockId);
+						}}
+					/>
 
 					<div className="flex items-center gap-4">
 						<button
@@ -128,15 +138,18 @@ export default function Block({
 							</div>
 							{!bulkEdit && (
 								<button
-									onClick={() => {
-										openBulkEdit({
-											blockId: blockId,
-											sectionId: sectionId,
-											value: block.info["total_delivery_price"],
-											valueId: "total_delivery_price",
-											title: getTitle("total_delivery_price", "sk").long,
-											mode: "block",
-										});
+									onClick={(e) => {
+										openBulkEdit(
+											{
+												blockId: blockId,
+												sectionId: sectionId,
+												value: block.info["total_delivery_price"],
+												valueId: "total_delivery_price",
+												title: getTitle("total_delivery_price", "sk").long,
+												mode: "block",
+											},
+											e
+										);
 									}}
 									className="absolute top-0 -right-3 w-2"
 								>
@@ -153,15 +166,18 @@ export default function Block({
 							</div>
 							{!bulkEdit && (
 								<button
-									onClick={() => {
-										openBulkEdit({
-											blockId: blockId,
-											sectionId: sectionId,
-											value: block.info["total_construction_price"],
-											valueId: "total_construction_price",
-											mode: "block",
-											title: getTitle("total_construction_price", "sk").long,
-										});
+									onClick={(e) => {
+										openBulkEdit(
+											{
+												blockId: blockId,
+												sectionId: sectionId,
+												value: block.info["total_construction_price"],
+												valueId: "total_construction_price",
+												mode: "block",
+												title: getTitle("total_construction_price", "sk").long,
+											},
+											e
+										);
 									}}
 									className="absolute top-0 -right-3 w-2"
 								>
@@ -176,15 +192,18 @@ export default function Block({
 							</div>
 							{!bulkEdit && (
 								<button
-									onClick={() => {
-										openBulkEdit({
-											blockId: blockId,
-											sectionId: sectionId,
-											value: block.info.total,
-											valueId: "total",
-											title: getTitle("total", "sk").long,
-											mode: "block",
-										});
+									onClick={(e) => {
+										openBulkEdit(
+											{
+												blockId: blockId,
+												sectionId: sectionId,
+												value: block.info.total,
+												valueId: "total",
+												title: getTitle("total", "sk").long,
+												mode: "block",
+											},
+											e
+										);
 									}}
 									className="absolute top-0 -right-3 w-2"
 								>

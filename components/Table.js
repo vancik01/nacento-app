@@ -196,6 +196,11 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 		});
 	}
 
+	// const loadTotals = useCallback(
+	// 	debounce(() => settotal(calculateTotals()), 500),
+	// 	[loading]
+	// );
+
 	if (item === "service_type") {
 		return (
 			<div className={`flex align-middle items-center ${label.short}`}>

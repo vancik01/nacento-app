@@ -67,7 +67,7 @@ function HomeArea() {
 										</ul>
 									</div>
 
-									<div>
+									<div className="flex items-center justify-center gap-10">
 										{!loading && (
 											<>
 												{!user && (
@@ -83,6 +83,17 @@ function HomeArea() {
 													</div>
 												)}
 												{user && <UserInfoHeader></UserInfoHeader>}
+
+												<div className="absolute right-0 hidden mt-2 mr-24 navbar-btn sm:inline-block lg:mt-0 lg:static lg:mr-0">
+													<Link
+														className="main-btn gradient-btn"
+														data-scroll-nav="0"
+														href="/cenova-ponuka/select-project"
+														rel="nofollow"
+													>
+														Admin
+													</Link>
+												</div>
 											</>
 										)}
 									</div>

@@ -44,14 +44,17 @@ export default function BottomBar() {
 						</div>
 						{!bulkEdit && (
 							<button
-								onClick={() => {
-									openBulkEdit({
-										blockId: -1,
-										value: total.total_construction_price,
-										valueId: "total_construction_price",
-										mode: "whole",
-										id: "bulk-edit",
-									});
+								onClick={(e) => {
+									openBulkEdit(
+										{
+											blockId: -1,
+											value: total.total_construction_price,
+											valueId: "total_construction_price",
+											mode: "whole",
+											id: "bulk-edit",
+										},
+										e
+									);
 								}}
 								className="absolute top-0 -right-3 w-2"
 							>
@@ -68,13 +71,16 @@ export default function BottomBar() {
 						</div>
 						{!bulkEdit && (
 							<button
-								onClick={() => {
-									openBulkEdit({
-										blockId: -1,
-										value: total.total_delivery_price,
-										valueId: "total_delivery_price",
-										mode: "whole",
-									});
+								onClick={(e) => {
+									openBulkEdit(
+										{
+											blockId: -1,
+											value: total.total_delivery_price,
+											valueId: "total_delivery_price",
+											mode: "whole",
+										},
+										e
+									);
 								}}
 								className="absolute top-0 -right-3 w-2"
 							>
@@ -91,13 +97,16 @@ export default function BottomBar() {
 						</div>
 						{!bulkEdit && (
 							<button
-								onClick={() => {
-									openBulkEdit({
-										blockId: -1,
-										value: total.total,
-										valueId: "total",
-										mode: "whole",
-									});
+								onClick={(e) => {
+									openBulkEdit(
+										{
+											blockId: -1,
+											value: total.total,
+											valueId: "total",
+											mode: "whole",
+										},
+										e
+									);
 								}}
 								className="absolute top-0 -right-3 w-2"
 							>

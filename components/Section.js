@@ -7,6 +7,9 @@ import EditPen from "../public/SVG/EditPen";
 import Block from "./Block";
 import ButtonPrimary from "./ButtonPrimary";
 import AddBlock from "./editor/AddBlock";
+import AddSection from "./editor/AddSection";
+import EditText from "./editor/EditText";
+import SectionSummary from "./editor/SectionSummary";
 
 export default function Section({ section, sectionId, isLast }) {
 	const {
@@ -14,7 +17,6 @@ export default function Section({ section, sectionId, isLast }) {
 		reorderingBlocks,
 		data,
 		bulkEdit,
-		setBulkEdit,
 		openBulkEdit,
 		changeSectionTitle,
 	} = useData();
@@ -40,39 +42,12 @@ export default function Section({ section, sectionId, isLast }) {
 	return (
 		<div className="pt-10" id={isLast ? "last-section" : ""}>
 			<div className="p-8 border-2">
-				<div className="flex justify-center items-center mb-4">
-					{!editingTitle && (
-						<div className="relative w-fit">
-							<h1 className="text-center ">{section.info.title}</h1>
-							<button
-								onClick={() => {
-									seteditingTitle(true);
-								}}
-								className="absolute top-0 -right-5 w-3"
-							>
-								<EditPen></EditPen>
-							</button>
-						</div>
-					)}
-
-					{editingTitle && (
-						<div className="flex justify-center items-center">
-							<input
-								type="text"
-								className="outline-none"
-								value={sectionTitle}
-								placeholder="Zadajte názov bloku..."
-								onChange={(e) => {
-									setSectionTitle(e.target.value);
-								}}
-								style={{ fontSize: 16 }}
-							/>
-							<ButtonPrimary className="ml-8" onClick={handleEditTitle}>
-								Uložiť
-							</ButtonPrimary>
-						</div>
-					)}
-				</div>
+				<EditText
+					initialValue={section.info.title}
+					onSave={(value) => {
+						changeSectionTitle(sectionId, value);
+					}}
+				/>
 
 				<div className="mb-1 text-gray-300 capitalize">CENA:</div>
 
@@ -84,14 +59,17 @@ export default function Section({ section, sectionId, isLast }) {
 						</div>
 						{!bulkEdit && (
 							<button
-								onClick={() => {
-									openBulkEdit({
-										sectionId: sectionId,
-										blockId: -1,
-										value: total.total_construction_price,
-										valueId: "total_construction_price",
-										mode: "section",
-									});
+								onClick={(e) => {
+									openBulkEdit(
+										{
+											sectionId: sectionId,
+											blockId: -1,
+											value: total.total_construction_price,
+											valueId: "total_construction_price",
+											mode: "section",
+										},
+										e
+									);
 								}}
 								className="absolute top-0 -right-3 w-2"
 							>
@@ -107,14 +85,17 @@ export default function Section({ section, sectionId, isLast }) {
 						</div>
 						{!bulkEdit && (
 							<button
-								onClick={() => {
-									openBulkEdit({
-										sectionId: sectionId,
-										blockId: -1,
-										value: total.total_delivery_price,
-										valueId: "total_delivery_price",
-										mode: "section",
-									});
+								onClick={(e) => {
+									openBulkEdit(
+										{
+											sectionId: sectionId,
+											blockId: -1,
+											value: total.total_delivery_price,
+											valueId: "total_delivery_price",
+											mode: "section",
+										},
+										e
+									);
 								}}
 								className="absolute top-0 -right-3 w-2"
 							>
@@ -131,14 +112,17 @@ export default function Section({ section, sectionId, isLast }) {
 						</div>
 						{!bulkEdit && (
 							<button
-								onClick={() => {
-									openBulkEdit({
-										sectionId: sectionId,
-										blockId: -1,
-										value: total.total,
-										valueId: "total",
-										mode: "section",
-									});
+								onClick={(e) => {
+									openBulkEdit(
+										{
+											sectionId: sectionId,
+											blockId: -1,
+											value: total.total,
+											valueId: "total",
+											mode: "section",
+										},
+										e
+									);
 								}}
 								className="absolute top-0 -right-3 w-2"
 							>
@@ -149,49 +133,11 @@ export default function Section({ section, sectionId, isLast }) {
 				</div>
 
 				{variant.sectionSummary && (
-					<div className="mt-4 table_wrap">
-						<div
-							className="table_row heading grid !px-4 text-white"
-							style={{
-								background: primaryColor,
-								gridTemplateColumns: "50px 1fr 100px 100px 100px",
-							}}
-						>
-							<div>N.</div>
-							<div>Názov</div>
-							<div>Cena Montáže</div>
-							<div>Cena Dodávky</div>
-							<div>Cena Celkom</div>
-						</div>
-						{section.blocks.map((block, blockId) => {
-							return (
-								<div
-									key={blockId}
-									className={`grid table_row content ${
-										blockId === section.blocks.length - 1 ? "last" : ""
-									}`}
-									style={{ gridTemplateColumns: "50px 1fr 100px 100px 100px" }}
-								>
-									<div className="h-full flex items-center justify-start py-1 px-2 table_unit">
-										{blockId + 1}
-									</div>
-									<div className="h-full flex items-center justify-start py-1 px-2 table_unit">
-										{block.info.title}
-									</div>
-									<div className="h-full flex items-center justify-start py-1 px-2 table_unit">
-										{parseFloat(block.info.total_construction_price).toFixed(2)}{" "}
-										€
-									</div>
-									<div className="h-full flex items-center justify-start py-1 px-2 table_unit">
-										{parseFloat(block.info.total_delivery_price).toFixed(2)} €
-									</div>
-									<div className="h-full flex items-center justify-start py-1 px-2 table_unit">
-										{parseFloat(block.info.total).toFixed(2)} €
-									</div>
-								</div>
-							);
-						})}
-					</div>
+					<SectionSummary
+						sectionsLength={data.sections.length}
+						sectionId={sectionId}
+						blocks={section.blocks}
+					/>
 				)}
 			</div>
 			{!reorderingBlocks &&
@@ -217,7 +163,7 @@ export default function Section({ section, sectionId, isLast }) {
 				<ReorderingBlocks section={section} sectionId={sectionId} />
 			)}
 
-			<AddBlock sectionId={sectionId} />
+			{variant.blocks && <AddBlock sectionId={sectionId} />}
 		</div>
 	);
 }
