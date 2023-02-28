@@ -132,16 +132,13 @@ export default function Section({ section, sectionId, isLast }) {
 					</div>
 				</div>
 
-				{variant.sectionSummary &&
-					data.sections.map((section, sectionId) => {
-						return (
-							<SectionSummary
-								sectionsLength={data.sections.length}
-								sectionId={sectionId}
-								blocks={section.blocks}
-							/>
-						);
-					})}
+				{variant.sectionSummary && (
+					<SectionSummary
+						sectionsLength={data.sections.length}
+						sectionId={sectionId}
+						blocks={section.blocks}
+					/>
+				)}
 			</div>
 			{!reorderingBlocks &&
 				variant.blocks &&

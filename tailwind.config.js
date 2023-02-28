@@ -12,7 +12,7 @@ module.exports = {
 			boxShadow: {
 				hardShadow:
 					"0px 0px 2px rgb(0 0 0 / 17%), 0px 2px 2px rgb(19 19 19 / 20%)",
-				bulk: "rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;",
+				bulk: "rgba(17, 12, 46, 0.15) 0px 48px 100px 0px",
 			},
 
 			padding: {

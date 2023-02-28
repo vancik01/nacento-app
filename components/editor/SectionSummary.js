@@ -23,7 +23,7 @@ export default function SectionSummary({ blocks, sectionId, sectionsLength }) {
 					<div className="pl-2">Názov</div>
 					<div className="pl-2">Cena Montáže</div>
 					<div className="pl-2">Cena Dodávky</div>
-					<div className="pl-2">Cena Celkom</div>F
+					<div className="pl-2">Cena Celkom</div>
 				</div>
 			)}
 
@@ -75,18 +75,6 @@ export default function SectionSummary({ blocks, sectionId, sectionsLength }) {
 					{blocks.length === 0 ? "Pridať tabuľku" : "Pridať riadok"}
 				</div>
 			</button>
-			<button
-				onClick={(e) => {
-					settest({
-						x: e.pageX,
-						y: e.pageY,
-					});
-				}}
-			>
-				Click
-			</button>
-
-			{test && <TestElement></TestElement>}
 		</div>
 	);
 }
