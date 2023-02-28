@@ -17,7 +17,6 @@ export default function Section({ section, sectionId, isLast }) {
 		reorderingBlocks,
 		data,
 		bulkEdit,
-		setBulkEdit,
 		openBulkEdit,
 		changeSectionTitle,
 	} = useData();
@@ -60,14 +59,17 @@ export default function Section({ section, sectionId, isLast }) {
 						</div>
 						{!bulkEdit && (
 							<button
-								onClick={() => {
-									openBulkEdit({
-										sectionId: sectionId,
-										blockId: -1,
-										value: total.total_construction_price,
-										valueId: "total_construction_price",
-										mode: "section",
-									});
+								onClick={(e) => {
+									openBulkEdit(
+										{
+											sectionId: sectionId,
+											blockId: -1,
+											value: total.total_construction_price,
+											valueId: "total_construction_price",
+											mode: "section",
+										},
+										e
+									);
 								}}
 								className="absolute top-0 -right-3 w-2"
 							>
@@ -83,14 +85,17 @@ export default function Section({ section, sectionId, isLast }) {
 						</div>
 						{!bulkEdit && (
 							<button
-								onClick={() => {
-									openBulkEdit({
-										sectionId: sectionId,
-										blockId: -1,
-										value: total.total_delivery_price,
-										valueId: "total_delivery_price",
-										mode: "section",
-									});
+								onClick={(e) => {
+									openBulkEdit(
+										{
+											sectionId: sectionId,
+											blockId: -1,
+											value: total.total_delivery_price,
+											valueId: "total_delivery_price",
+											mode: "section",
+										},
+										e
+									);
 								}}
 								className="absolute top-0 -right-3 w-2"
 							>
@@ -107,14 +112,17 @@ export default function Section({ section, sectionId, isLast }) {
 						</div>
 						{!bulkEdit && (
 							<button
-								onClick={() => {
-									openBulkEdit({
-										sectionId: sectionId,
-										blockId: -1,
-										value: total.total,
-										valueId: "total",
-										mode: "section",
-									});
+								onClick={(e) => {
+									openBulkEdit(
+										{
+											sectionId: sectionId,
+											blockId: -1,
+											value: total.total,
+											valueId: "total",
+											mode: "section",
+										},
+										e
+									);
 								}}
 								className="absolute top-0 -right-3 w-2"
 							>

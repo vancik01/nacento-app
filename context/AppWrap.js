@@ -583,9 +583,18 @@ export function AppWrap({ children }) {
 		setdata(newData);
 	}
 
-	function openBulkEdit(data) {
+	function openBulkEdit(data, e) {
+		const clientWidth = document.body.clientWidth;
+		var pageX = e.pageX;
+		var pageY = e.pageY - 30;
+
+		if (pageX + 400 > clientWidth)
+			pageX = pageX - 100 - (pageX + 400 - clientWidth);
+
+		console.log(clientWidth);
 		setbulkEdit(true);
-		setbulkEditData(data);
+		setbulkEditData({ ...data, x: pageX, y: pageY });
+		console.log({ ...data, x: e.pageX, y: e.pageY });
 	}
 
 	function closeBulkEdit(data) {

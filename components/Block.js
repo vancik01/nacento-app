@@ -138,15 +138,18 @@ export default function Block({
 							</div>
 							{!bulkEdit && (
 								<button
-									onClick={() => {
-										openBulkEdit({
-											blockId: blockId,
-											sectionId: sectionId,
-											value: block.info["total_delivery_price"],
-											valueId: "total_delivery_price",
-											title: getTitle("total_delivery_price", "sk").long,
-											mode: "block",
-										});
+									onClick={(e) => {
+										openBulkEdit(
+											{
+												blockId: blockId,
+												sectionId: sectionId,
+												value: block.info["total_delivery_price"],
+												valueId: "total_delivery_price",
+												title: getTitle("total_delivery_price", "sk").long,
+												mode: "block",
+											},
+											e
+										);
 									}}
 									className="absolute top-0 -right-3 w-2"
 								>
@@ -163,15 +166,18 @@ export default function Block({
 							</div>
 							{!bulkEdit && (
 								<button
-									onClick={() => {
-										openBulkEdit({
-											blockId: blockId,
-											sectionId: sectionId,
-											value: block.info["total_construction_price"],
-											valueId: "total_construction_price",
-											mode: "block",
-											title: getTitle("total_construction_price", "sk").long,
-										});
+									onClick={(e) => {
+										openBulkEdit(
+											{
+												blockId: blockId,
+												sectionId: sectionId,
+												value: block.info["total_construction_price"],
+												valueId: "total_construction_price",
+												mode: "block",
+												title: getTitle("total_construction_price", "sk").long,
+											},
+											e
+										);
 									}}
 									className="absolute top-0 -right-3 w-2"
 								>
@@ -186,15 +192,18 @@ export default function Block({
 							</div>
 							{!bulkEdit && (
 								<button
-									onClick={() => {
-										openBulkEdit({
-											blockId: blockId,
-											sectionId: sectionId,
-											value: block.info.total,
-											valueId: "total",
-											title: getTitle("total", "sk").long,
-											mode: "block",
-										});
+									onClick={(e) => {
+										openBulkEdit(
+											{
+												blockId: blockId,
+												sectionId: sectionId,
+												value: block.info.total,
+												valueId: "total",
+												title: getTitle("total", "sk").long,
+												mode: "block",
+											},
+											e
+										);
 									}}
 									className="absolute top-0 -right-3 w-2"
 								>

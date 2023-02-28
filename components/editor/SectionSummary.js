@@ -23,7 +23,7 @@ export default function SectionSummary({ blocks, sectionId, sectionsLength }) {
 					<div className="pl-2">Názov</div>
 					<div className="pl-2">Cena Montáže</div>
 					<div className="pl-2">Cena Dodávky</div>
-					<div className="pl-2">Cena Celkom</div>
+					<div className="pl-2">Cena Celkom</div>F
 				</div>
 			)}
 
