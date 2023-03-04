@@ -3,6 +3,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useData } from "../context/AppWrap";
 import { useLayout } from "../context/LayoutContext";
 import { numberWithCommas } from "../lib/helpers";
+import Cancel from "../public/SVG/Cancel";
 import EditPen from "../public/SVG/EditPen";
 import Block from "./Block";
 import ButtonPrimary from "./ButtonPrimary";
@@ -19,6 +20,7 @@ export default function Section({ section, sectionId, isLast }) {
 		bulkEdit,
 		openBulkEdit,
 		changeSectionTitle,
+		deleteSection,
 	} = useData();
 	const { primaryColor, variant } = useLayout();
 	const [editingTitle, seteditingTitle] = useState(false);
@@ -40,7 +42,7 @@ export default function Section({ section, sectionId, isLast }) {
 	};
 
 	return (
-		<div className="pt-10" id={isLast ? "last-section" : ""}>
+		<div className="pb-16 relative" id={isLast ? "last-section" : ""}>
 			<div className="p-8 border-2">
 				<EditText
 					initialValue={section.info.title}
@@ -164,6 +166,20 @@ export default function Section({ section, sectionId, isLast }) {
 			)}
 
 			{variant.blocks && <AddBlock sectionId={sectionId} />}
+
+			<div className="flex items-center gap-4 w-fit mt-2">
+				<button
+					onClick={() => {
+						deleteSection(sectionId);
+					}}
+					className="flex items-center justify-center gap-2"
+				>
+					<Cancel color="#ef4444"></Cancel>
+					<div className="text-sm text-red-500 whitespace-nowrap">
+						Zmazať sekciu
+					</div>
+				</button>
+			</div>
 		</div>
 	);
 }

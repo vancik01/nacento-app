@@ -14,6 +14,16 @@ import { firestore } from "../lib/firebase";
 import debounce from "lodash.debounce";
 import { useRouter } from "next/router";
 import ButtonPrimary from "../components/ButtonPrimary";
+import { toast } from "react-toastify";
+
+import {
+	splitBetweenBlocks,
+	splitBetweenItems,
+	splitBetweenSections,
+	updateBlockTotals,
+	updateSectionTotals,
+	updateTableRow,
+} from "../lib/valueChangeFunctions";
 
 const DataContext = React.createContext();
 
@@ -48,7 +58,6 @@ export function AppWrap({ children }) {
 		//const { projectId } = router.query;
 
 		const projectId = localStorage.getItem("offerId");
-		console.log(projectId);
 
 		if (projectId && projectId != "") {
 			const docRef = doc(firestore, `/offers/${projectId}`);
@@ -73,18 +82,21 @@ export function AppWrap({ children }) {
 			console.log("error, missing ID");
 			return;
 		} else {
-			console.log(offerId);
 			setsaving(true);
 			const docRef = doc(firestore, `/offers/${offerId}`);
 
 			updateDoc(docRef, { data: data, name: name })
 				.then((snap) => {
 					//setdata(snap.data().data);
-
+					toast("Dáta sa uložili", { autoClose: 3000, type: "success" });
 					setsaving(false);
 				})
 				.catch((err) => {
 					console.log(err);
+					toast("Vyskytla sa chyba pri ukladaní", {
+						autoClose: 3,
+						type: "error",
+					});
 				});
 		}
 	}
@@ -217,224 +229,15 @@ export function AppWrap({ children }) {
 
 	function changeValue(obj) {
 		var newData = { ...data };
-		if (obj.value < 0 || obj.value === NaN || isNaN(obj.value) || !obj.value) {
-			obj.value = 0;
-		}
 
-		if (obj.valueId != "total") {
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
-				obj.valueId
-			] = parseFloat(obj.value);
-		}
-
-		if (obj.valueId === "total_construction_price") {
-			//ak je quantity 0 nastav na 1
-			if (
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
-					.quantity == 0
-			) {
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[
-					obj.itemId
-				].quantity = 1;
-			}
-
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
-				"unit_construction_price"
-			] = parseFloat(
-				parseFloat(obj.value) /
-					newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
-						"quantity"
-					]
-			).toFixed(2);
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[
-				obj.itemId
-			].total = parseFloat(
-				parseFloat(
-					newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
-						.total_construction_price
-				) +
-					parseFloat(
-						newData.sections[obj.sectionId].blocks[obj.blockId].items[
-							obj.itemId
-						].total_delivery_price
-					)
-			).toFixed(2);
-		} else if (obj.valueId === "total_delivery_price") {
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
-				"unit_delivery_price"
-			] = (
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
-					obj.valueId
-				] /
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
-					"quantity"
-				]
-			).toFixed(2);
-
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[
-				obj.itemId
-			].total_delivery_price = obj.value;
-
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[
-				obj.itemId
-			].total = parseFloat(
-				parseFloat(
-					newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId]
-						.total_construction_price
-				) +
-					parseFloat(
-						newData.sections[obj.sectionId].blocks[obj.blockId].items[
-							obj.itemId
-						].total_delivery_price
-					)
-			).toFixed(2);
-		} else if (obj.valueId === "total") {
-			var valueChange = obj.value - getValue(newData, obj, obj.valueId);
-			var cmcIndex;
-			var cdcIndex;
-			if (parseFloat(getValue(newData, obj, obj.valueId)) !== 0) {
-				var cmcIndex =
-					getValue(newData, obj, "total_construction_price") /
-					getValue(newData, obj, "total");
-				var cdcIndex =
-					getValue(newData, obj, "total_delivery_price") /
-					getValue(newData, obj, "total");
-			} else {
-				var cmcIndex = 0.5;
-				var cdcIndex = 0.5;
-			}
-
-			// console.log("cmc -> ", cmcIndex *100, "% ->" , parseFloat(valueChange * cmcIndex))
-			// console.log("cdc -> ", cdcIndex *100, "%->", parseFloat(valueChange * cdcIndex))
-
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[
-				obj.itemId
-			].total_construction_price = (
-				parseFloat(getValue(newData, obj, "total_construction_price")) +
-				parseFloat(valueChange * cmcIndex)
-			).toFixed(2);
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[
-				obj.itemId
-			].total_delivery_price = (
-				parseFloat(parseFloat(getValue(newData, obj, "total_delivery_price"))) +
-				parseFloat(valueChange * cdcIndex)
-			).toFixed(2);
-
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[
-				obj.itemId
-			].unit_construction_price = parseFloat(
-				getValue(newData, obj, "total_construction_price") /
-					getValue(newData, obj, "quantity")
-			).toFixed(2);
-
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[
-				obj.itemId
-			].unit_delivery_price = parseFloat(
-				getValue(newData, obj, "total_delivery_price") /
-					getValue(newData, obj, "quantity")
-			).toFixed(2);
-
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
-				obj.valueId
-			] = parseFloat(obj.value);
-		} else {
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
-				"total_construction_price"
-			] =
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
-					"unit_construction_price"
-				] *
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
-					"quantity"
-				];
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
-				"total_delivery_price"
-			] =
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
-					"unit_delivery_price"
-				] *
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
-					"quantity"
-				];
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[
-				obj.itemId
-			].total =
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
-					"total_construction_price"
-				] +
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
-					"total_delivery_price"
-				];
-			//2 desatinné miesta
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
-				"total_construction_price"
-			] = parseFloat(
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
-					"total_construction_price"
-				]
-			).toFixed(2);
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
-				"unit_construction_price"
-			] = parseFloat(
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
-					"unit_construction_price"
-				]
-			).toFixed(2);
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
-				"total"
-			] = parseFloat(
-				newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId][
-					"total"
-				]
-			).toFixed(2);
-		}
-
-		newData.sections[obj.sectionId].blocks[obj.blockId].info[
-			"total_delivery_price"
-		] = 0;
-		newData.sections[obj.sectionId].blocks[obj.blockId].info[
-			"total_construction_price"
-		] = 0;
-
-		newData.sections[obj.sectionId].blocks[obj.blockId].items.map(
-			(polozka, i) => {
-				newData.sections[obj.sectionId].blocks[obj.blockId].info[
-					"total_delivery_price"
-				] += parseFloat(polozka["total_delivery_price"]);
-				newData.sections[obj.sectionId].blocks[obj.blockId].info[
-					"total_construction_price"
-				] += parseFloat(polozka["total_construction_price"]);
-			}
+		updateTableRow(
+			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId],
+			obj.valueId,
+			obj.value
 		);
+		updateBlockTotals(newData.sections[obj.sectionId].blocks[obj.blockId]);
 
-		newData.sections[obj.sectionId].info["total_delivery_price"] = 0;
-		newData.sections[obj.sectionId].info["total_construction_price"] = 0;
-		newData.sections[obj.sectionId].blocks.map((block, i) => {
-			newData.sections[obj.sectionId].info["total_delivery_price"] =
-				parseFloat(
-					newData.sections[obj.sectionId].info["total_delivery_price"]
-				) + parseFloat(block.info["total_delivery_price"]);
-			newData.sections[obj.sectionId].info["total_construction_price"] =
-				parseFloat(
-					newData.sections[obj.sectionId].info["total_construction_price"]
-				) + parseFloat(block.info["total_construction_price"]);
-			newData.sections[obj.sectionId].info["total"] =
-				parseFloat(
-					newData.sections[obj.sectionId].info["total_delivery_price"]
-				) +
-				parseFloat(
-					newData.sections[obj.sectionId].info["total_construction_price"]
-				);
-		});
-
-		newData.sections[obj.sectionId].blocks.map((block, i) => {
-			newData.sections[obj.sectionId].blocks[i].info.total =
-				block.info["total_construction_price"] +
-				block.info["total_delivery_price"];
-		});
-
-		var x = getValue(newData, obj, "total");
-		x = 696969;
+		updateSectionTotals(newData.sections[obj.sectionId]);
 
 		setdata(newData);
 	}
@@ -465,7 +268,6 @@ export function AppWrap({ children }) {
 		var polozkaRemoved =
 			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId];
 		var newPolozky = newData.sections[obj.sectionId].blocks[obj.blockId].items;
-		console.log(polozkaRemoved, "removed");
 
 		newPolozky.splice(obj.itemId, 1);
 		newData.sections[obj.sectionId].blocks[
@@ -493,7 +295,6 @@ export function AppWrap({ children }) {
 		var newData = { ...data };
 
 		const [removed] = newData.sections[sectionId].blocks.splice(blockId, 1);
-		console.log(removed);
 
 		newData.sections[sectionId].info.total_construction_price -=
 			removed.info.total_construction_price;
@@ -501,6 +302,13 @@ export function AppWrap({ children }) {
 			removed.info.total_delivery_price;
 		newData.sections[sectionId].info.total -= removed.info.total;
 
+		setdata(newData);
+	}
+
+	function deleteSection(sectionId) {
+		var newData = { ...data };
+
+		const [removed] = newData.sections.splice(sectionId, 1);
 		setdata(newData);
 	}
 
@@ -547,7 +355,8 @@ export function AppWrap({ children }) {
 
 	function addBlock(sectionId) {
 		var newData = { ...data };
-		newData.sections[sectionId].blocks.push({
+		var lengthBeforeInsert = newData.sections[sectionId].blocks.length;
+		var newBlock = {
 			info: {
 				title: "",
 				total_delivery_price: 0,
@@ -555,7 +364,19 @@ export function AppWrap({ children }) {
 				total: 0,
 			},
 			items: [],
-		});
+		};
+
+		if (lengthBeforeInsert === 0) {
+			newBlock.info.total = parseFloat(newData.sections[sectionId].info.total);
+			newBlock.info.total_construction_price = parseFloat(
+				newData.sections[sectionId].info.total_construction_price
+			);
+			newBlock.info.total_delivery_price = parseFloat(
+				newData.sections[sectionId].info.total_delivery_price
+			);
+		}
+
+		newData.sections[sectionId].blocks.push(newBlock);
 
 		setdata(newData);
 	}
@@ -591,10 +412,8 @@ export function AppWrap({ children }) {
 		if (pageX + 400 > clientWidth)
 			pageX = pageX - 100 - (pageX + 400 - clientWidth);
 
-		console.log(clientWidth);
 		setbulkEdit(true);
 		setbulkEditData({ ...data, x: pageX, y: pageY });
-		console.log({ ...data, x: e.pageX, y: e.pageY });
 	}
 
 	function closeBulkEdit(data) {
@@ -602,137 +421,36 @@ export function AppWrap({ children }) {
 		setbulkEditData(null);
 	}
 
-	function saveBulkEdit(value, blockId, sectionId, valueId) {
-		if (value == 0) return;
-
+	function saveBulkEdit(valueToAdd) {
 		var newData = { ...data };
 
-		if (
-			blockId >= 0 &&
-			newData.sections[sectionId].blocks[blockId].items.length == 0
-		) {
-			if (valueId == "total") {
-				if (newData.sections[sectionId].blocks[blockId].info["total"] === 0) {
-					newData.sections[sectionId].blocks[blockId].info[
-						"total_construction_price"
-					] = parseFloat(value / 2).toFixed(2);
-
-					newData.sections[sectionId].blocks[blockId].info[
-						"total_delivery_price"
-					] = parseFloat(value / 2).toFixed(2);
-
-					newData.sections[sectionId].blocks[blockId].info["total"] =
-						parseFloat(value).toFixed(2);
-				} else {
-					var cdcIndex =
-						newData.sections[sectionId].blocks[blockId].info[
-							"total_delivery_price"
-						] / newData.sections[sectionId].blocks[blockId].info["total"];
-
-					var cmcIndex =
-						newData.sections[sectionId].blocks[blockId].info[
-							"total_construction_price"
-						] / newData.sections[sectionId].blocks[blockId].info["total"];
-
-					newData.sections[sectionId].blocks[blockId].info["total"] =
-						parseFloat(
-							newData.sections[sectionId].blocks[blockId].info["total"]
-						) + parseFloat(value);
-
-					console.log(cdcIndex, cmcIndex);
-					newData.sections[sectionId].blocks[blockId].info[
-						"total_construction_price"
-					] =
-						parseFloat(
-							newData.sections[sectionId].blocks[blockId].info[
-								"total_construction_price"
-							]
-						) + parseFloat(value * cmcIndex);
-
-					newData.sections[sectionId].blocks[blockId].info[
-						"total_delivery_price"
-					] =
-						parseFloat(
-							newData.sections[sectionId].blocks[blockId].info[
-								"total_delivery_price"
-							]
-						) + parseFloat(value * cdcIndex);
-				}
-			} else {
-				newData.sections[sectionId].blocks[blockId].info[valueId] =
-					parseFloat(
-						newData.sections[sectionId].blocks[blockId].info[valueId]
-					) + parseFloat(value);
-
-				newData.sections[sectionId].blocks[blockId].info["total"] =
-					parseFloat(
-						newData.sections[sectionId].blocks[blockId].info["total"]
-					) + parseFloat(value);
-			}
-
-			setdata(newData);
-			return;
+		if (bulkEditData.mode === "block") {
+			splitBetweenItems(
+				newData.sections[bulkEditData.sectionId].blocks[bulkEditData.blockId],
+				valueToAdd,
+				bulkEditData.valueId
+			);
+			updateSectionTotals(newData.sections[bulkEditData.sectionId]);
+		} else if (bulkEditData.mode === "section") {
+			splitBetweenBlocks(
+				newData.sections[bulkEditData.sectionId],
+				valueToAdd,
+				bulkEditData.valueId
+			);
+		} else if (bulkEditData.mode === "whole") {
+			splitBetweenSections(
+				newData.sections,
+				valueToAdd,
+				bulkEditData.valueId,
+				total
+			);
 		}
-
-		var sum = parseFloat(
-			newData.sections[sectionId].blocks[blockId].info[valueId]
-		);
-		var allZero = true;
-
-		newData.sections[sectionId].blocks[blockId].items.map((item, i) => {
-			//console.log(`${((item[valueId] / sum) *100).toFixed(2)}% -> + ${((item[valueId] / sum) * value).toFixed(2)}`)
-			item[valueId] = parseFloat(item[valueId]);
-			if (item[valueId] === 0 || item["quantity"] === 0) {
-			} else {
-				changeValue({
-					blockId: blockId,
-					sectionId: sectionId,
-					itemId: i,
-					valueId: valueId,
-					value: parseFloat(
-						parseFloat(
-							newData.sections[sectionId].blocks[blockId].items[i][valueId]
-						) + parseFloat((item[valueId] / sum) * value)
-					).toFixed(2),
-				});
-				allZero = false;
-			}
-		});
-
-		if (allZero) {
-			newData.sections[sectionId].blocks[blockId].items.map((item, i) => {
-				// console.log(
-				// 	`${((item[valueId] / sum) * 100).toFixed(2)}% -> + ${(
-				// 		(item[valueId] / sum) *
-				// 		value
-				// 	).toFixed(2)}`
-				// );
-				changeValue({
-					blockId: blockId,
-					sectionId: sectionId,
-					itemId: i,
-					valueId: valueId,
-					value: (
-						parseFloat(
-							newData.sections[sectionId].blocks[blockId].items[i][valueId]
-						) +
-						parseFloat(
-							value / newData.sections[sectionId].blocks[blockId].items.length
-						)
-					).toFixed(2),
-				});
-			});
-		}
+		setdata(newData);
+		closeBulkEdit();
 	}
 
 	function toggleTotals() {
 		setdisplayTotals(!displayTotals);
-	}
-
-	function changeTableRow(value, valueId, rowId, blockId, sectionId) {
-		var newData = { ...data };
-		newData.sections[sectionId].blocks[blockId].items[rowId][valueId] = value;
-		setdata(newData);
 	}
 
 	function addTableRow(blockId, sectionId) {
@@ -749,6 +467,14 @@ export function AppWrap({ children }) {
 			total_construction_price: 0,
 			total: 0,
 		});
+
+		if (newData.sections[sectionId].blocks[blockId].items.length === 1) {
+			updateTableRow(
+				newData.sections[sectionId].blocks[blockId].items[0],
+				"total",
+				parseFloat(newData.sections[sectionId].blocks[blockId].info.total)
+			);
+		}
 
 		setdata(newData);
 	}
@@ -826,14 +552,11 @@ export function AppWrap({ children }) {
 		saving,
 		setsaving,
 
-		changeTableRow,
 		addTableRow,
 
 		changeSectionTitle,
 		addSection,
-
-		test,
-		settest,
+		deleteSection,
 	};
 
 	useEffect(() => {

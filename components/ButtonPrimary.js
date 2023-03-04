@@ -11,6 +11,7 @@ export default function ButtonPrimary({
 	disabled,
 	href,
 	color,
+	onKeyDown,
 }) {
 	const layout = useLayout();
 
@@ -34,6 +35,7 @@ export default function ButtonPrimary({
 					"rgba(50, 50, 93, 0.12) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px",
 			}}
 			onClick={onClick}
+			onKeyDown={onKeyDown}
 			disabled={disabled}
 		>
 			{href && (

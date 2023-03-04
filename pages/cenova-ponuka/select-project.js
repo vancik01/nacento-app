@@ -29,7 +29,6 @@ export default function index() {
 				});
 				setdata(newData);
 			}
-			console.log(newData);
 
 			setloading(false);
 		});

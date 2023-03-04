@@ -86,7 +86,7 @@ export default function Block({
 						}}
 					/>
 
-					<div className="flex items-center gap-4">
+					<div className="flex items-center gap-4 w-fit">
 						<button
 							onClick={() => {
 								deleteBlock(sectionId, blockId);
@@ -94,7 +94,9 @@ export default function Block({
 							className="flex items-center justify-center gap-2"
 						>
 							<Cancel color="#ef4444"></Cancel>
-							<div className="text-sm text-red-500">Zmazať blok</div>
+							<div className="text-sm text-red-500 whitespace-nowrap">
+								Zmazať blok
+							</div>
 						</button>
 						{collapsed && (
 							<div {...dragHandleProps}>

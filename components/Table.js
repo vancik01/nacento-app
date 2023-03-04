@@ -17,7 +17,7 @@ import Save from "../public/SVG/Save";
 import _ from "lodash";
 
 export default function Table({ items, headers, blockId, sectionId }) {
-	const { deleteRow, reorderRows, getTitle, changeTableRow } = useData();
+	const { deleteRow, reorderRows, getTitle } = useData();
 	const { displayColumns, tableRowTemplate, primaryColor } = useLayout();
 	const [hovering, sethovering] = useState("");
 
@@ -94,7 +94,7 @@ export default function Table({ items, headers, blockId, sectionId }) {
 }
 
 function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
-	const { getTitle, headers, changeTableRow, deleteRow } = useData();
+	const { getTitle, headers, deleteRow } = useData();
 	const { displayColumns, tableRowTemplate, primaryColor } = useLayout();
 
 	const [text, settext] = useState(polozka.title);
@@ -177,13 +177,7 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 }
 
 function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
-	const { changeValue, changeTableRow } = useData();
-
-	function handleRowChange(e) {
-		// setdidChange(true);
-		//data, valueId, rowId, blockId, sectionId;
-		changeTableRow(e.target.value, item, itemId, blockId, sectionId);
-	}
+	const { changeValue } = useData();
 
 	function update(e) {
 		changeValue({
@@ -219,7 +213,6 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 				<TextareaAutosize
 					className="w-full bg-transparent focus-visible:outline-none h-fit overflow-visible"
 					value={polozka.title}
-					onChange={handleRowChange}
 					name={item}
 					style={{ resize: "none" }}
 				/>
@@ -231,7 +224,6 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 				<select
 					defaultValue={polozka.unit}
 					name={item}
-					onChange={handleRowChange}
 					className="w-full bg-transparent"
 				>
 					<option value="m2">m2</option>

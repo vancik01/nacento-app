@@ -12,12 +12,6 @@ import EditorHeader from "./EditorHeader";
 import { toast } from "react-toastify";
 
 export default function ScreenLayout() {
-	useEffect(() => {
-		setTimeout(() => {
-			toast("wocap", { autoClose: 3000, type: "info" });
-		}, 1000);
-	}, []);
-
 	const { displaySidebar, setdisplaySidebar, loading } = useData();
 	return (
 		<>

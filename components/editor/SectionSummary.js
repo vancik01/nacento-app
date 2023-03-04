@@ -11,7 +11,14 @@ import TestElement from "./TestElement";
 
 export default function SectionSummary({ blocks, sectionId, sectionsLength }) {
 	const { primaryColor } = useLayout();
-	const { addBlock, editBlockTitle, deleteBlock } = useData();
+	const {
+		addBlock,
+		editBlockTitle,
+		deleteBlock,
+		reorderBlocks,
+		openBulkEdit,
+		getTitle,
+	} = useData();
 	return (
 		<div className="mt-4 table_wrap">
 			{blocks.length > 0 && (
@@ -30,73 +37,134 @@ export default function SectionSummary({ blocks, sectionId, sectionsLength }) {
 				</div>
 			)}
 			<DragDropContext
-				onDragEnd={() => {
-					console.log("drag-block");
+				onDragEnd={(e) => {
+					reorderBlocks(e, sectionId);
 				}}
 			>
 				<Droppable droppableId={`table`}>
-					{(provided) =>
-						blocks.map((block, blockId) => {
-							return (
-								<Draggable>
-									{(provided, snapshot) => (
-										<div
-											{...provided.droppableProps}
-											ref={provided.innerRef}
-											key={blockId}
-											className={`grid table_row content relative ${
-												blockId === blocks.length - 1 ? "last" : ""
-											}`}
-											style={{
-												gridTemplateColumns: "50px 1fr 140px 140px 140px",
-											}}
-										>
-											<div className="h-full flex items-center justify-start py-1 px-2 table_unit">
-												{blockId + 1}
-											</div>
-											<div className="h-full flex items-center justify-start py-1 px-2 table_unit">
-												<TextareaAutosize
-													className="w-full bg-transparent focus-visible:outline-none h-fit overflow-visible"
-													value={block.info.title}
-													onChange={(e) => {
-														editBlockTitle(e.target.value, sectionId, blockId);
-													}}
-													style={{ resize: "none" }}
-												/>
-											</div>
-											<div className="h-full flex items-center justify-start py-1 px-2 table_unit">
-												{parseFloat(
-													block.info.total_construction_price
-												).toFixed(2)}{" "}
-												€
-											</div>
-
-											<div className="h-full flex items-center justify-start py-1 px-2 table_unit">
-												{parseFloat(block.info.total_delivery_price).toFixed(2)}{" "}
-												€
-											</div>
-											<div className="h-full flex items-center justify-start py-1 px-2 table_unit">
-												{parseFloat(block.info.total).toFixed(2)} €
-											</div>
-
-											<div className="flex justify-end gap-1 select-none absolute -right-20">
+					{(provided) => (
+						<div {...provided.droppableProps} ref={provided.innerRef}>
+							{blocks.map((block, blockId) => {
+								return (
+									<Draggable
+										key={`${sectionId}-${blockId}`}
+										draggableId={`block-${blockId}`}
+										index={blockId}
+									>
+										{(provided, snapshot) => (
+											<div {...provided.draggableProps} ref={provided.innerRef}>
 												<div
-													onClick={() => {
-														deleteBlock(sectionId, blockId);
+													className={`grid table_row content relative ${
+														blockId === blocks.length - 1 ? "last" : ""
+													}`}
+													style={{
+														gridTemplateColumns: "50px 1fr 140px 140px 140px",
 													}}
 												>
-													<Cancel color={primaryColor} />
-												</div>
-												<div>
-													<DragableIcon />
+													<div className="h-full flex items-center justify-start py-1 px-2 table_unit">
+														{blockId + 1}
+													</div>
+													<div className="h-full flex items-center justify-start py-1 px-2 table_unit">
+														<TextareaAutosize
+															className="w-full bg-transparent focus-visible:outline-none h-fit overflow-visible"
+															value={block.info.title}
+															onChange={(e) => {
+																editBlockTitle(
+																	e.target.value,
+																	sectionId,
+																	blockId
+																);
+															}}
+															style={{ resize: "none" }}
+														/>
+													</div>
+													<button
+														className="h-full flex items-center justify-start py-1 px-2 table_unit"
+														onClick={(e) => {
+															openBulkEdit(
+																{
+																	blockId: blockId,
+																	sectionId: sectionId,
+																	value: block.info["total_construction_price"],
+																	valueId: "total_construction_price",
+																	title: getTitle(
+																		"total_construction_price",
+																		"sk"
+																	).long,
+																	mode: "block",
+																},
+																e
+															);
+														}}
+													>
+														{parseFloat(
+															block.info.total_construction_price
+														).toFixed(2)}{" "}
+														€
+													</button>
+
+													<button
+														className="h-full flex items-center justify-start py-1 px-2 table_unit"
+														onClick={(e) => {
+															openBulkEdit(
+																{
+																	blockId: blockId,
+																	sectionId: sectionId,
+																	value: block.info["total_delivery_price"],
+																	valueId: "total_delivery_price",
+																	title: getTitle("total_delivery_price", "sk")
+																		.long,
+																	mode: "block",
+																},
+																e
+															);
+														}}
+													>
+														{parseFloat(
+															block.info.total_delivery_price
+														).toFixed(2)}{" "}
+														€
+													</button>
+													<button
+														className="h-full flex items-center justify-start py-1 px-2 table_unit"
+														onClick={(e) => {
+															openBulkEdit(
+																{
+																	blockId: blockId,
+																	sectionId: sectionId,
+																	value: block.info["total"],
+																	valueId: "total",
+																	title: getTitle("total", "sk").long,
+																	mode: "block",
+																},
+																e
+															);
+														}}
+													>
+														{parseFloat(block.info.total).toFixed(2)} €
+													</button>
+
+													<div className="flex justify-end gap-1 select-none absolute -right-20">
+														<div
+															onClick={() => {
+																deleteBlock(sectionId, blockId);
+															}}
+														>
+															<Cancel color={primaryColor} />
+														</div>
+														<div {...provided.dragHandleProps}>
+															<DragableIcon />
+														</div>
+													</div>
 												</div>
 											</div>
-										</div>
-									)}
-								</Draggable>
-							);
-						})
-					}
+										)}
+									</Draggable>
+								);
+							})}
+							{provided.placeholder}
+						</div>
+					)}
 				</Droppable>
 			</DragDropContext>
 			<button

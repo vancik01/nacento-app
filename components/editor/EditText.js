@@ -27,7 +27,11 @@ export default function EditText({
 					}}
 				>
 					<h1 className="text-center relative">
-						{text}
+						{text.length != 0 ? (
+							text
+						) : (
+							<span className="text-gray-300">Zadajte...</span>
+						)}
 						<div className="absolute top-0 -right-3 w-2">
 							<EditPen></EditPen>
 						</div>
@@ -38,7 +42,7 @@ export default function EditText({
 			{editingTitle && (
 				<div className="flex items-baseline justify-center">
 					<input
-						className={`w-full min-w-[400px] ${classInput ? classInput : ""}`}
+						className={`w-full min-w-[200px] ${classInput ? classInput : ""}`}
 						variant="outlined"
 						placeholder="Zadajte text..."
 						value={text}
