@@ -42,25 +42,6 @@ export default function BottomBar() {
 							Cena Montáže:{" "}
 							{numberWithCommas(total.total_construction_price.toFixed(2))} €
 						</div>
-						{!bulkEdit && (
-							<button
-								onClick={(e) => {
-									openBulkEdit(
-										{
-											blockId: -1,
-											value: total.total_construction_price,
-											valueId: "total_construction_price",
-											mode: "whole",
-											id: "bulk-edit",
-										},
-										e
-									);
-								}}
-								className="absolute top-0 -right-3 w-2"
-							>
-								<EditPen></EditPen>
-							</button>
-						)}
 					</div>
 
 					<div className="relative w-fit">
@@ -69,24 +50,6 @@ export default function BottomBar() {
 							Cena Dodávky:{" "}
 							{numberWithCommas(total.total_delivery_price.toFixed(2))} €
 						</div>
-						{!bulkEdit && (
-							<button
-								onClick={(e) => {
-									openBulkEdit(
-										{
-											blockId: -1,
-											value: total.total_delivery_price,
-											valueId: "total_delivery_price",
-											mode: "whole",
-										},
-										e
-									);
-								}}
-								className="absolute top-0 -right-3 w-2"
-							>
-								<EditPen></EditPen>
-							</button>
-						)}
 					</div>
 
 					<div className="relative w-fit">
@@ -95,24 +58,6 @@ export default function BottomBar() {
 							Spolu: {numberWithCommas(total.total.toFixed(2))} €{" "}
 							<span className="text-[10px]">bez DPH</span>
 						</div>
-						{!bulkEdit && (
-							<button
-								onClick={(e) => {
-									openBulkEdit(
-										{
-											blockId: -1,
-											value: total.total,
-											valueId: "total",
-											mode: "whole",
-										},
-										e
-									);
-								}}
-								className="absolute top-0 -right-3 w-2"
-							>
-								<EditPen></EditPen>
-							</button>
-						)}
 					</div>
 				</div>
 			</div>

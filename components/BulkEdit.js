@@ -1,5 +1,5 @@
 import { Button, Input } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useData } from "../context/AppWrap";
 import ButtonPrimary from "./ButtonPrimary";
 import ButtonTag from "./ButtonTag";
@@ -32,6 +32,7 @@ export default function BulkEdit() {
 		var newData = { ...changedData };
 		newData.value = parseFloat(newData.value) + parseFloat(val);
 		if (newData.value < 0) newData.value = 0;
+		newData.value = parseFloat(newData.value).toFixed(2);
 		setchangedData(newData);
 	}
 
@@ -39,6 +40,26 @@ export default function BulkEdit() {
 		var valueToAdd = changedData.value - bulkEditData.value;
 		saveBulkEdit(valueToAdd);
 	}
+
+	const handleUserKeyPress = useCallback(
+		(event) => {
+			const { key, keyCode } = event;
+			console.log(keyCode);
+			if (keyCode == 13) {
+				handleSave(event);
+			} else if (keyCode === 27) {
+				closeBulkEdit();
+			}
+		},
+		[changedData]
+	);
+
+	useEffect(() => {
+		window.addEventListener("keydown", handleUserKeyPress);
+		return () => {
+			window.removeEventListener("keydown", handleUserKeyPress);
+		};
+	}, [handleUserKeyPress]);
 
 	return (
 		<motion.div
@@ -65,7 +86,7 @@ export default function BulkEdit() {
 					endAdornment="€"
 					onChange={handleChange}
 					value={parseFloat(changedData.value)}
-					autoFocus="true"
+					autoFocus
 				></Input>
 				<div className="flex justify-between mt-2">
 					<ButtonTag

@@ -152,8 +152,9 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 											deleteRow({ sectionId, blockId, itemId: i });
 										}}
 									>
-										<TrashBin color={primaryColor} />
+										<TrashBin />
 									</div>
+
 									<div {...provided.dragHandleProps}>
 										<DragableIcon />
 									</div>

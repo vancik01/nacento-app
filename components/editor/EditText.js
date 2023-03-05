@@ -1,5 +1,5 @@
 import { Input } from "@mui/material";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import EditPen from "../../public/SVG/EditPen";
 import ButtonPrimary from "../ButtonPrimary";
 
@@ -11,7 +11,30 @@ export default function EditText({
 	classText,
 }) {
 	const [editingTitle, seteditingTitle] = useState(false);
-	const [text, settext] = useState(initialValue);
+	const [text, settext] = useState("");
+
+	useEffect(() => {
+		settext(initialValue);
+	}, [initialValue]);
+
+	const handleUserKeyPress = useCallback(
+		(event) => {
+			const { key, keyCode } = event;
+			if (keyCode == 13) {
+				handleSave();
+			} else if (keyCode === 27) {
+				seteditingTitle(false);
+			}
+		},
+		[text]
+	);
+
+	useEffect(() => {
+		window.addEventListener("keydown", handleUserKeyPress);
+		return () => {
+			window.removeEventListener("keydown", handleUserKeyPress);
+		};
+	}, [handleUserKeyPress]);
 
 	function handleSave() {
 		seteditingTitle(false);

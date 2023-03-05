@@ -42,7 +42,11 @@ export default function Section({ section, sectionId, isLast }) {
 	};
 
 	return (
-		<div className="pb-16 relative" id={isLast ? "last-section" : ""}>
+		<div
+			key={`section-${sectionId}`}
+			className="pb-16 relative"
+			id={isLast ? "last-section" : ""}
+		>
 			<div className="p-8 border-2">
 				<EditText
 					initialValue={section.info.title}
@@ -55,82 +59,88 @@ export default function Section({ section, sectionId, isLast }) {
 
 				<div className="text-sm flex flex-row items-center justify-between">
 					<div className="relative w-fit text-sm">
-						<div>
-							Cena Montáže: <br />
-							{numberWithCommas(total.total_construction_price.toFixed(2))} €
-						</div>
-						{!bulkEdit && (
-							<button
-								onClick={(e) => {
-									openBulkEdit(
-										{
-											sectionId: sectionId,
-											blockId: -1,
-											value: total.total_construction_price,
-											valueId: "total_construction_price",
-											mode: "section",
-										},
-										e
-									);
-								}}
-								className="absolute top-0 -right-3 w-2"
-							>
-								<EditPen></EditPen>
-							</button>
-						)}
+						<button
+							onClick={(e) => {
+								openBulkEdit(
+									{
+										sectionId: sectionId,
+										blockId: -1,
+										value: total.total_construction_price,
+										valueId: "total_construction_price",
+										mode: "section",
+									},
+									e
+								);
+							}}
+						>
+							<div className="relative">
+								<div className="text-left">
+									Cena Montáže: <br />
+									{numberWithCommas(
+										total.total_construction_price.toFixed(2)
+									)}{" "}
+									€
+								</div>
+								<div className="absolute top-0 -right-3 w-2">
+									<EditPen></EditPen>
+								</div>
+							</div>
+						</button>
 					</div>
 
 					<div className="relative w-fit text-sm">
-						<div>
-							Cena Dodávky: <br />
-							{numberWithCommas(total.total_delivery_price.toFixed(2))} €
-						</div>
-						{!bulkEdit && (
-							<button
-								onClick={(e) => {
-									openBulkEdit(
-										{
-											sectionId: sectionId,
-											blockId: -1,
-											value: total.total_delivery_price,
-											valueId: "total_delivery_price",
-											mode: "section",
-										},
-										e
-									);
-								}}
-								className="absolute top-0 -right-3 w-2"
-							>
-								<EditPen></EditPen>
-							</button>
-						)}
+						<button
+							onClick={(e) => {
+								openBulkEdit(
+									{
+										sectionId: sectionId,
+										blockId: -1,
+										value: total.total_delivery_price,
+										valueId: "total_delivery_price",
+										mode: "section",
+									},
+									e
+								);
+							}}
+						>
+							<div className="relative">
+								<div className="text-start">
+									Cena Dodávky: <br />
+									{numberWithCommas(total.total_delivery_price.toFixed(2))} €
+								</div>
+								<div className="absolute top-0 -right-3 w-2">
+									<EditPen></EditPen>
+								</div>
+							</div>
+						</button>
 					</div>
 
-					<div className="relative w-fit">
-						<div>
-							Spolu: <br />
-							{numberWithCommas(total.total.toFixed(2))} €{" "}
-							<span className="text-[10px]">bez DPH</span>
-						</div>
-						{!bulkEdit && (
-							<button
-								onClick={(e) => {
-									openBulkEdit(
-										{
-											sectionId: sectionId,
-											blockId: -1,
-											value: total.total,
-											valueId: "total",
-											mode: "section",
-										},
-										e
-									);
-								}}
-								className="absolute top-0 -right-3 w-2"
-							>
-								<EditPen></EditPen>
-							</button>
-						)}
+					<div className="relative w-fit text-sm">
+						<button
+							onClick={(e) => {
+								openBulkEdit(
+									{
+										sectionId: sectionId,
+										blockId: -1,
+										value: total.total,
+										valueId: "total",
+										mode: "section",
+									},
+									e
+								);
+							}}
+						>
+							<div className="relative">
+								<div className="text-left">
+									Spolu: <br />
+									{numberWithCommas(total.total.toFixed(2))} €{" "}
+									<span className="text-[10px]">bez DPH</span>
+								</div>
+								<div className="absolute top-0 -right-3 w-2">
+									<EditPen></EditPen>
+								</div>
+							</div>
+						</button>
 					</div>
 				</div>
 
@@ -142,11 +152,12 @@ export default function Section({ section, sectionId, isLast }) {
 					/>
 				)}
 			</div>
+
 			{!reorderingBlocks &&
 				variant.blocks &&
 				section.blocks.map((block, j) => {
 					return (
-						<div key={`block-${j}`}>
+						<div key={`this-is-block-${j}-in-section-${sectionId}`}>
 							<div>
 								<Block
 									sectionId={sectionId}
@@ -164,8 +175,6 @@ export default function Section({ section, sectionId, isLast }) {
 			{reorderingBlocks && (
 				<ReorderingBlocks section={section} sectionId={sectionId} />
 			)}
-
-			{variant.blocks && <AddBlock sectionId={sectionId} />}
 
 			<div className="absolute right-4 top-2 flex items-center gap-4 w-fit mt-2">
 				<button

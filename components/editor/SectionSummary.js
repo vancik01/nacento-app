@@ -169,7 +169,7 @@ export default function SectionSummary({ blocks, sectionId, sectionsLength }) {
 			</DragDropContext>
 			<button
 				onClick={() => {
-					addBlock(sectionId);
+					addBlock(sectionId, blocks.length - 1);
 				}}
 				className="flex justify-center items-center gap-4 mt-2"
 			>

@@ -9,7 +9,7 @@ export default function AddBlock({ sectionId }) {
 			<div className="w-full p-6 border border-dashed min-h-[100px] flex justify-center items-center bg-gray-100">
 				<ButtonPrimary
 					onClick={() => {
-						addBlock(sectionId);
+						addBlock(sectionId, 0);
 					}}
 				>
 					Pridať blok

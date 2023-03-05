@@ -21,6 +21,8 @@ import {
 import { firestore } from "../../lib/firebase";
 import { customBuild, newd } from "../../data";
 import { useRouter } from "next/router";
+import moment from "moment/moment";
+import { useAuth } from "../../context/AuthContext";
 
 function Functions() {
 	const [preds, setPreds] = useState([]);
@@ -28,6 +30,7 @@ function Functions() {
 	const [podorysyPdf, setPodorysy] = useState([]);
 	const [strechaPdf, setStrecha] = useState("");
 	const [loading, setloading] = useState(false);
+	const { user } = useAuth();
 
 	const router = useRouter();
 
@@ -113,6 +116,8 @@ function Functions() {
 			id: collectionRef.id,
 			data: customBuild,
 			name: "Nová cenová ponuka",
+			created: moment().valueOf(),
+			userId: user != null ? user.uid : "none",
 		})
 			.then((response) => {
 				// router.push(`/cenova-ponuka/${collectionRef.id}`);

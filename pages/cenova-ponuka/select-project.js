@@ -7,8 +7,12 @@ import FullPageLoading from "../../components/loading/FullPageLoading";
 import { LoggedIn } from "../../components/LoggedIn";
 import { firestore } from "../../lib/firebase";
 import Logo from "../../public/SVG/Logo";
+import PaintBrush from "/public/SVG/PaintBrush";
 
-export default function index() {
+import moment from "moment/moment";
+import Edit from "../../public/SVG/Edit";
+
+export default function SelectProject() {
 	const router = useRouter();
 	const [loading, setloading] = useState(true);
 	const [data, setdata] = useState(null);
@@ -70,12 +74,23 @@ export default function index() {
 												handleSelectId(project.id);
 											}}
 										>
-											<div className="bg-gray-50 rounded-lg min-h-[200px] p-4">
-												<div className="text-2xl font-light text-start">
-													{project.name}
+											<div className="bg-gray-50 rounded-lg min-h-[200px] p-4 flex justify-between flex-col">
+												<div>
+													<div className="text-2xl font-light text-start">
+														{project.name}
+													</div>
+													<div className="text-left text-sm text-gray-500 mt-3">
+														{project.id}
+													</div>
 												</div>
-												<div className="text-left text-sm text-gray-500 mt-3">
-													{project.id}
+												<div className="flex justify-between">
+													<div>
+														{moment(project?.createdAd).format("DD.MM. YYYY")}
+													</div>
+
+													<div>
+														<Edit></Edit>
+													</div>
 												</div>
 											</div>
 										</button>
