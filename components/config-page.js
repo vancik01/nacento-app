@@ -35,6 +35,7 @@ export default function Preds(props) {
 			{data.map((block1, i) => {
 				return (
 					<div className="mt-16">
+						{/* <div className="text-xl font-semibold"> {block1.label} </div> */}
 						<div className="text-xl font-semibold"> <ThreejsView label={block1.label}/>  </div>
 						<div>
 							{block1?.items.map((item, q) => {

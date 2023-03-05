@@ -115,19 +115,14 @@ function HomeArea() {
 										data-wow-duration="1.3s"
 										data-wow-delay="0.2s"
 									>
-										Automatická tvorba cenových ponúk hrubých stavieb
+										Stavbená firma alebo živnostník, zjednodušíme Vám tvorbu cenových ponúk
 									</h1>
 									<p
-										className="text-base text-start font-light text-white header-title wow fadeInUp lg:w-full pt-3"
-										data-wow-duration="1.3s"
-										data-wow-delay="0.5s"
-									>
-										{" "}
-										Vložte potrebné projekty rodinného domu v PDF a bude vám
-										vygenerovaná cenová ponuka na základe kľúčových parametrov
-										stavby. Upravte si vašu cenovú ponuku a pošlite ju
-										zákaznikovi do pár minút.{" "}
+										className="text-start font-light text-xl text-white lg:w-full pt-3">
+										 Jednoducho nasnímame projekty a vytvoríme položkovo rozpísaný odhad ceny, ktorý si len upravíte. 
 									</p>
+
+									
 									{/* <a href="/" className="main-btn gradient-btn gradient-btn-2 wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s">Get Started</a> */}
 								</div>
 							</div>
