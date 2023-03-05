@@ -6,7 +6,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { Tooltip } from "react-tooltip";
 import { useData } from "../context/AppWrap";
 import { useLayout } from "../context/LayoutContext";
-import Cancel from "../public/SVG/Cancel";
+import TrashBin from "../public/SVG/editor/TrashBin";
 import DragableIcon from "../public/SVG/Dragable";
 import Dragable from "../public/SVG/Dragable";
 import { motion } from "framer-motion";
@@ -23,7 +23,7 @@ export default function Table({ items, headers, blockId, sectionId }) {
 
 	return (
 		<>
-			{items.length > 0 && (
+			{
 				<div key={blockId}>
 					<div style={{ backgroundColor: primaryColor }} className="text-white">
 						<div
@@ -88,7 +88,7 @@ export default function Table({ items, headers, blockId, sectionId }) {
 						</Droppable>
 					</DragDropContext>
 				</div>
-			)}
+			}
 		</>
 	);
 }
@@ -96,9 +96,6 @@ export default function Table({ items, headers, blockId, sectionId }) {
 function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 	const { getTitle, headers, deleteRow } = useData();
 	const { displayColumns, tableRowTemplate, primaryColor } = useLayout();
-
-	const [text, settext] = useState(polozka.title);
-	const [unit, setunit] = useState(polozka.unit);
 	const [didChange, setdidChange] = useState(false);
 
 	return (
@@ -155,7 +152,7 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 											deleteRow({ sectionId, blockId, itemId: i });
 										}}
 									>
-										<Cancel color={primaryColor} />
+										<TrashBin color={primaryColor} />
 									</div>
 									<div {...provided.dragHandleProps}>
 										<DragableIcon />
@@ -190,11 +187,6 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 		});
 	}
 
-	// const loadTotals = useCallback(
-	// 	debounce(() => settotal(calculateTotals()), 500),
-	// 	[loading]
-	// );
-
 	if (item === "service_type") {
 		return (
 			<div className={`flex align-middle items-center ${label.short}`}>
@@ -215,6 +207,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 					value={polozka.title}
 					name={item}
 					style={{ resize: "none" }}
+					onChange={update}
 				/>
 			</div>
 		);
@@ -225,6 +218,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 					defaultValue={polozka.unit}
 					name={item}
 					className="w-full bg-transparent"
+					onChange={update}
 				>
 					<option value="m2">m2</option>
 					<option value="m3">m3</option>

@@ -4,8 +4,10 @@ import { useData } from "../context/AppWrap";
 import { useLayout } from "../context/LayoutContext";
 import AddRow from "../public/SVG/AddRow";
 import BlockIcon from "../public/SVG/BlockIcon";
-import Cancel from "../public/SVG/Cancel";
 import DragableIcon from "../public/SVG/Dragable";
+import MoreDots from "../public/SVG/editor/MoreDots";
+import PlusCircle from "../public/SVG/editor/PlusCircle";
+import TrashBin from "../public/SVG/editor/TrashBin";
 import EditPen from "../public/SVG/EditPen";
 import ButtonPrimary from "./ButtonPrimary";
 import EditText from "./editor/EditText";
@@ -42,61 +44,35 @@ export default function Block({
 				key={blockId}
 			>
 				<div className="flex justify-between items-end mb-4">
-					{/* {!editingTitle && (
-						<div className="relative w-fit">
-							<h3 className="text-2xl">
-								{blockId + 1}. {block.info.title}
-							</h3>
-							<button
-								onClick={() => {
-									seteditingTitle(true);
-								}}
-								className="absolute top-0 -right-5 w-3"
-							>
-								<EditPen></EditPen>
-							</button>
-						</div>
-					)}
-
-					{editingTitle && (
-						<div className="flex justify-center items-center">
-							<div className="text-2xl mr-2">{blockId + 1}. </div>
-							<input
-								type="text"
-								className="outline-none"
-								value={blockTitle}
-								placeholder="Zadajte názov bloku..."
-								onChange={(e) => {
-									setblockTitle(e.target.value);
-								}}
-								style={{ fontSize: 24 }}
-							/>
-							<ButtonPrimary className="ml-8" onClick={handleEditTitle}>
-								Uložiť
-							</ButtonPrimary>
-						</div>
-					)} */}
-
+					<span className="mr-2 text-xl">{blockId + 1}. </span>
 					<EditText
 						initialValue={block.info.title}
 						classInput="w-fit"
 						classText="!justify-start"
+						fontSize={20}
 						onSave={(value) => {
 							editBlockTitle(value, sectionId, blockId);
 						}}
 					/>
 
 					<div className="flex items-center gap-4 w-fit">
-						<button
+						{/* <button
 							onClick={() => {
 								deleteBlock(sectionId, blockId);
 							}}
 							className="flex items-center justify-center gap-2"
 						>
-							<Cancel color="#ef4444"></Cancel>
+							<TrashBin  color="#ef4444"></Cancel>
 							<div className="text-sm text-red-500 whitespace-nowrap">
 								Zmazať blok
 							</div>
+						</button> */}
+						<button
+							onClick={() => {
+								deleteBlock(sectionId, blockId);
+							}}
+						>
+							<TrashBin />
 						</button>
 						{collapsed && (
 							<div {...dragHandleProps}>
@@ -132,7 +108,7 @@ export default function Block({
 				)}
 
 				{!collapsed && (
-					<div className="flex flex-row gap-10 text-sm items-end justify-end mt-8">
+					<div className="flex flex-row gap-10 text-xs items-end justify-end mt-8">
 						<div className="relative w-fit">
 							<div>
 								Cena dodávky celkom:{" "}

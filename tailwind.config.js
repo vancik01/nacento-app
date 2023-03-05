@@ -26,6 +26,7 @@ module.exports = {
 				"row-header": "#2B2D42",
 				white: "#fff",
 				primary: "#006f85",
+				inputPlaceholder: "#9ca3af",
 			},
 		},
 	},

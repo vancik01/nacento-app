@@ -33,7 +33,6 @@ export default function BulkEdit() {
 		newData.value = parseFloat(newData.value) + parseFloat(val);
 		if (newData.value < 0) newData.value = 0;
 		setchangedData(newData);
-		console.log(val, newData.value);
 	}
 
 	function handleSave() {
@@ -65,7 +64,8 @@ export default function BulkEdit() {
 					style={{ fontSize: 14 }}
 					endAdornment="€"
 					onChange={handleChange}
-					value={parseFloat(changedData.value).toFixed(2)}
+					value={parseFloat(changedData.value)}
+					autoFocus="true"
 				></Input>
 				<div className="flex justify-between mt-2">
 					<ButtonTag

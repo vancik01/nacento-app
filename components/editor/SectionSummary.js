@@ -4,7 +4,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useData } from "../../context/AppWrap";
 import { useLayout } from "../../context/LayoutContext";
 import AddRow from "../../public/SVG/AddRow";
-import Cancel from "../../public/SVG/Cancel";
+import TrashBin from "../../public/SVG/editor/TrashBin";
 import DragableIcon from "../../public/SVG/Dragable";
 import AddSection from "./AddSection";
 import TestElement from "./TestElement";
@@ -145,13 +145,13 @@ export default function SectionSummary({ blocks, sectionId, sectionsLength }) {
 													</button>
 
 													<div className="flex justify-end gap-1 select-none absolute -right-20">
-														<div
+														<button
 															onClick={() => {
 																deleteBlock(sectionId, blockId);
 															}}
 														>
-															<Cancel color={primaryColor} />
-														</div>
+															<TrashBin />
+														</button>
 														<div {...provided.dragHandleProps}>
 															<DragableIcon />
 														</div>

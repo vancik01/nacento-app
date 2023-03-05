@@ -26,30 +26,33 @@ export default function EditText({
 						seteditingTitle(true);
 					}}
 				>
-					<h1 className="text-center relative">
+					<div className="text-center relative" style={{ fontSize: fontSize }}>
 						{text.length != 0 ? (
 							text
 						) : (
-							<span className="text-gray-300">Zadajte...</span>
+							<span className="text-inputPlaceholder">Zadajte názov...</span>
 						)}
 						<div className="absolute top-0 -right-3 w-2">
 							<EditPen></EditPen>
 						</div>
-					</h1>
+					</div>
 				</button>
 			)}
 
 			{editingTitle && (
-				<div className="flex items-baseline justify-center">
+				<div className="flex items-baseline justify-center max-h-[30px]">
 					<input
-						className={`w-full min-w-[200px] ${classInput ? classInput : ""}`}
+						className={`w-full min-w-[200px] outline-none ${
+							classInput ? classInput : ""
+						}`}
 						variant="outlined"
-						placeholder="Zadajte text..."
+						placeholder="Zadajte názov..."
 						value={text}
 						style={{ fontSize: fontSize }}
 						onChange={(e) => {
 							settext(e.target.value);
 						}}
+						autoFocus
 					/>
 					<ButtonPrimary className="ml-4" onClick={handleSave}>
 						Uložiť

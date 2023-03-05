@@ -24,6 +24,7 @@ import {
 	updateSectionTotals,
 	updateTableRow,
 } from "../lib/valueChangeFunctions";
+import AddRow from "../public/SVG/AddRow";
 
 const DataContext = React.createContext();
 
@@ -358,7 +359,7 @@ export function AppWrap({ children }) {
 		var lengthBeforeInsert = newData.sections[sectionId].blocks.length;
 		var newBlock = {
 			info: {
-				title: "",
+				title: "Nový blok",
 				total_delivery_price: 0,
 				total_construction_price: 0,
 				total: 0,
@@ -379,6 +380,7 @@ export function AppWrap({ children }) {
 		newData.sections[sectionId].blocks.push(newBlock);
 
 		setdata(newData);
+		addTableRow(newData.sections[sectionId].blocks.length - 1, sectionId);
 	}
 
 	function getTitle(titleId, language) {
@@ -458,21 +460,31 @@ export function AppWrap({ children }) {
 		newData.sections[sectionId].blocks[blockId].items.push({
 			service_type: "",
 			item_id: "",
-			title: "",
+			title: "Nová položka",
 			unit: "",
 			quantity: 1,
-			unit_delivery_price: 0,
-			unit_construction_price: 0,
-			total_delivery_price: 0,
-			total_construction_price: 0,
-			total: 0,
+			unit_delivery_price: 0.0,
+			unit_construction_price: 0.0,
+			total_delivery_price: 0.0,
+			total_construction_price: 0.0,
+			total: 0.0,
 		});
 
 		if (newData.sections[sectionId].blocks[blockId].items.length === 1) {
 			updateTableRow(
 				newData.sections[sectionId].blocks[blockId].items[0],
-				"total",
-				parseFloat(newData.sections[sectionId].blocks[blockId].info.total)
+				"total_construction_price",
+				parseFloat(
+					newData.sections[sectionId].blocks[blockId].info
+						.total_construction_price
+				)
+			);
+			updateTableRow(
+				newData.sections[sectionId].blocks[blockId].items[0],
+				"total_delivery_price",
+				parseFloat(
+					newData.sections[sectionId].blocks[blockId].info.total_delivery_price
+				)
 			);
 		}
 
@@ -492,6 +504,7 @@ export function AppWrap({ children }) {
 		});
 
 		setdata(newData);
+		addBlock(newData.sections.length - 1);
 		setTimeout(() => {
 			document
 				.getElementById("last-section")

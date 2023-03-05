@@ -3,7 +3,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useData } from "../context/AppWrap";
 import { useLayout } from "../context/LayoutContext";
 import { numberWithCommas } from "../lib/helpers";
-import Cancel from "../public/SVG/Cancel";
+import TrashBin from "../public/SVG/editor/TrashBin";
 import EditPen from "../public/SVG/EditPen";
 import Block from "./Block";
 import ButtonPrimary from "./ButtonPrimary";
@@ -167,17 +167,14 @@ export default function Section({ section, sectionId, isLast }) {
 
 			{variant.blocks && <AddBlock sectionId={sectionId} />}
 
-			<div className="flex items-center gap-4 w-fit mt-2">
+			<div className="absolute right-4 top-2 flex items-center gap-4 w-fit mt-2">
 				<button
 					onClick={() => {
 						deleteSection(sectionId);
 					}}
 					className="flex items-center justify-center gap-2"
 				>
-					<Cancel color="#ef4444"></Cancel>
-					<div className="text-sm text-red-500 whitespace-nowrap">
-						Zmazať sekciu
-					</div>
+					<TrashBin color="#ef4444"></TrashBin>
 				</button>
 			</div>
 		</div>

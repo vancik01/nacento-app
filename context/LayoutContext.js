@@ -16,7 +16,7 @@ export default function LayoutContext({ children }) {
 	const [primaryColor, setprimaryColor] = useState("#63A695");
 	const [styles, setstyles] = useState(themes.theme1);
 	const [isHorizontal, setisHorizontal] = useState(false);
-	const [variant, setvariant] = useState(getVariantConfig("normal"));
+	const [variant, setvariant] = useState(getVariantConfig("pro"));
 
 	function handleDisplayColumnsChange(columnId) {
 		var newData = [...displayColumns];

@@ -9,7 +9,7 @@ export default function A4({ children }) {
 
 	return (
 		<div
-			style={{ width: isHorizontal ? "1254px" : "894px" }}
+			style={{ width: isHorizontal ? "1254px" : "894px", minHeight: 1260 }}
 			className="mx-auto shadow-xl h-fit w-fit transition-all"
 			id="a4-page"
 		>
