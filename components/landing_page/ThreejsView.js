@@ -8,14 +8,16 @@ import * as THREE from 'three'
 
 // import img from "../../public/static/0.png"
 import img from "../../public/static/test.png"
-
-
+import { join } from 'lodash'
 
 
 function ThreejsView(props) {
     const [showScene, setShowScene] = useState(true);
     const [cursor, setCursor] = useState('crosshair');
-    const [points, setPoints] = useState([]);
+    const [trackerVisible, setTracker] = useState(false);
+    const [trackerPosition, setTrackerPosition] = useState([10,10,10]);
+    const [points, setPoints] = useState([[]]);
+
 
 
     const useDeviceSize = () => {
@@ -42,15 +44,75 @@ function ThreejsView(props) {
 
     const [width, height] = useDeviceSize();
 
-    function Polygon(props){
-      console.log(props.points)
-      const polygonShape = new THREE.Shape( props.points );
+    function Tracker(props){
+
+      const pointsArray = []
+      pointsArray.push( new THREE.Vector2( 0, 0 ) )
+      pointsArray.push( new THREE.Vector2( 10, 0 ) )
+      pointsArray.push( new THREE.Vector2( 10, 10 ) )
+      pointsArray.push( new THREE.Vector2( 0, 10 ) )
+
+      const holesArray = []
+      holesArray.push( new THREE.Vector2( 2, 2 ) )
+      holesArray.push( new THREE.Vector2( 8, 2 ) )
+      holesArray.push( new THREE.Vector2( 8, 8 ) )
+      holesArray.push( new THREE.Vector2( 2, 8 ) )
+
+      const polygonShape = new THREE.Shape( pointsArray );
+      const holeShape = new THREE.Shape( holesArray );
+
+      polygonShape.holes.push(holeShape)
 
       return(
-        <mesh rotation={[-Math.PI/2, 0, 0]} >
+        <mesh rotation={[-Math.PI/2, 0, 0]} position={props.position} scale={[.05, .05, .05]} >
           <shapeGeometry args={[polygonShape]} />
-          <meshBasicMaterial attach="material" color="gray" side={DoubleSide} opacity={0.6} transparent/>
+          <meshBasicMaterial attach="material" color="orange" side={DoubleSide}/>
         </mesh>
+      )
+
+    }
+
+    function Circle(props){
+      const circleShape = new THREE.CircleGeometry( props.points );
+
+      return(
+        <></>
+      )
+
+    }
+
+
+    function Polygon(props){
+
+      const Circles = []
+      for(let p=0; p<props.points.length; p++){
+        for(let i=0; i<props.points[p].length; i++){
+
+          Circles.push( 
+          <mesh rotation={[-Math.PI/2, 0, 0]} position={[props.points[p][i].x, 0.01, -props.points[p][i].y]} key={`${p}${i}`}>
+            <circleGeometry args={[0.2, 32]}/>
+            <meshBasicMaterial attach="material" color="orange" side={DoubleSide} />
+          </mesh>)
+        }
+      }
+      
+      return(
+        <>
+          {props.points.map(polygon_pts => {
+            if (polygon_pts.length){
+              
+
+              return(
+              <mesh rotation={[-Math.PI/2, 0, 0]}>
+              <shapeGeometry args={[new THREE.Shape( polygon_pts )]} />
+              <meshBasicMaterial attach="material" color="gray" side={DoubleSide} opacity={0.6} transparent/>
+              </mesh>)
+          }})}
+
+          {Circles}
+
+        </>
+        
       )
 
     }
@@ -63,29 +125,54 @@ function ThreejsView(props) {
       texture.magFilter = THREE.NearestFilter
       texture.minFilter = THREE.NearestMipmapLinearFilter
 
+      function dist(p1, p2){
+        let res = Math.abs(Math.sqrt((p1.x-p2.x)**2 + (p1.y-p2.y)**2))
+        console.log("RES: ", res) 
+        return res
+      }
 
       function handleClick(event){
-        console.log(event)
+        // console.log(points)
+
+        var pts = [...points]
+
+        const new_point = new THREE.Vector2( event.point.x, -event.point.z  )
+        
+        if( pts.length == 0 || pts[pts.length-1].length == 0 ) pts[pts.length-1].push(new_point)
+
+        else if(pts[pts.length-1].length > 1 && dist(new_point, pts[pts.length-1][0]) < 1)
+        {
+          pts.push([])
+        }
+
+        else pts[pts.length-1].push(new_point)
+
 
         // let x = (event.point.x + img.width/200) * 100
         // let y = (event.point.z + img.height/200) * 100
 
         console.warn(event.point.x, event.point.z)
 
-        setPoints([...points, new THREE.Vector2( event.point.x, -event.point.z  )])
+        setPoints(pts)
+
+        console.log(points)
 
       }
 
       function handleHover(){
-        if (cursor !== 'crosshair'){
-            
-        }
+        setCursor('crosshair')
+        setTracker(true)
       }
 
       function handleUnhover(){
-        if (cursor !== 'default'){
-          setCursor('default')
+        setCursor('default')
+        setTracker(false)
       }
+
+      function handleMove(event){
+        // console.log(event.point.x, event.point.y, event.point.z)
+        
+        // setTrackerPosition([event.point.x - 0.25, 0.001, event.point.z + 0.25])
       }
 
       return (
@@ -93,9 +180,10 @@ function ThreejsView(props) {
               position={[0, -0.001, 0]} 
               rotation={[-Math.PI/2, 0, 0]} 
               scale={[img.width/100, img.height/100, 3]}
-              onPointerOver={setCursor('crosshair')}
-              onPointerOut={setCursor('default')}
-              >
+              onPointerOver={ handleHover }
+              onPointerOut={ handleUnhover }
+              // onPointerMove={ handleMove }
+              > 
           
           <planeGeometry />
           <meshBasicMaterial attach="material" map={texture} side={DoubleSide} toneMapped={false}/>
@@ -111,20 +199,24 @@ function ThreejsView(props) {
     </button>
     
     {showScene &&
-    <div className='Editor-Canvas' style={{height: `${width*0.8 * (img.height/img.width)}px`,
-    cursor: "crosshair" 
+    <div className={"Editor-Canvas"} style={{height: `${width*0.8 * (img.height/img.width)}px`,
+    cursor: `${cursor}` 
     }}>
         <Canvas style={{border: `1px solid black`, background: "black" }}>
           <Suspense fallback={null}>
               <ambientLight intensity={100} color={"white"}/>
               
-              <PerspectiveCamera position={[0, (img.width/200) / 1.19175, 0]} fov={80} makeDefault/>
+              <PerspectiveCamera 
+              position={[0, (img.width/200) / 1.19175, 0]} 
+              fov={80} 
+              makeDefault/>
 
               <ProjectPlane/>
               <gridHelper position={[0,-0.2,0]} args={[1000, 1000, 0xff0000, 'gray']}/>
 
                {points.length && <Polygon points={points}/>}
-
+               
+               {/* { trackerVisible && <Tracker position={trackerPosition}/> } */}
 
               <OrbitControls enableRotate={false} zoomSpeed={2} enableDamping={false}/>
 
