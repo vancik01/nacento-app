@@ -1,5 +1,5 @@
 import { Button, Input } from "@mui/material";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useData } from "../context/AppWrap";
 import ButtonPrimary from "./ButtonPrimary";
 import ButtonTag from "./ButtonTag";
@@ -12,10 +12,18 @@ import {
 	splitBetweenSections,
 	updateSectionTotals,
 } from "../lib/valueChangeFunctions";
+import { AnimatePresence } from "framer-motion";
 
 export default function BulkEdit() {
-	const { bulkEditData, getTitle, saveBulkEdit, data, closeBulkEdit, total } =
-		useData();
+	const {
+		bulkEditData,
+		getTitle,
+		saveBulkEdit,
+		data,
+		closeBulkEdit,
+		total,
+		bulkEdit,
+	} = useData();
 	const [changedData, setchangedData] = useState(bulkEditData);
 
 	function handleChange(e) {
@@ -61,213 +69,232 @@ export default function BulkEdit() {
 		};
 	}, [handleUserKeyPress]);
 
+	const ref = useRef(null);
+
+	// useEffect(() => {
+	// 	const handleClickOutside = (event) => {
+	// 		closeBulkEdit();
+	// 	};
+	// 	document.addEventListener("click", handleClickOutside, true);
+	// 	return () => {
+	// 		document.removeEventListener("click", handleClickOutside, true);
+	// 	};
+	// }, []);
+
 	return (
-		<motion.div
-			initial={{ opacity: 0, y: 20 }}
-			animate={{ opacity: 1, y: 0 }}
-			transition={{ duration: 0.2 }}
-			key="bulk-edit"
-			className="mt-4 absolute w-[400px] shadow-bulk bg-white z-50 p-6 rounded-sm"
-			style={{ left: bulkEditData.x, top: bulkEditData.y }}
-		>
-			<div className="relative">
-				<div className="text-xl mb-1">Upraviť cenu </div>
-				<div className="mb-4 text-sm">
-					{getTitle(bulkEditData.valueId, "sk").long} - {bulkEditData.mode}
-				</div>
+		<AnimatePresence mode="sync">
+			{bulkEdit && (
+				<motion.div
+					initial={{ opacity: 0, y: 10 }}
+					exit={{ opacity: 0, y: 10 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.2, ease: "easeInOut" }}
+					key={`bulk-edit`}
+					className="mt-4 absolute w-[400px] shadow-bulk bg-white z-50 p-6 rounded-sm"
+					style={{ left: bulkEditData.x, top: bulkEditData.y }}
+				>
+					<div className="relative">
+						<div className="text-xl mb-1">Upraviť cenu </div>
+						<div className="mb-4 text-sm">
+							{getTitle(bulkEditData.valueId, "sk").long} - {bulkEditData.mode}
+						</div>
 
-				<button onClick={closeBulkEdit} className="absolute right-2 top-2">
-					<Close></Close>
-				</button>
+						<button onClick={closeBulkEdit} className="absolute right-2 top-2">
+							<Close></Close>
+						</button>
 
-				<Input
-					type="number"
-					style={{ fontSize: 14 }}
-					endAdornment="€"
-					onChange={handleChange}
-					value={parseFloat(changedData.value)}
-					autoFocus
-				></Input>
-				<div className="flex justify-between mt-2">
-					<ButtonTag
-						onClick={() => {
-							changeBy(-1000);
-						}}
-						color="#FE6D6C"
-					>
-						- 1000€
-					</ButtonTag>
-					<ButtonTag
-						onClick={() => {
-							changeBy(-500);
-						}}
-						color="#E57B6D"
-					>
-						- 500€
-					</ButtonTag>
-					<ButtonTag
-						onClick={() => {
-							changeBy(-100);
-						}}
-						color="#C0906E"
-					>
-						- 100€
-					</ButtonTag>
+						<Input
+							type="number"
+							style={{ fontSize: 14 }}
+							endAdornment="€"
+							onChange={handleChange}
+							value={parseFloat(changedData.value)}
+							autoFocus
+						></Input>
+						<div className="flex justify-between mt-2">
+							<ButtonTag
+								onClick={() => {
+									changeBy(-1000);
+								}}
+								color="#FE6D6C"
+							>
+								- 1000€
+							</ButtonTag>
+							<ButtonTag
+								onClick={() => {
+									changeBy(-500);
+								}}
+								color="#E57B6D"
+							>
+								- 500€
+							</ButtonTag>
+							<ButtonTag
+								onClick={() => {
+									changeBy(-100);
+								}}
+								color="#C0906E"
+							>
+								- 100€
+							</ButtonTag>
 
-					<ButtonTag
-						onClick={() => {
-							changeBy(100);
-						}}
-						color="#9EA470"
-					>
-						+ 100€
-					</ButtonTag>
-					<ButtonTag
-						onClick={() => {
-							changeBy(500);
-						}}
-						color="#7BB971"
-					>
-						+ 500€
-					</ButtonTag>
-					<ButtonTag
-						onClick={() => {
-							changeBy(1000);
-						}}
-						color="#3ADE73"
-					>
-						+ 1000€
-					</ButtonTag>
-				</div>
+							<ButtonTag
+								onClick={() => {
+									changeBy(100);
+								}}
+								color="#9EA470"
+							>
+								+ 100€
+							</ButtonTag>
+							<ButtonTag
+								onClick={() => {
+									changeBy(500);
+								}}
+								color="#7BB971"
+							>
+								+ 500€
+							</ButtonTag>
+							<ButtonTag
+								onClick={() => {
+									changeBy(1000);
+								}}
+								color="#3ADE73"
+							>
+								+ 1000€
+							</ButtonTag>
+						</div>
 
-				{bulkEditData.value != 0 && (
-					<div className="flex justify-between mt-2 mb-4">
-						<ButtonTag
-							onClick={() => {
-								changeBy(-(bulkEditData.value * 0.1));
-							}}
-							color="#FE6D6C"
-						>
-							- 10 %
-						</ButtonTag>
-						<ButtonTag
-							onClick={() => {
-								changeBy(-(bulkEditData.value * 0.05));
-							}}
-							color="#E57B6D"
-						>
-							- 5 %
-						</ButtonTag>
-						<ButtonTag
-							onClick={() => {
-								changeBy(-(bulkEditData.value * 0.03));
-							}}
-							color="#C0906E"
-						>
-							- 3 %
-						</ButtonTag>
-						<ButtonTag
-							onClick={() => {
-								changeBy(bulkEditData.value * 0.03);
-							}}
-							color="#9EA470"
-						>
-							+ 3%
-						</ButtonTag>
-						<ButtonTag
-							onClick={() => {
-								changeBy(bulkEditData.value * 0.05);
-							}}
-							color="#7BB971"
-						>
-							+ 5%
-						</ButtonTag>
-						<ButtonTag
-							onClick={() => {
-								changeBy(bulkEditData.value * 0.1);
-							}}
-							color="#3ADE73"
-						>
-							+ 10%
-						</ButtonTag>
+						{bulkEditData.value != 0 && (
+							<div className="flex justify-between mt-2 mb-4">
+								<ButtonTag
+									onClick={() => {
+										changeBy(-(bulkEditData.value * 0.1));
+									}}
+									color="#FE6D6C"
+								>
+									- 10 %
+								</ButtonTag>
+								<ButtonTag
+									onClick={() => {
+										changeBy(-(bulkEditData.value * 0.05));
+									}}
+									color="#E57B6D"
+								>
+									- 5 %
+								</ButtonTag>
+								<ButtonTag
+									onClick={() => {
+										changeBy(-(bulkEditData.value * 0.03));
+									}}
+									color="#C0906E"
+								>
+									- 3 %
+								</ButtonTag>
+								<ButtonTag
+									onClick={() => {
+										changeBy(bulkEditData.value * 0.03);
+									}}
+									color="#9EA470"
+								>
+									+ 3%
+								</ButtonTag>
+								<ButtonTag
+									onClick={() => {
+										changeBy(bulkEditData.value * 0.05);
+									}}
+									color="#7BB971"
+								>
+									+ 5%
+								</ButtonTag>
+								<ButtonTag
+									onClick={() => {
+										changeBy(bulkEditData.value * 0.1);
+									}}
+									color="#3ADE73"
+								>
+									+ 10%
+								</ButtonTag>
+							</div>
+						)}
+						{bulkEditData.value == 0 && (
+							<div className="flex justify-between mt-2 mb-4">
+								<ButtonTag
+									onClick={() => {
+										changeBy(-10);
+									}}
+									color="#FE6D6C"
+								>
+									- 10 %
+								</ButtonTag>
+								<ButtonTag
+									onClick={() => {
+										changeBy(-5);
+									}}
+									color="#E57B6D"
+								>
+									- 5 %
+								</ButtonTag>
+								<ButtonTag
+									onClick={() => {
+										changeBy(-3);
+									}}
+									color="#C0906E"
+								>
+									- 3 %
+								</ButtonTag>
+								<ButtonTag
+									onClick={() => {
+										changeBy(3);
+									}}
+									color="#9EA470"
+								>
+									+ 3%
+								</ButtonTag>
+								<ButtonTag
+									onClick={() => {
+										changeBy(5);
+									}}
+									color="#7BB971"
+								>
+									+ 5%
+								</ButtonTag>
+								<ButtonTag
+									onClick={() => {
+										changeBy(10);
+									}}
+									color="#3ADE73"
+								>
+									+ 10%
+								</ButtonTag>
+							</div>
+						)}
+
+						<PriceChangeIndicator
+							val={(changedData.value - bulkEditData.value).toFixed(2)}
+						></PriceChangeIndicator>
+						{bulkEditData.value != 0 && (
+							<PriceChangeIndicator
+								val={(
+									(parseFloat(changedData.value - bulkEditData.value) /
+										bulkEditData.value) *
+									100
+								).toFixed(2)}
+								endAdorment=" %"
+							></PriceChangeIndicator>
+						)}
+						{bulkEditData.value == 0 && (
+							<PriceChangeIndicator
+								val={parseFloat(changedData.value - bulkEditData.value).toFixed(
+									2
+								)}
+								endAdorment=" %"
+							></PriceChangeIndicator>
+						)}
+						<ButtonPrimary className="mt-4" onClick={handleSave}>
+							Uložiť
+						</ButtonPrimary>
 					</div>
-				)}
-				{bulkEditData.value == 0 && (
-					<div className="flex justify-between mt-2 mb-4">
-						<ButtonTag
-							onClick={() => {
-								changeBy(-10);
-							}}
-							color="#FE6D6C"
-						>
-							- 10 %
-						</ButtonTag>
-						<ButtonTag
-							onClick={() => {
-								changeBy(-5);
-							}}
-							color="#E57B6D"
-						>
-							- 5 %
-						</ButtonTag>
-						<ButtonTag
-							onClick={() => {
-								changeBy(-3);
-							}}
-							color="#C0906E"
-						>
-							- 3 %
-						</ButtonTag>
-						<ButtonTag
-							onClick={() => {
-								changeBy(3);
-							}}
-							color="#9EA470"
-						>
-							+ 3%
-						</ButtonTag>
-						<ButtonTag
-							onClick={() => {
-								changeBy(5);
-							}}
-							color="#7BB971"
-						>
-							+ 5%
-						</ButtonTag>
-						<ButtonTag
-							onClick={() => {
-								changeBy(10);
-							}}
-							color="#3ADE73"
-						>
-							+ 10%
-						</ButtonTag>
-					</div>
-				)}
-
-				<PriceChangeIndicator
-					val={(changedData.value - bulkEditData.value).toFixed(2)}
-				></PriceChangeIndicator>
-				{bulkEditData.value != 0 && (
-					<PriceChangeIndicator
-						val={(
-							(parseFloat(changedData.value - bulkEditData.value) /
-								bulkEditData.value) *
-							100
-						).toFixed(2)}
-						endAdorment=" %"
-					></PriceChangeIndicator>
-				)}
-				{bulkEditData.value == 0 && (
-					<PriceChangeIndicator
-						val={parseFloat(changedData.value - bulkEditData.value).toFixed(2)}
-						endAdorment=" %"
-					></PriceChangeIndicator>
-				)}
-				<ButtonPrimary className="mt-4" onClick={handleSave}>
-					Uložiť
-				</ButtonPrimary>
-			</div>
-		</motion.div>
+				</motion.div>
+			)}
+		</AnimatePresence>
 	);
 }

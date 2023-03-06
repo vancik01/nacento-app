@@ -9,6 +9,7 @@ import AccountToolbar from "./AccountToolbar";
 export default function UserInfoHeader() {
 	const { user, loading } = useAuth();
 	const [toolbar, settoolbar] = useState(false);
+
 	if (!loading) {
 		return (
 			<>

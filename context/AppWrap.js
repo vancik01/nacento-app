@@ -35,7 +35,16 @@ export function AppWrap({ children }) {
 	const [loading, setloading] = useState(true);
 	const [name, setname] = useState("Zadajte názov...");
 	const [bulkEdit, setbulkEdit] = useState(false);
-	const [bulkEditData, setbulkEditData] = useState(null);
+	const [bulkEditData, setbulkEditData] = useState({
+		blockId: -1,
+		sectionId: -1,
+		value: "",
+		valueId: "",
+		mode: "",
+		title: "",
+		x: 0,
+		y: 0,
+	});
 	const [displayTotals, setdisplayTotals] = useState(true);
 	const [reorderingBlocks, setreorderingBlocks] = useState(false);
 	const [download, setdownload] = useState(false);
@@ -386,21 +395,46 @@ export function AppWrap({ children }) {
 	}
 
 	function openBulkEdit(data, e) {
-		const clientWidth = document.body.clientWidth;
-		var pageX = e.pageX;
-		var pageY = e.pageY - 30;
+		if (bulkEdit) {
+			closeBulkEdit();
+			setTimeout(() => {
+				const clientWidth = document.body.clientWidth;
+				var pageX = e.pageX;
+				var pageY = e.pageY - 30;
 
-		if (pageX + 400 > clientWidth)
-			pageX = pageX - 100 - (pageX + 400 - clientWidth);
+				if (pageX + 400 > clientWidth)
+					pageX = pageX - 100 - (pageX + 400 - clientWidth);
 
-		setbulkEdit(true);
-		data.value = parseFloat(data.value).toFixed(2);
-		setbulkEditData({ ...data, x: pageX, y: pageY });
+				setbulkEdit(true);
+				data.value = parseFloat(data.value).toFixed(2);
+				setbulkEditData({ ...data, x: pageX, y: pageY });
+			}, 100);
+		} else {
+			const clientWidth = document.body.clientWidth;
+			var pageX = e.pageX;
+			var pageY = e.pageY - 30;
+
+			if (pageX + 400 > clientWidth)
+				pageX = pageX - 100 - (pageX + 400 - clientWidth);
+
+			setbulkEdit(true);
+			data.value = parseFloat(data.value).toFixed(2);
+			setbulkEditData({ ...data, x: pageX, y: pageY });
+		}
 	}
 
 	function closeBulkEdit(data) {
 		setbulkEdit(false);
-		setbulkEditData(null);
+		setbulkEditData({
+			blockId: -1,
+			sectionId: -1,
+			value: "",
+			valueId: "",
+			mode: "",
+			title: "",
+			x: 0,
+			y: 0,
+		});
 	}
 
 	function saveBulkEdit(valueToAdd) {

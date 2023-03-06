@@ -54,7 +54,7 @@ export default function CenovaPonuka() {
 	return (
 		<>
 			<div className="pt-10 pb-32">
-				{bulkEdit && <BulkEdit blockTitle={bulkEditData.title} />}
+				{<BulkEdit blockTitle={bulkEditData.title} />}
 
 				<div className="flex items-start justify-start w-full px-8 overflow-x-auto pb-20">
 					<A4>

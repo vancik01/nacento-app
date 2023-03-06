@@ -4,6 +4,7 @@ import Functions from "../../components/landing_page/Functions";
 import Layout from "../../components/Layout";
 import FullPageLoading from "../../components/loading/FullPageLoading";
 import { LoggedIn } from "../../components/LoggedIn";
+import UserInfoHeader from "../../components/user_components/UserInfoHeader";
 import Logo from "../../public/SVG/Logo";
 
 export default function NovyProjekt() {
@@ -12,8 +13,14 @@ export default function NovyProjekt() {
 			<FullPageLoading></FullPageLoading>
 
 			<Layout className="pt-8">
-				<div className="w-32">
-					<Logo></Logo>
+				<div className="flex items-center justify-between">
+					<Link href="/">
+						<div className="w-32">
+							<Logo></Logo>
+						</div>
+					</Link>
+
+					<UserInfoHeader />
 				</div>
 			</Layout>
 

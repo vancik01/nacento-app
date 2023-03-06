@@ -11,6 +11,7 @@ import PaintBrush from "/public/SVG/PaintBrush";
 
 import moment from "moment/moment";
 import Edit from "../../public/SVG/Edit";
+import UserInfoHeader from "../../components/user_components/UserInfoHeader";
 
 export default function SelectProject() {
 	const router = useRouter();
@@ -43,11 +44,15 @@ export default function SelectProject() {
 			<FullPageLoading loading={loading}></FullPageLoading>
 
 			<Layout className="pt-8">
-				<Link href="/">
-					<div className="w-32">
-						<Logo></Logo>
-					</div>
-				</Link>
+				<div className="flex items-center justify-between">
+					<Link href="/">
+						<div className="w-32">
+							<Logo></Logo>
+						</div>
+					</Link>
+
+					<UserInfoHeader />
+				</div>
 			</Layout>
 
 			<div className="min-h-screen mt-32">
