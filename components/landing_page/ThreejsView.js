@@ -14,7 +14,7 @@ import img from "../../public/static/test.png"
 
 function ThreejsView(props) {
     const [showScene, setShowScene] = useState(true);
-    const [cursor, setCursor] = useState('default');
+    const [cursor, setCursor] = useState('crosshair');
     const [points, setPoints] = useState([]);
 
 
@@ -78,7 +78,7 @@ function ThreejsView(props) {
 
       function handleHover(){
         if (cursor !== 'crosshair'){
-            setCursor('crosshair')
+            
         }
       }
 
@@ -93,6 +93,8 @@ function ThreejsView(props) {
               position={[0, -0.001, 0]} 
               rotation={[-Math.PI/2, 0, 0]} 
               scale={[img.width/100, img.height/100, 3]}
+              onPointerOver={setCursor('crosshair')}
+              onPointerOut={setCursor('default')}
               >
           
           <planeGeometry />
@@ -110,9 +112,9 @@ function ThreejsView(props) {
     
     {showScene &&
     <div className='Editor-Canvas' style={{height: `${width*0.8 * (img.height/img.width)}px`,
-          
+    cursor: "crosshair" 
     }}>
-        <Canvas style={{border: `1px solid black`, background: "black"}}>
+        <Canvas style={{border: `1px solid black`, background: "black" }}>
           <Suspense fallback={null}>
               <ambientLight intensity={100} color={"white"}/>
               
