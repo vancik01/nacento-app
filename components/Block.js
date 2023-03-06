@@ -9,6 +9,7 @@ import MoreDots from "../public/SVG/editor/MoreDots";
 import PlusCircle from "../public/SVG/editor/PlusCircle";
 import TrashBin from "../public/SVG/editor/TrashBin";
 import EditPen from "../public/SVG/EditPen";
+import ButtonIcon from "./ButtonIcon";
 import ButtonPrimary from "./ButtonPrimary";
 import EditText from "./editor/EditText";
 import Table from "./Table";
@@ -34,6 +35,7 @@ export default function Block({
 	const { primaryColor } = useLayout();
 	const [editingTitle, seteditingTitle] = useState(false);
 	const [blockTitle, setblockTitle] = useState(block.info.title);
+	const [hoverDelete, sethoverDelete] = useState(false);
 	function handleEditTitle() {
 		editBlockTitle(blockTitle, sectionId, blockId);
 		seteditingTitle(false);
@@ -58,29 +60,23 @@ export default function Block({
 					/>
 
 					<div className="flex items-center gap-4 w-fit">
-						<button
+						<ButtonIcon
+							icon={<PlusCircle />}
 							onClick={() => {
 								addBlock(sectionId, blockId);
 							}}
-							className="flex items-center gap-1"
 						>
-							<PlusCircle></PlusCircle>
-							<div className="text-xs text-gray-400 whitespace-nowrap">
-								Pridať blok
-							</div>
-						</button>
+							Pridať blok
+						</ButtonIcon>
 
-						<button
+						<ButtonIcon
+							icon={<TrashBin color={"#9ca3af"} />}
 							onClick={() => {
 								deleteBlock(sectionId, blockId);
 							}}
-							className="flex items-center gap-1"
 						>
-							<TrashBin />
-							<div className="text-xs text-red-500 whitespace-nowrap">
-								Zmazať blok
-							</div>
-						</button>
+							Zmazať blok
+						</ButtonIcon>
 
 						{collapsed && (
 							<div {...dragHandleProps}>

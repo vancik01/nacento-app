@@ -1,7 +1,9 @@
 import { Input } from "@mui/material";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import Save from "../../public/SVG/buttons/Save";
 import EditPen from "../../public/SVG/EditPen";
 import ButtonPrimary from "../ButtonPrimary";
+import ButtonSecondary from "../ButtonSecondary";
 
 export default function EditText({
 	initialValue,
@@ -12,9 +14,11 @@ export default function EditText({
 }) {
 	const [editingTitle, seteditingTitle] = useState(false);
 	const [text, settext] = useState("");
+	const [width, setWidth] = useState(0);
 
 	useEffect(() => {
 		settext(initialValue);
+		setWidth(initialValue);
 	}, [initialValue]);
 
 	const handleUserKeyPress = useCallback(
@@ -35,6 +39,10 @@ export default function EditText({
 			window.removeEventListener("keydown", handleUserKeyPress);
 		};
 	}, [handleUserKeyPress]);
+
+	useEffect(() => {
+		setWidth(text.length);
+	}, [text]);
 
 	function handleSave() {
 		seteditingTitle(false);
@@ -65,21 +73,25 @@ export default function EditText({
 			{editingTitle && (
 				<div className="flex items-baseline justify-center max-h-[30px]">
 					<input
-						className={`w-full min-w-[200px] outline-none ${
-							classInput ? classInput : ""
-						}`}
+						className={`w-full outline-none ${classInput ? classInput : ""}`}
 						variant="outlined"
 						placeholder="Zadajte názov..."
 						value={text}
-						style={{ fontSize: fontSize }}
+						style={{ fontSize: fontSize, width: `${width}ch` }}
 						onChange={(e) => {
 							settext(e.target.value);
 						}}
 						autoFocus
 					/>
-					<ButtonPrimary className="ml-4" onClick={handleSave}>
+
+					<ButtonSecondary
+						icon={<Save></Save>}
+						iconBefore
+						className=""
+						onClick={handleSave}
+					>
 						Uložiť
-					</ButtonPrimary>
+					</ButtonSecondary>
 				</div>
 			)}
 		</div>

@@ -19,7 +19,7 @@ export default function AccountToolbar() {
 			className="absolute top-12 right-0 shadow-hardShadow bg-white rounded-md"
 		>
 			<div className="px-4 pb-4 pt-6 w-52">
-				<MenuItem href={"/user/moj-ucet"}>Môj účet 👨🏼</MenuItem>
+				<MenuItem href={"/nastavenie-uctu"}>Môj účet 👨🏼</MenuItem>
 				<MenuItem
 					href={"/pro"}
 					className="mt-3 flex items-center justify-start gap-4"

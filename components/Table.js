@@ -27,7 +27,7 @@ export default function Table({ items, headers, blockId, sectionId }) {
 				<div key={blockId}>
 					<div style={{ backgroundColor: primaryColor }} className="text-white">
 						<div
-							className="table_row heading"
+							className="table_row heading select-none"
 							style={{ gridTemplateColumns: tableRowTemplate }}
 						>
 							<div className="font-medium py-1 px-2">N.</div>

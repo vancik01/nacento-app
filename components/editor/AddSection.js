@@ -1,5 +1,6 @@
 import React from "react";
 import { useData } from "../../context/AppWrap";
+import Plus from "../../public/SVG/buttons/Plus";
 import ButtonPrimary from "../ButtonPrimary";
 
 export default function AddSection({ sectionId }) {
@@ -11,6 +12,8 @@ export default function AddSection({ sectionId }) {
 					onClick={() => {
 						addSection();
 					}}
+					icon={<Plus />}
+					iconAfter
 				>
 					Pridať sekciu
 				</ButtonPrimary>
