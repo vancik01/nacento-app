@@ -1,4 +1,4 @@
-import React, { useRef, useState, Suspense, useEffect, useMemo } from 'react'
+import React, { useRef, useState, Suspense, useEffect, useLayoutEffect, } from 'react'
 import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber'
 import { Line, PerspectiveCamera, OrthographicCamera, OrbitControls } from '@react-three/drei'
 
@@ -98,63 +98,159 @@ function ThreejsView(props) {
       }
 
       return inside;
-    };
-
-    const Circles = []
-    const [hovered, setHover] = useState(false)
-
-    for (let p = 0; p < props.points.length; p++) {
-      for (let i = 0; i < props.points[p].length; i++) {
-
-        
-
-        Circles.push(
-          <mesh rotation={[-Math.PI / 2, 0, 0]} 
-          position={[props.points[p][i].x, 0.01, -props.points[p][i].y]} key={`${p}${i}`}
-          scale={hovered? 10 : 1}
-          >
-            <circleGeometry args={[0.2, 32]} 
-            onPointerOver={(event) => setHover(true)}
-            onPointerOut={(event) => setHover(false)}
-            />
-            <meshBasicMaterial attach="material" color="orange" side={DoubleSide} />
-          </mesh>)
-      }
     }
 
-    var drawn = []
-    for (let i = 0; i < props.points.length; i++) drawn.push(false)
+    function points_from_shape(shape) {
+      var points = []
 
-    const Polygons_pts = []
-    for (let p = 0; p < props.points.length; p++) {
-      let polygon_pts = props.points[p]
-      if (polygon_pts.length) {
+      if (!shape.curves.length) return [shape.currentPoint]
 
-        if(!drawn[p]) {
-          var polygon = new THREE.Shape(polygon_pts)
-          drawn[p] = true
-          
-          for (let j = p + 1; j < props.points.length; j++) {
-            let hole = props.points[j]
-            if (hole.length > 1 && inside(hole[0], props.points[p]) )
-              if(!drawn[j]){
-                  console.log(new THREE.Shape(hole))
-                  drawn[j] = true
-                  polygon.holes.push(new THREE.Shape(hole))
-              }        
-          }
+      for (let i = 0; i < shape.curves.length; i++) {
 
+        if (i == shape.curves.length - 1) {
+          points.push(shape.curves[i].v1)
+          points.push(shape.curves[i].v2)
+        }
 
-          Polygons_pts.push(polygon)
+        else points.push(shape.curves[i].v1)
+
+      }
+
+      return points
+    }
+
+    function handleCircleHover(e) {
+      let id = e.object.userData
+      if (id['ix'] == 0 && id['pix'] == points.length - 1 && points[id['pix']].length > 1)
+        e.object.scale.set(2, 2, 2)
+    }
+
+    function handleCircleUnhover(e) {
+      let id = e.object.userData
+      if (id['ix'] == 0 && id['pix'] == points.length - 1 && points[id['pix']].length > 1)
+        e.object.scale.set(1, 1, 1)
+    }
+
+    function get_Circles(points) {
+      const Circles = []
+
+      for (let p = 0; p < points.length; p++) {
+        for (let i = 0; i < points[p].length; i++) {
+
+          Circles.push(
+            <mesh
+              rotation={[-Math.PI / 2, 0, 0]}
+              position={[points[p][i].x, 0.01, -points[p][i].y]}
+              key={`${p}${i}`}
+              onPointerOver={handleCircleHover}
+              onPointerOut={handleCircleUnhover}
+              userData={{ "ix": i, "pix": p }}>
+
+              <circleGeometry args={[0.2, 32]} />
+              <meshBasicMaterial attach="material" color="black" side={DoubleSide} />
+
+              <mesh>
+                <circleGeometry args={[0.18, 32]} />
+                <meshBasicMaterial attach="material" color="orange" side={DoubleSide} />
+              </mesh>
+
+            </mesh>
+          )
         }
       }
+
+      return Circles
     }
+
+    function get_RealPolygons(points) {
+      const Polygons = []
+
+      points.forEach(polygon => {
+        if (polygon.length)
+          Polygons.push(new THREE.Shape(polygon))
+      });
+
+      var is_hole = []
+      for (let i = 0; i < Polygons.length; i++) is_hole[i] = false
+
+      const Real_polygons = []
+      for (let i = 0; i < Polygons.length; i++) {
+        var pts1 = points_from_shape(Polygons[i])
+
+        if (is_hole[i]) continue
+
+        for (let j = i + 1; j < Polygons.length; j++) {
+          var pts2 = points_from_shape(Polygons[j])
+
+          if (pts2.length > 1 && inside(pts2[0], pts1)) {
+
+            let is_inside_hole = false
+
+            for (let h = 0; h < Polygons[i].holes.length; h++) {
+              let pts_hole = points_from_shape(Polygons[i].holes[h])
+              if (inside(pts2[0], pts_hole)) {
+                is_inside_hole = true
+                break
+              }
+            }
+
+            if (!is_inside_hole) {
+              Polygons[i].holes.push(Polygons[j])
+              is_hole[j] = true
+            }
+          }
+        }
+
+        if (!is_hole[i])
+          Real_polygons.push(Polygons[i])
+      }
+      return Real_polygons
+    }
+
+    function Line({ start, end }) {
+      const ref = useRef()
+      useLayoutEffect(() => {
+        ref.current.geometry.setFromPoints([start, end].map((point) => new THREE.Vector3(...point)))
+      }, [start, end])
+  
+      return (
+        <line ref={ref}>
+          <bufferGeometry />
+          <lineBasicMaterial color="black" />
+        </line>
+      )
+    }
+
+    function get_Lines(points){
+      const Lines = []
+
+      for (let i=0; i<points.length; i++) {
+        let len = points[i].length-1
+        if(i != points.length-1) len++
+  
+        for (let j=0; j<len; j++) {
+            let l = points[i].length
+            let p1 = points[i][j]
+            let p2 = points[i][j+1]
+   
+            if(j+1 == l) p2 = points[i][0]
+  
+            Lines.push(<Line start={[p1.x, 0, -p1.y]} end={[p2.x, 0, -p2.y]} />)
+        }
+      }
+
+      return Lines
+    }
+
+    const Circles = get_Circles(props.points)
+    const RealPolygons = get_RealPolygons(props.points)
+    const Lines = get_Lines(props.points)
 
 
     return (
       <>
-
-        {Polygons_pts.map(polygon_shape => {
+      
+        {RealPolygons.map(polygon_shape => {
           return (
             <mesh rotation={[-Math.PI / 2, 0, 0]}>
               <shapeGeometry args={[polygon_shape]} />
@@ -163,12 +259,12 @@ function ThreejsView(props) {
           )
         })}
 
+        {Lines}
+
         {Circles}
 
       </>
-
     )
-
   }
 
   function ProjectPlane(props) {
@@ -181,13 +277,10 @@ function ThreejsView(props) {
 
     function dist(p1, p2) {
       let res = Math.abs(Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2))
-      console.log("RES: ", res)
       return res
     }
 
     function handleClick(event) {
-      // console.log(points)
-
       var pts = [...points]
 
       const new_point = new THREE.Vector2(event.point.x, -event.point.z)
@@ -204,12 +297,7 @@ function ThreejsView(props) {
       // let x = (event.point.x + img.width/200) * 100
       // let y = (event.point.z + img.height/200) * 100
 
-      console.warn(event.point.x, event.point.z)
-
       setPoints(pts)
-
-      console.log(points)
-
     }
 
     function handleHover() {
@@ -228,6 +316,7 @@ function ThreejsView(props) {
       // setTrackerPosition([event.point.x - 0.25, 0.001, event.point.z + 0.25])
     }
 
+
     return (
       <mesh onClick={handleClick}
         position={[0, -0.001, 0]}
@@ -244,6 +333,7 @@ function ThreejsView(props) {
     )
   }
 
+  
 
   return (
     <>
