@@ -101,12 +101,22 @@ function ThreejsView(props) {
     };
 
     const Circles = []
+    const [hovered, setHover] = useState(false)
+
     for (let p = 0; p < props.points.length; p++) {
       for (let i = 0; i < props.points[p].length; i++) {
 
+        
+
         Circles.push(
-          <mesh rotation={[-Math.PI / 2, 0, 0]} position={[props.points[p][i].x, 0.01, -props.points[p][i].y]} key={`${p}${i}`}>
-            <circleGeometry args={[0.2, 32]} />
+          <mesh rotation={[-Math.PI / 2, 0, 0]} 
+          position={[props.points[p][i].x, 0.01, -props.points[p][i].y]} key={`${p}${i}`}
+          scale={hovered? 10 : 1}
+          >
+            <circleGeometry args={[0.2, 32]} 
+            onPointerOver={(event) => setHover(true)}
+            onPointerOut={(event) => setHover(false)}
+            />
             <meshBasicMaterial attach="material" color="orange" side={DoubleSide} />
           </mesh>)
       }
