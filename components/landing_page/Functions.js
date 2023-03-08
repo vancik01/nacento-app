@@ -101,7 +101,7 @@ var predikcie = [
 
 
 function Functions() {
-	const [preds, setPreds] = useState(predikcie);
+	const [preds, setPreds] = useState([]);
 	const [zakaldyPdf, setZaklady] = useState("");
 	const [podorysyPdf, setPodorysy] = useState([]);
 	const [strechaPdf, setStrecha] = useState("");
@@ -217,8 +217,8 @@ function Functions() {
 			},
 		};
 
-		
-		
+		setPreds(predikcie)
+
 
 		// fetch(`/api/aspdf/`, {
 		//     method:'POST',
@@ -280,16 +280,16 @@ function Functions() {
 		<section id="features" className="services-area pt-120">
 			<FullPageLoading loading={loading}></FullPageLoading>
 			<div className="container text-center">
-				{/* <div className="justify-center row">
+				<div className="justify-center row">
 					<div className="w-full lg:w-2/3">
 						<div className="pb-10 text-center section-title">
 							<div className="m-auto line"></div>
 							<h3 className="title">
-								Vyberte, čo chcete naceniť.{" "}
+								Vyberte, čo chcete naceniť.
 								<span>
 									{" "}
 									Informácie, ktoré sa nám z projektov nepodaria vyčítať,
-									doplníte vy{" "}
+									doplníte vy
 								</span>
 							</h3>
 						</div>
@@ -326,8 +326,8 @@ function Functions() {
 							rel="nofollow"
 							onClick={handleClick}
 						>
-							{" "}
-							Vytvoriť cenovú ponuku{" "}
+							
+							Vytvoriť cenovú ponuku
 						</button>
 					</div>
 				)}
@@ -339,11 +339,10 @@ function Functions() {
 							className="main-btn font-bold opacity-50 cursor-auto"
 							rel="nofollow"
 						>
-							{" "}
-							Vytvoriť cenovú ponuku{" "}
+							Vytvoriť cenovú ponuku
 						</button>
 					</div>
-				)} */}
+				)}
 
 				{preds.length > 0 && (
 					<>

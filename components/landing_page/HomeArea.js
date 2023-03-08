@@ -105,22 +105,30 @@ function HomeArea() {
 
 				{/* <div id="home" className="header-hero" style={{ backgroundImage: `url(${bg})` }}></div> */}
 
-				<div id="home" className="header-hero pt-20">
+				<div id="home" className="header-hero pt-10">
 					<div className="container flex justify-center items-center">
-						<div className="justify-center row w-1/2">
+						<div className="justify-center row w-[80%]">
 							<div className="w-full lg:w-full">
 								<div className="text-center header-hero-content">
 									<h1
-										className="text-4xl font-bold text-left leading-tight text-white header-sub-title wow fadeInUp"
+										className="text-4xl font-bold text-center leading-tight text-white header-sub-title wow fadeInUp"
 										data-wow-duration="1.3s"
 										data-wow-delay="0.2s"
 									>
 										Stavbená firma alebo živnostník, zjednodušíme Vám tvorbu cenových ponúk
 									</h1>
+
 									<p
-										className="text-start font-light text-xl text-white lg:w-full pt-3">
-										 Jednoducho nasnímame projekty a vytvoríme položkovo rozpísaný odhad ceny, ktorý si len upravíte. 
+										className="text-justify font-light text-xl text-white lg:w-full pt-5">
+										 Jednoducho nasnímame projektovú dokumentáciu v PDF a vygenerujeme položkovo rozpísanú cenovú ponuku, ktorú si len upravíte. Vytvoríte si tak cenovú ponuku sami a za pár minút.
 									</p>
+									
+
+
+
+									
+
+									<hr className="mt-6 pb-4"/>
 
 									
 									{/* <a href="/" className="main-btn gradient-btn gradient-btn-2 wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s">Get Started</a> */}
@@ -128,7 +136,7 @@ function HomeArea() {
 							</div>
 						</div>
 
-						<img src={ntbk.src} className=" w-1/2" alt="hero" />
+						{/* <img src={ntbk.src} className=" w-1/2" alt="hero" /> */}
 						{/* <div className="justify-center row">
                     <div className="w-full lg:w-2/3">
                         <div className="text-center header-hero-image wow fadeIn" data-wow-duration="1.3s" data-wow-delay="1.4s">
@@ -138,6 +146,27 @@ function HomeArea() {
                 </div>  */}
 					</div>
 				</div>
+
+				<div className="flex justify-evenly gap-[20%] mt-3">
+
+					<div className="m-auto text-white">
+						<div className="w-full lg:w-2/3">
+							<div className="pb-10 section-title">
+								{/* <div className="m-auto line"></div> */}
+								<div className="title">
+									Vyberte, čo chcete naceniť.
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div className="w-[20%]">
+						PONUKA
+					</div>
+
+				</div>
+
+				
 
 				<div className="w-[1px] h-[300px]"></div>
 			</header>

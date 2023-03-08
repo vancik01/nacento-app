@@ -12,7 +12,7 @@ import { join } from 'lodash'
 
 
 function ThreejsView(props) {
-  const [showScene, setShowScene] = useState(true);
+  const [showScene, setShowScene] = useState(false);
   const [cursor, setCursor] = useState('crosshair');
   const [trackerVisible, setTracker] = useState(false);
   const [trackerPosition, setTrackerPosition] = useState([10, 10, 10]);
