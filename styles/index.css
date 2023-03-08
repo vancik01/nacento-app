@@ -121,9 +121,7 @@ p {
 .section-title .title span {
   @apply font-normal;
 }
-.single-services-clicked {
-  @apply px-8 py-12 mx-4 mt-8 text-center duration-300 bg-white border-2 border-transparent border-theme-color-2 rounded-lg shadow-lg;
-}
+
 
 .no_select{
   -webkit-touch-callout: none;
@@ -141,8 +139,12 @@ p {
   @apply bg-blue-400;
 }
 
+.single-services-clicked {
+  @apply px-2 py-4 mx-3 mt-8 text-center duration-300 bg-white border-2 border-transparent border-theme-color-2 rounded-lg shadow-lg;
+}
+
 .single-services {
-  @apply px-8 py-12 mx-4 mt-8 text-center duration-300 bg-white border-2 border-transparent rounded-lg shadow-lg;
+  @apply px-2 py-4 mx-3 mt-8 text-center duration-300 bg-white border-2 border-transparent rounded-lg shadow-lg;
 }
 .single-services:hover {
   @apply border-theme-color-2;

@@ -8,8 +8,16 @@ import Link from "next/link";
 import { useAuth } from "../../context/AuthContext";
 import UserInfoHeader from "../user_components/UserInfoHeader";
 
+import FunctionsDiv from "./FunctionDiv";
+import FunctionDiv_p from "./FunctionDiv_p";
+
+import Zaklady from "../../public/static/Zaklady.png";
+import Murivo from "../../public/static/Murivo.png";
+import Strecha from "../../public/static/Strecha.png";
+
 function HomeArea() {
 	const { user, loading } = useAuth();
+
 	return (
 		<>
 			<header
@@ -115,22 +123,22 @@ function HomeArea() {
 										data-wow-duration="1.3s"
 										data-wow-delay="0.2s"
 									>
-										Stavbená firma alebo živnostník, zjednodušíme Vám tvorbu cenových ponúk
+										Stavbená firma či živnostník, zjednodušíme Vám tvorbu cenových ponúk
 									</h1>
 
 									<p
 										className="text-justify font-light text-xl text-white lg:w-full pt-5">
-										 Jednoducho nasnímame projektovú dokumentáciu v PDF a vygenerujeme položkovo rozpísanú cenovú ponuku, ktorú si len upravíte. Vytvoríte si tak cenovú ponuku sami a za pár minút.
+										Jednoducho nasnímame projektovú dokumentáciu v PDF a vygenerujeme položkovo rozpísanú cenovú ponuku, ktorú si len upravíte. Vytvoríte si tak cenovú ponuku sami a za pár minút.
 									</p>
-									
 
 
 
-									
 
-									<hr className="mt-6 pb-4"/>
 
-									
+
+									<hr className="mt-6 pb-4" />
+
+
 									{/* <a href="/" className="main-btn gradient-btn gradient-btn-2 wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s">Get Started</a> */}
 								</div>
 							</div>
@@ -147,26 +155,42 @@ function HomeArea() {
 					</div>
 				</div>
 
-				<div className="flex justify-evenly gap-[20%] mt-3">
+				<div className="flex justify-evenly gap-[25%] mt-20">
 
-					<div className="m-auto text-white">
-						<div className="w-full lg:w-2/3">
-							<div className="pb-10 section-title">
-								{/* <div className="m-auto line"></div> */}
-								<div className="title">
-									Vyberte, čo chcete naceniť.
-								</div>
-							</div>
+					<div className=" w-[40%]">
+						<div className="text-white text-center text-3xl font-bold">
+							Príkladová cenová ponuka:
+						</div>
+
+						<div className="justify-evenly row">
+							<FunctionsDiv
+								title={"Základová doska"}
+								image={Zaklady.src}
+								landing={true}/>
+
+							<FunctionsDiv
+								title={"Murivo"}
+								image={Murivo.src}
+								landing={true}/>
+
+							<FunctionsDiv
+								title={"Strecha"}
+								image={Strecha.src}
+								landing={true}/>
+
 						</div>
 					</div>
+					
 
-					<div className="w-[20%]">
-						PONUKA
+					<div className="w-[20%] text-center">
+						
+					PONUKA
+
 					</div>
 
 				</div>
 
-				
+
 
 				<div className="w-[1px] h-[300px]"></div>
 			</header>
