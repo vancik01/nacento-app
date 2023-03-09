@@ -53,23 +53,25 @@ function FunctionDiv(props) {
 
 
   return (
-     <div className={"w-full sm:w-2/3 lg:w-1/3  text-center"} > 
-        <div className={(isActive ? 'single-services-clicked': 'single-services') + " no_select mt-8 wow fadeIn"} onClick={toggleClass} data-wow-duration="1s" data-wow-delay="0.8s">
+     <div className={`w-full sm:w-2/3	 text-center ` + (props.landing ? "lg:w-1/3" : "lg:w-1/3")} > 
+        <div className={(isActive ? 'single-services-clicked': 'single-services') + " no_select mt-8"} onClick={toggleClass}>
             
             <h4 className="mb-8 text-xl font-bold text-gray-900">{props.title}</h4>
             <div className="services-icon">
                 <img className="shape" src={props.image} alt="shape"/>
                 <i className="lni lni-bolt-alt"></i>
             </div>
+            {!props.landing &&
             <div className="mt-8 services-content">
                 <p className="mb-8 text-lg">Pre nacenenie {props.co} vložte prosím <b> {props.project} </b> </p> 
                 <a className="duration-300 hover:text-theme-color" href="http://localhost:3000/">Ako má projekt vyzerať<i className="ml-2 lni lni-chevron-right"></i></a>
-            </div>
+            </div>}
         </div> 
+
 
         <input className='hidden' ref={inputRef} type="file" onChange={handleFileChange} />
 
-        { !fileName && isActive && <div className="absolute right-0 hidden mt-2 pt-2 mr-24 navbar-btn sm:inline-block lg:mt-0 lg:static lg:mr-0">
+        { !props.landing && !fileName && isActive && <div className="absolute right-0 hidden mt-2 pt-2 mr-24 navbar-btn sm:inline-block lg:mt-0 lg:static lg:mr-0">
             <a className="main-btn gradient-btn cursor-pointer font-semibold" onClick={handleClick} rel="nofollow">Vložiť {props.project} </a>
           </div>
         }
@@ -79,7 +81,7 @@ function FunctionDiv(props) {
           </div>
         }
 
-        { !isActive && <div className='h-16'></div> }
+        { !props.landing && !isActive && <div className='h-16'></div> }
 
 
     </div>
