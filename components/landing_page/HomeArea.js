@@ -1,19 +1,16 @@
-import React from "react";
+import React from 'react'
 
-import logo from "../../public/static/logo.svg";
-import ntbk from "../../public/static/imgs/ntbk.png";
+
 import bg from "../../public/static/bg.svg";
 import LogoHomepage from "../../public/SVG/LogoHomepage";
 import Link from "next/link";
 import { useAuth } from "../../context/AuthContext";
 import UserInfoHeader from "../user_components/UserInfoHeader";
 
-import FunctionsDiv from "./FunctionDiv";
-import FunctionDiv_p from "./FunctionDiv_p";
+import mockupImg from "../../public/static/mockup.png"
+import Footer from './Footer';
 
-import Zaklady from "../../public/static/Zaklady.png";
-import Murivo from "../../public/static/Murivo.png";
-import Strecha from "../../public/static/Strecha.png";
+import Mockup from './Mockup';
 
 function HomeArea() {
 	const { user, loading } = useAuth();
@@ -113,13 +110,13 @@ function HomeArea() {
 
 				{/* <div id="home" className="header-hero" style={{ backgroundImage: `url(${bg})` }}></div> */}
 
-				<div id="home" className="header-hero pt-10">
-					<div className="container flex justify-center items-center">
-						<div className="justify-center row w-[80%]">
+				<div id="home" className="header-hero">
+					<div className="container flex justify-center gap-20">
+						<div className="justify-center row mt-[12%]">
 							<div className="w-full lg:w-full">
 								<div className="text-center header-hero-content">
 									<h1
-										className="text-4xl font-bold text-center leading-tight text-white header-sub-title wow fadeInUp"
+										className="text-4xl font-bold text-left leading-tight text-white header-sub-title wow fadeInUp"
 										data-wow-duration="1.3s"
 										data-wow-delay="0.2s"
 									>
@@ -133,18 +130,17 @@ function HomeArea() {
 
 
 
-
-
-
-									<hr className="mt-6 pb-4" />
-
-
 									{/* <a href="/" className="main-btn gradient-btn gradient-btn-2 wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s">Get Started</a> */}
 								</div>
 							</div>
 						</div>
 
 						{/* <img src={ntbk.src} className=" w-1/2" alt="hero" /> */}
+						{/* <div className="h-[1] w-[40%]">aa</div> */}
+						{/* <img src	={mockupImg.src} className="w-[40%]" alt="hero" /> */}
+						<Mockup />						
+		
+						
 						{/* <div className="justify-center row">
                     <div className="w-full lg:w-2/3">
                         <div className="text-center header-hero-image wow fadeIn" data-wow-duration="1.3s" data-wow-delay="1.4s">
@@ -154,42 +150,6 @@ function HomeArea() {
                 </div>  */}
 					</div>
 				</div>
-
-				<div className="flex justify-evenly gap-[25%] mt-20">
-
-					<div className=" w-[40%]">
-						<div className="text-white text-center text-3xl font-bold">
-							Príkladová cenová ponuka:
-						</div>
-
-						<div className="justify-evenly row">
-							<FunctionsDiv
-								title={"Základová doska"}
-								image={Zaklady.src}
-								landing={true}/>
-
-							<FunctionsDiv
-								title={"Murivo"}
-								image={Murivo.src}
-								landing={true}/>
-
-							<FunctionsDiv
-								title={"Strecha"}
-								image={Strecha.src}
-								landing={true}/>
-
-						</div>
-					</div>
-					
-
-					<div className="w-[20%] text-center">
-						
-					PONUKA
-
-					</div>
-
-				</div>
-
 
 
 				<div className="w-[1px] h-[300px]"></div>
