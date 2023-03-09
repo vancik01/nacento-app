@@ -1,3 +1,5 @@
+export const test = {}
+
 export const d = {
 	customer: {
 		name: "Michal Gerhát",

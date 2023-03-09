@@ -22,8 +22,8 @@ import {
 import { firestore } from "../../lib/firebase";
 import { customBuild, newd } from "../../data";
 import { useRouter } from "next/router";
-import moment from "moment/moment";
 import { useAuth } from "../../context/AuthContext";
+import moment from "moment";
 
 function Functions() {
 	const [preds, setPreds] = useState([]);
@@ -221,6 +221,10 @@ function Functions() {
 		];
 
 		setPreds(predikcie);
+		create_zakladova_doska(120, 80, [80, 0.6, 0.8], [10, 125, 100]);
+		create_murivo(50, 120, 96, 112, 485);
+		sum_total_prices();
+		console.log(JSON.stringify(CP));
 
 		// fetch(`/api/aspdf/`, {
 		//     method:'POST',
@@ -287,11 +291,11 @@ function Functions() {
 						<div className="pb-10 text-center section-title">
 							<div className="m-auto line"></div>
 							<h3 className="title">
-								Vyberte, čo chcete naceniť.{" "}
+								Vyberte, čo chcete naceniť.
 								<span>
 									{" "}
 									Informácie, ktoré sa nám z projektov nepodaria vyčítať,
-									doplníte vy{" "}
+									doplníte vy
 								</span>
 							</h3>
 						</div>
@@ -328,8 +332,7 @@ function Functions() {
 							rel="nofollow"
 							onClick={handleClick}
 						>
-							{" "}
-							Vytvoriť cenovú ponuku{" "}
+							Vytvoriť cenovú ponuku
 						</button>
 					</div>
 				)}
@@ -340,8 +343,7 @@ function Functions() {
 							className="main-btn font-bold opacity-50 cursor-auto"
 							rel="nofollow"
 						>
-							{" "}
-							Vytvoriť cenovú ponuku{" "}
+							Vytvoriť cenovú ponuku
 						</button>
 					</div>
 				)}

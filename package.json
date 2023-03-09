@@ -16,6 +16,9 @@
     "@emotion/styled": "^11.10.5",
     "@mui/material": "^5.10.16",
     "@react-pdf/renderer": "^3.0.1",
+    "@react-three/drei": "^9.56.28",
+    "@react-three/fiber": "^8.11.5",
+    "@types/three": "^0.149.0",
     "firebase": "^9.17.1",
     "framer-motion": "^7.10.3",
     "lodash": "^4.17.21",
@@ -28,7 +31,8 @@
     "react-firebase-hooks": "^5.1.1",
     "react-toastify": "^9.1.1",
     "react-tooltip": "^5.3.2",
-    "react-zoom-pan-pinch": "^2.5.0"
+    "react-zoom-pan-pinch": "^2.5.0",
+    "three": "^0.150.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",

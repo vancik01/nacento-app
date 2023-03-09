@@ -1,15 +1,20 @@
-import React from "react";
+import React from 'react'
 
-import logo from "../../public/static/logo.svg";
-import ntbk from "../../public/static/imgs/ntbk.png";
+
 import bg from "../../public/static/bg.svg";
 import LogoHomepage from "../../public/SVG/LogoHomepage";
 import Link from "next/link";
 import { useAuth } from "../../context/AuthContext";
 import UserInfoHeader from "../user_components/UserInfoHeader";
 
+import mockupImg from "../../public/static/mockup.png"
+import Footer from './Footer';
+
+import Mockup from './Mockup';
+
 function HomeArea() {
 	const { user, loading } = useAuth();
+
 	return (
 		<>
 			<header
@@ -105,9 +110,9 @@ function HomeArea() {
 
 				{/* <div id="home" className="header-hero" style={{ backgroundImage: `url(${bg})` }}></div> */}
 
-				<div id="home" className="header-hero pt-20">
-					<div className="container flex justify-center items-center">
-						<div className="justify-center row w-1/2">
+				<div id="home" className="header-hero">
+					<div className="container flex justify-center gap-20">
+						<div className="justify-center row mt-[12%]">
 							<div className="w-full lg:w-full">
 								<div className="text-center header-hero-content">
 									<h1
@@ -115,25 +120,27 @@ function HomeArea() {
 										data-wow-duration="1.3s"
 										data-wow-delay="0.2s"
 									>
-										Automatická tvorba cenových ponúk hrubých stavieb
+										Stavbená firma či živnostník, zjednodušíme Vám tvorbu cenových ponúk
 									</h1>
+
 									<p
-										className="text-base text-start font-light text-white header-title wow fadeInUp lg:w-full pt-3"
-										data-wow-duration="1.3s"
-										data-wow-delay="0.5s"
-									>
-										{" "}
-										Vložte potrebné projekty rodinného domu v PDF a bude vám
-										vygenerovaná cenová ponuka na základe kľúčových parametrov
-										stavby. Upravte si vašu cenovú ponuku a pošlite ju
-										zákaznikovi do pár minút.{" "}
+										className="text-justify font-light text-xl text-white lg:w-full pt-5">
+										Jednoducho nasnímame projektovú dokumentáciu v PDF a vygenerujeme položkovo rozpísanú cenovú ponuku, ktorú si len upravíte. Vytvoríte si tak cenovú ponuku sami a za pár minút.
 									</p>
+
+
+
 									{/* <a href="/" className="main-btn gradient-btn gradient-btn-2 wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s">Get Started</a> */}
 								</div>
 							</div>
 						</div>
 
-						<img src={ntbk.src} className=" w-1/2" alt="hero" />
+						{/* <img src={ntbk.src} className=" w-1/2" alt="hero" /> */}
+						{/* <div className="h-[1] w-[40%]">aa</div> */}
+						{/* <img src	={mockupImg.src} className="w-[40%]" alt="hero" /> */}
+						<Mockup />						
+		
+						
 						{/* <div className="justify-center row">
                     <div className="w-full lg:w-2/3">
                         <div className="text-center header-hero-image wow fadeIn" data-wow-duration="1.3s" data-wow-delay="1.4s">
@@ -143,6 +150,7 @@ function HomeArea() {
                 </div>  */}
 					</div>
 				</div>
+
 
 				<div className="w-[1px] h-[300px]"></div>
 			</header>

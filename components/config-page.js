@@ -1,6 +1,7 @@
 import { Input } from "@mui/material";
 import React, { useState } from "react";
 import Layout from "./Layout";
+import ThreejsView from "./landing_page/ThreejsView";
 
 export default function Preds(props) {
 	const [data, setdata] = useState(props.preds);
@@ -34,7 +35,8 @@ export default function Preds(props) {
 			{data.map((block1, i) => {
 				return (
 					<div className="mt-16">
-						<span className="text-xl font-semibold">{block1.label}</span>
+						{/* <div className="text-xl font-semibold"> {block1.label} </div> */}
+						<div className="text-xl font-semibold"> <ThreejsView label={block1.label}/>  </div>
 						<div>
 							{block1?.items.map((item, q) => {
 								if ("value" in item) {
