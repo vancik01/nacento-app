@@ -61,7 +61,7 @@ function Functions() {
 		}
 	
 	
-	  }
+	}
 	
 	  function create_zakladova_doska(plocha, obvod, ryhy, dt){
 		//// Zemne prace
@@ -122,7 +122,7 @@ function Functions() {
 		CP.sections[0].blocks[5].items[1].quantity = uzemnovacie_vedenie //uzmenovancie vedenie
 		CP.sections[0].blocks[5].items[2].quantity = uzemnovacie_vedenie //uzemnovacia pasovina
 		CP.sections[0].blocks[5].items[3].quantity = 48 //drot bleskozvodovy
-	  }
+	}
 	  
 	  function create_murivo(m10, m15, m25, m30, m45){
 		CP.sections[1].blocks[0].items[0].quantity = round(m45*0.05591295)
@@ -162,7 +162,7 @@ function Functions() {
 		CP.sections[1].blocks[3].items[3].quantity = 69
 		CP.sections[1].blocks[3].items[4].quantity = 120
 		CP.sections[1].blocks[3].items[5].quantity = 0.53
-	  }
+	}
 
 	function round(num) {
 		return Math.round(num * 100) / 100;
