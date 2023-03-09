@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import FunctionsDiv from "./FunctionDiv";
 import FunctionDiv_p from "./FunctionDiv_p";
+import test from "../../lib/test.json";
 
 import Preds from "../config-page";
 
@@ -114,7 +115,7 @@ function Functions() {
 		//customBuild variable empty template
 		setDoc(collectionRef, {
 			id: collectionRef.id,
-			data: customBuild,
+			data: test,
 			name: "Nová cenová ponuka",
 			created: moment().valueOf(),
 			userId: user != null ? user.uid : "none",
@@ -162,13 +163,13 @@ function Functions() {
 							{
 								id: "sirka",
 								label: "Šírka",
-								value: 40,
+								value: 0.6,
 								unit: "m",
 							},
 							{
 								id: "hlbka",
 								label: "Hĺbka",
-								value: 10,
+								value: 0.8,
 								unit: "m",
 							},
 						],

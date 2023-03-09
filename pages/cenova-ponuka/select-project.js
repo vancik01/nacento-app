@@ -1,4 +1,4 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query } from "firebase/firestore";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -27,6 +27,7 @@ export default function SelectProject() {
 		var newData = [];
 
 		const collectionRef = collection(firestore, "/offers");
+		//const query = query(collectionRef,);
 		getDocs(collectionRef).then((docs) => {
 			if (!docs.empty) {
 				docs.docs.map((doc) => {
@@ -90,7 +91,7 @@ export default function SelectProject() {
 												</div>
 												<div className="flex justify-between">
 													<div>
-														{moment(project?.createdAd).format("DD.MM. YYYY")}
+														{moment(project?.created).format("DD.MM. YYYY")}
 													</div>
 
 													<div>
