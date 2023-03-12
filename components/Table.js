@@ -15,6 +15,7 @@ import { Select } from "@mui/material";
 import ButtonPrimary from "./ButtonPrimary";
 import Save from "../public/SVG/Save";
 import _ from "lodash";
+import "react-tooltip/dist/react-tooltip.css";
 
 export default function Table({ items, headers, blockId, sectionId }) {
 	const { deleteRow, reorderRows, getTitle } = useData();
@@ -40,15 +41,14 @@ export default function Table({ items, headers, blockId, sectionId }) {
 												className={`font-medium ${heading.short} py-1 px-2`}
 												style={{ color: "white" }}
 											>
-												<span id={`${blockId}-${heading.short}`}>
-													{heading.short}
-												</span>
 												<Tooltip
-													anchorId={`${blockId}-${heading.short}`}
+													id="tooltip"
+													anchorSelect={`#col-${i}`}
 													place="top"
 													content={heading.long}
 													delayHide={3}
 												/>
+												<span id={`col-${i}`}>{heading.short}</span>
 											</div>
 										</div>
 									);

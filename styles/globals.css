@@ -2,8 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 * {
     font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
 }
 
 h1, h2{
@@ -174,7 +177,7 @@ td {
 
   /* Skeleton loading */
   .skeleton {
-    background: linear-gradient(-45deg, #DDDDDD, #F0F0F0, #DDDDDD, #F0F0F0);
+    background: linear-gradient(-45deg, #e8e8e8, #f4f4f4, #e8e8e8, #f4f4f4);
     background-size: 400% 400%;
     -webkit-animation: Gradient 2.25s ease infinite;
     -moz-animation: Gradient 2.25s ease infinite;

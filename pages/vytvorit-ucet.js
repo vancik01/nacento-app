@@ -41,14 +41,6 @@ export default function CreateAccount() {
 		};
 		var errorExists = false;
 
-		// loginWithEmailAndPassword(email, pass)
-		// 	.then((user) => {})
-		// 	.catch((err) => {
-		// 		setuserloading(false);
-		// 		seterror("Nesprávne meno alebo heslo");
-		// 		console.log(err);
-		// 	});
-
 		if (!email) {
 			newError.email = "Zadajte email";
 			errorExists = true;

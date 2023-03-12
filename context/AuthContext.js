@@ -4,15 +4,36 @@ import {
 	signInWithPopup,
 	signOut,
 } from "firebase/auth";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import { auth } from "../lib/firebase";
+const adminRoutes = [
+	"/cenova-ponuka/",
+	"/cenova-ponuka/select-project/",
+	"/cenova-ponuka/novy-projekt/",
+];
 
 const Auth = React.createContext();
 import { GoogleAuthProvider } from "firebase/auth";
+import { useRouter } from "next/router";
 export default function AuthContext({ children }) {
 	const [user, loading, error] = useAuthState(auth);
+	const [display, setdisplay] = useState(false);
+	const router = useRouter();
+	useEffect(() => {
+		console.log(router.asPath);
+		if (adminRoutes.includes(router.asPath)) {
+			if (!loading) {
+				if (!user) router.push("/login");
+				else {
+					setdisplay(true);
+				}
+			}
+		} else {
+			setdisplay(true);
+		}
+	}, [router, user, loading]);
 
 	function signInWithGoogle() {
 		const provider = new GoogleAuthProvider();
@@ -40,7 +61,7 @@ export default function AuthContext({ children }) {
 		loading,
 	};
 
-	return <Auth.Provider value={value}>{children}</Auth.Provider>;
+	return <Auth.Provider value={value}>{display && children}</Auth.Provider>;
 }
 
 export function useAuth() {

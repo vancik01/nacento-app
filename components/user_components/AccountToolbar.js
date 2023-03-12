@@ -14,10 +14,7 @@ export default function AccountToolbar() {
 
 	const { logOut } = useAuth();
 	return (
-		<motion.div
-			key="login-toolbar"
-			className="absolute top-12 right-0 shadow-hardShadow bg-white rounded-md"
-		>
+		<div className="absolute top-4 right-0 shadow-hardShadow bg-white rounded-md">
 			<div className="px-4 pb-4 pt-6 w-52">
 				<MenuItem href={"/nastavenie-uctu"}>Môj účet 👨🏼</MenuItem>
 				<MenuItem
@@ -30,7 +27,7 @@ export default function AccountToolbar() {
 					Logout
 				</MenuItem>
 			</div>
-		</motion.div>
+		</div>
 	);
 }
 
