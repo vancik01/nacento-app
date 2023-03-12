@@ -32,15 +32,8 @@ export default function CenovaPonuka() {
 		bulkEdit,
 		bulkEditData,
 		openBulkEdit,
-		closeBulkEdit,
-		getTitle,
-		displayTotals,
-		toggleTotals,
-		reorderingBlocks,
-		setreorderingBlocks,
 		download,
 		setdownload,
-
 		setselectedFile,
 		logo,
 	} = useData();
