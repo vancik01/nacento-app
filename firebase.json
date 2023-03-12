@@ -13,7 +13,7 @@
     {
       "public": "out",
       "cleanUrls":true,
-      "target": "dev",
+      "target": "nacento-app",
       "ignore": [
         "firebase.json",
         "**/.*",

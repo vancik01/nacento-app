@@ -10,6 +10,9 @@
         ],
         "dev": [
           "cenova-ponuka"
+        ],
+        "nacento-app": [
+          "nacento-app"
         ]
       }
     }
