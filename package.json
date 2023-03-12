@@ -7,9 +7,8 @@
     "build": "next build && next export",
     "start": "next start",
     "lint": "next lint",
-    "deploy-both": "firebase deploy --only hosting:dev && firebase deploy --only hosting:deploy",
     "deploy-dev": "firebase deploy --only hosting:dev",
-    "deploy-deploy": "firebase deploy --only hosting:deploy"
+    "deploy-app": "firebase deploy --only hosting:nacento-app"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",

@@ -8,11 +8,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import { auth } from "../lib/firebase";
-const adminRoutes = [
-	"/cenova-ponuka/",
-	"/cenova-ponuka/select-project/",
-	"/cenova-ponuka/novy-projekt/",
-];
+
+const publicRoutes = ["/login/", "/vytvorit-ucet/"];
 
 const Auth = React.createContext();
 import { GoogleAuthProvider } from "firebase/auth";
@@ -23,17 +20,19 @@ export default function AuthContext({ children }) {
 	const router = useRouter();
 	useEffect(() => {
 		console.log(router.asPath);
-		if (adminRoutes.includes(router.asPath)) {
-			if (!loading) {
-				if (!user) router.push("/login");
-				else {
+
+		if (!loading) {
+			if (!user) {
+				if (publicRoutes.includes(router.asPath)) {
 					setdisplay(true);
+				} else {
+					router.push("/login");
 				}
+			} else {
+				setdisplay(true);
 			}
-		} else {
-			setdisplay(true);
 		}
-	}, [router, user, loading]);
+	}, [user, loading, router]);
 
 	function signInWithGoogle() {
 		const provider = new GoogleAuthProvider();
@@ -61,7 +60,11 @@ export default function AuthContext({ children }) {
 		loading,
 	};
 
-	return <Auth.Provider value={value}>{display && children}</Auth.Provider>;
+	return (
+		<Auth.Provider value={value}>
+			{display ? children : <div>Loading</div>}
+		</Auth.Provider>
+	);
 }
 
 export function useAuth() {
