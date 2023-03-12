@@ -6,6 +6,7 @@ import { numberWithCommas } from "../lib/helpers";
 import TrashBin from "../public/SVG/editor/TrashBin";
 import EditPen from "../public/SVG/EditPen";
 import Block from "./Block";
+import ButtonIcon from "./ButtonIcon";
 import ButtonPrimary from "./ButtonPrimary";
 import AddBlock from "./editor/AddBlock";
 import AddSection from "./editor/AddSection";
@@ -177,14 +178,13 @@ export default function Section({ section, sectionId, isLast }) {
 			)}
 
 			<div className="absolute right-4 top-2 flex items-center gap-4 w-fit mt-2">
-				<button
+				<ButtonIcon
+					icon={<TrashBin color="#ef4444" />}
+					tooltip="Zmazať sekciu"
 					onClick={() => {
 						deleteSection(sectionId);
 					}}
-					className="flex items-center justify-center gap-2"
-				>
-					<TrashBin color="#ef4444"></TrashBin>
-				</button>
+				/>
 			</div>
 		</div>
 	);

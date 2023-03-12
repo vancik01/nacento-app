@@ -38,12 +38,12 @@ export default function SupplyerInfo() {
 					</button>
 				</div>
 
-				<div className="text-sm">
+				<div className="text-sm flex flex-col gap-1">
 					<div>{supplyer.company_name}</div>
 					<div>IČO: {data.supplyer.ico}</div>
 					<div>DIČ: {data.supplyer.dic}</div>
-					<div>Tel.: {data.supplyer.phone}</div>
-					<div>Email: {data.supplyer.email}</div>
+					<div>{data.supplyer.phone}</div>
+					<div>{data.supplyer.email}</div>
 					<div>{data.supplyer.web}</div>
 				</div>
 			</div>

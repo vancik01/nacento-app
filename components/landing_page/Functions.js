@@ -35,17 +35,14 @@ function Functions() {
 
 	const router = useRouter();
 
-
-	function redirect_to_ponuka(){
-
+	function redirect_to_ponuka() {
 		fetch(`http://165.227.150.191/api/make_from_preds/`, {
-		    method:'POST',
-		    headers: {'Content-Type': 'application/json'},
-		    body: JSON.stringify(preds)
-		    }).then(response => {
-		      if(response.ok){
-		        response.json().then(CP => {
-
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(preds),
+		}).then((response) => {
+			if (response.ok) {
+				response.json().then((CP) => {
 					setloading(true);
 					const collectionRef = doc(collection(firestore, "/offers"));
 					//customBuild variable empty template
@@ -65,36 +62,31 @@ function Functions() {
 						.catch((err) => {
 							console.log(err);
 						});
-
-		      })
-
-		    }
-		})
-		
+				});
+			}
+		});
 	}
-	
 
 	function make_predicions() {
-
 		var data = {
 			zaklady: zakaldyPdf,
 			podorysy: podorysyPdf,
 			strecha: strechaPdf,
-		}
+		};
 
 		setloading(true);
 		fetch(`http://165.227.150.191/api/aspdf/`, {
-		    method:'POST',
-		    headers: {'Content-Type': 'application/json'},
-		    body: JSON.stringify(data)
-		    }).then(response => {
-			  setloading(false);
-		      if(response.ok){
-		        response.json().then(json => {
-					setPreds(json)
-		      })
-		    }
-		})
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(data),
+		}).then((response) => {
+			setloading(false);
+			if (response.ok) {
+				response.json().then((json) => {
+					setPreds(json);
+				});
+			}
+		});
 	}
 
 	return (
@@ -108,7 +100,6 @@ function Functions() {
 							<h3 className="title">
 								Vyberte, čo chcete naceniť.
 								<span>
-									{" "}
 									Informácie, ktoré sa nám z projektov nepodaria vyčítať,
 									doplníte vy
 								</span>
@@ -116,6 +107,7 @@ function Functions() {
 						</div>
 					</div>
 				</div>
+
 				<div className="justify-center row">
 					<FunctionsDiv
 						title={"Základová doska"}
@@ -168,7 +160,10 @@ function Functions() {
 						<Preds preds={preds} />
 						<div className="absolute right-0 hidden mt-2 pt-6 mr-24 navbar-btn sm:inline-block lg:mt-0 lg:static lg:mr-0">
 							{/* <Link className="main-btn font-bold" href="/cenova-ponuka" rel="nofollow" onClick={createPonuka}> Potvrdiť údaje </Link> */}
-							<button className="main-btn font-bold" onClick={redirect_to_ponuka}>
+							<button
+								className="main-btn font-bold"
+								onClick={redirect_to_ponuka}
+							>
 								Potvrdiť údaje
 							</button>
 						</div>

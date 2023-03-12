@@ -1,7 +1,7 @@
 import { Input } from "@mui/material";
 import { useDragControls } from "framer-motion";
 import { Reorder } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { Tooltip } from "react-tooltip";
 import { useData } from "../context/AppWrap";
@@ -15,11 +15,11 @@ import { Select } from "@mui/material";
 import ButtonPrimary from "./ButtonPrimary";
 import Save from "../public/SVG/Save";
 import _ from "lodash";
+import "react-tooltip/dist/react-tooltip.css";
 
 export default function Table({ items, headers, blockId, sectionId }) {
-	const { deleteRow, reorderRows, getTitle } = useData();
+	const { reorderRows, getTitle } = useData();
 	const { displayColumns, tableRowTemplate, primaryColor } = useLayout();
-	const [hovering, sethovering] = useState("");
 
 	return (
 		<>
@@ -40,15 +40,14 @@ export default function Table({ items, headers, blockId, sectionId }) {
 												className={`font-medium ${heading.short} py-1 px-2`}
 												style={{ color: "white" }}
 											>
-												<span id={`${blockId}-${heading.short}`}>
-													{heading.short}
-												</span>
 												<Tooltip
-													anchorId={`${blockId}-${heading.short}`}
+													id="tooltip"
+													anchorSelect={`#col-${i}`}
 													place="top"
 													content={heading.long}
 													delayHide={3}
 												/>
+												<span id={`col-${i}`}>{heading.short}</span>
 											</div>
 										</div>
 									);
@@ -97,6 +96,16 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 	const { getTitle, headers, deleteRow } = useData();
 	const { displayColumns, tableRowTemplate, primaryColor } = useLayout();
 	const [didChange, setdidChange] = useState(false);
+	const [item, setitem] = useState(polozka);
+	useEffect(() => {
+		if (polozka == item) {
+			console.log("Same");
+		} else {
+			console.log();
+		}
+
+		return () => {};
+	}, [polozka]);
 
 	return (
 		<div className="relative">

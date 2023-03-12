@@ -11,9 +11,11 @@ import FullPageLoading from "../../components/loading/FullPageLoading";
 import Prefill from "../../public/SVG/account/Prefill";
 import Logout from "../../components/user_components/Logout";
 import AccountSidebarSkeleton from "../../components/skeletons/AccountSidebarSkeleton";
+import { useRouter } from "next/router";
 
 export default function index() {
 	const { user, loading } = useAuth();
+	const router = useRouter();
 
 	return (
 		<div>
@@ -65,8 +67,11 @@ export default function index() {
 								</div>
 								<Logout></Logout>
 							</div>
+
 							<ButtonPrimary
-								href="/cenova-ponuka/"
+								onClick={() => {
+									router.back();
+								}}
 								iconBefore
 								icon={<ArrowBack />}
 								color="#361CC1"

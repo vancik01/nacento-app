@@ -25,6 +25,7 @@ import {
 	updateTableRow,
 } from "../lib/valueChangeFunctions";
 import AddRow from "../public/SVG/AddRow";
+import CenovaPonukaSkeleton from "../components/skeletons/CenovaPonukaSkeleton";
 
 const DataContext = React.createContext();
 
@@ -52,7 +53,7 @@ export function AppWrap({ children }) {
 	const [logo, setlogo] = useState(null);
 	const [displaySidebar, setdisplaySidebar] = useState(true);
 	const [saving, setsaving] = useState(false);
-	const [test, settest] = useState(null);
+	const [showUI, setshowUI] = useState(false);
 
 	const [total, settotal] = useState({
 		total_delivery_price: 0,
@@ -148,9 +149,10 @@ export function AppWrap({ children }) {
 
 	useEffect(() => {
 		//kalkulácia ceny totalnej z blokov a pod...
-		if (data) {
+		if (data != null) {
 			dataInit();
 			loadTotals();
+			setshowUI(true);
 		}
 	}, [loading]);
 
@@ -577,13 +579,15 @@ export function AppWrap({ children }) {
 
 	return (
 		<DataContext.Provider value={value}>
-			{!loading && (
+			{showUI ? (
 				<>
 					{!errorLoading && children}
 					{errorLoading && <DoesNotExist />}
 				</>
+			) : (
+				<CenovaPonukaSkeleton />
 			)}
-			<FullPageLoading loading={loading}></FullPageLoading>
+			{/* <FullPageLoading loading={loading}></FullPageLoading> */}
 		</DataContext.Provider>
 	);
 }
