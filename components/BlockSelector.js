@@ -14,7 +14,8 @@ import elektroinstalacie from "../public/subory-prac/elektroinstalacie.json"
 import vykurovanie from "../public/subory-prac/vykurovane.json"
 
 function BlockSelector() {
-  const subory_prac = [elektroinstalacie, vykurovanie]
+  const [subory_prac, setsubory_prac] = useState([{...elektroinstalacie}, {...vykurovanie}])
+  //const subory_prac = [{...elektroinstalacie}, {...vykurovanie}]
 
   const {
         addBlockFull,
@@ -25,8 +26,9 @@ function BlockSelector() {
   function handleAddBlock(section, block){
 
     let new_section = {...section}
-    new_section.blocks = [block]
-    addBlockFull(new_section, block)
+    let new_block = {...block}
+    new_section.blocks = [new_block]
+    addBlockFull(new_section, new_block)
   }
 
   return (
