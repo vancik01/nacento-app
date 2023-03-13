@@ -26,6 +26,7 @@ import {
 } from "../lib/valueChangeFunctions";
 import AddRow from "../public/SVG/AddRow";
 import CenovaPonukaSkeleton from "../components/skeletons/CenovaPonukaSkeleton";
+import { forEach } from "lodash";
 
 const DataContext = React.createContext();
 
@@ -322,6 +323,37 @@ export function AppWrap({ children }) {
 		setdata(newData);
 	}
 
+	function addBlockFull(section, block){
+		let newData = { ...data };
+		console.log(newData.sections)
+
+		let i=0
+		let exists = false
+		newData.sections.forEach(sec => {
+			console.log(sec.info.title)
+			if(sec.info.title == section.info.title){
+				newData.sections[i].blocks.push(block)
+				exists = true
+				setdata(newData);
+
+			}
+			i++
+		});
+
+		if(!exists){
+			newData.sections.push(section);
+
+			setdata(newData);
+			setTimeout(() => {
+				document
+					.getElementById("last-section")
+					.scrollIntoView({ behavior: "smooth" });
+			}, 100);
+		}
+		
+
+	}
+
 	function addBlock(sectionId, blockId) {
 		let newData = { ...data };
 
@@ -525,6 +557,7 @@ export function AppWrap({ children }) {
 		getTitle,
 
 		reorderBlocks,
+		addBlockFull,
 		addBlock,
 		deleteBlock,
 

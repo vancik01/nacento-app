@@ -24,7 +24,11 @@ import Pro from "./Pro";
 import { createTheme } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 
+import BlockSelector from "./BlockSelector";
+
+
 export default function Sidebar() {
+
 	const {
 		getTitle,
 		headers,
@@ -76,7 +80,7 @@ export default function Sidebar() {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<div className="fixed left-0 top-0 bottom-0 z-50 w-[300px] ">
+			<div className="fixed left-0 top-0 bottom-0 z-50 w-[400px] overflow-y-scroll">
 				<div className="relative w-fit">
 					<div className="py-10 px-6  shadow-lg bg-white h-screen">
 						<div className="flex flex-col min-h-full">
@@ -334,6 +338,11 @@ export default function Sidebar() {
 										</div>
 									</AccordionDetails>
 								</Accordion>
+
+								<></>
+												
+								<BlockSelector></BlockSelector>
+
 							</div>
 
 							<div className="mt-auto w-full">
