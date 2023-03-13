@@ -13,37 +13,10 @@ import ScreenLayout from "../../components/ScreenLayout";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function addSekcia(e){
-    //let d = [...data]
 
-    for(let i=0; i<df.length; i++){
-
-        if(`${df[i].itemIndex}` == e.target.id){
-            console.log(df[i].description)
-
-            break
-        }
-    }
-    //d.sections.push(e.target)
-
-    console.log(e.target.id)
-}
-
-function addBlock(e){
-    console.log(e)
-}
-
-function addPolozka(e){
-    console.log(e)
-}
-
-export const UserContext = React.createContext(null);
 
 export default function index() {
-    const [data, setData] = useState(test);
     
-
-    console.log(df.length)
 
     const e = []
     for(let i=0; i<df.length; i++){
@@ -52,7 +25,7 @@ export default function index() {
 
         e.push( 
 
-            <li key={df[i].itemIndex} style={{marginLeft : `${l*20}px`}} >{df[i].description}  </li>
+            <li key={df[i].itemIndex} style={{marginLeft : `${l*20}px`}} >{df[i].description}</li>
         
         )
     }
