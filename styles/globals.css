@@ -21,10 +21,6 @@ p{
     @apply text-[16px] font-light;
 }
 
-.lol-btn{
-  border: 1px solid black;
-  cursor: default;
-}
 
 table {
     border-collapse: collapse;
