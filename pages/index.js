@@ -6,6 +6,7 @@ import About from "../components/landing_page/About";
 import Functions from "../components/landing_page/Functions";
 import Footer from "../components/landing_page/Footer";
 import { useRouter } from "next/router";
+import FullPageLoading from "../components/loading/FullPageLoading";
 
 export default function Home() {
 	const router = useRouter();
@@ -15,7 +16,7 @@ export default function Home() {
 
 	return (
 		<>
-			<div>Loading...</div>
+			<FullPageLoading loading={true}></FullPageLoading>
 		</>
 	);
 }

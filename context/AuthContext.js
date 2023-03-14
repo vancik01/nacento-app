@@ -15,6 +15,7 @@ const Auth = React.createContext();
 import { GoogleAuthProvider } from "firebase/auth";
 import { useRouter } from "next/router";
 import { doc, getDoc } from "firebase/firestore";
+import FullPageLoading from "../components/loading/FullPageLoading";
 export default function AuthContext({ children }) {
 	const [user, loading, error] = useAuthState(auth);
 	const [display, setdisplay] = useState(false);
@@ -35,6 +36,7 @@ export default function AuthContext({ children }) {
 				getDoc(docRef).then((snap) => {
 					if (!snap.exists()) {
 						console.log("User do not exist");
+						// logOut();
 					} else {
 						setuserData(snap.data());
 						setdisplay(true);
@@ -75,11 +77,21 @@ export default function AuthContext({ children }) {
 
 	return (
 		<Auth.Provider value={value}>
-			{display ? children : <div>Loading</div>}
+			{display ? (
+				children
+			) : (
+				<div>
+					<FullPageLoading loading={true}></FullPageLoading>
+				</div>
+			)}
 		</Auth.Provider>
 	);
 }
 
 export function useAuth() {
 	return useContext(Auth);
+}
+
+function ErrorUser() {
+	return <button onClick={signOut}></button>;
 }

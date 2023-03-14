@@ -16,6 +16,7 @@ import ButtonPrimary from "./ButtonPrimary";
 import Save from "../public/SVG/Save";
 import _ from "lodash";
 import "react-tooltip/dist/react-tooltip.css";
+import ButtonIcon from "./ButtonIcon";
 
 export default function Table({ items, headers, blockId, sectionId }) {
 	const { reorderRows, getTitle } = useData();
@@ -155,14 +156,13 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 							})}
 
 							{
-								<div className="flex justify-end gap-1 select-none absolute -right-12">
-									<div
+								<div className="flex justify-end items-center gap-1 select-none absolute -right-16">
+									<ButtonIcon
+										icon={<TrashBin />}
 										onClick={() => {
 											deleteRow({ sectionId, blockId, itemId: i });
 										}}
-									>
-										<TrashBin />
-									</div>
+									></ButtonIcon>
 
 									<div {...provided.dragHandleProps}>
 										<DragableIcon />

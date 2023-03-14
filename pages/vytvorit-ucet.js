@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@emotion/react";
 import { TextField } from "@mui/material";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -108,7 +108,34 @@ export default function CreateAccount() {
 		signInWithGoogle()
 			.then((user) => {
 				console.log("new", user.user.metadata);
-				router.push("/");
+				const docRef = doc(firestore, `/users/${user.user.uid}`);
+				console.log(docRef.path);
+				getDoc(docRef).then((snap) => {
+					console.log(snap.data());
+					if (!snap.exists()) {
+						//const docRef = doc(firestore, `/users/${user.user.uid}`);
+						//console.log(docRef.path);
+						setDoc(docRef, {
+							email: user.user.email,
+							createdAt: moment().valueOf(),
+							account: "",
+							name: "",
+							supplyer: {},
+							setup: false,
+							intro: false,
+						})
+							.then(() => {
+								router.push("/user-setup/");
+								console.log("Navigate setup");
+							})
+							.catch((err) => {
+								console.log(err);
+							});
+					} else {
+						console.log("Navigate dashboard");
+						//router.push("/dashboard");
+					}
+				});
 			})
 			.catch((err) => {
 				seterror(err);

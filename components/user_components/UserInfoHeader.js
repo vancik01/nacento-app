@@ -6,11 +6,13 @@ import { useAuth } from "../../context/AuthContext";
 import ArrowDown from "../../public/SVG/ArrowDown";
 import AccountToolbar from "./AccountToolbar";
 import { motion } from "framer-motion";
+import Pro from "../Pro";
 
-export default function UserInfoHeader() {
+export default function UserInfoHeader({ color }) {
 	const [toolbar, settoolbar] = useState(false);
 	const { user, loading, userData } = useAuth();
 
+	if (!color) color = "black";
 	return (
 		<div>
 			{user != null ? (
@@ -22,23 +24,25 @@ export default function UserInfoHeader() {
 						className="flex justify-center items-center gap-4"
 					>
 						<div className="flex justify-start items-center gap-2">
-							<div className="font-light text-gray-400">{userData.name}</div>
+							<div className="font-light" style={{ color: color }}>
+								{userData.name}
+							</div>
 							<div
 								className="transition-all"
 								style={{ rotate: toolbar ? "180deg" : "0deg" }}
 							>
-								<ArrowDown color={"#C0C0C0"}></ArrowDown>
+								<ArrowDown color={color}></ArrowDown>
 							</div>
 						</div>
-						{user.photoURL && (
-							<div className="h-8">
-								<img
-									src={user.photoURL}
-									className="h-full aspect-square rounded-full"
-									alt=""
-								/>
-							</div>
-						)}
+
+						<div className="h-8 flex items-center gap-2">
+							<img
+								src={user.photoURL ? user.photoURL : "/static/default-user.png"}
+								className="h-full aspect-square rounded-full"
+								alt=""
+							/>
+							<Pro color={"#361cc1"}></Pro>
+						</div>
 					</button>
 
 					<AnimatePresence mode="wait">

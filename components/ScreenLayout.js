@@ -34,6 +34,7 @@ export default function ScreenLayout() {
 								</motion.div>
 							)}
 							{!displaySidebar && <div></div>}
+
 							{!displaySidebar && (
 								<motion.button
 									initial={{ x: -50 }}

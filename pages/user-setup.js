@@ -72,48 +72,59 @@ export default function UserSetup() {
 				<div>
 					<Layout className="">
 						<div className="mx-auto h-[500px] max-w-2xl min-h-screen flex flex-col justify-center items-center">
-							<div>{page == 0 && <Slide1></Slide1>}</div>
-							<div>{page == 1 && <Slide2></Slide2>}</div>
-							<div>{page == 2 && <Slide3></Slide3>}</div>
-							<div>{page == 3 && <Slide4></Slide4>}</div>
+							{userData.setup == false ? (
+								<div>
+									<div>{page == 0 && <Slide1></Slide1>}</div>
+									<div>{page == 1 && <Slide2></Slide2>}</div>
+									<div>{page == 2 && <Slide3></Slide3>}</div>
+									<div>{page == 3 && <Slide4></Slide4>}</div>
 
-							{/* Navigation */}
-							<div className="mt-10 flex items-center gap-4">
-								{page != 0 && (
-									<ButtonSecondary
-										onClick={prevPage}
-										icon={<Back></Back>}
-										iconBefore
-										color="#361CC1"
-									>
-										Späť
-									</ButtonSecondary>
-								)}
+									{/* Navigation */}
+									<div className="mt-10 flex items-center gap-4">
+										{page != 0 && (
+											<ButtonSecondary
+												onClick={prevPage}
+												icon={<Back></Back>}
+												iconBefore
+												color="#361CC1"
+											>
+												Späť
+											</ButtonSecondary>
+										)}
 
-								{page != 3 && (
-									<ButtonPrimary
-										icon={<Next></Next>}
-										iconAfter
-										disabled={!allowNext}
-										color="#361CC1"
-										onClick={nextPage}
-									>
-										Ďalej
+										{page != 3 && (
+											<ButtonPrimary
+												icon={<Next></Next>}
+												iconAfter
+												disabled={!allowNext}
+												color="#361CC1"
+												onClick={nextPage}
+											>
+												Ďalej
+											</ButtonPrimary>
+										)}
+
+										{page == 3 && (
+											<ButtonPrimary
+												icon={<Next></Next>}
+												iconAfter
+												disabled={!allowNext}
+												color="#361CC1"
+												onClick={handleSave}
+											>
+												Uložiť
+											</ButtonPrimary>
+										)}
+									</div>
+								</div>
+							) : (
+								<>
+									<div className="mb-2">Váš účet je už nakonfigurovaný</div>
+									<ButtonPrimary color="#361CC1" href="/nastavenie-uctu/">
+										Môj účet
 									</ButtonPrimary>
-								)}
-
-								{page == 3 && (
-									<ButtonPrimary
-										icon={<Next></Next>}
-										iconAfter
-										disabled={!allowNext}
-										color="#361CC1"
-										onClick={handleSave}
-									>
-										Uložiť
-									</ButtonPrimary>
-								)}
-							</div>
+								</>
+							)}
 						</div>
 					</Layout>
 				</div>

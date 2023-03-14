@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@emotion/react";
 import { TextField } from "@mui/material";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -10,8 +11,10 @@ import { LoggedIn } from "../components/LoggedIn";
 
 import { useAuth } from "../context/AuthContext";
 import IconGoogle from "../public/SVG/IconGoogle";
+import moment from "moment/moment";
 
 import Logo from "../public/SVG/Logo";
+import { firestore } from "../lib/firebase";
 
 export default function Login() {
 	const { signInWithGoogle, loginWithEmailAndPassword, user } = useAuth();
@@ -40,8 +43,34 @@ export default function Login() {
 	function handleGoogle() {
 		setgoogleLoading(true);
 		signInWithGoogle()
-			.then(() => {
-				router.push("/");
+			.then((user) => {
+				const docRef = doc(firestore, `/users/${user.user.uid}`);
+				getDoc(docRef).then((snap) => {
+					console.log(snap.data());
+					if (!snap.exists()) {
+						//const docRef = doc(firestore, `/users/${user.user.uid}`);
+						//console.log(docRef.path);
+						setDoc(docRef, {
+							email: user.user.email,
+							createdAt: moment().valueOf(),
+							account: "",
+							name: "",
+							supplyer: {},
+							setup: false,
+							intro: false,
+						})
+							.then(() => {
+								router.push("/user-setup/");
+								console.log("Navigate setup");
+							})
+							.catch((err) => {
+								console.log(err);
+							});
+					} else {
+						console.log("Navigate dashboard");
+						//router.push("/dashboard");
+					}
+				});
 			})
 			.catch((err) => {
 				seterror(err);

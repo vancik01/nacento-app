@@ -12,6 +12,8 @@ import Prefill from "../../public/SVG/account/Prefill";
 import Logout from "../../components/user_components/Logout";
 import AccountSidebarSkeleton from "../../components/skeletons/AccountSidebarSkeleton";
 import { useRouter } from "next/router";
+import ButtonSecondary from "../../components/ButtonSecondary";
+import Dashboard from "../../public/SVG/buttons/Dashboard";
 
 export default function index() {
 	const { user, loading, userData } = useAuth();
@@ -46,6 +48,7 @@ export default function index() {
 										</div>
 									</div>
 								</div>
+
 								<div className="flex flex-col gap-8  mt-6 max-w-[250px] mx-auto mb-6">
 									<MenuItem
 										icon={<Settings />}
@@ -71,17 +74,28 @@ export default function index() {
 								<Logout></Logout>
 							</div>
 
-							<ButtonPrimary
-								onClick={() => {
-									router.back();
-								}}
-								iconBefore
-								icon={<ArrowBack />}
-								color="#361CC1"
-								className="w-40"
-							>
-								Späť
-							</ButtonPrimary>
+							<div className="flex items-center justify-center gap-2 ">
+								<ButtonSecondary
+									href="/dashboard"
+									iconBefore
+									icon={<Dashboard />}
+									color="#361CC1"
+									className=""
+								>
+									Dashboard
+								</ButtonSecondary>
+								<ButtonPrimary
+									onClick={() => {
+										router.back();
+									}}
+									iconBefore
+									icon={<ArrowBack />}
+									color="#361CC1"
+									className=""
+								>
+									Späť
+								</ButtonPrimary>
+							</div>
 						</div>
 					) : (
 						<AccountSidebarSkeleton />

@@ -10,7 +10,7 @@ export default function Slide3() {
 
 	function handleChange(e) {
 		var newData = { ...userObject };
-		newData.supplyer[e.target.name] = e.target.value;
+		newData.supplyer[`${e.target.name}`] = e.target.value;
 		setuserObject(newData);
 	}
 
