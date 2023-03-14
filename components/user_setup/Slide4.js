@@ -26,6 +26,7 @@ export default function Slide4() {
 		} else {
 			setlogo(null);
 		}
+		setallowNext(true);
 	}, [selectedFile]);
 
 	return (

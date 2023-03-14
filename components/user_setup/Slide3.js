@@ -34,18 +34,22 @@ export default function Slide3() {
 						<TextField
 							onChange={handleChange}
 							name="phone"
+							type="tel"
 							variant="filled"
 							label="Telefónne číslo"
 							value={userObject.supplyer?.phone}
 						></TextField>
 						<TextField
 							onChange={handleChange}
+							type="email"
 							name="email"
 							variant="filled"
 							label="Email"
-							value={userObject.supplyer?.email}
+							value={userObject.email}
+							disabled
 						></TextField>
 						<TextField
+							type="url"
 							onChange={handleChange}
 							name="web"
 							variant="filled"

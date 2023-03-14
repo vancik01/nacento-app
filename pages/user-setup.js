@@ -10,17 +10,19 @@ import Slide3 from "../components/user_setup/Slide3";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material";
 import Slide4 from "../components/user_setup/Slide4";
+import { useAuth } from "../context/AuthContext";
+import { doc, updateDoc } from "firebase/firestore";
+import { firestore } from "../lib/firebase";
+import { useRouter } from "next/router";
 
 const Setup = React.createContext();
 
 export default function UserSetup() {
+	const { userData, user } = useAuth();
 	const [page, setpage] = useState(0);
 	const [allowNext, setallowNext] = useState(false);
-	const [userObject, setuserObject] = useState({
-		account: "", //person , company
-		name: "",
-		supplyer: {},
-	});
+	const [userObject, setuserObject] = useState({ ...userData });
+	const router = useRouter();
 
 	useEffect(() => {
 		console.log(userObject);
@@ -32,6 +34,16 @@ export default function UserSetup() {
 	}
 	function prevPage() {
 		setpage(page - 1);
+	}
+
+	function handleSave() {
+		const docRef = doc(firestore, `/users/${user.uid}`);
+		updateDoc(docRef, {
+			...userObject,
+			setup: true,
+		}).then(() => {
+			router.push("/dashboard/");
+		});
 	}
 
 	const theme = createTheme({
@@ -49,7 +61,13 @@ export default function UserSetup() {
 	return (
 		<ThemeProvider theme={theme}>
 			<Setup.Provider
-				value={{ userObject, setuserObject, allowNext, setallowNext }}
+				value={{
+					userObject,
+					setuserObject,
+					allowNext,
+					setallowNext,
+					handleSave,
+				}}
 			>
 				<div>
 					<Layout className="">
@@ -72,15 +90,29 @@ export default function UserSetup() {
 									</ButtonSecondary>
 								)}
 
-								<ButtonPrimary
-									icon={<Next></Next>}
-									iconAfter
-									disabled={!allowNext}
-									color="#361CC1"
-									onClick={nextPage}
-								>
-									Ďalej
-								</ButtonPrimary>
+								{page != 3 && (
+									<ButtonPrimary
+										icon={<Next></Next>}
+										iconAfter
+										disabled={!allowNext}
+										color="#361CC1"
+										onClick={nextPage}
+									>
+										Ďalej
+									</ButtonPrimary>
+								)}
+
+								{page == 3 && (
+									<ButtonPrimary
+										icon={<Next></Next>}
+										iconAfter
+										disabled={!allowNext}
+										color="#361CC1"
+										onClick={handleSave}
+									>
+										Uložiť
+									</ButtonPrimary>
+								)}
 							</div>
 						</div>
 					</Layout>

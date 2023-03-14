@@ -79,11 +79,12 @@ export function AppWrap({ children }) {
 					setname(snap.data().name);
 				} else {
 					seterrorLoading(true);
+					setshowUI(true);
 				}
 				setloading(false);
 			});
 		} else {
-			router.push("/cenova-ponuka/select-project/");
+			router.push("/dashboard/");
 		}
 	}, [router]);
 
@@ -600,7 +601,7 @@ function DoesNotExist() {
 	const router = useRouter();
 	function handleSelect() {
 		localStorage.removeItem("offerId");
-		router.push("/cenova-ponuka/select-project/");
+		router.push("/dashboard");
 	}
 	return (
 		<div className="h-screen flex justify-center items-center flex-col">

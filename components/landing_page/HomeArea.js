@@ -80,7 +80,7 @@ function HomeArea() {
 													<Link
 														className="main-btn gradient-btn"
 														data-scroll-nav="0"
-														href="/cenova-ponuka/select-project"
+														href="/dashboard"
 														rel="nofollow"
 													>
 														Admin

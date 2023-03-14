@@ -14,7 +14,7 @@ import AccountSidebarSkeleton from "../../components/skeletons/AccountSidebarSke
 import { useRouter } from "next/router";
 
 export default function index() {
-	const { user, loading } = useAuth();
+	const { user, loading, userData } = useAuth();
 	const router = useRouter();
 
 	return (
@@ -39,7 +39,10 @@ export default function index() {
 											/>
 										</div>
 										<div className="text-xl font-medium text-center mt-4">
-											{user.displayName ? user.displayName : user.email}
+											{userData.name}
+										</div>
+										<div className="text-sm text-gray-300 font-medium text-center mt-1">
+											{userData.email}
 										</div>
 									</div>
 								</div>

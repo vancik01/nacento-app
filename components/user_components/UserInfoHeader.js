@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 
 export default function UserInfoHeader() {
 	const [toolbar, settoolbar] = useState(false);
-	const { user, loading } = useAuth();
+	const { user, loading, userData } = useAuth();
 
 	return (
 		<div>
@@ -22,9 +22,7 @@ export default function UserInfoHeader() {
 						className="flex justify-center items-center gap-4"
 					>
 						<div className="flex justify-start items-center gap-2">
-							<div className="font-light text-gray-400">
-								{user.displayName ? user.displayName : user.email}
-							</div>
+							<div className="font-light text-gray-400">{userData.name}</div>
 							<div
 								className="transition-all"
 								style={{ rotate: toolbar ? "180deg" : "0deg" }}

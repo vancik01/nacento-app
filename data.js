@@ -1,4 +1,4 @@
-export const test = {}
+export const test = {};
 
 export const d = {
 	customer: {
@@ -1433,7 +1433,6 @@ export const template_config = [
 ];
 
 export const empty = {
-	name: "Nový cenová ponuka",
 	customer: {
 		name: "",
 	},
@@ -1460,7 +1459,7 @@ export const empty = {
 	sections: [
 		{
 			info: {
-				title: "Základová doska",
+				title: "",
 				total_delivery_price: 0,
 				total_construction_price: 0,
 				total: 0,
@@ -1883,15 +1882,5 @@ export const customBuild = {
 		"total_construction_price",
 		"total",
 	],
-	sections: [
-		{
-			info: {
-				title: "Zadajte názov...",
-				total_delivery_price: 0,
-				total_construction_price: 0,
-				total: 0,
-			},
-			blocks: [],
-		},
-	],
+	sections: [],
 };

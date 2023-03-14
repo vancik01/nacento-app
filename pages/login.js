@@ -28,7 +28,8 @@ export default function Login() {
 
 		loginWithEmailAndPassword(email, pass)
 			.then((user) => {
-				router.push("/");
+				//router.push("/");
+				console.log(user);
 			})
 			.catch((err) => {
 				setuserloading(false);
