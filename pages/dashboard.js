@@ -1,4 +1,5 @@
 import { Link } from "@mui/material";
+import Head from "next/head";
 import React from "react";
 import CreateToolbar from "../components/dashboard/CreateToolbar";
 import ProjectList from "../components/dashboard/ProjectsList";
@@ -11,6 +12,9 @@ import Logo from "../public/SVG/Logo";
 export default function Dashboard() {
 	return (
 		<div>
+			<Head>
+				<title>Dashboard</title>
+			</Head>
 			<div className="bg-blue-600">
 				<Layout className="h-[70px]">
 					<div className="flex items-center justify-between h-full">

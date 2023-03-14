@@ -1,0 +1,425 @@
+{
+	"customer": {
+		"name": ""
+	},
+	"supplyer": {
+		"company_name": "",
+		"ico": "",
+		"dic": "",
+		"phone": "",
+		"email": "",
+		"web": ""
+	},
+	"headers": [
+		"service_type",
+		"item_id",
+		"info",
+		"unit",
+		"quantity",
+		"unit_delivery_price",
+		"unit_construction_price",
+		"total_delivery_price",
+		"total_construction_price",
+		"total"
+	],
+	"sections": [
+		{
+			"info": {
+				"info": "",
+				"total_delivery_price": 0,
+				"total_construction_price": 0,
+				"total": 0
+			},
+			"blocks": [
+				{
+					"info": {
+						"info": "Zemné práce",
+						"total_delivery_price": 0,
+						"total_construction_price": 0,
+						"total": 0
+					},
+					"items": [
+						{
+							"service_type": 0,
+							"item_id": "000300016.S",
+							"info":
+								"Geodetické práce - vykonávané pred výstavbou určenie vytyčovacej siete, vytýčenie staveniska, staveb. objektu",
+							"unit": "diel",
+							"quantity": 1,
+							"unit_delivery_price": 0,
+							"unit_construction_price": 150,
+							"total_delivery_price": 0,
+							"total_construction_price": 150
+						},
+						{
+							"service_type": "R",
+							"item_id": 121101111,
+							"info":
+								"Odstránenie ornice s vodor. premiestn. na hromady, so zložením na vzdialenosť do 100 m a nad 100m3",
+							"unit": "m3",
+							"quantity": 60,
+							"unit_delivery_price": 0,
+							"unit_construction_price": 2.12,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						},
+						{
+							"service_type": "R",
+							"item_id": 132201101,
+							"info": "Výkop ryhy do šírky 600 mm v horn.3 do 100 m3",
+							"unit": "m3",
+							"quantity": 0,
+							"unit_delivery_price": 0,
+							"unit_construction_price": 12.51,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						},
+						{
+							"service_type": "R",
+							"item_id": 122201102,
+							"info": "Odkopávka nezapažená v hornine, nad 100 do 1000 m3",
+							"unit": "m3",
+							"quantity": 0,
+							"unit_delivery_price": 0,
+							"unit_construction_price": 3.78,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						},
+						{
+							"service_type": "R",
+							"item_id": 162201101,
+							"info": "Vodorovné premiestnenie výkopku z horniny 1-4 do 20m",
+							"unit": "m3",
+							"quantity": 0,
+							"unit_delivery_price": 0,
+							"unit_construction_price": 7.21,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						},
+						{
+							"service_type": "R",
+							"item_id": 167101102,
+							"info":
+								"Nakladanie neuľahnutého výkopku z hornín tr.1-4 nad 100 do 1000 m3",
+							"unit": "m3",
+							"quantity": 0,
+							"unit_delivery_price": 0,
+							"unit_construction_price": 2.91,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						},
+						{
+							"service_type": "R",
+							"item_id": 171201202,
+							"info": "Uloženie sypaniny na skládky nad 100 do 1000 m3",
+							"unit": "m3",
+							"quantity": 0,
+							"unit_delivery_price": 0,
+							"unit_construction_price": 1.63,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						}
+					]
+				},
+				{
+					"info": {
+						"info": "Zakladanie",
+						"total_delivery_price": 0,
+						"total_construction_price": 0,
+						"total": 0
+					},
+					"items": [
+						{
+							"service_type": "R",
+							"item_id": 271573001,
+							"info":
+								"Násyp pod základové konštrukcie so zhutnením zo štrkopiesku fr.32-63 mm",
+							"unit": "m3",
+							"quantity": 0,
+							"unit_delivery_price": 14.78,
+							"unit_construction_price": 3.47,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						},
+						{
+							"service_type": "R",
+							"item_id": 27332131,
+							"info":
+								"Betón základových dosiek, železový (bez výstuže), tr. C 20/25",
+							"unit": "m3",
+							"quantity": 0,
+							"unit_delivery_price": 85.36,
+							"unit_construction_price": 22.12,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						},
+						{
+							"service_type": "R",
+							"item_id": 273362422,
+							"info":
+								"Výstuž základových dosiek zo zvár. sietí KARI, priemer drôtu 8 mm, veľkosť oka 150x150 mm",
+							"unit": "m2",
+							"quantity": 0,
+							"unit_delivery_price": 9.7,
+							"unit_construction_price": 0.78,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						},
+						{
+							"service_type": "R",
+							"item_id": 274271300,
+							"info":
+								"Murivo základových pásov (m3) PREMAC 50x40x25 s betónovou výplňou                    C 20/25 hr. 400 mm",
+							"unit": "m3",
+							"quantity": 0,
+							"unit_delivery_price": 136.24,
+							"unit_construction_price": 44.87,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						},
+						{
+							"service_type": "R",
+							"item_id": 274271303,
+							"info":
+								"Murivo základových pásov (m3) PREMAC 50x30x25 s betónovou výplňou                    C 20/25 hr. 300 mm",
+							"unit": "m3",
+							"quantity": 0,
+							"unit_delivery_price": 134.88,
+							"unit_construction_price": 42.73,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						},
+						{
+							"service_type": "R",
+							"item_id": 274271312,
+							"info":
+								"Murivo základových pásov (m3) PREMAC 50x25x25 s betónovou výplňou                C 20/25 hr. 250 mm",
+							"unit": "m3",
+							"quantity": 0,
+							"unit_delivery_price": 132.72,
+							"unit_construction_price": 40.56,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						},
+						{
+							"service_type": "R",
+							"item_id": 274271311,
+							"info":
+								"Murivo základových pásov (m3) PREMAC 50x20x25 s betónovou výplňou                 C 20/25 hr. 200 mm",
+							"unit": "m3",
+							"quantity": 0,
+							"unit_delivery_price": 131.59,
+							"unit_construction_price": 39.36,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						},
+						{
+							"service_type": "R",
+							"item_id": 274321312,
+							"info":
+								"Betón základových pásov, železový (bez výstuže), tr. C 16/20",
+							"unit": "m3",
+							"quantity": 0,
+							"unit_delivery_price": 82.91,
+							"unit_construction_price": 8.37,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						},
+						{
+							"service_type": "R",
+							"item_id": 274361825,
+							"info":
+								"Výstuž pre murivo základových pásov PREMAC s betónovou výplňou z ocele 10505",
+							"unit": "t",
+							"quantity": 0,
+							"unit_delivery_price": 945.876,
+							"unit_construction_price": 124.59,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						}
+					]
+				},
+				{
+					"info": {
+						"info": "Zvislé konštrukcie",
+						"total_delivery_price": 0,
+						"total_construction_price": 0,
+						"total": 0
+					},
+					"items": [
+						{
+							"service_type": "R",
+							"item_id": 451572111,
+							"info":
+								"Lôžko pod potrubie, stoky a drobné objekty, v otvorenom výkope z kameniva drobného ťaženého 0-4 mm",
+							"unit": "m3",
+							"quantity": 0,
+							"unit_delivery_price": 24,
+							"unit_construction_price": 17.97,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						},
+						{
+							"service_type": "R",
+							"item_id": 451573111,
+							"info":
+								"Lôžko pod potrubie, stoky a drobné objekty, v otvorenom výkope z piesku a štrkopiesku do 63 mm",
+							"unit": "m3",
+							"quantity": 0,
+							"unit_delivery_price": 21.07,
+							"unit_construction_price": 13.97,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						},
+						{
+							"service_type": "R",
+							"item_id": 2837650030,
+							"info":
+								"Doska XPS STYRODUR 2800 C hr. 100 mm, zateplenie soklov, suterénov, podláh, ISOVER",
+							"unit": "m2",
+							"quantity": 0,
+							"unit_delivery_price": 13.89,
+							"unit_construction_price": 2.15,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						},
+						{
+							"Č.": 20,
+							"service_type": "R",
+							"item_id": 283230000800,
+							"info":
+								"Profilovaná fólia z PE DELTA-NB, rozmer 20x0,5m, pevnosť v tlaku 200 kN/m2, pre spodnú stavbu, DORKEN",
+							"unit": "m2",
+							"quantity": 0,
+							"unit_delivery_price": 1.51,
+							"unit_construction_price": 0.56,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						}
+					]
+				},
+				{
+					"info": {
+						"info": "Presun hmôt HSV",
+						"total_delivery_price": 0,
+						"total_construction_price": 0,
+						"total": 0
+					},
+					"items": [
+						{
+							"service_type": "R",
+							"item_id": 998011001,
+							"info":
+								"Presun hmôt pre budovy (801, 803, 812), zvislá konštr. z tehál, tvárnic, z kovu výšky do 6 m",
+							"unit": "t",
+							"quantity": 0,
+							"unit_delivery_price": 0,
+							"unit_construction_price": 15.98,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						}
+					]
+				},
+				{
+					"info": {
+						"info": "Zdravotechnika - vnútorná kanalizácia",
+						"total_delivery_price": 0,
+						"total_construction_price": 0,
+						"total": 0
+					},
+					"items": [
+						{
+							"service_type": "R",
+							"item_id": 721171309,
+							"info": "Potrubie z rúr PE GEBERIT 125/4, 9 odpadné v zemi",
+							"unit": "m",
+							"quantity": 0,
+							"unit_delivery_price": 13.49,
+							"unit_construction_price": 5.07,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						},
+						{
+							"service_type": 286,
+							"item_id": "286510003800.S",
+							"info":
+								"Koleno PVC-U, DN 125x15°, 30°, 45° pre pre hladký, kanalizačný, gravitačný systém",
+							"unit": "ks",
+							"quantity": 0,
+							"unit_delivery_price": 3.22,
+							"unit_construction_price": 0.64,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						},
+						{
+							"service_type": 286,
+							"item_id": 286130048900,
+							"info":
+								"Rúra HDPE PE100 D 32x2,9 mm, dĺ. 100 m PN 16 (SDR11) pre tlakový rozvod pitnej vody, PIPELIFE",
+							"unit": "m",
+							"quantity": 0,
+							"unit_delivery_price": 2.12,
+							"unit_construction_price": 0.63,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						}
+					]
+				},
+				{
+					"info": {
+						"info": "Elektromontáže",
+						"total_delivery_price": 0,
+						"total_construction_price": 0,
+						"total": 0
+					},
+					"items": [
+						{
+							"service_type": 345,
+							"item_id": 345710009300,
+							"info": "Rúrka ohybná vlnitá pancierová PVC-U, FXP DN 63",
+							"unit": "m",
+							"quantity": 0,
+							"unit_delivery_price": 1.05,
+							"unit_construction_price": 0.25,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						},
+						{
+							"service_type": "R",
+							"item_id": 210220020,
+							"info": "Uzemňovacie vedenie v zemi FeZn vrátane izolácie spojov",
+							"unit": "bm",
+							"quantity": 0,
+							"unit_delivery_price": 1.05,
+							"unit_construction_price": 0.51,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						},
+						{
+							"service_type": "R",
+							"item_id": 354410058800,
+							"info": "Pásovina uzemňovacia FeZn 30 x 4 mm",
+							"unit": "bm",
+							"quantity": 0,
+							"unit_delivery_price": 3.2,
+							"unit_construction_price": 0.5,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						},
+						{
+							"service_type": "R",
+							"item_id": 354410054800,
+							"info": "Drôt bleskozvodový FeZn, d 10mm",
+							"unit": "bm",
+							"quantity": 0,
+							"unit_delivery_price": 1.4,
+							"unit_construction_price": 0.5,
+							"total_delivery_price": 0,
+							"total_construction_price": 0
+						}
+					]
+				}
+			]
+		}
+	]
+}

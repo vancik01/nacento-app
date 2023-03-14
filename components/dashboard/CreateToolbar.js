@@ -26,6 +26,7 @@ export default function CreateToolbar() {
 				text="Interaktívna cenová ponuka"
 				subtext="Zadajte len parametre stavby"
 			></AddButton>
+			<AddFromFile></AddFromFile>
 		</div>
 	);
 }
@@ -46,6 +47,80 @@ function AddButton({ text, subtext, color, onClick }) {
 				<Plus></Plus>
 			</div>
 		</button>
+	);
+}
+function AddFromFile({ text, color, onClick }) {
+	const [file, setfile] = useState(null);
+	const { user } = useAuth();
+	const router = useRouter();
+
+	async function createFromFile() {
+		const data = await parseJsonFile(file);
+		const collectionRef = doc(collection(firestore, "/offers"));
+		//customBuild variable empty template
+		setDoc(collectionRef, {
+			id: collectionRef.id,
+			data: data,
+			name: "Nová cenová",
+			created: moment().valueOf(),
+			userId: user != null ? user.uid : "none",
+		})
+			.then((response) => {
+				// router.push(`/cenova-ponuka/${collectionRef.id}`);
+				localStorage.setItem("offerId", collectionRef.id);
+				router.push(`/cenova-ponuka/`);
+				setloading(false);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
+
+	async function parseJsonFile(file) {
+		return new Promise((resolve, reject) => {
+			const fileReader = new FileReader();
+			fileReader.onload = (event) => resolve(JSON.parse(event.target.result));
+			fileReader.onerror = (error) => reject(error);
+			fileReader.readAsText(file);
+		});
+	}
+
+	async function loadFile(e) {
+		console.log(e.target.files[0]);
+		setfile(e.target.files[0]);
+	}
+
+	return (
+		<div>
+			<label
+				htmlFor="fileInput"
+				onClick={onClick}
+				className="py-3 px-3 border rounded-md flex items-center border-dashed justify-center gap-2 text-start hover:bg-gray-50 transition-all"
+			>
+				<IconHome color={color}></IconHome>
+				<div>
+					<div className="text-sm font-regular">Nahrať zo súboru</div>
+					<div className="text-xs font-light text-gray-400">
+						{!file ? ".json" : file.name}
+					</div>
+				</div>
+
+				<div className="ml-8">
+					<Plus></Plus>
+				</div>
+			</label>
+			<input
+				onChange={loadFile}
+				type="file"
+				id="fileInput"
+				className="hidden"
+			/>
+			{file && (
+				<ButtonPrimary onClick={createFromFile} className="mt-4 absolute">
+					Vytvoriť ponuku
+				</ButtonPrimary>
+			)}
+		</div>
 	);
 }
 
