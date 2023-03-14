@@ -1,0 +1,2551 @@
+{
+    "info": {
+        "title": "Vykurovanie rodinného domu",
+        "total_delivery_price": 0,
+        "total_construction_price": 0,
+        "total": 0
+    },
+    "blocks": [
+        {
+            "info": {
+                "title": "Areálová splašková kanalizácia od RŠ po dom   ",
+                "id": "719",
+                "total_delivery_price": 0,
+                "total_construction_price": 0,
+                "total": 0
+            },
+            "items": [
+                {
+                    "service_type": "0",
+                    "item_id": "721012",
+                    "title": "Zemné práce - výkop + zásyp + zhotovenie obsypu + zhutnenie výkopu - zhotoví Monolit   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "721171963",
+                    "title": "Pripojenie k existujúcej revíznej šachte RŠ   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 60,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "721171112",
+                    "title": "Potrubie z PVC - U odpadové ležaté hrdlové D 160x3, 9   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 24,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "72129-0111 721",
+                    "title": "Skúška tesnosti kanalizácie  do DN 150   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 15,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7210101",
+                    "title": "Ostatné tvarovky a drobný montážny a tesniaci materiál   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 20,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "82123",
+                    "title": "Presun stavebných hmôt a dopravné náklady   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 29,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                }
+            ]
+        },
+        {
+            "info": {
+                "title": "Areálová dažďová kanalizácia od domu po vsakovací blok   ",
+                "id": "719",
+                "total_delivery_price": 0,
+                "total_construction_price": 0,
+                "total": 0
+            },
+            "items": [
+                {
+                    "service_type": "0",
+                    "item_id": "721012",
+                    "title": "Zemné práce - výkop + zásyp + zhotovenie obsypu + zhutnenie výkopu - zhotoví Monolit   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "72101211",
+                    "title": "Vsakovacia galéria -  6 ks Rigofill ST-B 0,8x0,8x0,66m + 1 ks revízna šachta  OPTI Control  DA 315mm, výška 1,3 m  s usadzovacím priestorom + 1 ks šachtový poklop   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 2086,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "72101211.0",
+                    "title": "Uloženie a dopojenie vsakovacej galérie - bez zemných prác ( potrebné zhutnené lôžko )   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 350,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "72101213",
+                    "title": "Geotextília 200g/m2 - dodávka monolit   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7211711124",
+                    "title": "Potrubie z PVC - U odpadové ležaté hrdlové D 200x3, 9   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 23,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "721171963",
+                    "title": "Pripojenie k dažďovej kanalizácii pri dome   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 39,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "721171112",
+                    "title": "Potrubie z PVC - U odpadové ležaté hrdlové D 160x3, 9   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 21.74,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "721171963.2",
+                    "title": "Pripojenie k vsakovaciemu bloku   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 50,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "721171963.3",
+                    "title": "Pripojenie k šachte  DŠ   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 48,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "72129-0111 721",
+                    "title": "Skúška tesnosti kanalizácie  do DN 150   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 15,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7210101",
+                    "title": "Ostatné tvarovky a drobný montážny a tesniaci materiál   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 20,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "722101",
+                    "title": "Sekacie a vŕtacie práce  + vyspravenie   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 40,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "82123",
+                    "title": "Presun stavebných hmôt a dopravné náklady   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 35,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                }
+            ]
+        },
+        {
+            "info": {
+                "title": "Ležatá splašková  a dažďová kanalizácia - už je hotová na obj.   ",
+                "id": "719.1",
+                "total_delivery_price": 0,
+                "total_construction_price": 0,
+                "total": 0
+            },
+            "items": [
+                {
+                    "service_type": "0",
+                    "item_id": "721012",
+                    "title": "Zemné práce - výkop + zásyp + zhotovenie obsypu + zhutnenie výkopu - zhotoví Monolit   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "721319",
+                    "title": "Pripojenie k existujúcemu kanalizačnému potrubiu   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "721171109",
+                    "title": "Potrubie z PVC - U odpadové ležaté hrdlové D 110x2, 2   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "721171111",
+                    "title": "Potrubie z PVC - U odpadové ležaté hrdlové D 125x3,1   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "721171112",
+                    "title": "Potrubie z PVC - U odpadové ležaté hrdlové D 160x3, 9   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "721171114",
+                    "title": "Vyvedenie vývodov ležatej kanalizácie do D 125   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "72129-0111 721",
+                    "title": "Skúška tesnosti kanalizácie  do DN 150   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "722101",
+                    "title": "Sekacie a vŕtacie práce  + vyspravenie   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7210101",
+                    "title": "Ostatné tvarovky a drobný montážny a tesniaci materiál   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "82123",
+                    "title": "Presun stavebných hmôt a dopravné náklady   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                }
+            ]
+        },
+        {
+            "info": {
+                "title": "Zdravotech. vnútorná splašková a dažďová kanalizácia   ",
+                "id": "721",
+                "total_delivery_price": 0,
+                "total_construction_price": 0,
+                "total": 0
+            },
+            "items": [
+                {
+                    "service_type": "0",
+                    "item_id": "7221623326",
+                    "title": "Vyetážovanie vývodov   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 25,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "721111",
+                    "title": "Kanalizačné potrubie priem. 40 + tvarovky + montáž   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 9.5,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "721112",
+                    "title": "Kanalizačné potrubie priem. 50 + tvarovky + montáž   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 9.6,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "721115",
+                    "title": "Kanalizačné potrubie priem. 110 + tvarovky + montáž   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 14.5,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "721115.1",
+                    "title": "Kanalizačné potrubie priem. 110 + tvarovky + montáž ( vnútorná dažďová kanal. )   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 14.5,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "721118",
+                    "title": "Kanalizačný čistiaci kus HT 110   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 4.5,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "ARMTLAR.100.04",
+                    "title": "Izolácia Tubolit AR 100 5 mm PE pre kanalizáciu   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 1.1,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "2116",
+                    "title": "Vyvedenie a upevnenie výpustiek do priem. 75   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 8.3,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "2117",
+                    "title": "Vyvedenie a upevnenie výpustiek priem 110   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 14.87,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "HL400",
+                    "title": "Zápachová uzávierka HL400 pre umývačku riadu   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 21.72,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "HL 4000.0",
+                    "title": "HL-4000.0 teleso práčk.podom.zápach.uzáveru, bez protizápach.kazety pre práčku a sušičku   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 10.54,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "HL 4000.2",
+                    "title": "HL 4000.2 kompletizačný set s dvojitým prip.vhodným pre práčku a sušičku HL 4000.0   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 25.22,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "HL21",
+                    "title": "Lievik so sifónom HL21   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 12.62,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "725119711",
+                    "title": "Montáž predstenového systému záchodov do kombinovaných stien (napr.GEBERIT, VIEGA)   ",
+                    "unit": "súb.",
+                    "quantity": 0,
+                    "unit_delivery_price": 45,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "GE 111.300.00.5",
+                    "title": "Grohe  podomietkový modul  WC - dodávka Monolit   ",
+                    "unit": "súb.",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "GE11.510.00.1",
+                    "title": "GROHE  podomietkový  modul pre bidet - dodávka monolit   ",
+                    "unit": "súb.",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7211262",
+                    "title": "Montáž odvetrania, vyvedenie cez strechu   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 25,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "HT3395002034",
+                    "title": "Súprava vetracej hlavice DN110 KADH 100   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 9.86,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "HT33950020348",
+                    "title": "Privzdušňovacia hlavica HL 900 D 110 - na kanaliz. stupaćke ć. 4 - nie je v projekte , odporúčame nainštalovať  do fasády / alebo odvetrať /   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 29,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "HT339500203489",
+                    "title": "Montáž privzdušnovacej hlavice na stupačku č. 4 - do fasády / alebo odvetrať /   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 26,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7211263",
+                    "title": "Montáž a zapojenie dažďovej strešnej vpuste - osadenie a pripojenie ku kanalizácii ( bez elektro.  zapojenia ( dodávka elektro )  a napojenia na strešnú izoláciu ( dodávka strechy ) )   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 39,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "HL64.1F",
+                    "title": "Strešná vpusť priem.100 s elektroohrevom  HL64.1F -  dodá strecha   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "HL64.1B",
+                    "title": "Strešná vpusť priem.100 s elektroohrevom  HL64.1B -  dodá strecha   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "721290111",
+                    "title": "Ostatné - skúška tesnosti kanalizácie v objekte   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 60,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "721290112",
+                    "title": "Ostatné armatúry a drobný montážny a tesniaci materiál + konzoly a závesy + pomocné konštrukcie   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 80,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "2127000",
+                    "title": "Sekacie a vŕtacie práce + vyspravenie   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 330,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "212700001",
+                    "title": "Prechod cez strechu pre odvetranie kanalizácie - dodá strechár   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "2135",
+                    "title": "Presun stavebných hmôt a dopravné náklady   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 140,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                }
+            ]
+        },
+        {
+            "info": {
+                "title": "Prípojka vody od vodomernej šachty po dom bez zemných prác   ",
+                "id": "721",
+                "total_delivery_price": 0,
+                "total_construction_price": 0,
+                "total": 0
+            },
+            "items": [
+                {
+                    "service_type": "0",
+                    "item_id": "15",
+                    "title": "Zemné práce - výkop + obsyp a zásyp potrubia - zhotoví Monolit   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "72",
+                    "title": "Montážne a prepojovacie práce v existujúcej vodomernej šachte   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 65,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "1543",
+                    "title": "VŠ - Vodomerná šachta -  dodávka stavby   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "GLY 612093 -2",
+                    "title": "Elektrotvarovka - spojka priem.32 / 90stup.+ navarenie   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 26.43,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "GLY 612580 -1\t",
+                    "title": "Prechodka LPE priem.32 / oceľ DN25 vonkajší závit + navarenie   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 48,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "72300805",
+                    "title": "Polyetylénové potrubie priem.32 + uloženie + výstražná fólia   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 4.35,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "GLY 612093 -1\t",
+                    "title": "Elektrotvarovka - koleno priem.32 / 90stup.+ navarenie   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 26.43,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "HUT6061003",
+                    "title": "Vodomerná zostava - držiak 1\" vodomeru +  montáž   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 152,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "72214810041123120",
+                    "title": "Vodomer  fakturačný šachtový DN25 studená voda + montáž a plombovanie - dodávka Vodohospodárska  Spoločnosť do  šachty VŠ   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "21365511",
+                    "title": "Sekacie a vŕtacie práce + vyspravenie - prestup do vodomernej šachty a do domu - upresniť   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 100,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "213655",
+                    "title": "Tlaková skúška vodovodného potrubia + príprava   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 55,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "213656",
+                    "title": "Ostatné armatúry a drobný montážny a tesniaci materiál + konzoly a závesy   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 40,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "8856",
+                    "title": "Presun stavebných hmôt a dopravné náklady   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 35,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                }
+            ]
+        },
+        {
+            "info": {
+                "title": "Vnútorný rozvod vody vrátane cirkulačného okruhu   ",
+                "id": "722",
+                "total_delivery_price": 0,
+                "total_construction_price": 0,
+                "total": 0
+            },
+            "items": [
+                {
+                    "service_type": "0",
+                    "item_id": "733318",
+                    "title": "Napojenie na obecnú vodu v dome + mont. redukčného ventilu   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 65,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "GLY 612580 -1\t",
+                    "title": "Prechodka LPE priem.32 / oceľ DN25 vonkajší závit + navarenie   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 48,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "OVE4208808",
+                    "title": "OVENTROP OPTIBAL TW guľový kohút s vypúšťaním DN25, PN10, pre pitnú vodu   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 33.76,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "OVE1076008",
+                    "title": "OVENTROP OPTIBAL guľový kohút, páka, DN25, PN10, pre pitnú vodu   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 18.69,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "EZV 25 D",
+                    "title": "Úpravňa vody na hlav . prívod vody v tech. miestnosti EZV 25D- DN 25   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 105.3,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "2301103",
+                    "title": "HERZ filter DN25, PN16, pre pitnú vodu, s membránovým redukčným ventilom, mosadz   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 99.58,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "NS FT209/25",
+                    "title": "Šróbenie priame 1~ Ms V 4300   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 8.64,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "HEI 0600-03.000",
+                    "title": "Guľový uzáver DN 20 Herz   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 11.08,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "NS FT209/20",
+                    "title": "Šróbenie priame 3/4~ Ms V 4300   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 5.6,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "NS JY504/25",
+                    "title": "Ventil spätný 1\" Novaservis JY504/25 s kovovou vložkou   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 7.77,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "VIE 734077",
+                    "title": "Plastohlin. predizolované potrubie Viega priem. 20 vrátne tvaroviek + montáž   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 12.07,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "VIE 607388",
+                    "title": "Plastohlin. predizolované potrubie Viega priem. 25 vrátne tvaroviek + montáž   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 19.92,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "VIE 586935",
+                    "title": "Plasthlin. potrubie Viega priem. 32 vrátane tvaroviek + montáž   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 27.34,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "VIE 588137 -L4",
+                    "title": "Pexfit Pro prechod 2711 32x1\" VON   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 14.16,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "713482121",
+                    "title": "Montáž trubíc z PE, hr.15-20 mm,vnút.priemer do 38 mm   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 2.66,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "TLDG.035.20",
+                    "title": "Izolácia Tubolit DG 35/20 1\" PE obyčajná 0-102°C   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 1.89,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "722162",
+                    "title": "Vyvedenie a upevnenie výpustiek vrátane sádrovania - voda   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 11.3,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "802123100",
+                    "title": "Sekacie a vŕtacie práce + vyspravenie   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 280,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "721290112",
+                    "title": "Ostatné armatúry a drobný montážny a tesniaci materiál + konzoly a závesy + pomocné konštrukcie   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 130,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7222902261",
+                    "title": "Tlaková skúška vodovodného potrubia   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 80,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "8856",
+                    "title": "Presun stavebných hmôt a dopravné náklady   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 195,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                }
+            ]
+        },
+        {
+            "info": {
+                "title": "Montáž cirkulačného čerpadla na teplú úžitkovú vodu   ",
+                "id": "722-1",
+                "total_delivery_price": 0,
+                "total_construction_price": 0,
+                "total": 0
+            },
+            "items": [
+                {
+                    "service_type": "0",
+                    "item_id": "7222121",
+                    "title": "Montáž cirkulačného čerpadla   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 45,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "WIL4132760",
+                    "title": "WILO STAR-Z NOVA mokrobežné obehové čerpadlo 1~230V, 50Hz závitové   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 111.89,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "HEI 0600-02.000",
+                    "title": "HERZ Guľový kohút s pákovým ovládačom, PN 25, DN 15   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 4.88,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "NS JY504/15",
+                    "title": "Spätná klapka 1/2~ celokovová mosadz   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 3.58,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "HERZ 1266201",
+                    "title": "Filter DN15   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 5.81,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "NS FT209/15",
+                    "title": "Šróbenie DN15 mosadzné   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 3.69,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                }
+            ]
+        },
+        {
+            "info": {
+                "title": "Plynoinštalácia od plynomera po spotrebiče   ",
+                "id": "723",
+                "total_delivery_price": 0,
+                "total_construction_price": 0,
+                "total": 0
+            },
+            "items": [
+                {
+                    "service_type": "0",
+                    "item_id": "00804",
+                    "title": "Zemné práce - výkop + podsyp a zásyp potrubia - zhotoví stavba   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "2300804",
+                    "title": "Prípojka k plynomeru DN25   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 45,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "IVA80010100",
+                    "title": "Guľový kohút plyn FF 1\" páka Ivar   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 18.16,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7230097",
+                    "title": "Polyetylénové potrubie D32 + uloženie + výstražná folia   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 4.35,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "72300976",
+                    "title": "Vzorkovací ventil DN 15 + zátka   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 4.6,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "SR367032C",
+                    "title": "Prechodka LPE priem.32 /  ocel Dn 25 + spojka + navarenie   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 54.47,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "ST360032M",
+                    "title": "Prechod PE priem.32 x oceľ vonkajší závit DN25 + navarenie   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 65,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7230075112",
+                    "title": "Elektro koleno priem. 32 + navarenie   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 25.38,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "72300750",
+                    "title": "Signalizačný vodič + uloženie   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 0.8,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "95040100",
+                    "title": "Rozpierka na plynomer 96-110 - 5/4\"   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 3.5,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7231654",
+                    "title": "Ocelové potrubie DN32 - chránička   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 12,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "733111113",
+                    "title": "Potrubie z rúrok závitových oceľových bezšvových bežných strednotlakových DN 15   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 8.11,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "733111114",
+                    "title": "Potrubie z rúrok závitových oceľových bezšvových bežných strednotlakových DN 20   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 12,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "733111115",
+                    "title": "Potrubie z rúrok závitových oceľových bezšvových bežných strednotlakových DN 25   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 13,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "723130251.S",
+                    "title": "Potrubie plynové z oceľových bralenových rúrok  DN 25   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 16.89,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "723151.S",
+                    "title": "Chránička izolovaného oceľového potrubia umiestneného v zateplení - oceľový L profil  40x40   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 3.6,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "SPPSkri",
+                    "title": "Skrinka na plynomer + plynomer - dodávka stavby   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "HUT1010601",
+                    "title": "Regulátor tlaku plynu Fisher B6 NG rohový,vst.50-500kPa,výst.2kPa , 3/4\"-5/4\" - asi dodávka plynomernej skrinky   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 102.24,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "72300805",
+                    "title": "Prípojka k strojom a zariadeniam DN20 - plynový kotol   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 25,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "73325601513911",
+                    "title": "Flexi pripojenie EUROTIS  1/2\" - 1m + presné vsuvky - plynový kotol   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 29,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "72300816",
+                    "title": "Tlaková skúška + príprava   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 55,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7230081701",
+                    "title": "Revízna správa plynoinštalácie   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 140,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "723008196",
+                    "title": "Sekacie a vŕtacie + vyspravenie   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 90,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "72300819601",
+                    "title": "Ostatné armatúry a drobný montážny a tesniaci materiál + konzoly a závesy   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 35,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "72300825",
+                    "title": "Presun stavebných hmôt   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 70,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                }
+            ]
+        },
+        {
+            "info": {
+                "title": "Zdravotechnika-zariaď.predm.-bez montáže-prevedenie holodom   ",
+                "id": "725",
+                "total_delivery_price": 0,
+                "total_construction_price": 0,
+                "total": 0
+            },
+            "items": [
+                {
+                    "service_type": "0",
+                    "item_id": "7125001",
+                    "title": "Zariaďovacie predmety + príslušenstvo - dodá objednávateľ   ",
+                    "unit": null,
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "725001",
+                    "title": "Montáž a zapojenie WC mís závesných + sedátiek, tlačítiek   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "725003",
+                    "title": "Montáž a zapojenie umývadla, umývadielka   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "725004",
+                    "title": "Montáž a zapojenie Bidetu + sedátka   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "725005",
+                    "title": "Montáž a zapojenie vane   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "725007",
+                    "title": "Montáž sprchovacieho kútu vanička + zástena   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "725010",
+                    "title": "Montáž a zapojenie vodovodnej batérie bidetovej   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "725011",
+                    "title": "Montáž a zapojenie vodovodnej batérie pákovej stojánkovej pre umývadlo   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7250111",
+                    "title": "Montáž a zapojenie vodovodnej batérie pákovej stojánkovej pre drez   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "725012",
+                    "title": "Montáž a zapojenie vodovodnej batérie pákovej nástennej vaňovej   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "725013",
+                    "title": "Montáž a zapojenie vodovodnej batérie pákovej nástennej sprchovej   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "725014",
+                    "title": "Montáž a zapojenie nastavitelného sprchového držiaka ručnej sprchy   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "725015",
+                    "title": "Montáž a zapojenie zápachových uzávierok umyvadlových a umývatkových   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7250151",
+                    "title": "Montáž a zapojenie zápachových uzávierok drezových - dodávka drezu - majiteľ   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "725015101",
+                    "title": "Montáž a zapojenie zápachových uzávierok vaňových , sprchových   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "72501611",
+                    "title": "Drez + montáž - dodávka kuchyne   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7250161122",
+                    "title": "Silikónovanie - zhotoví Monolit   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "891012",
+                    "title": "Dopravné náklady   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                }
+            ]
+        },
+        {
+            "info": {
+                "title": "Ústredné kúrenie - kotolne   ",
+                "id": "731",
+                "total_delivery_price": 0,
+                "total_construction_price": 0,
+                "total": 0
+            },
+            "items": [
+                {
+                    "service_type": "0",
+                    "item_id": "DEM55",
+                    "title": "Montáž a zapojenie plynového závesného kotla + zásobníkový ohrievač vody   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 390,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "BUD8730800123",
+                    "title": "Buderus - zostava  plynový kondenzačný závesný kotol Logamax plus GB072-24 + Logafix magnetický odkalovač 3/4\"   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 1309.7,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "BUD8730800125",
+                    "title": "Buderus - montážna sada pre GB072 - montážna doska U-MA , GA-BS plynový kohút 1/2\"  priamy ,   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 100.91,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "BUD8730800156",
+                    "title": "Buderus - set S120 - zásobníkový ohrievač Logalux S120/5 biely , snímač teploty zásobníka , aquamat 12L + zabezpečovací ventil Logafix Airfix control , konzola MB3   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 479.79,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "BUD7738112369",
+                    "title": "Buderus - priestorový regulátor RC310  káblový + snímač vonkajšej teploty FA   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 176.4,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "BUD7738112565",
+                    "title": "Buderus - komínová sada GAF-K 80/125 cez stenu a po fasáde nad strechu - NEREZ   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 210,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "BUD7738112645",
+                    "title": "Buderus - komínové predĺženie priem.  80/125 - 0,5m - vnútorné - BIELE   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 20.42,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "BUD7738112699",
+                    "title": "Buderus - komínové predĺženie priem.  80/125 - 2m - vonkajšie - NEREZ   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 75.18,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "BUD7738112698",
+                    "title": "Buderus - komínové predĺženie priem.  80/125 - 1m - vonkajšie - NEREZ   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 38.73,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "BUD7738112697",
+                    "title": "Buderus - komínové predĺženie priem.  80/125 - 0,5m - vonkajšie - NEREZ v prípade potreby   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 25.96,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "BUD7738112701",
+                    "title": "Buderus - komínové koncentrické koleno priem. 80/125 - 45stup.- vonkajšie - NEREZ v prípade potreby   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 29.32,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "BUD7738112706",
+                    "title": "Buderus - komínová nerezová objímka priem.125 nastaviteľná do 46mm   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 21.51,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "72111240",
+                    "title": "Uvedenie plyn. kotla do prevádzky - servis Buderus   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 120,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7211126",
+                    "title": "Montáž a pripojenie regulácie + vonkajšieho čidla bez káblovania   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 65,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7211126.11",
+                    "title": "Káblovanie pre snímač vonkajšej teploty a priestorový regulátor - dodávka elektro   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7230080302",
+                    "title": "Montáž a zapojenie komína cez stenu a po fasáde nad strechu   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 200,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7230080",
+                    "title": "Príplatok za použitie vysokozdvižnej plošiny / lešenia ( montáž komína po fasáde )   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 135,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "HER1220102",
+                    "title": "HERZ Guľový kohút s pákovým ovládačom, PN 25, DN 20   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 6.15,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "HER1220101",
+                    "title": "HERZ Guľový kohút s pákovým ovládačom, PN 25, DN 15   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 4.88,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "HER1266201",
+                    "title": "Filter vody DN 15   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 5.81,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "NS FT209/20",
+                    "title": "Šróbenie priame 3/4~ Ms V 4300   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 5.6,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "NS FT209/15",
+                    "title": "Šróbenie DN15 mosadzné   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 3.69,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "SARM 417584",
+                    "title": "Ventil poistný T 1847 3/4~myjavský   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 34.79,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7230080365",
+                    "title": "Montáž a zapojenie expanznej nádoby   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 25,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "REF7240100",
+                    "title": "Expanzná nádoba 12l  Reflex - ÚK   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 27.95,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "REF 86011000",
+                    "title": "Konzola  páskou nerez KS 8-25 k expanznej nádobe   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 6.36,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "REF 7613000",
+                    "title": "Guľový kohút zaisťovací MK 3/4\" Reflex   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 25.44,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7331711",
+                    "title": "Vypúšťací ventil DN 15 Oventrop Optoflex 1/2\"   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 7.74,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "711331450",
+                    "title": "Zhotovenie dopúšťania vody do systému ÚK   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 35,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "1220101",
+                    "title": "HERZ Guľový kohút s pákovým ovládačom, PN 25, DN 15   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 4.88,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "HER1266201",
+                    "title": "Filter vody DN 15   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 5.81,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "NOVJY504/15",
+                    "title": "Ventil spätný 1/2\" Novaservis  s kovovou vložkou   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 3.58,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "NS FT209/15",
+                    "title": "Šróbenie DN15 mosadzné   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 3.69,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "73315642",
+                    "title": "Revízna správa komína   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 60,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "73315642",
+                    "title": "Sekacie a vŕtacie práce + vyspravenie   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 90,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "73549101",
+                    "title": "Ostatné armartúry a drobný montážny a tesniaci materiál   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 120,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "88801",
+                    "title": "Kompletizačná činnosť , protokoly o skúškach , certifikáty   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 50,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "88802",
+                    "title": "Revízna správa tlakových nádob   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 55,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "88803",
+                    "title": "Značenie kotolne   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 25,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7354920",
+                    "title": "Presun stavebných hmôt a dopravné náklady   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 155,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                }
+            ]
+        },
+        {
+            "info": {
+                "title": "Ústredné kúrenie - rozvody v kotolni   ",
+                "id": "734",
+                "total_delivery_price": 0,
+                "total_construction_price": 0,
+                "total": 0
+            },
+            "items": [
+                {
+                    "service_type": "0",
+                    "item_id": "med pot 28",
+                    "title": "Medenné potrubie priem.28 + tvarovky + montáž - k rozdeľovaču na 1.NP a  na 2. NP   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 27.94,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "VIE 106508 - A1",
+                    "title": "Prechodka lisovacia červený bronz Profipress 2211 28x1 vonkajší závit   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 8.98,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "71341100103",
+                    "title": "Montáž izolácie   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 2.6,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "TLDG.035.20",
+                    "title": "Izolácia Tubolit DG 28/20 1\" PE obyčajná 0-102°C   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 1.89,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "73315642",
+                    "title": "Sekacie a vŕtacie práce + vyspravenie   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 90,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "73317402550100",
+                    "title": "Ostatné konštrukcie, závesy a konzoly   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 50,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "79025501",
+                    "title": "Presun stavebných hmôt a dopravné náklady   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 68,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                }
+            ]
+        },
+        {
+            "info": {
+                "title": "Ústredné kúrenie - podlahové vykurovanie - 1.NP+ 2. N.P.   ",
+                "id": "735",
+                "total_delivery_price": 0,
+                "total_construction_price": 0,
+                "total": 0
+            },
+            "items": [
+                {
+                    "service_type": "0",
+                    "item_id": "73330190203",
+                    "title": "Polystyrén doplnková tepelná izolácia + uloženie - dodávka stavby   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "21201414",
+                    "title": "Podlahové kúrenie - uloženie okrajových pásov, fólie s rástrom  , rúrky   ",
+                    "unit": "m2",
+                    "quantity": 0,
+                    "unit_delivery_price": 8,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "Her3F08005",
+                    "title": "Herz  fólia 1,1 s rastrom   ",
+                    "unit": "m2",
+                    "quantity": 0,
+                    "unit_delivery_price": 1.91,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "REH12623731002",
+                    "title": "Pripináčiky na rúrku tacker   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 0.05,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "REH11361401500",
+                    "title": "Podlahové vykurovanie - rúra Rautherm S 17 x 2 mm   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 1.1,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "REH11374271050",
+                    "title": "Ochranná rúrka priem. 24/19  pre potrubie  priem.17   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 0.9,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "733282201011",
+                    "title": "Okrajový izolačný pás REHAU   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 0.86,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7332822010119",
+                    "title": "Stredový dilatačný pás REHAU   ",
+                    "unit": "m",
+                    "quantity": 0,
+                    "unit_delivery_price": 0.86,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "733282215",
+                    "title": "Podlahové vykurovanie - montáž skrinky   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 75,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "REH13454301001",
+                    "title": "REHAU Skrinka 11 okruh. rozdelovača REHAU podomietková UP950   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 104.43,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "733282201005",
+                    "title": "Podlahové vykurovanie - montáž a zapojenie rozdeľovača   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 75,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "HEI9340-10.800",
+                    "title": "Rehau - rozdelovač podlah. kúrenia na 1. NP a 2.N.P --11 okruhový  vrátane guľ . ventilov   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 398,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "REH12506071002",
+                    "title": "Podlah. vykurovanie -  pripojovací skrutkový spoj  - adaptér  17x3/4\" EK   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 3.09,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "733282201011012",
+                    "title": "Plastifikátor - dodávka poteru   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 0,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "788265",
+                    "title": "Tlaková skúška + príprava + vykurovacia skúška   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 90,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "789331740256",
+                    "title": "Vyregulovanie vykurovacieho systému   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 120,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "73315642",
+                    "title": "Sekacie a vŕtacie práce + vyspravenie   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 160,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7331740255",
+                    "title": "Napustenie a odbublinkovanie podlah. vykurovania   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 125,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "733174025501",
+                    "title": "sheet = df.active",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 85,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "73317402550100",
+                    "title": "Ostatné konštrukcie, závesy a konzoly   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 50,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "79025501",
+                    "title": "Presun stavebných hmôt a dopravné náklady   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 240,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                }
+            ]
+        },
+        {
+            "info": {
+                "title": "Ústredné kúrenie - radiátory rebríkové   ",
+                "id": "736",
+                "total_delivery_price": 0,
+                "total_construction_price": 0,
+                "total": 0
+            },
+            "items": [
+                {
+                    "service_type": "0",
+                    "item_id": "735269-11",
+                    "title": "Montáž a zapojenie vykurovacieho telesa rebrík - napojený z podlah. kúrenia bez elektrickej špirály   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 35,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "KLC-150060-00-10",
+                    "title": "KORADO KORALUX LINEAR CLASSIC kúpeľňový radiátor 1500/600, spodné pripojenie, biela RAL9016 - napojenie z rozdelovača - kúpelňa   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 82.41,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "KLC-182075-00-10",
+                    "title": "KORADO KORALUX LINEAR CLASSIC kúpeľňový radiátor 1820/750, spodné pripojenie, biela RAL9016 - napojenie z rozdelovača - kúpelňa   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 103.46,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "HER 1778441",
+                    "title": "Pripoj. súprava pre kúpelňový radiátor HERZ-VUA-40 DN 15, pre 2-rúrové sústavy, rohový, prednastaviteľný termostatický, pripojenie na VT ponornou rúrou 150 mm x 11mm, závit pre termostatickú hlavicu M 28 x 1,5   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 27.86,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "HER1920060",
+                    "title": "Hlavica termostatická Herz mini   ",
+                    "unit": "ks",
+                    "quantity": 0,
+                    "unit_delivery_price": 12.49,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "735439101",
+                    "title": "Tlaková skúška vykurovacie telesa   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 4.5,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "7331740255",
+                    "title": "Napustenie a odvzdušnenie systému vykurovania,   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 15,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "733174025501",
+                    "title": "Ostatné armatúry a drobný montážny a tesniaci materiál   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 35,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "73317402550100",
+                    "title": "Ostatné konštrukcie, závesy a konzoly   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 25,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                },
+                {
+                    "service_type": "0",
+                    "item_id": "3601100009",
+                    "title": "Dopravné náklady   ",
+                    "unit": "sub",
+                    "quantity": 0,
+                    "unit_delivery_price": 25,
+                    "unit_construction_price": 0,
+                    "total_delivery_price": 0,
+                    "total_construction_price": 0
+                }
+            ]
+        }
+    ]
+}

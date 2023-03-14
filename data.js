@@ -1,4 +1,29 @@
-export const test = {};
+export const test = {
+	customer: {
+		name: "Michal Gerhát",
+	},
+	supplyer: {
+		company_name: "STAV-IL s.r.o.",
+		ico: "56 945 124",
+		dic: "5487961254",
+		phone: "0945687214",
+		email: "stavil@gmail.com",
+		web: "www.stavil.sk",
+	},
+	headers: [
+		"service_type",
+		"item_id",
+		"title",
+		"unit",
+		"quantity",
+		"unit_delivery_price",
+		"unit_construction_price",
+		"total_delivery_price",
+		"total_construction_price",
+		"total",
+	],
+	blocks: [],
+};
 
 export const d = {
 	customer: {

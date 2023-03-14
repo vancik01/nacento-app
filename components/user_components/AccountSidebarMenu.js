@@ -51,6 +51,11 @@ export default function AccountSidebarMenu() {
 							link="/nastavenie-uctu/predvyplnenia"
 						></MenuItem>
 						<MenuItem
+							icon={<Prefill />}
+							text="Vzory"
+							link="/nastavenie-uctu/vzory"
+						></MenuItem>
+						<MenuItem
 							icon={<Plus></Plus>}
 							text="Predplatné"
 							link="#"
