@@ -49,14 +49,12 @@ export default function ProjectList() {
 		setdata(newData);
 		console.log(newData);
 
-		// setloading(true);
-		// deleteDoc(docRef)
-		// 	.then((res) => {
-		// 		setloading(false);
-		// 	})
-		// 	.catch((err) => {
-		// 		setloading(false);
-		// 	});
+		deleteDoc(docRef)
+			.then((res) => {})
+			.catch((err) => {
+				setloading(false);
+				console.log(err);
+			});
 	}
 
 	useEffect(() => {

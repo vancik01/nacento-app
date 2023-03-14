@@ -21,12 +21,16 @@ export default function UserSetup() {
 	const { userData, user } = useAuth();
 	const [page, setpage] = useState(0);
 	const [allowNext, setallowNext] = useState(false);
-	const [userObject, setuserObject] = useState({ ...userData });
+	const [userObject, setuserObject] = useState({});
 	const router = useRouter();
 
 	useEffect(() => {
 		console.log(userObject);
-	}, [userObject]);
+		setuserObject({ ...userData });
+	}, [userData]);
+	useEffect(() => {
+		console.log(userObject);
+	}, [page]);
 
 	function nextPage() {
 		setallowNext(false);
@@ -80,7 +84,7 @@ export default function UserSetup() {
 									<div>{page == 3 && <Slide4></Slide4>}</div>
 
 									{/* Navigation */}
-									<div className="mt-10 flex items-center gap-4">
+									<div className="mt-10 flex items-center justify-center gap-4">
 										{page != 0 && (
 											<ButtonSecondary
 												onClick={prevPage}

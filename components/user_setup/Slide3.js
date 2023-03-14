@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useSetup } from "../../pages/user-setup";
 import Spolocnost from "../../public/SVG/user_setup/Spolocnost";
 import Zivnostnik from "../../public/SVG/user_setup/Zivnostnik";
+import SupplyerTemplate from "../user_components/SupplyerTemplate";
 
 export default function Slide3() {
 	const { userObject, setuserObject, setallowNext } = useSetup();
@@ -26,57 +27,14 @@ export default function Slide3() {
 				Tieto informácie používame na predvypĺnanie cenových ponúk...
 			</p>
 			<div className="max-w-lg mx-auto flex justify-center mt-10">
-				<div className="w-[350px]">
-					<div className=" text-gray-500 mb-2 font-medium capitalize">
-						KONTAKTNÉ ÚDAJE:
-					</div>
-					<div className="flex flex-col gap-4 text-sm">
-						<TextField
-							onChange={handleChange}
-							name="phone"
-							type="tel"
-							variant="filled"
-							label="Telefónne číslo"
-							value={userObject.supplyer?.phone}
-						></TextField>
-						<TextField
-							onChange={handleChange}
-							type="email"
-							name="email"
-							variant="filled"
-							label="Email"
-							value={userObject.email}
-							disabled
-						></TextField>
-						<TextField
-							type="url"
-							onChange={handleChange}
-							name="web"
-							variant="filled"
-							label="Web"
-							value={userObject.supplyer?.web}
-						></TextField>
-					</div>
-					<div className=" text-gray-500 mb-2 mt-8 font-medium capitalize">
-						INFORMÁCIE O SPOLOČNOSTI
-					</div>
-					<div className="flex flex-col gap-4 text-sm">
-						<TextField
-							onChange={handleChange}
-							name="ico"
-							variant="filled"
-							label="IČO"
-							value={userObject.supplyer?.ico}
-						></TextField>
-						<TextField
-							onChange={handleChange}
-							name="dic"
-							variant="filled"
-							label="DIČ"
-							value={userObject.supplyer?.dic}
-						></TextField>
-					</div>
-				</div>
+				<SupplyerTemplate
+					account={userObject.account}
+					email={userObject.email}
+					supplyer={userObject.supplyer}
+					handleChange={(e) => {
+						handleChange(e);
+					}}
+				></SupplyerTemplate>
 			</div>
 		</div>
 	);

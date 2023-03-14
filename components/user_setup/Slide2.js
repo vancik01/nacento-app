@@ -2,8 +2,10 @@ import { TextField } from "@mui/material";
 import { Input } from "@mui/material";
 import React, { useEffect } from "react";
 import { useSetup } from "../../pages/user-setup";
+
 import Spolocnost from "../../public/SVG/user_setup/Spolocnost";
 import Zivnostnik from "../../public/SVG/user_setup/Zivnostnik";
+import EditName from "../user_components/EditName";
 
 export default function Slide2() {
 	const { userObject, setuserObject, setallowNext } = useSetup();
@@ -26,16 +28,13 @@ export default function Slide2() {
 		<div className="w-full">
 			<h1 className="text-4xl text-center mb-10">Ako Vás máme volať?</h1>
 			<div className="max-w-lg mx-auto flex justify-center">
-				<TextField
-					variant="filled"
-					label={
-						userObject.account == "company" ? "Názov spoločnosti" : "Vaše meno"
-					}
-					fullWidth
-					style={{ width: 300 }}
-					onChange={handleChange}
-					value={userObject.name}
-				></TextField>
+				<EditName
+					name={userObject?.name}
+					account={userObject.account}
+					handleSave={(e) => {
+						handleChange(e);
+					}}
+				></EditName>
 			</div>
 		</div>
 	);

@@ -21,18 +21,22 @@ import { doc, updateDoc } from "firebase/firestore";
 import { firestore } from "../../lib/firebase";
 import { toast } from "react-toastify";
 
-export default function index() {
+export default function predvyplnenia() {
 	const { user, loading, userData } = useAuth();
 	const router = useRouter();
-	const [name, setname] = useState(userData.name);
+
+	const [supplyer, setsupplyer] = useState(userData.supplyer);
 
 	function handleChange(e) {
-		setname(e.target.value);
+		var newData = { ...supplyer };
+		newData[`${e.target.name}`] = e.target.value;
+		setsupplyer(newData);
+		console.log(newData);
 	}
 
 	function handleSave() {
 		const docRef = doc(firestore, `/users/${user.uid}`);
-		updateDoc(docRef, { name: name }).then(() => {
+		updateDoc(docRef, { supplyer: { ...supplyer } }).then(() => {
 			toast("Dáta sa uložili", { autoClose: 3000, type: "success" });
 		});
 	}
@@ -47,15 +51,16 @@ export default function index() {
 					<AccountSidebarSkeleton />
 				)}
 				<div className="w-full py-16 px-10">
-					<h1 className="text-2xl">Môj účet</h1>
+					<h1 className="text-2xl">Predvyplnenia</h1>
 					<div className="mt-4">
-						<EditName
+						<SupplyerTemplate
 							account={userData.account}
-							name={name}
-							handleSave={(e) => {
+							email={userData.email}
+							supplyer={supplyer}
+							handleChange={(e) => {
 								handleChange(e);
 							}}
-						></EditName>
+						></SupplyerTemplate>
 						<div className="mt-4">
 							<ButtonPrimary onClick={handleSave}>Uložiť zmeny</ButtonPrimary>
 						</div>
