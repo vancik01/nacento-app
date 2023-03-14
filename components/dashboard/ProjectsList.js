@@ -27,8 +27,9 @@ import { useAuth } from "../../context/AuthContext";
 import TrashBin from "../../public/SVG/editor/TrashBin";
 import ButtonPrimary from "../../components/ButtonPrimary";
 import { AnimatePresence } from "framer-motion";
+import IconHome from "../../public/SVG/dashboard/IconHome";
 
-export default function SelectProject() {
+export default function ProjectList() {
 	const router = useRouter();
 	const [loading, setloading] = useState(false);
 	const [sceletonLoading, setsceletonLoading] = useState(true);
@@ -84,35 +85,13 @@ export default function SelectProject() {
 	return (
 		<>
 			<FullPageLoading loading={loading}></FullPageLoading>
-			<Layout className="pt-8">
-				<div className="flex items-center justify-between">
-					<Link href="/">
-						<div className="w-32">
-							<Logo></Logo>
-						</div>
-					</Link>
 
-					<UserInfoHeader />
-				</div>
-			</Layout>
-
-			<div className="min-h-screen mt-32 mb-16">
-				<div className="flex justify-center items-center h-full max-w-5xl mx-auto">
+			<div className="min-h-screen">
+				<div className="flex justify-center items-center h-full">
 					{
 						<div className="w-full">
-							<h1 className="text-5xl font-light w-full text-center">
-								Zoznam projektov
-							</h1>
 							{!sceletonLoading ? (
-								<div className="grid grid-cols-3 w-full mt-10 gap-8">
-									<Link href="/cenova-ponuka/novy-projekt">
-										<div className="bg-gray-50 rounded-lg min-h-[200px] p-4 flex items-center justify-center">
-											<div className="text-2xl font-light text-start">
-												Pridať nový projekt
-											</div>
-										</div>
-									</Link>
-
+								<div className="grid grid-cols-4 w-full mt-10 gap-4">
 									{data?.map((project, i) => {
 										return (
 											<Project
@@ -142,16 +121,28 @@ function Project({ project, handleDelete, handleSelectId }) {
 	}
 	const [toggleDelete, settoggleDelete] = useState(false);
 	return (
-		<div>
-			<div className="bg-gray-50 rounded-lg min-h-[200px] p-4 flex justify-between flex-col">
+		<div className="shadow-md">
+			<div className="bg-gray-50 min-h-[200px] p-4 flex justify-between flex-col">
 				<div>
-					<div className="text-2xl font-light text-start">{project.name}</div>
-					<div className="text-left text-sm text-gray-500 mt-3">
-						{project.id}
+					<div className="text-lg font-medium text-start">Cenová Ponuka</div>
+					<div className="text-left font-regular text-sm text-black mt-2">
+						Objednávateľ:
+					</div>
+					<div className="text-left font-light text-sm text-gray-500 mt-1">
+						{project.data.customer.name}
+					</div>
+
+					<div className="text-left font-regular text-sm text-black mt-4">
+						Cena:
+					</div>
+					<div className="text-left font-light text-sm text-gray-500 mt-1">
+						27 234.91€
 					</div>
 				</div>
-				<div className="flex justify-between">
-					<div>{moment(project?.created).format("DD.MM. YYYY, HH:mm")}</div>
+				<div className="flex justify-between items-center">
+					<div className="text-xs">
+						{moment(project?.created).format("DD.MM. YYYY, HH:mm")}
+					</div>
 
 					<div className="flex items-center justify-center gap-1">
 						<div className="relative">
@@ -199,19 +190,23 @@ function Project({ project, handleDelete, handleSelectId }) {
 					</div>
 				</div>
 			</div>
+			<div className="bg-white px-2 py-3 flex items-center">
+				<div>
+					<IconHome></IconHome>
+				</div>
+				<div className="text-sm ml-2">{project.name}</div>
+			</div>
 		</div>
 	);
 }
 
 function Skeleton() {
 	return (
-		<div className="grid grid-cols-3 w-full mt-10 gap-8 mb-16 max-w-5xl mx-auto ">
-			{Array(9)
+		<div className="grid grid-cols-4 w-full mt-10 gap-4">
+			{Array(12)
 				.fill("")
 				.map(() => {
-					return (
-						<div className="w-full h-[200px] bg-gray-100 rounded-md skeleton"></div>
-					);
+					return <div className="w-full h-[240px] bg-gray-100 skeleton"></div>;
 				})}
 		</div>
 	);

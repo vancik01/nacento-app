@@ -33,6 +33,7 @@
     "react-zoom-pan-pinch": "^2.5.0",
     "three": "^0.150.1"
   },
+  
   "devDependencies": {
     "autoprefixer": "^10.4.13",
     "eslint": "8.29.0",
