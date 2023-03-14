@@ -10,7 +10,7 @@ export const elektorinstalacie = {
 				total: 0,
 			},
 			blocks: [
-				{
+				 {
 					info: {
 						title: "Ostatné konštrukcie a práce-búranie",
 						id: "5541",
