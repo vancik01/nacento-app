@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useAuth } from "../../context/AuthContext";
 import ButtonPrimary from "../../components/ButtonPrimary";
 import { useLayout } from "../../context/LayoutContext";
@@ -17,11 +17,13 @@ export default function index() {
 	const { user, loading } = useAuth();
 	const router = useRouter();
 
+
 	return (
 		<div>
 			<FullPageLoading loading={loading}></FullPageLoading>
 			<div className="flex">
-				<div className="min-w-[350px] bg-gray-50 h-screen py-10 px-10">
+				<div className="min-w-[350px] h-screen py-10 px-10"></div>
+				<div className="fixed min-w-[350px] bg-gray-50 h-screen py-10 px-10">
 					{!loading ? (
 						<div className="h-full flex flex-col items-center justify-between">
 							<div className="w-full">
@@ -44,16 +46,22 @@ export default function index() {
 									</div>
 								</div>
 								<div className="flex flex-col gap-8  mt-6 max-w-[250px] mx-auto mb-6">
-									<MenuItem
-										icon={<Settings />}
-										text="Môj účet"
-										link="/nastavenie-uctu/"
-									></MenuItem>
-									<MenuItem
-										icon={<Prefill />}
-										text="Predvyplnenia"
-										link="#"
-									></MenuItem>
+									<div>
+										<MenuItem
+											icon={<Settings />}
+											text="Môj účet"
+											link="/nastavenie-uctu/"
+										></MenuItem>
+									</div>
+
+									<div>
+										<MenuItem
+											icon={<Prefill />}
+											text="Vzory"
+											link= "#"
+										></MenuItem>
+									</div>
+
 									<MenuItem
 										icon={<Plus></Plus>}
 										text="Predplatné"
@@ -84,15 +92,13 @@ export default function index() {
 						<AccountSidebarSkeleton />
 					)}
 				</div>
-				<div className="w-full py-10 px-6">
-					<h1>Môj účet</h1>
-				</div>
+	
 			</div>
 		</div>
 	);
 }
 
-function MenuItem({ text, icon, link }) {
+function MenuItem({ text, icon, link}) {
 	return (
 		<Link
 			href={link}
