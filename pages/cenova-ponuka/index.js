@@ -6,8 +6,6 @@ import React from "react";
 import { AppWrap } from "../../context/AppWrap";
 import LayoutContext from "../../context/LayoutContext";
 import ScreenLayout from "../../components/ScreenLayout";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 export default function Home() {
 	const theme = createTheme({
@@ -25,18 +23,6 @@ export default function Home() {
 
 			<AppWrap>
 				<LayoutContext>
-					<ToastContainer
-						position="top-center"
-						autoClose={5000}
-						hideProgressBar={false}
-						newestOnTop={false}
-						closeOnClick
-						rtl={false}
-						pauseOnFocusLoss
-						draggable
-						pauseOnHover
-						theme="light"
-					/>
 					<ScreenLayout />
 				</LayoutContext>
 			</AppWrap>

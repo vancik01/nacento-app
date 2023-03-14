@@ -2,6 +2,7 @@ import React from "react";
 import { useLayout } from "../context/LayoutContext";
 import { motion } from "framer-motion";
 import { Link } from "@mui/material";
+import { useRouter } from "next/router";
 
 export default function ButtonSecondary({
 	children,
@@ -17,6 +18,7 @@ export default function ButtonSecondary({
 	iconAfter,
 }) {
 	const layout = useLayout();
+	const router = useRouter();
 
 	if (!color) color = layout?.primaryColor;
 
@@ -36,21 +38,19 @@ export default function ButtonSecondary({
 				boxShadow:
 					"rgba(50, 50, 93, 0.15) 0px 2px 5px -1px, rgba(0, 0, 0, 0.13) 0px 1px 3px -1px",
 			}}
-			onClick={onClick}
+			onClick={
+				onClick
+					? onClick
+					: () => {
+							router.push(href);
+					  }
+			}
 			onKeyDown={onKeyDown}
 			disabled={disabled}
 		>
 			<div className="flex items-center justify-center w-full">
 				{icon && iconBefore && <div className="mr-2"> {icon}</div>}
-				<div>
-					{href && (
-						<div href={href}>
-							<Link>{children}</Link>
-						</div>
-					)}
-
-					{!href && <>{children}</>}
-				</div>
+				<div>{children}</div>
 				{icon && iconAfter && <div className="ml-2"> {icon}</div>}
 			</div>
 		</motion.button>

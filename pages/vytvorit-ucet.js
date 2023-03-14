@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@emotion/react";
 import { TextField } from "@mui/material";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -9,9 +10,11 @@ import FullPageLoading from "../components/loading/FullPageLoading";
 import { LoggedIn } from "../components/LoggedIn";
 
 import { useAuth } from "../context/AuthContext";
+import { firestore } from "../lib/firebase";
 import { firebaseError, validateEmail } from "../lib/helpers";
 import IconGoogle from "../public/SVG/IconGoogle";
 import Logo from "../public/SVG/Logo";
+import moment from "moment/moment";
 
 export default function CreateAccount() {
 	const { signInWithGoogle, createUser, user } = useAuth();
@@ -73,7 +76,24 @@ export default function CreateAccount() {
 			setuserloading(true);
 			createUser(email, pass)
 				.then((user) => {
-					router.push("/");
+					const docRef = doc(firestore, `/users/${user.user.uid}`);
+					//console.log(docRef.path);
+					setDoc(docRef, {
+						email: email,
+						createdAt: moment().valueOf(),
+						account: "",
+						name: "",
+						supplyer: {},
+						setup: false,
+						intro: false,
+					})
+						.then(() => {
+							router.push("/user-setup/");
+						})
+						.catch((err) => {
+							console.log(err);
+						});
+					//console.log(user);
 				})
 				.catch((err) => {
 					newError.firebaseError = firebaseError(err.code);
@@ -86,8 +106,36 @@ export default function CreateAccount() {
 	function handleGoogle() {
 		setgoogleLoading(true);
 		signInWithGoogle()
-			.then(() => {
-				router.push("/");
+			.then((user) => {
+				console.log("new", user.user.metadata);
+				const docRef = doc(firestore, `/users/${user.user.uid}`);
+				console.log(docRef.path);
+				getDoc(docRef).then((snap) => {
+					console.log(snap.data());
+					if (!snap.exists()) {
+						//const docRef = doc(firestore, `/users/${user.user.uid}`);
+						//console.log(docRef.path);
+						setDoc(docRef, {
+							email: user.user.email,
+							createdAt: moment().valueOf(),
+							account: "",
+							name: "",
+							supplyer: {},
+							setup: false,
+							intro: false,
+						})
+							.then(() => {
+								router.push("/user-setup/");
+								console.log("Navigate setup");
+							})
+							.catch((err) => {
+								console.log(err);
+							});
+					} else {
+						console.log("Navigate dashboard");
+						//router.push("/dashboard");
+					}
+				});
 			})
 			.catch((err) => {
 				seterror(err);

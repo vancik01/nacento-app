@@ -6,16 +6,17 @@ import About from "../components/landing_page/About";
 import Functions from "../components/landing_page/Functions";
 import Footer from "../components/landing_page/Footer";
 import { useRouter } from "next/router";
+import FullPageLoading from "../components/loading/FullPageLoading";
 
 export default function Home() {
 	const router = useRouter();
 	useEffect(() => {
-		router.push("/cenova-ponuka/select-project/");
+		router.push("/dashboard");
 	}, []);
 
 	return (
 		<>
-			<div>Loading...</div>
+			<FullPageLoading loading={true}></FullPageLoading>
 		</>
 	);
 }

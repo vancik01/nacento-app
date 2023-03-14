@@ -7,16 +7,19 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import { auth } from "../lib/firebase";
+import { auth, firestore } from "../lib/firebase";
 
 const publicRoutes = ["/login/", "/vytvorit-ucet/"];
 
 const Auth = React.createContext();
 import { GoogleAuthProvider } from "firebase/auth";
 import { useRouter } from "next/router";
+import { doc, getDoc } from "firebase/firestore";
+import FullPageLoading from "../components/loading/FullPageLoading";
 export default function AuthContext({ children }) {
 	const [user, loading, error] = useAuthState(auth);
 	const [display, setdisplay] = useState(false);
+	const [userData, setuserData] = useState(null);
 	const router = useRouter();
 	useEffect(() => {
 		console.log(router.asPath);
@@ -29,7 +32,18 @@ export default function AuthContext({ children }) {
 					router.push("/login");
 				}
 			} else {
-				setdisplay(true);
+				const docRef = doc(firestore, `/users/${user.uid}`);
+				getDoc(docRef).then((snap) => {
+					if (!snap.exists()) {
+						console.log("User do not exist");
+						// logOut();
+					} else {
+						setuserData(snap.data());
+						setdisplay(true);
+						console.log(snap.data(), "UserData");
+					}
+				});
+				//setdisplay(true);
 			}
 		}
 	}, [user, loading, router]);
@@ -58,15 +72,26 @@ export default function AuthContext({ children }) {
 		logOut,
 		user,
 		loading,
+		userData,
 	};
 
 	return (
 		<Auth.Provider value={value}>
-			{display ? children : <div>Loading</div>}
+			{display ? (
+				children
+			) : (
+				<div>
+					<FullPageLoading loading={true}></FullPageLoading>
+				</div>
+			)}
 		</Auth.Provider>
 	);
 }
 
 export function useAuth() {
 	return useContext(Auth);
+}
+
+function ErrorUser() {
+	return <button onClick={signOut}></button>;
 }

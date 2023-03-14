@@ -7,7 +7,7 @@ export default function ButtonIcon({ icon, children, onClick, tooltip, id }) {
 	const [hover, sethover] = useState(false);
 	return (
 		<>
-			{tooltip && (
+			{tooltip != "" && (
 				<Tooltip
 					id={`tooltip`}
 					anchorSelect={`#button-icon-${id}`}

@@ -14,7 +14,7 @@ export default function SelectProjectToolbar() {
 
 	function handleSelect() {
 		localStorage.removeItem("offerId");
-		router.push("/cenova-ponuka/select-project");
+		router.push("/dashboard");
 	}
 	const { name } = useData();
 

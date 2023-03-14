@@ -20,7 +20,7 @@ export default function ButtonPrimary({
 	const layout = useLayout();
 	const router = useRouter();
 
-	if (!color) color = layout?.primaryColor;
+	if (!color) color = "#361CC1";
 
 	return (
 		<motion.button
