@@ -8,7 +8,7 @@ import AccountToolbar from "./AccountToolbar";
 import { motion } from "framer-motion";
 import Pro from "../Pro";
 
-export default function UserInfoHeader({ color }) {
+export default function UserInfoHeader({ color, is_smaller }) {
 	const [toolbar, settoolbar] = useState(false);
 	const { user, loading, userData } = useAuth();
 
@@ -23,7 +23,22 @@ export default function UserInfoHeader({ color }) {
 						}}
 						className="flex justify-center items-center gap-4"
 					>
-						<div className="flex justify-start items-center gap-2">
+						<div className={`${is_smaller? "h-7" : "h-8"} flex items-center gap-2`}>
+							<img
+								src={user.photoURL ? user.photoURL : "/static/default-user.png"}
+								className="h-full aspect-square rounded-full"
+								alt=""
+							/>
+							<div
+								className="transition-all"
+								style={{ rotate: toolbar ? "180deg" : "0deg" }}
+							>
+								<ArrowDown color={color}></ArrowDown>
+							</div>
+							{/* <Pro color={"#361cc1"}></Pro> */}
+						</div>
+
+						{/* <div className="flex justify-start items-center gap-2">
 							<div className="font-light" style={{ color: color }}>
 								{userData.name}
 							</div>
@@ -33,16 +48,8 @@ export default function UserInfoHeader({ color }) {
 							>
 								<ArrowDown color={color}></ArrowDown>
 							</div>
-						</div>
-
-						<div className="h-8 flex items-center gap-2">
-							<img
-								src={user.photoURL ? user.photoURL : "/static/default-user.png"}
-								className="h-full aspect-square rounded-full"
-								alt=""
-							/>
-							<Pro color={"#361cc1"}></Pro>
-						</div>
+						</div> */}
+						
 					</button>
 
 					<AnimatePresence mode="wait">

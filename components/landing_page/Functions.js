@@ -26,7 +26,7 @@ import { useAuth } from "../../context/AuthContext";
 import moment from "moment";
 
 function Functions() {
-	const [preds, setPreds] = useState([]);
+	const [preds, setPreds] = useState({"data":[], "images":[]});
 	const [zakaldyPdf, setZaklady] = useState("");
 	const [podorysyPdf, setPodorysy] = useState([]);
 	const [strechaPdf, setStrecha] = useState("");
@@ -39,7 +39,7 @@ function Functions() {
 		fetch(`http://165.227.150.191/api/make_from_preds/`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(preds),
+			body: JSON.stringify(preds.data),
 		}).then((response) => {
 			if (response.ok) {
 				response.json().then((CP) => {
@@ -76,6 +76,7 @@ function Functions() {
 
 		setloading(true);
 		fetch(`http://165.227.150.191/api/aspdf/`, {
+		// fetch(`http://127.0.0.1:8000/api/aspdf/`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(data),
@@ -83,6 +84,7 @@ function Functions() {
 			setloading(false);
 			if (response.ok) {
 				response.json().then((json) => {
+					console.log(json)
 					setPreds(json);
 				});
 			}
@@ -155,9 +157,9 @@ function Functions() {
 					</div>
 				)}
 
-				{preds.length > 0 && (
+				{preds.data.length > 0 && (
 					<>
-						<Preds preds={preds} />
+						<Preds data={preds.data} images={preds.images}/>
 						<div className="absolute right-0 hidden mt-2 pt-6 mr-24 navbar-btn sm:inline-block lg:mt-0 lg:static lg:mr-0">
 							{/* <Link className="main-btn font-bold" href="/cenova-ponuka" rel="nofollow" onClick={createPonuka}> Potvrdiť údaje </Link> */}
 							<button
