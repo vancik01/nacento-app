@@ -32,9 +32,12 @@ export default function CreateToolbar() {
 }
 
 function AddButton({ text, subtext, color, onClick }) {
+	const router = useRouter();
+
+
 	return (
 		<button
-			onClick={onClick}
+			onClick={() => {router.push(`/dashboard/interactive/`);}}
 			className="py-3 px-3 border rounded-md flex items-center justify-center gap-2 text-start hover:bg-gray-50 transition-all"
 		>
 			<IconHome color={color}></IconHome>

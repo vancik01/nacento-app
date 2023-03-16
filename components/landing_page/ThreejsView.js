@@ -18,8 +18,6 @@ function ThreejsView(props) {
   const [trackerPosition, setTrackerPosition] = useState([10, 10, 10]);
   const [points, setPoints] = useState([[]]);
 
-
-
   const useDeviceSize = () => {
 
     const [width, setWidth] = useState(0)
@@ -212,7 +210,7 @@ function ThreejsView(props) {
       useLayoutEffect(() => {
         ref.current.geometry.setFromPoints([start, end].map((point) => new THREE.Vector3(...point)))
       }, [start, end])
-  
+
       return (
         <line ref={ref}>
           <bufferGeometry />
@@ -227,14 +225,14 @@ function ThreejsView(props) {
       for (let i=0; i<points.length; i++) {
         let len = points[i].length-1
         if(i != points.length-1) len++
-  
+
         for (let j=0; j<len; j++) {
             let l = points[i].length
             let p1 = points[i][j]
             let p2 = points[i][j+1]
-   
+
             if(j+1 == l) p2 = points[i][0]
-  
+
             Lines.push(<Line start={[p1.x, 0, -p1.y]} end={[p2.x, 0, -p2.y]} />)
         }
       }
@@ -249,7 +247,7 @@ function ThreejsView(props) {
 
     return (
       <>
-      
+
         {RealPolygons.map(polygon_shape => {
           return (
             <mesh rotation={[-Math.PI / 2, 0, 0]}>
@@ -333,7 +331,7 @@ function ThreejsView(props) {
     )
   }
 
-  
+
 
   return (
     <>
@@ -341,7 +339,10 @@ function ThreejsView(props) {
         {props.label}
       </button>
 
-      {showScene &&
+      {showScene && <img src={`data:image/jpeg;base64,${props.image}`} />}
+      
+
+      {/* {showScene &&
         <div className={"Editor-Canvas"} style={{
           height: `${width * 0.8 * (img.height / img.width)}px`,
           cursor: `${cursor}`
@@ -360,14 +361,12 @@ function ThreejsView(props) {
 
               {points.length && <Polygon points={points} />}
 
-              {/* { trackerVisible && <Tracker position={trackerPosition}/> } */}
-
               <OrbitControls enableRotate={false} zoomSpeed={2} enableDamping={false} />
 
             </Suspense>
           </Canvas>
         </div>
-      }
+      } */}
 
     </>
 
