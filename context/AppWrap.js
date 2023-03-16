@@ -31,6 +31,7 @@ import { forEach } from "lodash";
 const DataContext = React.createContext();
 
 export function AppWrap({ children }) {
+	//console.log(props, "SSR data");
 	const [data, setdata] = useState(null);
 	const [headers, setheaders] = useState(null);
 	const [errorLoading, seterrorLoading] = useState(false);
@@ -647,4 +648,13 @@ function DoesNotExist() {
 			</ButtonPrimary>
 		</div>
 	);
+}
+
+export async function getServerSideProps(context) {
+	console.log("Server");
+	return {
+		props: {
+			//fetchData: "Wocap",
+		}, // will be passed to the page component as props
+	};
 }

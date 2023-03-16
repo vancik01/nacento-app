@@ -68,7 +68,7 @@ export default function Login() {
 							});
 					} else {
 						console.log("Navigate dashboard");
-						//router.push("/dashboard");
+						router.push("/dashboard");
 					}
 				});
 			})

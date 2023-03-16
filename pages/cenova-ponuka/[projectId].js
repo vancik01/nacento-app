@@ -6,8 +6,8 @@ import React from "react";
 import { AppWrap } from "../../context/AppWrap";
 import LayoutContext from "../../context/LayoutContext";
 import ScreenLayout from "../../components/ScreenLayout";
-
-export default function Home() {
+export default function Home({ lolec }) {
+	console.log(lolec, "WOCAP");
 	const theme = createTheme({
 		typography: {
 			fontFamily: "Poppins",
@@ -28,4 +28,23 @@ export default function Home() {
 			</AppWrap>
 		</ThemeProvider>
 	);
+}
+
+export async function getServerSideProps() {
+	console.log("Lol");
+
+	const docRef = doc(firestore, `/offers/${projectId}`);
+	getDoc(docRef).then((snap) => {
+		if (snap.exists()) {
+			//setdata({ ...snap.data().data });
+			//setheaders(snap.data().data.headers);
+			//setname(snap.data().name);
+			return {
+				props: {
+					dbData: { ...snap.data().data },
+					dbName: snap.data().name,
+				},
+			};
+		}
+	});
 }
