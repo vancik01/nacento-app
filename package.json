@@ -19,6 +19,7 @@
     "@react-three/fiber": "^8.11.5",
     "@types/three": "^0.149.0",
     "firebase": "^9.17.1",
+    "firebase-tools": "^11.24.1",
     "framer-motion": "^7.10.3",
     "lodash": "^4.17.21",
     "lodash.debounce": "^4.0.8",
@@ -33,7 +34,6 @@
     "react-zoom-pan-pinch": "^2.5.0",
     "three": "^0.150.1"
   },
-  
   "devDependencies": {
     "autoprefixer": "^10.4.13",
     "eslint": "8.29.0",
