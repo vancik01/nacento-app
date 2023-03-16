@@ -76,7 +76,7 @@ export default function UserSetup() {
 				<div>
 					<Layout className="">
 						<div className="mx-auto h-[500px] max-w-2xl min-h-screen flex flex-col justify-center items-center">
-							{userData.setup == false ? (
+							{userData?.setup == false ? (
 								<div>
 									<div>{page == 0 && <Slide1></Slide1>}</div>
 									<div>{page == 1 && <Slide2></Slide2>}</div>
