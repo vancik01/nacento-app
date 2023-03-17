@@ -29,19 +29,22 @@ export default function BulkEdit() {
 	function handleChange(e) {
 		var newData = { ...changedData };
 		newData.value = parseFloat(e.target.value);
+		console.log(newData);
 		setchangedData(newData);
 	}
 
 	useEffect(() => {
 		setchangedData(bulkEditData);
+		console.log(bulkEditData, "Bulk edit data");
 	}, [bulkEditData]);
 
 	function changeBy(val) {
 		var newData = { ...changedData };
 		newData.value = parseFloat(newData.value) + parseFloat(val);
 		if (newData.value < 0) newData.value = 0;
-		newData.value = parseFloat(newData.value).toFixed(2);
+		newData.value = parseFloat(newData.value);
 		setchangedData(newData);
+		console.log(newData);
 	}
 
 	function handleSave() {
@@ -70,16 +73,6 @@ export default function BulkEdit() {
 	}, [handleUserKeyPress]);
 
 	const ref = useRef(null);
-
-	// useEffect(() => {
-	// 	const handleClickOutside = (event) => {
-	// 		closeBulkEdit();
-	// 	};
-	// 	document.addEventListener("click", handleClickOutside, true);
-	// 	return () => {
-	// 		document.removeEventListener("click", handleClickOutside, true);
-	// 	};
-	// }, []);
 
 	return (
 		<AnimatePresence mode="sync">
@@ -269,8 +262,11 @@ export default function BulkEdit() {
 						)}
 
 						<PriceChangeIndicator
-							val={(changedData.value - bulkEditData.value).toFixed(2)}
+							val={
+								parseFloat(changedData.value) - parseFloat(bulkEditData.value)
+							}
 						></PriceChangeIndicator>
+
 						{bulkEditData.value != 0 && (
 							<PriceChangeIndicator
 								val={(

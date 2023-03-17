@@ -28,6 +28,8 @@ import TrashBin from "../../public/SVG/editor/TrashBin";
 import ButtonPrimary from "../../components/ButtonPrimary";
 import { AnimatePresence } from "framer-motion";
 import IconHome from "../../public/SVG/dashboard/IconHome";
+import { numberWithCommas } from "../../lib/helpers";
+import { round } from "lodash";
 
 export default function ProjectList() {
 	const router = useRouter();
@@ -134,7 +136,7 @@ function Project({ project, handleDelete, handleSelectId }) {
 					</div>
 					<div className="text-left font-light text-sm text-gray-500 mt-1">
 						{project.totals
-							? parseFloat(project?.totals?.total).toFixed(2)
+							? numberWithCommas(round(parseFloat(project?.totals?.total), 2))
 							: "00.0"}
 						€<span className="text-[10px]"> vrátane DPH</span>
 					</div>

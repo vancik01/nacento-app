@@ -80,7 +80,7 @@ export default function Sidebar() {
 		<ThemeProvider theme={theme}>
 			<div className="fixed left-0 top-0 bottom-0 z-50 w-[300px] ">
 				<div className="relative w-fit">
-					<div className="py-10 px-6  shadow-lg bg-white h-screen overflow-y-scroll">
+					<div className="py-10 px-6  shadow-lg bg-white h-screen overflow-y-scroll bg-scrol-gray-50">
 						<div className="flex flex-col min-h-full">
 							<div className="min-w-28 w-28">
 								<Logo color={primaryColor}></Logo>

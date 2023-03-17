@@ -18,6 +18,7 @@ import Close from "../public/SVG/Close";
 import Section from "./Section";
 import EditText from "./editor/EditText";
 import AddSection from "./editor/AddSection";
+import { TextareaAutosize } from "@mui/material";
 
 export default function CenovaPonuka() {
 	const [winReady, setwinReady] = useState(false);
@@ -36,6 +37,8 @@ export default function CenovaPonuka() {
 		setdownload,
 		setselectedFile,
 		logo,
+		description,
+		changeDescription,
 	} = useData();
 
 	const { primaryColor } = useLayout();
@@ -246,6 +249,17 @@ export default function CenovaPonuka() {
 											setname(value);
 										}}
 									/>
+									<TextareaAutosize
+										value={description}
+										onChange={changeDescription}
+										placeholder="Zadajte krátky text..."
+										style={{
+											textAlign: "center",
+											fontSize: 14,
+											resize: "none",
+										}}
+										className="w-full text-center mt-2 focus:outline-none text-gray-400 font-light"
+									></TextareaAutosize>
 								</div>
 								<div className="w-full h-[1px] bg-black"></div>
 							</div>

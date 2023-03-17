@@ -23,7 +23,7 @@ export default function Home({ dbData }) {
 				<title>Cenová ponuka</title>
 			</Head>
 
-			<AppWrap dbData={dbData.data} dbName={dbData.name}>
+			<AppWrap dbData={dbData}>
 				<LayoutContext>
 					<ScreenLayout />
 				</LayoutContext>

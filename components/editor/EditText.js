@@ -42,7 +42,7 @@ export default function EditText({
 
 	useEffect(() => {
 		setWidth(text.length);
-	}, [text]);
+	}, [text, editingTitle]);
 
 	function handleSave() {
 		seteditingTitle(false);

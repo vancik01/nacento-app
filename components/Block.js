@@ -4,6 +4,7 @@ import { useData } from "../context/AppWrap";
 import { useLayout } from "../context/LayoutContext";
 import AddRow from "../public/SVG/AddRow";
 import BlockIcon from "../public/SVG/BlockIcon";
+import Copy from "../public/SVG/buttons/Copy";
 import DragableIcon from "../public/SVG/Dragable";
 import MoreDots from "../public/SVG/editor/MoreDots";
 import PlusCircle from "../public/SVG/editor/PlusCircle";
@@ -12,6 +13,7 @@ import EditPen from "../public/SVG/EditPen";
 import ButtonIcon from "./ButtonIcon";
 import ButtonPrimary from "./ButtonPrimary";
 import EditText from "./editor/EditText";
+import SaveBlockTemplate from "./editor/SaveBlockTemplate";
 import Table from "./Table";
 
 export default function Block({
@@ -56,6 +58,7 @@ export default function Block({
 							/>
 
 							<div className="flex items-center gap-4 w-fit">
+								<SaveBlockTemplate block={block} />
 								<ButtonIcon
 									icon={<PlusCircle />}
 									onClick={() => {
@@ -131,7 +134,7 @@ export default function Block({
 									>
 										<div className="relative w-fit">
 											<div>
-												Cena montáže celkom:{" "}
+												Cena montáže celkom:
 												{parseFloat(
 													block.info["total_construction_price"]
 												).toFixed(2)}{" "}

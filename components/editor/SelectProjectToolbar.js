@@ -62,7 +62,7 @@ export default function SelectProjectToolbar() {
 										</div>
 									</MenuItem>
 
-									<MenuItem href="/cenova-ponuka/novy-projekt/">
+									<MenuItem href="/dashboard">
 										<div className="flex justify-between items-center gap-3 text-base font-light">
 											<AddNewProject></AddNewProject>
 											<div>Pridať nový</div>

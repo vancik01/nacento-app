@@ -7,9 +7,7 @@ import React, {
 	useState,
 } from "react";
 import { lang } from "../languages/languages";
-import FullPageLoading from "../components/loading/FullPageLoading";
-import { d, empty, newd, template_config } from "../data";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { firestore } from "../lib/firebase";
 import debounce from "lodash.debounce";
 import { useRouter } from "next/router";
@@ -30,13 +28,13 @@ import { forEach } from "lodash";
 
 const DataContext = React.createContext();
 
-export function AppWrap({ children, dbData, dbName }) {
+export function AppWrap({ children, dbData }) {
 	//console.log(props, "SSR data");
-	const [data, setdata] = useState(dbData);
-	const [headers, setheaders] = useState(dbData.headers);
+	const [data, setdata] = useState(dbData.data);
+	const [headers, setheaders] = useState(dbData.data.headers);
 	const [errorLoading, seterrorLoading] = useState(false);
 	const [loading, setloading] = useState(false);
-	const [name, setname] = useState(dbName);
+	const [name, setname] = useState(dbData.name);
 	const [bulkEdit, setbulkEdit] = useState(false);
 	const [bulkEditData, setbulkEditData] = useState({
 		blockId: -1,
@@ -56,6 +54,14 @@ export function AppWrap({ children, dbData, dbName }) {
 	const [displaySidebar, setdisplaySidebar] = useState(true);
 	const [saving, setsaving] = useState(false);
 	const [showUI, setshowUI] = useState(false);
+	const [description, setdescription] = useState(dbData.description);
+	console.log(dbData);
+
+	function changeDescription(e) {
+		var newData = description;
+		newData = e.target.value;
+		setdescription(newData);
+	}
 
 	const [total, settotal] = useState({
 		total_delivery_price: 0,
@@ -70,7 +76,12 @@ export function AppWrap({ children, dbData, dbName }) {
 		setsaving(true);
 		const docRef = doc(firestore, `/offers/${offerId}`);
 
-		updateDoc(docRef, { data: data, name: name, totals: total })
+		updateDoc(docRef, {
+			data: data,
+			name: name,
+			totals: total,
+			description: description,
+		})
 			.then((snap) => {
 				//setdata(snap.data().data);
 				toast("Dáta sa uložili", { autoClose: 3000, type: "success" });
@@ -109,7 +120,7 @@ export function AppWrap({ children, dbData, dbName }) {
 	}
 
 	const loadTotals = useCallback(
-		debounce(() => settotal(calculateTotals()), 500),
+		debounce(() => settotal(calculateTotals()), 200),
 		[loading]
 	);
 
@@ -579,6 +590,9 @@ export function AppWrap({ children, dbData, dbName }) {
 		changeSectionTitle,
 		addSection,
 		deleteSection,
+
+		description,
+		changeDescription,
 	};
 
 	useEffect(() => {
