@@ -14,18 +14,20 @@ export default function AccountToolbar() {
 
 	const { logOut } = useAuth();
 	return (
-		<div className="absolute top-4 right-0 shadow-hardShadow bg-white rounded-md">
-			<div className="px-4 pb-4 pt-6 w-52">
-				<MenuItem href={"/nastavenie-uctu"}>Môj účet 👨🏼</MenuItem>
-				<MenuItem
-					href={"/pro"}
-					className="mt-3 flex items-center justify-start gap-4"
-				>
-					<div>Become</div> <Pro></Pro>
-				</MenuItem>
-				<MenuItem onClick={handleLogout} className="mt-4 text-red-500">
-					Logout
-				</MenuItem>
+		<div className="pt-4 absolute top-0 right-0 ">
+			<div className="shadow-hardShadow bg-white rounded-md">
+				<div className="px-4 pb-4 pt-6 w-52">
+					<MenuItem href={"/nastavenie-uctu"}>Môj účet 👨🏼</MenuItem>
+					<MenuItem
+						href={"/pro"}
+						className="mt-3 flex items-center justify-start gap-4"
+					>
+						<div>Become</div> <Pro></Pro>
+					</MenuItem>
+					<MenuItem onClick={handleLogout} className="mt-4 text-red-500">
+						Logout
+					</MenuItem>
+				</div>
 			</div>
 		</div>
 	);

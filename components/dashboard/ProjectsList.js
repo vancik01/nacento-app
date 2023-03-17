@@ -38,8 +38,7 @@ export default function ProjectList() {
 	const { user } = useAuth();
 	function handleSelectId(id) {
 		setloading(true);
-		localStorage.setItem("offerId", id);
-		router.push("/cenova-ponuka/");
+		router.push(`/cenova-ponuka/${id}`);
 	}
 
 	function handleDelete(id) {
@@ -134,7 +133,10 @@ function Project({ project, handleDelete, handleSelectId }) {
 						Cena:
 					</div>
 					<div className="text-left font-light text-sm text-gray-500 mt-1">
-						27 234.91€
+						{project.totals
+							? parseFloat(project?.totals?.total).toFixed(2)
+							: "00.0"}
+						€<span className="text-[10px]"> vrátane DPH</span>
 					</div>
 				</div>
 				<div className="flex justify-between items-center">

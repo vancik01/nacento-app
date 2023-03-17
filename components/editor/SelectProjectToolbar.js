@@ -9,7 +9,7 @@ import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 
 export default function SelectProjectToolbar() {
-	const [toolbar, settoolbar] = useState(false);
+	const [hover, sethover] = useState(false);
 	const router = useRouter();
 
 	function handleSelect() {
@@ -19,24 +19,28 @@ export default function SelectProjectToolbar() {
 	const { name } = useData();
 
 	return (
-		<div className="relative">
-			<button
-				onClick={() => {
-					settoolbar(!toolbar);
-				}}
-			>
+		<motion.div
+			onHoverStart={() => {
+				sethover(true);
+			}}
+			onHoverEnd={() => {
+				sethover(false);
+			}}
+			className="relative"
+		>
+			<button>
 				<div className="flex justify-start items-center gap-2">
 					<div className="font-light text-gray-400">{name}</div>
 					<div
 						className="transition-all"
-						style={{ rotate: toolbar ? "180deg" : "0deg" }}
+						style={{ rotate: hover ? "180deg" : "0deg" }}
 					>
 						<ArrowDown color={"#C0C0C0"}></ArrowDown>
 					</div>
 				</div>
 			</button>
 			<AnimatePresence mode="wait">
-				{toolbar && (
+				{hover && (
 					<motion.div
 						key="user-toolbar"
 						className="relative"
@@ -45,52 +49,54 @@ export default function SelectProjectToolbar() {
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.1 }}
 					>
-						<div
-							key="login-toolbar"
-							className="absolute top-4 left-0 shadow-hardShadow bg-white rounded-md"
-						>
-							<div className="py-4 px-3 w-64 min-h-[200px]">
-								<MenuItem onClick={handleSelect}>
-									<div className="flex justify-between items-center gap-3 text-base font-light">
-										<AllProjects></AllProjects>
-										<div>Zobraziť všetky</div>
+						<div className="pt-4 absolute top-0 left-0">
+							<div
+								key="login-toolbar"
+								className=" shadow-hardShadow bg-white rounded-md"
+							>
+								<div className="py-4 px-3 w-64 min-h-[200px]">
+									<MenuItem onClick={handleSelect}>
+										<div className="flex justify-between items-center gap-3 text-base font-light">
+											<AllProjects></AllProjects>
+											<div>Zobraziť všetky</div>
+										</div>
+									</MenuItem>
+
+									<MenuItem href="/cenova-ponuka/novy-projekt/">
+										<div className="flex justify-between items-center gap-3 text-base font-light">
+											<AddNewProject></AddNewProject>
+											<div>Pridať nový</div>
+										</div>
+									</MenuItem>
+
+									<div className="w-full h-[1px] bg-gray-200 mt-2"></div>
+
+									<div className="flex justify-start items-center gap-2 mt-4">
+										<RecentClock></RecentClock>
+										<div className="text-xs font-medium">Nedávne</div>
 									</div>
-								</MenuItem>
 
-								<MenuItem href="/cenova-ponuka/novy-projekt/">
-									<div className="flex justify-between items-center gap-3 text-base font-light">
-										<AddNewProject></AddNewProject>
-										<div>Pridať nový</div>
+									<div className="flex flex-col mt-2">
+										{Array(4)
+											.fill()
+											.map((project, projectId) => {
+												return (
+													<MenuItem
+														href={""}
+														className="text-start text-sm font-light"
+													>
+														<div>Ponuka{projectId + 1}</div>
+													</MenuItem>
+												);
+											})}
 									</div>
-								</MenuItem>
-
-								<div className="w-full h-[1px] bg-gray-200 mt-2"></div>
-
-								<div className="flex justify-start items-center gap-2 mt-4">
-									<RecentClock></RecentClock>
-									<div className="text-xs font-medium">Nedávne</div>
-								</div>
-
-								<div className="flex flex-col mt-2">
-									{Array(4)
-										.fill()
-										.map((project, projectId) => {
-											return (
-												<MenuItem
-													href={""}
-													className="text-start text-sm font-light"
-												>
-													<div>Ponuka{projectId + 1}</div>
-												</MenuItem>
-											);
-										})}
 								</div>
 							</div>
 						</div>
 					</motion.div>
 				)}
 			</AnimatePresence>
-		</div>
+		</motion.div>
 	);
 }
 

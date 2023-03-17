@@ -30,12 +30,13 @@ import { forEach } from "lodash";
 
 const DataContext = React.createContext();
 
-export function AppWrap({ children }) {
-	const [data, setdata] = useState(null);
-	const [headers, setheaders] = useState(null);
+export function AppWrap({ children, dbData, dbName }) {
+	//console.log(props, "SSR data");
+	const [data, setdata] = useState(dbData);
+	const [headers, setheaders] = useState(dbData.headers);
 	const [errorLoading, seterrorLoading] = useState(false);
-	const [loading, setloading] = useState(true);
-	const [name, setname] = useState("Zadajte názov...");
+	const [loading, setloading] = useState(false);
+	const [name, setname] = useState(dbName);
 	const [bulkEdit, setbulkEdit] = useState(false);
 	const [bulkEditData, setbulkEditData] = useState({
 		blockId: -1,
@@ -64,54 +65,24 @@ export function AppWrap({ children }) {
 	const [initialTotal, setinitialTotal] = useState(total);
 	const router = useRouter();
 
-	useEffect(() => {
-		seterrorLoading(false);
-		//nacitanie dat z db
-		//const { projectId } = router.query;
-
-		const projectId = localStorage.getItem("offerId");
-
-		if (projectId && projectId != "") {
-			const docRef = doc(firestore, `/offers/${projectId}`);
-			getDoc(docRef).then((snap) => {
-				if (snap.exists()) {
-					setdata({ ...snap.data().data });
-					setheaders(snap.data().data.headers);
-					setname(snap.data().name);
-				} else {
-					seterrorLoading(true);
-					setshowUI(true);
-				}
-				setloading(false);
-			});
-		} else {
-			router.push("/dashboard/");
-		}
-	}, [router]);
-
 	function handleSave() {
-		const offerId = localStorage.getItem("offerId");
-		if (!offerId) {
-			console.log("error, missing ID");
-			return;
-		} else {
-			setsaving(true);
-			const docRef = doc(firestore, `/offers/${offerId}`);
+		const offerId = router.query.projectId;
+		setsaving(true);
+		const docRef = doc(firestore, `/offers/${offerId}`);
 
-			updateDoc(docRef, { data: data, name: name })
-				.then((snap) => {
-					//setdata(snap.data().data);
-					toast("Dáta sa uložili", { autoClose: 3000, type: "success" });
-					setsaving(false);
-				})
-				.catch((err) => {
-					console.log(err);
-					toast("Vyskytla sa chyba pri ukladaní", {
-						autoClose: 3,
-						type: "error",
-					});
+		updateDoc(docRef, { data: data, name: name, totals: total })
+			.then((snap) => {
+				//setdata(snap.data().data);
+				toast("Dáta sa uložili", { autoClose: 3000, type: "success" });
+				setsaving(false);
+			})
+			.catch((err) => {
+				console.log(err);
+				toast("Vyskytla sa chyba pri ukladaní", {
+					autoClose: 3,
+					type: "error",
 				});
-		}
+			});
 	}
 
 	function calculateTotals() {
@@ -647,4 +618,13 @@ function DoesNotExist() {
 			</ButtonPrimary>
 		</div>
 	);
+}
+
+export async function getServerSideProps(context) {
+	console.log("Server");
+	return {
+		props: {
+			//fetchData: "Wocap",
+		}, // will be passed to the page component as props
+	};
 }
