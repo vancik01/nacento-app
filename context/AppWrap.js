@@ -173,8 +173,12 @@ export function AppWrap({ children, dbData, dbName }) {
 				block.items.map((item, j) => {
 					if (item.quantity == 0) item.quantity = 1;
 					newData.sections[k].blocks[i].items[j].total =
-						newData.sections[k].blocks[i].items[j].total_construction_price +
-						newData.sections[k].blocks[i].items[j].total_delivery_price;
+						parseFloat(
+							newData.sections[k].blocks[i].items[j].total_construction_price
+						) +
+						parseFloat(
+							newData.sections[k].blocks[i].items[j].total_delivery_price
+						);
 					//2 desatinn
 					newData.sections[k].blocks[i].items[j].total_construction_price =
 						parseFloat(
