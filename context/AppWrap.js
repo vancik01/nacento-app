@@ -619,12 +619,3 @@ function DoesNotExist() {
 		</div>
 	);
 }
-
-export async function getServerSideProps(context) {
-	console.log("Server");
-	return {
-		props: {
-			//fetchData: "Wocap",
-		}, // will be passed to the page component as props
-	};
-}

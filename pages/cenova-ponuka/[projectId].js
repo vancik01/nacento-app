@@ -31,7 +31,7 @@ export default function Home({ dbData }) {
 	);
 }
 
-export async function getServerSideProps(context) {
+async function getServerSideProps(context) {
 	console.log(context.query.projectId);
 	const projectId = context.query.projectId;
 	console.log("Lol");
