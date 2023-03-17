@@ -8,6 +8,7 @@ import LayoutContext from "../../context/LayoutContext";
 import ScreenLayout from "../../components/ScreenLayout";
 import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "../../lib/firebase";
+
 export default function Home({ dbData }) {
 	const theme = createTheme({
 		typography: {
@@ -31,7 +32,7 @@ export default function Home({ dbData }) {
 	);
 }
 
-async function getServerSideProps(context) {
+export async function getServerSideProps(context) {
 	console.log(context.query.projectId);
 	const projectId = context.query.projectId;
 	console.log("Lol");
