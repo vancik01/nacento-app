@@ -34,10 +34,11 @@ export default function CreateToolbar() {
 function AddButton({ text, subtext, color, onClick }) {
 	const router = useRouter();
 
-
 	return (
 		<button
-			onClick={() => {router.push(`/dashboard/interactive/`);}}
+			onClick={() => {
+				router.push(`/dashboard/interactive/`);
+			}}
 			className="py-3 px-3 border rounded-md flex items-center justify-center gap-2 text-start hover:bg-gray-50 transition-all"
 		>
 			<IconHome color={color}></IconHome>
@@ -67,11 +68,15 @@ function AddFromFile({ text, color, onClick }) {
 			name: "Nová cenová",
 			created: moment().valueOf(),
 			userId: user != null ? user.uid : "none",
+			total: {
+				total_delivery_price: 0,
+				total_construction_price: 0,
+				total: 0,
+			},
 		})
 			.then((response) => {
-				// router.push(`/cenova-ponuka/${collectionRef.id}`);
-				localStorage.setItem("offerId", collectionRef.id);
-				router.push(`/cenova-ponuka/`);
+				router.push(`/cenova-ponuka/${collectionRef.id}`);
+
 				setloading(false);
 			})
 			.catch((err) => {
@@ -148,11 +153,15 @@ function AddEmpty({ text, subtext, color }) {
 			name: title,
 			created: moment().valueOf(),
 			userId: user != null ? user.uid : "none",
+			total: {
+				total_delivery_price: 0,
+				total_construction_price: 0,
+				total: 0,
+			},
 		})
 			.then((response) => {
-				// router.push(`/cenova-ponuka/${collectionRef.id}`);
-				localStorage.setItem("offerId", collectionRef.id);
-				router.push(`/cenova-ponuka/`);
+				router.push(`/cenova-ponuka/${collectionRef.id}`);
+
 				setloading(false);
 			})
 			.catch((err) => {

@@ -26,7 +26,7 @@ import { useAuth } from "../../context/AuthContext";
 import moment from "moment";
 
 function Functions() {
-	const [preds, setPreds] = useState({"data":[], "images":[]});
+	const [preds, setPreds] = useState({ data: [], images: [] });
 	const [zakaldyPdf, setZaklady] = useState("");
 	const [podorysyPdf, setPodorysy] = useState([]);
 	const [strechaPdf, setStrecha] = useState("");
@@ -54,9 +54,8 @@ function Functions() {
 						userId: user != null ? user.uid : "none",
 					})
 						.then((response) => {
-							// router.push(`/cenova-ponuka/${collectionRef.id}`);
-							localStorage.setItem("offerId", collectionRef.id);
-							router.push(`/cenova-ponuka/`);
+							router.push(`/cenova-ponuka/${collectionRef.id}`);
+
 							setloading(false);
 						})
 						.catch((err) => {
@@ -76,7 +75,7 @@ function Functions() {
 
 		setloading(true);
 		fetch(`http://165.227.150.191/api/aspdf/`, {
-		// fetch(`http://127.0.0.1:8000/api/aspdf/`, {
+			// fetch(`http://127.0.0.1:8000/api/aspdf/`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(data),
@@ -84,7 +83,7 @@ function Functions() {
 			setloading(false);
 			if (response.ok) {
 				response.json().then((json) => {
-					console.log(json)
+					console.log(json);
 					setPreds(json);
 				});
 			}
@@ -159,7 +158,7 @@ function Functions() {
 
 				{preds.data.length > 0 && (
 					<>
-						<Preds data={preds.data} images={preds.images}/>
+						<Preds data={preds.data} images={preds.images} />
 						<div className="absolute right-0 hidden mt-2 pt-6 mr-24 navbar-btn sm:inline-block lg:mt-0 lg:static lg:mr-0">
 							{/* <Link className="main-btn font-bold" href="/cenova-ponuka" rel="nofollow" onClick={createPonuka}> Potvrdiť údaje </Link> */}
 							<button

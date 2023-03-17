@@ -6,8 +6,9 @@ import React from "react";
 import { AppWrap } from "../../context/AppWrap";
 import LayoutContext from "../../context/LayoutContext";
 import ScreenLayout from "../../components/ScreenLayout";
-export default function Home({ lolec }) {
-	console.log(lolec, "WOCAP");
+import { doc, getDoc } from "firebase/firestore";
+import { firestore } from "../../lib/firebase";
+export default function Home({ dbData }) {
 	const theme = createTheme({
 		typography: {
 			fontFamily: "Poppins",
@@ -21,7 +22,7 @@ export default function Home({ lolec }) {
 				<title>Cenová ponuka</title>
 			</Head>
 
-			<AppWrap>
+			<AppWrap dbData={dbData.data} dbName={dbData.name}>
 				<LayoutContext>
 					<ScreenLayout />
 				</LayoutContext>
@@ -30,21 +31,18 @@ export default function Home({ lolec }) {
 	);
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+	console.log(context.query.projectId);
+	const projectId = context.query.projectId;
 	console.log("Lol");
 
 	const docRef = doc(firestore, `/offers/${projectId}`);
-	getDoc(docRef).then((snap) => {
-		if (snap.exists()) {
-			//setdata({ ...snap.data().data });
-			//setheaders(snap.data().data.headers);
-			//setname(snap.data().name);
-			return {
-				props: {
-					dbData: { ...snap.data().data },
-					dbName: snap.data().name,
-				},
-			};
-		}
-	});
+	const snap = await getDoc(docRef);
+	if (snap.exists()) {
+		return {
+			props: {
+				dbData: { ...snap.data() },
+			},
+		};
+	}
 }
