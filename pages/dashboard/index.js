@@ -42,7 +42,7 @@ export default function Dashboard() {
 				{/* </Layout> */}
 			</div>
 
-			<div className="grid" style={{ gridTemplateColumns: "240px 1fr" }}>
+			<div className="xl:grid" style={{ gridTemplateColumns: "240px 1fr" }}>
 				<TeamsList></TeamsList>
 
 				<div className="mb-16 mt-8 mx-16">
