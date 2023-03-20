@@ -33,12 +33,10 @@ export default function Sidebar() {
 		reorderingBlocks,
 		setreorderingBlocks,
 		setdownload,
-		download,
-		displaySidebar,
 		setdisplaySidebar,
 		handleSave,
 		saving,
-		addSection,
+		triggerTemplate,
 	} = useData();
 
 	const {
@@ -141,7 +139,7 @@ export default function Sidebar() {
 										</div>
 									</AccordionDetails>
 								</Accordion>
-								<Accordion expanded={opened === "sekcia"}>
+								{/* <Accordion expanded={opened === "sekcia"}>
 									<AccordionSummary
 										expandIcon={<ArrowDown />}
 										onClick={() => {
@@ -194,7 +192,7 @@ export default function Sidebar() {
 											</ButtonPrimary>
 										</div>
 									</AccordionDetails>
-								</Accordion>
+								</Accordion> */}
 
 								<Accordion expanded={opened === "tabulka"}>
 									<AccordionSummary
@@ -351,6 +349,16 @@ export default function Sidebar() {
 									disabled={saving}
 								>
 									Uložiť zmeny
+								</ButtonPrimary>
+
+								<ButtonPrimary
+									scale={0.98}
+									className="w-full text-sm mt-10"
+									onClick={() => {
+										triggerTemplate(0, 0, 0, "");
+									}}
+								>
+									Template
 								</ButtonPrimary>
 
 								<button

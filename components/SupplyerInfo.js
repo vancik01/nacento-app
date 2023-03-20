@@ -2,6 +2,7 @@ import { TextField } from "@mui/material";
 import { Input } from "@mui/material";
 import React, { useState } from "react";
 import { useData } from "../context/AppWrap";
+import { useAuth } from "../context/AuthContext";
 import Save from "../public/SVG/buttons/Save";
 import EditPen from "../public/SVG/EditPen";
 import ButtonPrimary from "./ButtonPrimary";
@@ -9,7 +10,8 @@ import ButtonSecondary from "./ButtonSecondary";
 
 export default function SupplyerInfo() {
 	const { data, changeSupplyerData } = useData();
-	const [editing, setediting] = useState(true);
+	const { userData } = useAuth();
+	const [editing, setediting] = useState(false);
 	const [supplyer, setsupplyer] = useState(data.supplyer);
 
 	function handleChange(e) {
@@ -25,7 +27,7 @@ export default function SupplyerInfo() {
 
 	if (!editing) {
 		return (
-			<div className="min-w-[200px]">
+			<div className="min-w-[250px]">
 				<div className="relative w-fit">
 					<div className="mb-2 text-gray-300 capitalize">DODÁVATEL:</div>
 					<button
@@ -50,7 +52,7 @@ export default function SupplyerInfo() {
 		);
 	} else {
 		return (
-			<div className="min-w-[200px]">
+			<div className="min-w-[250px]">
 				<div className="mb-2 text-gray-300 capitalize">DODÁVATEL:</div>
 				<div className="flex flex-col gap-1 text-sm">
 					<input

@@ -156,7 +156,7 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 							})}
 
 							{
-								<div className="flex justify-end items-center gap-1 select-none absolute -right-16">
+								<div className="flex justify-end items-center select-none absolute -right-14">
 									<ButtonIcon
 										icon={<TrashBin />}
 										onClick={() => {

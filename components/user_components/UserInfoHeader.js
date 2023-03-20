@@ -13,16 +13,16 @@ export default function UserInfoHeader({ color, is_smaller }) {
 	const { user, loading, userData } = useAuth();
 	const [hover, sethover] = useState(false);
 
-	useEffect(() => {
-		const handleClickOutside = (event) => {
-			console.log(event);
-			settoolbar(false);
-		};
-		document.addEventListener("click", handleClickOutside, true);
-		return () => {
-			document.removeEventListener("click", handleClickOutside, true);
-		};
-	}, []);
+	// useEffect(() => {
+	// 	const handleClickOutside = (event) => {
+	// 		console.log(event);
+	// 		settoolbar(false);
+	// 	};
+	// 	document.addEventListener("click", handleClickOutside, true);
+	// 	return () => {
+	// 		document.removeEventListener("click", handleClickOutside, true);
+	// 	};
+	// }, []);
 
 	if (!color) color = "black";
 	return (

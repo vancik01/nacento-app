@@ -10,9 +10,12 @@ import OpenSidebar from "../public/SVG/OpenSidebar";
 import BottomBar from "./BottomBar";
 import EditorHeader from "./EditorHeader";
 import { toast } from "react-toastify";
+import TemplateGallery from "./template_gallery/TemplateGallery";
+import TemplateContext from "./template_gallery/TemplateContext";
 
 export default function ScreenLayout() {
-	const { displaySidebar, setdisplaySidebar, loading } = useData();
+	const { displaySidebar, setdisplaySidebar, loading, openTemplate } =
+		useData();
 	return (
 		<>
 			<div>
@@ -59,6 +62,22 @@ export default function ScreenLayout() {
 									<BottomBar></BottomBar>
 								</div>
 							}
+						</AnimatePresence>
+
+						<AnimatePresence>
+							{openTemplate && (
+								<TemplateContext>
+									<motion.div
+										initial={{ opacity: 0 }}
+										animate={{ opacity: 1 }}
+										exit={{ opacity: 0 }}
+										transition={{ duration: 0.1 }}
+										className="fixed inset-0 bg-black bg-opacity-60 z-[200] flex justify-center items-center"
+									>
+										<TemplateGallery></TemplateGallery>
+									</motion.div>
+								</TemplateContext>
+							)}
 						</AnimatePresence>
 
 						<EditorHeader></EditorHeader>

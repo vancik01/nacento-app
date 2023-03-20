@@ -25,6 +25,7 @@ import {
 import AddRow from "../public/SVG/AddRow";
 import CenovaPonukaSkeleton from "../components/skeletons/CenovaPonukaSkeleton";
 import { forEach } from "lodash";
+import { useAuth } from "./AuthContext";
 
 const DataContext = React.createContext();
 
@@ -36,6 +37,7 @@ export function AppWrap({ children, dbData }) {
 	const [loading, setloading] = useState(false);
 	const [name, setname] = useState(dbData.name);
 	const [bulkEdit, setbulkEdit] = useState(false);
+	const [openTemplate, setopenTemplate] = useState(false);
 	const [bulkEditData, setbulkEditData] = useState({
 		blockId: -1,
 		sectionId: -1,
@@ -55,7 +57,9 @@ export function AppWrap({ children, dbData }) {
 	const [saving, setsaving] = useState(false);
 	const [showUI, setshowUI] = useState(false);
 	const [description, setdescription] = useState(dbData.description);
-	console.log(dbData);
+	const [templateTrigger, settemplateTrigger] = useState(null);
+
+	const { userData, user } = useAuth();
 
 	function changeDescription(e) {
 		var newData = description;
@@ -136,6 +140,14 @@ export function AppWrap({ children, dbData }) {
 		if (data != null) {
 			dataInit();
 			loadTotals();
+			var newData = { ...data };
+			newData.supplyer.company_name = userData?.name;
+			newData.supplyer.dic = userData?.supplyer.dic;
+			newData.supplyer.email = userData.email;
+			newData.supplyer.ico = userData?.supplyer.ico;
+			newData.supplyer.phone = userData?.supplyer.phone;
+			newData.supplyer.web = userData?.supplyer.web;
+			setdata(newData);
 			setshowUI(true);
 		}
 	}, [loading]);
@@ -344,19 +356,25 @@ export function AppWrap({ children, dbData }) {
 		// }
 	}
 
-	function addBlock(sectionId, blockId) {
+	function addBlock(sectionId, blockId, template) {
 		let newData = { ...data };
 
 		var lengthBeforeInsert = newData.sections[sectionId].blocks.length;
-		let newBlock = {
-			info: {
-				title: "Nový blok",
-				total_delivery_price: 0,
-				total_construction_price: 0,
-				total: 0,
-			},
-			items: [],
-		};
+		let newBlock;
+
+		if (!template) {
+			newBlock = {
+				info: {
+					title: "Nový blok",
+					total_delivery_price: 0,
+					total_construction_price: 0,
+					total: 0,
+				},
+				items: [],
+			};
+		} else {
+			newBlock = template;
+		}
 
 		newData.sections[sectionId].blocks.splice(blockId + 1, 0, newBlock);
 
@@ -372,8 +390,9 @@ export function AppWrap({ children, dbData }) {
 
 		//newData.sections[sectionId].blocks.push(newBlock);
 
+		if (!template) addTableRow(blockId + 1, sectionId);
+		updateSectionTotals(newData.sections[sectionId]);
 		setdata({ ...newData });
-		addTableRow(blockId + 1, sectionId);
 	}
 
 	function getTitle(titleId, language) {
@@ -536,6 +555,16 @@ export function AppWrap({ children, dbData }) {
 		newData.sections[sectionId].info.title = newTitle;
 	}
 
+	function triggerTemplate(itemId, blockId, sectionId, type) {
+		settemplateTrigger({
+			itemId,
+			blockId,
+			sectionId,
+			type,
+		});
+		setopenTemplate(true);
+	}
+
 	const value = {
 		data,
 		headers,
@@ -593,6 +622,12 @@ export function AppWrap({ children, dbData }) {
 
 		description,
 		changeDescription,
+
+		openTemplate,
+		setopenTemplate,
+		templateTrigger,
+		settemplateTrigger,
+		triggerTemplate,
 	};
 
 	useEffect(() => {

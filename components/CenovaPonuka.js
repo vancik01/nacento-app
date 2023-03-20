@@ -232,7 +232,6 @@ export default function CenovaPonuka() {
 										</div>
 
 										<div className="mt-2 font-medium text-xl">
-											{" "}
 											{numberWithCommas((total.total * 1.2).toFixed(2))} €{" "}
 											<span className="text-[10px]">vrátane DPH</span>
 										</div>
@@ -249,6 +248,7 @@ export default function CenovaPonuka() {
 											setname(value);
 										}}
 									/>
+
 									<TextareaAutosize
 										value={description}
 										onChange={changeDescription}

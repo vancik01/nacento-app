@@ -12,6 +12,7 @@ import TrashBin from "../public/SVG/editor/TrashBin";
 import EditPen from "../public/SVG/EditPen";
 import ButtonIcon from "./ButtonIcon";
 import ButtonPrimary from "./ButtonPrimary";
+import AddBlockToolbar from "./editor/AddBlockToolbar";
 import EditText from "./editor/EditText";
 import SaveBlockTemplate from "./editor/SaveBlockTemplate";
 import Table from "./Table";
@@ -59,14 +60,7 @@ export default function Block({
 
 							<div className="flex items-center gap-4 w-fit">
 								<SaveBlockTemplate block={block} />
-								<ButtonIcon
-									icon={<PlusCircle />}
-									onClick={() => {
-										addBlock(sectionId, blockId);
-									}}
-								>
-									Pridať blok
-								</ButtonIcon>
+								<AddBlockToolbar sectionId={sectionId} blockId={blockId} />
 
 								<ButtonIcon
 									icon={<TrashBin color={"#9ca3af"} />}

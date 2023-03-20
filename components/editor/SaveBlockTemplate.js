@@ -9,12 +9,13 @@ import Next from "../../public/SVG/user_setup/Next";
 import { arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { firestore } from "../../lib/firebase";
 import { useAuth } from "../../context/AuthContext";
+import { toast } from "react-toastify";
 
 export default function SaveBlockTemplate({ block }) {
 	const [display, setdisplay] = useState(false);
-	console.log(block);
 	const [title, settitle] = useState(block.info.title);
 	const [error, seterror] = useState("");
+	const [loading, setloading] = useState(false);
 	const { user } = useAuth();
 
 	function close() {
@@ -24,17 +25,23 @@ export default function SaveBlockTemplate({ block }) {
 
 	useEffect(() => {
 		if (display) settitle(block.info.title);
-	}, [display, block]);
+	}, [block]);
 
 	async function saveTemplate() {
 		const docRef = doc(firestore, `/users/${user.uid}/templates/default`);
+		setloading(true);
 		const check = await getDoc(docRef);
+
+		block.info.title = title;
 		if (check.exists()) {
-			await setDoc(docRef, {
-				data: arrayUnion({
-					type: "block",
-					data: block,
-				}),
+			await updateDoc(docRef, {
+				data: [
+					...check.data().data,
+					{
+						type: "block",
+						data: block,
+					},
+				],
 			});
 		} else {
 			await setDoc(docRef, {
@@ -46,6 +53,11 @@ export default function SaveBlockTemplate({ block }) {
 				],
 			});
 		}
+
+		toast("Dáta sa uložili", { autoClose: 3000, type: "success" });
+		close();
+
+		setloading(false);
 	}
 
 	return (
@@ -84,6 +96,7 @@ export default function SaveBlockTemplate({ block }) {
 								className=""
 								icon={<Next></Next>}
 								iconAfter
+								loading={loading}
 							>
 								Uložiť template
 							</ButtonPrimary>
