@@ -71,7 +71,7 @@ export default function UserInfoHeader({ color, is_smaller }) {
 					</button>
 
 					<AnimatePresence mode="wait">
-						{console.log(toolbar)}
+						{/* {console.log(toolbar)} */}
 						{hover && (
 							<motion.div
 								key="user-toolbar"

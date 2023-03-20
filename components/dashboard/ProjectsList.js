@@ -28,6 +28,10 @@ import TrashBin from "../../public/SVG/editor/TrashBin";
 import ButtonPrimary from "../../components/ButtonPrimary";
 import { AnimatePresence } from "framer-motion";
 import IconHome from "../../public/SVG/dashboard/IconHome";
+import Offer from "../../public/SVG/dashboard/EmptyOffer";
+import AddOffer from "../../public/SVG/dashboard/AddOffer";
+import InteractiveOffer from "../../public/SVG/dashboard/InteractiveOffer";
+
 import { numberWithCommas } from "../../lib/helpers";
 import { round } from "lodash";
 
@@ -194,7 +198,8 @@ function Project({ project, handleDelete, handleSelectId }) {
 			</div>
 			<div className="bg-white px-2 py-3 flex items-center">
 				<div>
-					<IconHome></IconHome>
+					{/* <InteractiveOffer color="#1400FF"></InteractiveOffer> */}
+					<IconHome color="#1400FF"></IconHome>
 				</div>
 				<div className="text-sm ml-2">{project.name}</div>
 			</div>
