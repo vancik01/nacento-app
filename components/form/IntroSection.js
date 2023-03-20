@@ -37,9 +37,9 @@ function IntroSection({title, text, type}) {
   return (
     <div className='flex flex-col items-center gap-0 justify-between'>
         <div className="text-lg inline-block pb-12 relative">
-          Vypíšte prosím údaje manuálne alebo vložte <u>PDF {text}</u> a údaje výpočítame automaticky
+          Vypíšte prosím údaje manuálne alebo vložte <u>PDF {text}</u> a údaje sa vypočítajú automaticky
           <div className="text-sm absolute bottom-7 text-gray-400 text-left">
-              (ak nechcete naceniť {title}, políčka nechajte prázne)
+              (ak nechcete naceniť {title}, políčka nechajte prázdne)
           </div>
         </div>
 

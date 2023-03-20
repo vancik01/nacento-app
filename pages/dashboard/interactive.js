@@ -112,13 +112,13 @@ export default function Dashboard() {
 
 function SimpleButton({color, active, title, onClick}){
   const colors = {
-    "red" : ["hover:border-rose-600 ", "border-rose-600 text-rose-600", "text-gray-600"],
-    "green" : ["hover:border-emerald-600 ", "border-emerald-600 text-emerald-600", "text-gray-600"],
-    "blue" : ["hover:border-blue-600	", "border-blue-600 text-blue-600", "text-gray-600"]
+    "red" : ["hover:border-rose-600 hover:text-rose-600", "border-rose-600 text-rose-600", "text-gray-600"],
+    "green" : ["hover:border-emerald-600 hover:text-emerald-600", "border-emerald-600 text-emerald-600", "text-gray-600"],
+    "blue" : ["hover:border-blue-600	hover:text-blue-600", "border-blue-600 text-blue-600", "text-gray-600"]
   }
 
   return(
-  <button onClick={onClick} className={`py-2 px-6  ${active? colors[color][1] : colors[color][2]} ${colors[color][0]} border rounded-md flex items-center justify-center gap-2 text-start `}>
+  <button onClick={onClick} className={`py-2 px-6 trans ${active? colors[color][1] : colors[color][2]} ${colors[color][0]} border rounded-md flex items-center justify-center gap-2 text-start `}>
       {title}
   </button>
   )
