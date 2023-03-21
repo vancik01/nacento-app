@@ -10,7 +10,6 @@ import AddOffer from "../../public/SVG/dashboard/AddOffer";
 import InteractiveOffer from "../../public/SVG/dashboard/InteractiveOffer";
 import JsonOffer from "../../public/SVG/dashboard/JsonOffer";
 
-
 import Plus from "../../public/SVG/dashboard/Plus";
 import moment from "moment/moment";
 import { useData } from "../../context/AppWrap";
@@ -51,7 +50,7 @@ function AddButton({ text, subtext, color, onClick }) {
 			{/* <IconHome color={color}></IconHome> */}
 			{/* <InteractiveOffer color={color}></InteractiveOffer> */}
 			<InteractiveOffer color={color}></InteractiveOffer>
-			
+
 			<div>
 				<div className="text-sm font-regular">{text}</div>
 				<div className="text-xs font-light text-gray-400">{subtext}</div>
@@ -150,17 +149,17 @@ function AddEmpty({ text, subtext, color }) {
 	const [error, seterror] = useState("");
 
 	function createEmpty() {
-		seterror("");
-		if (title == "") {
-			seterror("Zadajte názov");
-			return;
-		}
+		// seterror("");
+		// if (title == "") {
+		// 	seterror("Zadajte názov");
+		// 	return;
+		// }
 		const collectionRef = doc(collection(firestore, "/offers"));
 		//customBuild variable empty template
 		setDoc(collectionRef, {
 			id: collectionRef.id,
 			data: customBuild,
-			name: title,
+			name: "Nový ponuka",
 			created: moment().valueOf(),
 			userId: user != null ? user.uid : "none",
 			total: {
@@ -188,12 +187,12 @@ function AddEmpty({ text, subtext, color }) {
 		<div className="relative">
 			<button
 				onClick={() => {
-					setdisplay(true);
+					createEmpty();
 				}}
 				className=" py-3 px-3 border rounded-md flex items-center justify-center gap-2 text-start hover:bg-gray-50 transition-all"
 			>
 				{/* <IconHome color={color}></IconHome> */}
-				<AddOffer color={color}></AddOffer> 
+				<AddOffer color={color}></AddOffer>
 				<div>
 					<div className="text-sm font-regular">{text}</div>
 					<div className="text-xs font-light text-gray-400">{subtext}</div>

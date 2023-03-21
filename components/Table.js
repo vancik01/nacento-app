@@ -98,15 +98,6 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 	const { displayColumns, tableRowTemplate, primaryColor } = useLayout();
 	const [didChange, setdidChange] = useState(false);
 	const [item, setitem] = useState(polozka);
-	useEffect(() => {
-		if (polozka == item) {
-			console.log("Same");
-		} else {
-			console.log();
-		}
-
-		return () => {};
-	}, [polozka]);
 
 	return (
 		<div className="relative">
@@ -213,6 +204,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 		return (
 			<div className={`flex align-middle items-center w-full ${label.short}`}>
 				<TextareaAutosize
+					spellCheck="false"
 					className="w-full bg-transparent focus-visible:outline-none h-fit overflow-visible"
 					value={polozka.title}
 					name={item}

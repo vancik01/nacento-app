@@ -66,6 +66,7 @@ export default function SectionSummary({ blocks, sectionId, sectionsLength }) {
 													</div>
 													<div className="h-full flex items-center justify-start py-1 px-2 table_unit">
 														<TextareaAutosize
+															spellCheck="false"
 															className="w-full bg-transparent focus-visible:outline-none h-fit overflow-visible"
 															value={block.info.title}
 															onChange={(e) => {

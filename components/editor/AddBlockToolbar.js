@@ -40,7 +40,6 @@ function Toolbar({ close, blockId, sectionId }) {
 
 	useEffect(() => {
 		const handleClickOutside = (event) => {
-			console.log(event);
 			close();
 		};
 		document.addEventListener("click", handleClickOutside, true);
