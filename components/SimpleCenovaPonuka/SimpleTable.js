@@ -5,20 +5,15 @@ import { Input } from "@mui/material";
 import { TextareaAutosize } from "@mui/material";
 import { Select } from "@mui/material";
 import _ from "lodash";
-import { lang } from "../../languages/languages"
+import { lang } from "../../languages/languages";
 import "react-tooltip/dist/react-tooltip.css";
 
-
 function getTitle(titleId, language) {
-    return lang[language][titleId];
+	return lang[language][titleId];
 }
 
-
 export default function Table({ items, headers }) {
-
-
-    const [primaryColor, setprimaryColor] = useState("#63A695");
-
+	const [primaryColor, setprimaryColor] = useState("#63A695");
 
 	return (
 		<>
@@ -27,47 +22,42 @@ export default function Table({ items, headers }) {
 					<div style={{ backgroundColor: primaryColor }} className="text-white">
 						<div
 							className="table_row heading select-none mt-4"
-                            style={{ gridTemplateColumns: "30px 1fr 70px 70px 90px 90px 90px" }}
+							style={{
+								gridTemplateColumns: "30px 1fr 70px 70px 90px 90px 90px",
+							}}
 						>
 							<div className="font-medium py-1 px-2">N.</div>
 							{headers.map((item, i) => {
 								var heading = getTitle(item, "sk");
 
-									return (
-										<div key={`table-header-${i}`}>
-											<div
-												className={`font-medium ${heading.short} py-1 px-2`}
-												style={{ color: "white" }}
-											>
-												<Tooltip
-													id="tooltip"
-													anchorSelect={`#col-${i}`}
-													place="top"
-													content={heading.long}
-													delayHide={3}
-												/>
-												<span id={`col-${i}`}>{heading.short}</span>
-											</div>
+								return (
+									<div key={`table-header-${i}`}>
+										<div
+											className={`font-medium ${heading.short} py-1 px-2`}
+											style={{ color: "white" }}
+										>
+											<Tooltip
+												id="tooltip"
+												anchorSelect={`#col-${i}`}
+												place="top"
+												content={heading.long}
+												delayHide={3}
+											/>
+											<span id={`col-${i}`}>{heading.short}</span>
 										</div>
-									);
-								
+									</div>
+								);
 							})}
-
-                            
 						</div>
 
-                        <div className="table_wrap">
-
-                                <TableRow
-                                    polozka={items[0]}
-                                    headers={headers}
-                                    primaryColor={primaryColor}
-                                ></TableRow>
-	
-							</div>
+						<div className="table_wrap">
+							<TableRow
+								polozka={items[0]}
+								headers={headers}
+								primaryColor={primaryColor}
+							></TableRow>
+						</div>
 					</div>
-
-
 				</div>
 			}
 		</>
@@ -75,44 +65,35 @@ export default function Table({ items, headers }) {
 }
 
 function TableRow({ polozka, headers, primaryColor }) {
-    console.log(headers)
 	return (
 		<div className="relative text-black">
-			
-					<div>
-						<div
-							className={`table_row content last`}
-							style={{ gridTemplateColumns: "30px 1fr 70px 70px 90px 90px 90px" }}>
-							<div className={`flex justify-center items-center select-none h-full py-1 table_unit`}>
-								{1}
-							</div>
-
-							{headers.map((item) => {
-								var label = getTitle(item, "sk");
-
-									return (
-										<div className="h-full flex items-center justify-start py-1 px-2 table_unit">
-											<TableUnit
-												item={item}
-												polozka={polozka}
-												label={label}
-											/>
-										</div>
-									);
-	
-							})}
-
-						</div>
+			<div>
+				<div
+					className={`table_row content last`}
+					style={{ gridTemplateColumns: "30px 1fr 70px 70px 90px 90px 90px" }}
+				>
+					<div
+						className={`flex justify-center items-center select-none h-full py-1 table_unit`}
+					>
+						{1}
 					</div>
-				
 
+					{headers.map((item) => {
+						var label = getTitle(item, "sk");
+
+						return (
+							<div className="h-full flex items-center justify-start py-1 px-2 table_unit">
+								<TableUnit item={item} polozka={polozka} label={label} />
+							</div>
+						);
+					})}
+				</div>
+			</div>
 		</div>
 	);
 }
 
 function TableUnit({ item, polozka, label }) {
-
-
 	if (item === "service_type") {
 		return (
 			<div className={`flex align-middle items-center ${label.short}`}>
@@ -129,6 +110,7 @@ function TableUnit({ item, polozka, label }) {
 		return (
 			<div className={`flex align-middle items-center w-full ${label.short}`}>
 				<TextareaAutosize
+					spellCheck="false"
 					className="w-full bg-transparent focus-visible:outline-none h-fit overflow-visible"
 					value={polozka.title}
 					name={item}

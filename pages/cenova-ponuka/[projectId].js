@@ -33,9 +33,7 @@ export default function Home({ dbData }) {
 }
 
 export async function getServerSideProps(context) {
-	console.log(context.query.projectId);
 	const projectId = context.query.projectId;
-	console.log("Lol");
 
 	const docRef = doc(firestore, `/offers/${projectId}`);
 	const snap = await getDoc(docRef);

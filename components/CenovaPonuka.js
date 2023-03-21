@@ -250,6 +250,7 @@ export default function CenovaPonuka() {
 									/>
 
 									<TextareaAutosize
+										spellCheck="false"
 										value={description}
 										onChange={changeDescription}
 										placeholder="Zadajte krátky text..."

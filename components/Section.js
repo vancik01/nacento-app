@@ -153,7 +153,6 @@ export default function Section({ section, sectionId, isLast }) {
 					/>
 				)}
 			</div>
-
 			{!reorderingBlocks &&
 				variant.blocks &&
 				section.blocks.map((block, j) => {
@@ -172,11 +171,12 @@ export default function Section({ section, sectionId, isLast }) {
 						</div>
 					);
 				})}
-
+			{section.blocks.length == 0 && (
+				<AddBlock sectionId={sectionId}></AddBlock>
+			)}
 			{reorderingBlocks && (
 				<ReorderingBlocks section={section} sectionId={sectionId} />
 			)}
-
 			<div className="absolute right-4 top-2 flex items-center gap-4 w-fit mt-2">
 				<ButtonIcon
 					icon={<TrashBin color="#ef4444" />}
