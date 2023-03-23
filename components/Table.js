@@ -230,10 +230,13 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 					className="w-full bg-transparent"
 					onChange={update}
 				>
-					<option value="m2">m2</option>
-					<option value="m3">m3</option>
-					<option value="diel">diel</option>
 					<option value="m">m</option>
+					<option value="m2">m&sup2;</option>
+					<option value="m3"> m&sup3; </option>
+					<option value="diel">diel</option>
+					<option value="ks">ks</option>
+					<option value="sub">súb.</option>
+					
 				</select>
 			</div>
 		);

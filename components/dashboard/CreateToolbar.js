@@ -29,7 +29,7 @@ export default function CreateToolbar() {
 				color="#73A496"
 			></AddEmpty>
 			<AddButton
-				text="Interaktívna cenová ponuka"
+				text="Rýchla cenová ponuka"
 				subtext="Zadajte len parametre stavby"
 				color="#1400FF"
 			></AddButton>
