@@ -67,6 +67,21 @@ export function UseStepperContext({ children }) {
         "ozvucenie" : ["0", ""],
         "tc" : ["0", "", ""],
         "klimatizacia" : ["0"],
+    },
+    "bleskozvod" : {
+      "strecha" : ["0"],
+      "zvody" : "",
+      "vedenie" : ["0"],
+      "uzemnenie" : ["0"],
+      "tyce" : ""
+
+    },
+    "admin" : {
+      "revizia" : ["0"],
+      "projekty" : ["0"],
+      "schema" : ["0"],
+      "skutok" : ["0"],
+
     }
   }
 

@@ -8,6 +8,8 @@ import FullPageLoading from "../loading/FullPageLoading";
 import PripojkaNN from "./steps/PripojkaNN";
 import InstalacnePrace from "./steps/InstalacnePrace";
 import Predpripravy from "./steps/Predpripravy"
+import Bleskozvod from "./steps/Bleskozvod";
+import Administrativa from "./steps/Administrativa";
 
 
 function ElektromontazForm({ theme_color }) {
@@ -39,9 +41,9 @@ function ElektromontazForm({ theme_color }) {
       case 3:
         return <Predpripravy/>;
       case 4:
-        return <div> step4 </div>;
+        return <Bleskozvod/>;
       case 5:
-        return <div> step5 </div>;
+        return <Administrativa/>;
       default:
     }
   };
