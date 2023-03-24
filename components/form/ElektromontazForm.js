@@ -5,9 +5,12 @@ import { useStepper } from "../../context/StepperContext";
 import { useApi } from "../../context/ApiContext";
 import FullPageLoading from "../loading/FullPageLoading";
 
-import Zakladovka from "./steps/Zakladovka";
-import Murivo from "./steps/Murivo";
-import Strecha from "./steps/Strecha";
+import PripojkaNN from "./steps/PripojkaNN";
+import InstalacnePrace from "./steps/InstalacnePrace";
+import Predpripravy from "./steps/Predpripravy"
+import Bleskozvod from "./steps/Bleskozvod";
+import Administrativa from "./steps/Administrativa";
+
 
 function ElektromontazForm({ theme_color }) {
   const [ currentStep, setCurrentStep ] = useState(1);
@@ -22,19 +25,25 @@ function ElektromontazForm({ theme_color }) {
 
   
   const steps = [
-    "Elektroinštalácie",
     "Prípojka nízkeho napätia",
+    "Elektroinštalačné práce",
     "Predprípravy",
+    "Bleskozvod",
+    "Administratíva",
   ];
 
   const displayStep = (step) => {
     switch (step) {
       case 1:
-        return <div> step1 </div>;
+        return <PripojkaNN/>;
       case 2:
-        return <div> step2 </div>;
+        return <InstalacnePrace/>;
       case 3:
-        return <div> step3 </div>;
+        return <Predpripravy/>;
+      case 4:
+        return <Bleskozvod/>;
+      case 5:
+        return <Administrativa/>;
       default:
     }
   };

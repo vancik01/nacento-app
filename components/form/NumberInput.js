@@ -2,21 +2,25 @@ import React from 'react'
 import { useStepper } from '../../context/StepperContext';
 
 
-function NumberInput({ id, unit, sup, decimal }) {
-    const { color, hsdata, ChangeHsValue } = useStepper()
+function NumberInput({ id, unit, sup, decimal, path }) {
+    const { color, hsdata, edata, ChangeValue } = useStepper()
 
     const colors = {
         "red" : "input-red",
         "green" : "input-green"
     }
 
-    var value = hsdata[parseInt(id)]
+    var data = {}
+    if(path[0] == "e") data = edata
+    if(path[0] == "h") data = hsdata
+    var value = data[path[1]][path[2]]
+
 
     return (
 
         <div className='flex items-center relative'>
 
-            <input id={id} value={value} type={"number"} min={1} placeholder={"0"} onChange={ChangeHsValue}
+            <input id={id} value={value} type={"number"} min={1} placeholder={"0"} onChange={(e) => ChangeValue(e,path)}
                 className={`${colors[color]} py-2 px-4  w-[300px] trans` }
                 style={{outline: "none", }} step={decimal?  .01 : 1} >
             

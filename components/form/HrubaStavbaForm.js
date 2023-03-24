@@ -73,6 +73,7 @@ function HSForm({ theme_color }) {
           handleClick={handleClick}
           currentStep={currentStep}
           steps={steps}
+          typ="HS"
         />
       </div>
         
