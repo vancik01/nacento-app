@@ -17,10 +17,10 @@ export default function Murivo() {
         <FormLayout>
 
           <Divider title={"Murovací materiál"}
-          component={<SingleChoice id={7} labels={["Tehla", "YTONG"]}/>}/>
+          component={<SingleChoice path={["h", "murivo", "material"]} labels={["Tehla", "YTONG"]}/>}/>
 
 
-          {hsdata[7] === "" || hsdata[7] === "1" ? 
+          {hsdata["murivo"]["material"][0] === "" || hsdata["murivo"]["material"][0] === "1" ? 
             <Divider title={"Počty tehál"} subtitle={"(na jedno poschodie)"}
             component={<TehlaItems/>}
             textTop={true}/> 
@@ -31,7 +31,7 @@ export default function Murivo() {
           }
 
       <Divider title={"Počet poschodí"}
-        component={<SingleChoice id={13} labels={[1,2,3]}/>}
+        component={<SingleChoice path={["h", "murivo", "poschodia"]} labels={[1,2,3]}/>}
       />
 
 
@@ -44,11 +44,11 @@ export default function Murivo() {
 function TehlaItems(){
   return(
     <div className="grid icon-grid">
-        <IconInput label={"50x10x25"} add={100} id={"8"} />
-        <IconInput label={"50x15x25"} add={100} id={"9"} />
-        <IconInput label={"50x25x25"} add={100} id={"10"} />
-        <IconInput label={"50x30x25"} add={100} id={"11"} />
-        <IconInput label={"50x45x25"} add={100} id={"12"} />
+        <IconInput path={["h", "murivo", "t10"]} label={"50x10x25"} add={100} />
+        <IconInput path={["h", "murivo", "t15"]} label={"50x15x25"} add={100} />
+        <IconInput path={["h", "murivo", "t25"]} label={"50x25x25"} add={100} />
+        <IconInput path={["h", "murivo", "t30"]} label={"50x30x25"} add={100} />
+        <IconInput path={["h", "murivo", "t45"]} label={"50x45x25"} add={100} />
     </div>
   )
 }
@@ -57,11 +57,11 @@ function TehlaItems(){
 function YtongItems(){
   return(
     <div className="grid icon-grid">
-        <IconInput label={"50x45x25"} add={100} id={"12"} />
-        <IconInput label={"50x30x25"} add={100} id={"11"} />
-        <IconInput label={"50x25x25"} add={100} id={"10"} />
-        <IconInput label={"50x15x25"} add={100} id={"9"} />
-        <IconInput label={"50x10x25"} add={100} id={"8"} />
+        <IconInput path={["h", "murivo", "t45"]} label={"50x45x25"} add={100} />
+        <IconInput path={["h", "murivo", "t30"]} label={"50x30x25"} add={100} />
+        <IconInput path={["h", "murivo", "t25"]} label={"50x25x25"} add={100} />
+        <IconInput path={["h", "murivo", "t15"]} label={"50x15x25"} add={100} />
+        <IconInput path={["h", "murivo", "t10"]}  label={"50x10x25"} add={100} />
      
     </div>
   )

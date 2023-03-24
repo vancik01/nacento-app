@@ -25,37 +25,37 @@ export default function PripojkaNN() {
         <FormLayout>
 
             <Divider title={"Poloha prípojného bodu na elektrickú sieť"}
-            component={ <SingleChoice id={4} labels={["na pozemku", "protľahlá strana cesty"]}/>} />
+            component={ <SingleChoice path={["e", "pripojka", "poloha"]} labels={["na pozemku", "protľahlá strana cesty"]}/>} />
 
 
             <Divider title={"Vedenie prípojky"}
-            component={ <SingleChoice id={4} labels={["zemou", "vzduchom"]}/>} />
+            component={ <SingleChoice path={["e", "pripojka", "vedenie"]} labels={["zemou", "vzduchom"]}/>} />
 
 
             <Divider title={"Vzdialenosť HDS do RE"}
-            component={ <NumberInput id={"14"} unit={"m"} />} />
+            component={ <NumberInput path={["e", "pripojka", "hds-re"]} unit={"m"} />} />
 
             <Divider title={"Typ káblu z HDS do RE"}
-            component={ <SingleChoice id={4} labels={["AYKY4x25", "AYKY4x16", "CYKY4x10", "CYKY4x16"]}/>} />
+            component={ <SingleChoice path={["e", "pripojka", "k-hds-re"]} labels={["AYKY4x25", "AYKY4x16", "CYKY4x10", "CYKY4x16"]}/>} />
 
 
             <Divider title={"Vzdialenosť RE do RD"}
-            component={ <NumberInput id={"11"} unit={"m"} />} />
+            component={ <NumberInput path={["e", "pripojka", "re-rd"]} unit={"m"} />} />
 
             <Divider title={"Typ káblu z RE do RD"}
-            component={ <SingleChoice id={5} labels={["AYKY4x25", "AYKY4x16", "CYKY4x10", "CYKY4x16"]}/>} />
+            component={ <SingleChoice path={["e", "pripojka", "k-re-rd"]} labels={["AYKY4x25", "AYKY4x16", "CYKY4x10", "CYKY4x16"]}/>} />
 
 
             <Divider title={"Typ elektromerovej skrinky"}
-            component={ <SingleChoice id={5} labels={["plastová", "ocelovo-plechová"]}/>} />
+            component={ <SingleChoice path={["e", "pripojka", "eskrinka"]} labels={["plastová", "oceľovo-plechová"]}/>} />
 
 
             <Divider title={"Typ elektromerovej skrinky"}
-            component={ <SingleChoice id={5} labels={["jendotarif", "dvojtarif"]}/>} />
+            component={ <SingleChoice path={["e", "pripojka", "tarif"]} labels={["jendotarif", "dvojtarif"]}/>} />
 
 
             <Divider title={"Veľkosť hlavného ističa"}
-            component={ <SingleChoice id={5} labels={["B25", "B32", "B40"]}/>} />
+            component={ <SingleChoice path={["e", "pripojka", "istic"]} labels={["B25", "B32", "B40"]}/>} />
 
 
         </FormLayout>

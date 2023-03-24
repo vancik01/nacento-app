@@ -26,11 +26,8 @@ export function ApiContext({ children }) {
 
         if(type=="HS"){
             api_route = "hruba_stavba/"
-            data = hsdata
-            for(let i=0; i<data.length; i++) if(!data[i]) data[i] = "0"
+            data = {...hsdata}
         } 
-    
-            console.log(data)
 
         fetch(`http://127.0.0.1:8000/api/data_offer_${api_route}`, {
         // fetch(`https://api.nacento.online/api/data_offer_${api_route}`, {
@@ -95,34 +92,34 @@ export function ApiContext({ children }) {
     }
     
     function setZakladyData(data){
-        var newData = [...hsdata]
+        var newData = {...hsdata}
 
-        if(parseInt(data[0])) newData[0] = data[0]
-        if(parseInt(data[1])) newData[1] = data[1]
-        if(parseInt(data[2])) newData[2] = data[2]
-        if(parseInt(data[3])) newData[3] = data[3]
-        if(parseInt(data[4])) newData[5] = data[4]
-        if(parseInt(data[5])) newData[6] = data[5]
+        if(parseInt(data[0])) newData.doska.objem = data[0]
+        if(parseInt(data[1])) newData.doska.dt20 = data[1]
+        if(parseInt(data[2])) newData.doska.dt30 = data[2]
+        if(parseInt(data[3])) newData.doska.dt40 = data[3]
+        if(parseInt(data[4])) newData.doska.obvod = data[4]
+        if(parseInt(data[5])) newData.doska.plocha = data[5]
 
         sethsdata(newData)
     }
 
     function setMurivoData(data){
-        var newData = [...hsdata]
+        var newData = {...hsdata}
 
-        if(parseInt(data[0])) newData[8] = data[0]
-        if(parseInt(data[1])) newData[9] = data[1]
-        if(parseInt(data[2])) newData[10] = data[2]
-        if(parseInt(data[3])) newData[11] = data[3]
-        if(parseInt(data[4])) newData[12] = data[4]
+        if(parseInt(data[0])) newData.murivo.t10 = data[0]
+        if(parseInt(data[1])) newData.murivo.t15 = data[1]
+        if(parseInt(data[2])) newData.murivo.t25 = data[2]
+        if(parseInt(data[3])) newData.murivo.t30 = data[3]
+        if(parseInt(data[4])) newData.murivo.t45 = data[4]
 
         sethsdata(newData)
     }
 
     function setStrechaData(data){
-        var newData = [...hsdata]
+        var newData = {...hsdata}
 
-        newData[14] = data[0]
+        if(parseInt(data[0])) newData.strecha.plocha = data[0]
 
         sethsdata(newData)
     }

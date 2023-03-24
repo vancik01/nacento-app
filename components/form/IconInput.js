@@ -1,8 +1,8 @@
 import React from 'react'
 import {useStepper} from "../../context/StepperContext"
 
-function IconInput({ label, id, add, img, }) {
-    const { ChangeHsValue, hsdata, sethsdata, color } = useStepper()
+function IconInput({ label, add, img, path}) {
+    const { ChangeValue, hsdata, edata, setedata, sethsdata, color } = useStepper()
 
     const colors={
         "red" : ["text-rose-600", "border-rose-600", "input-red"],
@@ -10,31 +10,37 @@ function IconInput({ label, id, add, img, }) {
     }
 
     
-   function handeAdd(id){
-        id = parseInt(id)
-        let newData = [...hsdata]
+   function handeAdd(path){
+        let newData = {...data}
 
-        if(!newData[id]) newData[id] = `${add}`
+        if(!newData[path[1]][path[2]]) newData[path[1]][path[2]] = `${add}`
         else{
-            let count = parseInt(newData[id])
-            newData[id] = `${count+add}`
+            let count = parseInt(newData[path[1]][path[2]])
+            newData[path[1]][path[2]] = `${count+add}`
         }
-        sethsdata(newData)
+
+        if (path[0] == "e" ) setedata(newData)
+        if (path[0] == "h" ) sethsdata(newData)
    }
 
-   function handeSub(id){
-    id = parseInt(id)
-    let newData = [...hsdata]
+   function handeSub(path){
 
-    if(!newData[id] || parseInt(newData[id])<add) return
+    let newData = {...data}
+
+    if(!newData[path[1]][path[2]] || parseInt(newData[path[1]][path[2]])<add) newData[path[1]][path[2]] = ""
     else{
-        let count = parseInt(newData[id])
-        newData[id] = `${count-add}`
+        let count = parseInt(newData[path[1]][path[2]])
+        newData[path[1]][path[2]] = `${count-add}`
     }
-    sethsdata(newData)
+
+    if (path[0] == "e" ) setedata(newData)
+    if (path[0] == "h" ) sethsdata(newData)
    }
 
-   var value = hsdata[parseInt(id)]
+    var data = {}
+    if(path[0] == "e") data = edata
+    if(path[0] == "h") data = hsdata
+    var value = data[path[1]][path[2]]
 
   return (
     <div className='w-[200px] shadow-sm'>
@@ -47,14 +53,14 @@ function IconInput({ label, id, add, img, }) {
 
         <div className='relative'>
             
-            <button onClick={() => handeSub(id)} className={`${colors[color][0]} text-4xl absolute top-[3px] left-[15px] font-light hover:text-black trans`}> - </button>
+            <button onClick={() => handeSub(path)} className={`${colors[color][0]} text-4xl absolute top-[3px] left-[15px] font-light hover:text-black trans`}> - </button>
 
-            <input id={id} onChange={ChangeHsValue} className={`w-[200px] ${colors[color][2]} ${value !== "" && parseInt(value)>0 && colors[color][1]} trans text-center py-2 mt-[-1px]`} 
+            <input onChange={(e) => ChangeValue(e, path)} className={`w-[200px] ${colors[color][2]} ${value !== "" && parseInt(value)>0 && colors[color][1]} trans text-center py-2 mt-[-1px]`} 
             placeholder='0' min={1} type={"number"} value={value}
             style={{outline: "none", }}
             />
 
-            <button onClick={() => handeAdd(id)} className={`${colors[color][0]} text-3xl absolute top-[6px] right-[15px] font-light hover:text-black trans`}> + </button>
+            <button onClick={() => handeAdd(path)} className={`${colors[color][0]} text-3xl absolute top-[6px] right-[15px] font-light hover:text-black trans`}> + </button>
 
         </div>
         

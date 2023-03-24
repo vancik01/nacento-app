@@ -11,12 +11,12 @@ export default function Strecha() {
 
   return (
     <>
-        <IntroSection title={"strchu"} text={"pôdorys strechy"} type={"ST"}/>
+        <IntroSection title={"strechu"} text={"pôdorys strechy"} type={"ST"}/>
 
         <FormLayout>
 
           <Divider title={"Obsah strechy"}
-          component={<NumberInput id={"14"} unit={"m"} sup={"2"} />}
+          component={<NumberInput path={["h", "strecha", "plocha"]} unit={"m"} sup={"2"} />}
         />
     
 

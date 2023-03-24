@@ -7,6 +7,7 @@ import FullPageLoading from "../loading/FullPageLoading";
 
 import PripojkaNN from "./steps/PripojkaNN";
 import InstalacnePrace from "./steps/InstalacnePrace";
+import Predpripravy from "./steps/Predpripravy"
 
 
 function ElektromontazForm({ theme_color }) {
@@ -36,7 +37,7 @@ function ElektromontazForm({ theme_color }) {
       case 2:
         return <InstalacnePrace/>;
       case 3:
-        return <div> step3 </div>;
+        return <Predpripravy/>;
       case 4:
         return <div> step4 </div>;
       case 5:

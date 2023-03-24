@@ -21,16 +21,16 @@ export default function Zakladovka() {
 
       <Divider title={"Objem výkopových pásov"} 
         component={
-        <NumberInput id={"0"} unit={"m"} sup={"3"} decimal={true}/>}
+        <NumberInput path={["h", "doska", "objem"]} unit={"m"} sup={"3"} decimal={true}/>}
       />
       
 
       <Divider title={"Počty debniacich tvárnic:"} subtitle={"(na jednu radu)"}
         component={
           <div className="flex justify-between gap-1">
-            <IconInput label={"50x20x25"} add={100} id={"1"} img={<Dt20 color={"black"}></Dt20>}/>
-            <IconInput label={"50x30x25"} add={100} id={"2"} img={<Dt30 color={"black"}></Dt30>}/>
-            <IconInput label={"50x40x25"} add={100} id={"3"} img={<Dt40 color={"black"}></Dt40>}/>
+            <IconInput path={["h", "doska", "dt20"]} label={"50x20x25"} add={100} img={<Dt20 color={"black"}></Dt20>}/>
+            <IconInput path={["h", "doska", "dt30"]} label={"50x30x25"} add={100} img={<Dt30 color={"black"}></Dt30>}/>
+            <IconInput path={["h", "doska", "dt40"]} label={"50x40x25"} add={100} img={<Dt40 color={"black"}></Dt40>}/>
           </div>
         }
         textTop={true}
@@ -38,16 +38,16 @@ export default function Zakladovka() {
 
 
       <Divider title={"Počet radov DT"}
-        component={<SingleChoice id={4} labels={[1,2,3]}/>}
+        component={<SingleChoice path={["h", "doska", "rady"]} labels={[1,2,3]}/>}
       />
 
 
       <Divider title={"Obvod stavby"}
-        component={<NumberInput id={"5"} unit={"m"} />}
+        component={<NumberInput path={["h", "doska", "obvod"]} unit={"m"} />}
       />
         
       <Divider title={"Plocha stavby"}
-        component={<NumberInput id={"6"} unit={"m"} sup={"2"}/>}
+        component={<NumberInput path={["h", "doska", "plocha"]} unit={"m"} sup={"2"}/>}
       />
 
 
