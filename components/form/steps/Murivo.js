@@ -44,11 +44,11 @@ export default function Murivo() {
 function TehlaItems(){
   return(
     <div className="grid icon-grid">
-        <IconInput label={"50x10x25"} id={"8"} />
-        <IconInput label={"50x15x25"} id={"9"} />
-        <IconInput label={"50x25x25"} id={"10"} />
-        <IconInput label={"50x30x25"} id={"11"} />
-        <IconInput label={"50x45x25"} id={"12"} />
+        <IconInput label={"50x10x25"} add={100} id={"8"} />
+        <IconInput label={"50x15x25"} add={100} id={"9"} />
+        <IconInput label={"50x25x25"} add={100} id={"10"} />
+        <IconInput label={"50x30x25"} add={100} id={"11"} />
+        <IconInput label={"50x45x25"} add={100} id={"12"} />
     </div>
   )
 }
@@ -57,11 +57,11 @@ function TehlaItems(){
 function YtongItems(){
   return(
     <div className="grid icon-grid">
-        <IconInput label={"50x45x25"} id={"12"} />
-        <IconInput label={"50x30x25"} id={"11"} />
-        <IconInput label={"50x25x25"} id={"10"} />
-        <IconInput label={"50x15x25"} id={"9"} />
-        <IconInput label={"50x10x25"} id={"8"} />
+        <IconInput label={"50x45x25"} add={100} id={"12"} />
+        <IconInput label={"50x30x25"} add={100} id={"11"} />
+        <IconInput label={"50x25x25"} add={100} id={"10"} />
+        <IconInput label={"50x15x25"} add={100} id={"9"} />
+        <IconInput label={"50x10x25"} add={100} id={"8"} />
      
     </div>
   )

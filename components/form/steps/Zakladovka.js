@@ -28,9 +28,9 @@ export default function Zakladovka() {
       <Divider title={"Počty debniacich tvárnic:"} subtitle={"(na jednu radu)"}
         component={
           <div className="flex justify-between gap-1">
-            <IconInput label={"50x20x25"} id={"1"} img={<Dt20 color={"black"}></Dt20>}/>
-            <IconInput label={"50x30x25"} id={"2"} img={<Dt30 color={"black"}></Dt30>}/>
-            <IconInput label={"50x40x25"} id={"3"} img={<Dt40 color={"black"}></Dt40>}/>
+            <IconInput label={"50x20x25"} add={100} id={"1"} img={<Dt20 color={"black"}></Dt20>}/>
+            <IconInput label={"50x30x25"} add={100} id={"2"} img={<Dt30 color={"black"}></Dt30>}/>
+            <IconInput label={"50x40x25"} add={100} id={"3"} img={<Dt40 color={"black"}></Dt40>}/>
           </div>
         }
         textTop={true}

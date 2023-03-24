@@ -1,7 +1,7 @@
 import React from 'react'
 import {useStepper} from "../../context/StepperContext"
 
-function IconInput({ label, id, img, }) {
+function IconInput({ label, id, add, img, }) {
     const { ChangeHsValue, hsdata, sethsdata, color } = useStepper()
 
     const colors={
@@ -14,10 +14,10 @@ function IconInput({ label, id, img, }) {
         id = parseInt(id)
         let newData = [...hsdata]
 
-        if(!newData[id]) newData[id] = "100"
+        if(!newData[id]) newData[id] = `${add}`
         else{
             let count = parseInt(newData[id])
-            newData[id] = `${count+100}`
+            newData[id] = `${count+add}`
         }
         sethsdata(newData)
    }
@@ -26,10 +26,10 @@ function IconInput({ label, id, img, }) {
     id = parseInt(id)
     let newData = [...hsdata]
 
-    if(!newData[id] || parseInt(newData[id])<100) return
+    if(!newData[id] || parseInt(newData[id])<add) return
     else{
         let count = parseInt(newData[id])
-        newData[id] = `${count-100}`
+        newData[id] = `${count-add}`
     }
     sethsdata(newData)
    }
