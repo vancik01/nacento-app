@@ -4,6 +4,9 @@ import { useAuth } from "../../context/AuthContext";
 import Pro from "../Pro";
 import { useRouter } from "next/router";
 
+import AccountIcon from "./AcountIcon";
+import OfferIcon from "./OfferIcon";
+
 export default function AccountToolbar() {
 	function handleLogout() {
 		logOut().then(() => {
@@ -11,42 +14,53 @@ export default function AccountToolbar() {
 		});
 	}
 	const router = useRouter();
+	const { logOut, userData, user } = useAuth();
 
-	const { logOut } = useAuth();
 	return (
-		<div className="pt-4 absolute top-0 right-0 ">
-			<div className="shadow-hardShadow bg-white rounded-md">
-				<div className="px-4 pb-4 pt-6 w-52">
-					<MenuItem href={"/nastavenie-uctu"}>Môj účet 👨🏼</MenuItem>
-					<MenuItem
-						href={"/pro"}
-						className="mt-3 flex items-center justify-start gap-4"
-					>
-						<div>Become</div> <Pro></Pro>
-					</MenuItem>
-					<MenuItem onClick={handleLogout} className="mt-4 text-red-500">
-						Logout
-					</MenuItem>
+		<div className="pt-3 absolute top-0 right-0 w-max">
+			<div className="shadow-hardShadow inline-block bg-white rounded-sm">
+				<div className="px-4 py-4 flex flex-col gap-2 items-start">
+
+					<MenuItem href={""} className={"cursor-default pb-1"} 
+					icon={<img src={user.photoURL ? user.photoURL : "/static/default-user.png"}
+								className="h-6 aspect-square rounded-full"
+								alt="" />}>
+
+								{userData.email}</MenuItem>
+
+					<MenuItem icon={<AccountIcon/>} href={"/nastavenie-uctu"}>Môj účet</MenuItem>
+
+					<MenuItem className={"pb-2"} icon={<OfferIcon/>} href={"/nastavenie-uctu"}>Nastavenia ponuky</MenuItem>
+
+					<MenuItem onClick={handleLogout} className="text-red-500">
+						<hr className=" w-full"/>
+						Odhlásiť
+					</MenuItem> 
+
 				</div>
 			</div>
 		</div>
 	);
 }
 
-function MenuItem({ href, className, onClick, children }) {
+function MenuItem({ href, className, onClick, children, icon }) {
 	const router = useRouter();
 	return (
+		<div className="flex items-center gap-2">
+		
+		{icon}
+
 		<button
 			onClick={
 				onClick
 					? onClick
 					: () => {
 							router.push(href);
-					  }
-			}
-			className={`${className ? className : ""}`}
-		>
+					  }}
+			className={`${className ? className : ""}`}>
 			{children}
 		</button>
+
+		</div>
 	);
 }

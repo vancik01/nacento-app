@@ -41,12 +41,12 @@ export default function SupplyerInfo() {
 				</div>
 
 				<div className="text-sm flex flex-col gap-1">
-					<div>{supplyer.company_name}</div>
-					<div>IČO: {data.supplyer.ico}</div>
-					<div>DIČ: {data.supplyer.dic}</div>
-					<div>{data.supplyer.phone}</div>
-					<div>{data.supplyer.email}</div>
-					<div>{data.supplyer.web}</div>
+					{supplyer.company_name && <div>{supplyer.company_name}</div>}
+					{data.supplyer.ico && <div>IČO: {data.supplyer.ico}</div>}
+					{data.supplyer.dic && <div>DIČ: {data.supplyer.dic}</div>}
+					{data.supplyer.phone && <div>{data.supplyer.phone}</div>}
+					{data.supplyer.email && <div>{data.supplyer.email}</div>}
+					{data.supplyer.web && <div>{data.supplyer.web}</div>}
 				</div>
 			</div>
 		);

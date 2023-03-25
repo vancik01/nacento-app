@@ -9,7 +9,7 @@ import IconHome from "../../public/SVG/dashboard/IconHome";
 import AddOffer from "../../public/SVG/dashboard/AddOffer";
 import InteractiveOffer from "../../public/SVG/dashboard/InteractiveOffer";
 import JsonOffer from "../../public/SVG/dashboard/JsonOffer";
-
+import FullPageLoading from "../loading/FullPageLoading";
 
 import Plus from "../../public/SVG/dashboard/Plus";
 import moment from "moment/moment";
@@ -148,19 +148,21 @@ function AddEmpty({ text, subtext, color }) {
 	const [display, setdisplay] = useState(false);
 	const [title, settitle] = useState("");
 	const [error, seterror] = useState("");
+	const [loading, setloading] = useState(false)
 
 	function createEmpty() {
-		seterror("");
-		if (title == "") {
-			seterror("Zadajte názov");
-			return;
-		}
+		// seterror("");
+		// if (title == "") {
+		// 	seterror("Zadajte názov");
+		// 	return;
+		// }
+		setloading(true);
 		const collectionRef = doc(collection(firestore, "/offers"));
 		//customBuild variable empty template
 		setDoc(collectionRef, {
 			id: collectionRef.id,
 			data: customBuild,
-			name: title,
+			name:  "Nová cenová ponuka",
 			created: moment().valueOf(),
 			userId: user != null ? user.uid : "none",
 			total: {
@@ -171,8 +173,8 @@ function AddEmpty({ text, subtext, color }) {
 		})
 			.then((response) => {
 				router.push(`/cenova-ponuka/${collectionRef.id}`);
-
 				setloading(false);
+				
 			})
 			.catch((err) => {
 				console.log(err);
@@ -186,9 +188,11 @@ function AddEmpty({ text, subtext, color }) {
 
 	return (
 		<div className="relative">
+			<FullPageLoading loading={loading}></FullPageLoading>
 			<button
 				onClick={() => {
-					setdisplay(true);
+					//setdisplay(true);
+					createEmpty()
 				}}
 				className=" py-3 px-3 border rounded-md flex items-center justify-center gap-2 text-start hover:bg-gray-50 transition-all"
 			>

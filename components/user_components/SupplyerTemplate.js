@@ -39,7 +39,7 @@ export default function SupplyerTemplate({
 					value={supplyer?.web}
 				></TextField>
 			</div>
-			{account == "company" && (
+			{ (
 				<>
 					<div className=" text-gray-500 mb-2 mt-8 font-medium capitalize">
 						INFORMÁCIE O SPOLOČNOSTI

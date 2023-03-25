@@ -3,7 +3,6 @@ import { AppWrap } from "../context/AppWrap";
 import AuthContext from "../context/AuthContext";
 import TeamContext from "../context/TeamContext";
 import "../styles/globals.css";
-import "../styles/index.css";
 import "react-toastify/dist/ReactToastify.css";
 
 function MyApp({ Component, pageProps }) {
