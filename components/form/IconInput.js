@@ -55,7 +55,7 @@ function IconInput({ label, add, img, path}) {
             
             <button onClick={() => handeSub(path)} className={`${colors[color][0]} text-4xl absolute top-[3px] left-[15px] font-light hover:text-black trans`}> - </button>
 
-            <input onChange={(e) => ChangeValue(e, path)} className={`w-[200px] ${colors[color][2]} ${value !== "" && parseInt(value)>0 && colors[color][1]} trans text-center py-2 mt-[-1px]`} 
+            <input id='form-input' onChange={(e) => ChangeValue(e, path)} className={`w-[200px] ${colors[color][2]} ${value !== "" && parseInt(value)>0 && colors[color][1]} trans text-center py-2 mt-[-1px]`} 
             placeholder='0' min={1} type={"number"} value={value}
             style={{outline: "none", }}
             />

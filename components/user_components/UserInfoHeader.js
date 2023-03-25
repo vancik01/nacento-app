@@ -37,11 +37,10 @@ export default function UserInfoHeader({ color, is_smaller }) {
 					}}
 					className="relative z-50"
 				>
-					<button className="flex justify-center items-center gap-4">
+					<button className="flex cursor-default justify-center items-center gap-4">
 						<div
-							className={`${
-								is_smaller ? "h-7" : "h-8"
-							} flex items-center gap-2`}
+							className={`${is_smaller ? "h-7" : "h-8"
+								} flex items-center gap-2 pr-3`}
 						>
 							<img
 								src={user.photoURL ? user.photoURL : "/static/default-user.png"}
@@ -52,7 +51,7 @@ export default function UserInfoHeader({ color, is_smaller }) {
 								className="transition-all"
 								style={{ rotate: hover ? "180deg" : "0deg" }}
 							>
-								<ArrowDown color={color}></ArrowDown>
+								<ArrowDown color={color} scale={0.75}></ArrowDown>
 							</div>
 							{/* <Pro color={"#361cc1"}></Pro> */}
 						</div>
