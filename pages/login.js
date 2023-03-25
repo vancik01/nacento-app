@@ -73,7 +73,7 @@ export default function Login() {
 				});
 			})
 			.catch((err) => {
-				seterror(err);
+				seterror("Chyba pri prihlasovaní");
 				setgoogleLoading(false);
 			});
 	}
