@@ -51,7 +51,7 @@ function AddButton({ text, subtext, color, onClick }) {
 			{/* <IconHome color={color}></IconHome> */}
 			{/* <InteractiveOffer color={color}></InteractiveOffer> */}
 			<InteractiveOffer color={color}></InteractiveOffer>
-			
+
 			<div>
 				<div className="text-sm font-regular">{text}</div>
 				<div className="text-xs font-light text-gray-400">{subtext}</div>
@@ -197,7 +197,7 @@ function AddEmpty({ text, subtext, color }) {
 				className=" py-3 px-3 border rounded-md flex items-center justify-center gap-2 text-start hover:bg-gray-50 transition-all"
 			>
 				{/* <IconHome color={color}></IconHome> */}
-				<AddOffer color={color}></AddOffer> 
+				<AddOffer color={color}></AddOffer>
 				<div>
 					<div className="text-sm font-regular">{text}</div>
 					<div className="text-xs font-light text-gray-400">{subtext}</div>

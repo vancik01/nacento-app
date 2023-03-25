@@ -107,11 +107,9 @@ export default function CreateAccount() {
 		setgoogleLoading(true);
 		signInWithGoogle()
 			.then((user) => {
-				console.log("new", user.user.metadata);
 				const docRef = doc(firestore, `/users/${user.user.uid}`);
-				console.log(docRef.path);
+
 				getDoc(docRef).then((snap) => {
-					console.log(snap.data());
 					if (!snap.exists()) {
 						//const docRef = doc(firestore, `/users/${user.user.uid}`);
 						//console.log(docRef.path);
@@ -126,13 +124,11 @@ export default function CreateAccount() {
 						})
 							.then(() => {
 								router.push("/user-setup/");
-								console.log("Navigate setup");
 							})
 							.catch((err) => {
 								console.log(err);
 							});
 					} else {
-						console.log("Navigate dashboard");
 						//router.push("/dashboard");
 					}
 				});

@@ -84,7 +84,7 @@ export const DownloadLink = ({ close }) => {
 				>
 					{({ blob, url, loading, error }) => (
 						<>
-							<ButtonPrimary disabled={loading}>
+							<ButtonPrimary disabled={loading} href="#">
 								{loading ? "Načítavam..." : "Stiahnuť ponuku"}
 							</ButtonPrimary>
 						</>
@@ -368,10 +368,18 @@ export function Pdf({
 					<View style={{ marginRight: 40 }}>
 						<Text style={styles.infoHeading}>DODÁVATEL:</Text>
 						<Text style={styles.text}>{data.supplyer.company_name}</Text>
-						<Text style={styles.text}>ico: {data.supplyer.ico}</Text>
-						<Text style={styles.text}>dic: {data.supplyer.dic}</Text>
-						<Text style={styles.text}>Tel.: {data.supplyer.phone}</Text>
-						<Text style={styles.text}>Email: {data.supplyer.email}</Text>
+						{data.supplyer.ico && (
+							<Text style={styles.text}>IČO: {data.supplyer.ico}</Text>
+						)}
+						{data.supplyer.dic && (
+							<Text style={styles.text}>DIČ: {data.supplyer.dic}</Text>
+						)}
+						{data.supplyer.phone && (
+							<Text style={styles.text}>Tel.: {data.supplyer.phone}</Text>
+						)}
+						{data.supplyer.email && (
+							<Text style={styles.text}>Email: {data.supplyer.email}</Text>
+						)}
 						<Text style={styles.text}>{data.supplyer.web}</Text>
 					</View>
 

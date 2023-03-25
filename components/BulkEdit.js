@@ -29,13 +29,12 @@ export default function BulkEdit() {
 	function handleChange(e) {
 		var newData = { ...changedData };
 		newData.value = parseFloat(e.target.value);
-		console.log(newData);
+
 		setchangedData(newData);
 	}
 
 	useEffect(() => {
 		setchangedData(bulkEditData);
-		console.log(bulkEditData, "Bulk edit data");
 	}, [bulkEditData]);
 
 	function changeBy(val) {
@@ -44,7 +43,6 @@ export default function BulkEdit() {
 		if (newData.value < 0) newData.value = 0;
 		newData.value = parseFloat(newData.value);
 		setchangedData(newData);
-		console.log(newData);
 	}
 
 	function handleSave() {
@@ -55,7 +53,7 @@ export default function BulkEdit() {
 	const handleUserKeyPress = useCallback(
 		(event) => {
 			const { key, keyCode } = event;
-			console.log(keyCode);
+
 			if (keyCode == 13) {
 				handleSave(event);
 			} else if (keyCode === 27) {

@@ -25,12 +25,8 @@ export default function UserSetup() {
 	const router = useRouter();
 
 	useEffect(() => {
-		console.log(userObject);
 		setuserObject({ ...userData });
 	}, [userData]);
-	useEffect(() => {
-		console.log(userObject);
-	}, [page]);
 
 	function nextPage() {
 		setallowNext(false);

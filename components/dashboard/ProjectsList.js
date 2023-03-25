@@ -52,7 +52,6 @@ export default function ProjectList() {
 		var newData = [...data];
 		newData = newData.filter((offer) => offer.id != id);
 		setdata(newData);
-		console.log(newData);
 
 		deleteDoc(docRef)
 			.then((res) => {})

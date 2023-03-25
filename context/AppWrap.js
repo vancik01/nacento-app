@@ -84,7 +84,7 @@ export function AppWrap({ children, dbData }) {
 			data: data,
 			name: name,
 			totals: total,
-			description: description,
+			description: description ? description : "",
 		})
 			.then((snap) => {
 				//setdata(snap.data().data);
@@ -97,6 +97,7 @@ export function AppWrap({ children, dbData }) {
 					autoClose: 3,
 					type: "error",
 				});
+				setsaving(true);
 			});
 	}
 
@@ -387,11 +388,15 @@ export function AppWrap({ children, dbData }) {
 				newData.sections[sectionId].info.total_delivery_price
 			);
 		}
-
-		//newData.sections[sectionId].blocks.push(newBlock);
-
-		if (!template) addTableRow(blockId + 1, sectionId);
+		if (!template) {
+			if (lengthBeforeInsert == 0) {
+				addTableRow(blockId, sectionId);
+			} else {
+				addTableRow(blockId + 1, sectionId);
+			}
+		}
 		updateSectionTotals(newData.sections[sectionId]);
+
 		setdata({ ...newData });
 	}
 

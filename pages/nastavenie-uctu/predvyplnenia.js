@@ -31,7 +31,6 @@ export default function predvyplnenia() {
 		var newData = { ...supplyer };
 		newData[`${e.target.name}`] = e.target.value;
 		setsupplyer(newData);
-		console.log(newData);
 	}
 
 	function handleSave() {
