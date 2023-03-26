@@ -179,7 +179,8 @@ export default function Section({ section, sectionId, isLast }) {
 			)}
 			<div className="absolute right-4 top-2 flex items-center gap-4 w-fit mt-2">
 				<ButtonIcon
-					icon={<TrashBin color="#ef4444" />}
+					id={"0"}
+					icon={<TrashBin color="#9ca3af" />}
 					tooltip="Zmazať sekciu"
 					onClick={() => {
 						deleteSection(sectionId);

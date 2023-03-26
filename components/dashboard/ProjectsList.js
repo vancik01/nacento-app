@@ -35,12 +35,14 @@ import InteractiveOffer from "../../public/SVG/dashboard/InteractiveOffer";
 import { numberWithCommas } from "../../lib/helpers";
 import { round } from "lodash";
 
-export default function ProjectList() {
+export default function ProjectList({clicked}) {
 	const router = useRouter();
 	const [loading, setloading] = useState(false);
 	const [sceletonLoading, setsceletonLoading] = useState(true);
 
 	const [data, setdata] = useState(null);
+	const [selected, setselected] = useState(null);
+
 	const { user } = useAuth();
 	function handleSelectId(id) {
 		setloading(true);
@@ -64,6 +66,7 @@ export default function ProjectList() {
 	useEffect(() => {
 		if (user) {
 			var newData = [];
+			var newSelected = []
 			const collectionRef = collection(firestore, "/offers");
 			const q = query(
 				collectionRef,
@@ -75,32 +78,46 @@ export default function ProjectList() {
 				if (!docs.empty) {
 					docs.docs.map((doc) => {
 						newData.push(doc.data());
+						newSelected.push(false)
 					});
 					setdata(newData);
+					setselected(newSelected)
 				}
 
 				setsceletonLoading(false);
-			});
+			});	
 		}
 	}, [user]);
+
+	useEffect(() => {
+		if(selected){
+			var newSelected = []
+			for(let i=0; i<selected.length; i++) newSelected.push(false)
+			setselected(newSelected)
+		}
+		
+	}, [clicked])
 
 	return (
 		<>
 			<FullPageLoading loading={loading}></FullPageLoading>
 
 			<div className="min-h-screen">
+
 				<div className="flex justify-center items-center h-full">
 					{
 						<div className="w-full">
 							{!sceletonLoading ? (
-								<div className="grid grid-cols-4 w-full mt-10 gap-4">
+								<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  2xl:grid-cols-5 w-full mt-10 gap-4">
 									{data?.map((project, i) => {
 										return (
 											<Project
 												project={project}
-												key={i}
+												ix={i}
 												handleDelete={handleDelete}
 												handleSelectId={handleSelectId}
+												setselect={setselected}
+												select={selected}
 											/>
 										);
 									})}
@@ -116,17 +133,72 @@ export default function ProjectList() {
 	);
 }
 
-function Project({ project, handleDelete, handleSelectId }) {
+function Project({ project, ix, handleDelete, handleSelectId, setselect, select }) {
 	function handleClick() {
 		handleDelete(project.id);
 		settoggleDelete(false);
 	}
 	const [toggleDelete, settoggleDelete] = useState(false);
+	const [selected, setselected] = useState(true)
+
+	const styles = [""]
+
 	return (
-		<div className="shadow-md">
-			<div className="bg-gray-50 min-h-[200px] p-4 flex justify-between flex-col">
-				<div>
-					<div className="text-lg font-medium text-start">Cenová Ponuka</div>
+		<div onClick={(e) => {
+			if(select[ix]) handleSelectId(project.id);
+			else{
+				var newSelected = []
+				for(let i=0; i<select.length; i++) newSelected.push(false)
+				newSelected[ix] = true
+				setselect(newSelected)
+			}
+			e.stopPropagation();
+		}} 
+		
+		className={`shadow-md outline ${!select[ix] ? "outline-gray-300 outline-0 hover:outline-1" : "outline-blue-500 outline-2"}  rounded-sm transition duration-100 ease-in-out`}>
+			<div className="bg-gray-50 rounded-sm min-h-[200px] p-4 flex justify-between flex-col">
+				<div className="">
+					<div className="flex justify-between items-center">
+						<div className="text-lg font-medium text-start">Cenová Ponuka</div>
+						<div className="relative">
+		
+						<ButtonIcon
+							icon={<TrashBin/>}
+							tooltip="Zmazať ponuku"
+							onClick={(e) => {
+								settoggleDelete(!toggleDelete);
+								e.stopPropagation();
+							}}
+							id="del"
+						></ButtonIcon>
+
+						<AnimatePresence mode="wait">
+							{toggleDelete && (
+								<motion.div
+									key={`delete-${project.id}`}
+									initial={{ opacity: 0, y: 10 }}
+									exit={{ opacity: 0, y: 10 }}
+									animate={{ opacity: 1, y: 0 }}
+									transition={{ duration: 0.2 }}
+									className="absolute left-0 mt-1 bg-white shadow-hardShadow min-w-[200px] rounded-md px-3 py-3"
+								>
+									<div className="text-lg">Naozaj zmazať?</div>
+									<ButtonPrimary
+										color={"red"}
+										icon={<TrashBin color={"white"} />}
+										iconBefore
+										className="mt-4"
+										onClick={handleClick}
+									>
+										Potvrdiť zmazanie
+									</ButtonPrimary>
+								</motion.div>
+							)}
+						</AnimatePresence>
+
+					</div>
+					</div>
+					
 					<div className="text-left font-regular text-sm text-black mt-2">
 						Objednávateľ:
 					</div>
@@ -144,63 +216,33 @@ function Project({ project, handleDelete, handleSelectId }) {
 						€<span className="text-[10px]"> vrátane DPH</span>
 					</div>
 				</div>
+
 				<div className="flex justify-between items-center">
 					<div className="text-xs">
 						{moment(project?.created).format("DD.MM. YYYY, HH:mm")}
 					</div>
 
 					<div className="flex items-center justify-center gap-1">
-						<div className="relative">
-							<ButtonIcon
-								icon={<TrashBin />}
-								tooltip="Zmazať ponuku"
-								onClick={() => {
-									settoggleDelete(!toggleDelete);
-								}}
-								id="del"
-							></ButtonIcon>
-
-							<AnimatePresence mode="wait">
-								{toggleDelete && (
-									<motion.div
-										key={`delete-${project.id}`}
-										initial={{ opacity: 0, y: 10 }}
-										exit={{ opacity: 0, y: 10 }}
-										animate={{ opacity: 1, y: 0 }}
-										transition={{ duration: 0.2 }}
-										className="absolute left-0 mt-1 bg-white shadow-hardShadow min-w-[200px] rounded-md px-3 py-3"
-									>
-										<div className="text-lg">Naozaj zmazať?</div>
-										<ButtonPrimary
-											color={"red"}
-											icon={<TrashBin color={"white"} />}
-											iconBefore
-											className="mt-4"
-											onClick={handleClick}
-										>
-											Potvrdiť zmazanie
-										</ButtonPrimary>
-									</motion.div>
-								)}
-							</AnimatePresence>
-						</div>
-						<ButtonIcon
+						
+						{/* <ButtonIcon
 							tooltip="Upraviť ponuku"
 							id="add"
 							onClick={() => {
 								handleSelectId(project.id);
 							}}
 							icon={<Edit />}
-						></ButtonIcon>
+						></ButtonIcon> */}
 					</div>
 				</div>
 			</div>
+			
 			<div className="bg-white px-2 py-3 flex items-center">
 				<div>
 					{/* <InteractiveOffer color="#1400FF"></InteractiveOffer> */}
 					<IconHome color="#1400FF"></IconHome>
 				</div>
-				<div className="text-sm ml-2">{project.name}</div>
+				<div className="text-sm ml-2 overflow-hidden w-[80%]">{project.name}</div>
+
 			</div>
 		</div>
 	);

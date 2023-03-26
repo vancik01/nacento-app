@@ -2,19 +2,32 @@ import * as React from "react"
 
 const OfferIcon = (props) => (
   <svg
-    width={22}
-    height={22}
-    viewBox="0 0 24 24"
+    width={18}
+    viewBox="0 0 804 804"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
     <path
-      d="M13 3H5v18h14V9m-6-6h1l5 5v1m-6-6v4c0 1 1 2 2 2h4"
+      d="M238 767V362M238 118V36"
       stroke="#000"
-      strokeWidth={1.5}
+      strokeWidth={65}
       strokeLinecap="round"
-      strokeLinejoin="round"
+    />
+    <circle cx={237.5} cy={233.5} r={96} stroke="#000" strokeWidth={65} />
+    <path
+      d="M566 36v405M566 685v82"
+      stroke="#000"
+      strokeWidth={65}
+      strokeLinecap="round"
+    />
+    <circle
+      cx={566.5}
+      cy={569.5}
+      r={96}
+      transform="rotate(-180 566.5 569.5)"
+      stroke="#000"
+      strokeWidth={65}
     />
   </svg>
 )

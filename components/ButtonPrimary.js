@@ -24,10 +24,9 @@ export default function ButtonPrimary({
 		const { primaryColor } = useLayout()
 		color = primaryColor
 	} else {
-		color = "#361CC1";
+		if(color) color = color
+		else color = "#361CC1";
 	}
-
-	
 
 	return (
 		<motion.button

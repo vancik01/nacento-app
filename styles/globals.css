@@ -272,8 +272,19 @@ input[type="file"] {
   @apply text-xl shadow-sm font-medium border border-slate-300 rounded-sm focus:border-emerald-600
 }
 
-
 .trans{
   @apply transition duration-200 ease-in-out
 }
 
+
+/* Chrome, Safari, Edge, Opera */
+#form-input::-webkit-outer-spin-button,
+#form-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+#form-input[type=number] {
+  -moz-appearance: textfield;
+}
