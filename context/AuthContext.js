@@ -39,8 +39,8 @@ export default function AuthContext({ children }) {
 						// logOut();
 					} else {
 						setuserData(snap.data());
+						if (snap.data().setup == false) router.push("/user-setup/");
 						setdisplay(true);
-						console.log(snap.data(), "UserData");
 					}
 				});
 				//setdisplay(true);

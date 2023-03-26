@@ -25,6 +25,9 @@ import { createTheme } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 
 import BlockSelector from "./BlockSelector";
+import ButtonIcon from "./ButtonIcon";
+import TrashBin from "../public/SVG/editor/TrashBin";
+import LayoutTemplates from "./editor/LayoutTemplates";
 
 export default function Sidebar() {
 	const {
@@ -48,8 +51,10 @@ export default function Sidebar() {
 		setisHorizontal,
 		changeVariant,
 		variant,
+		saveLayoutTemplate,
 	} = useLayout();
 	const [opened, setopened] = useState("");
+	const [toggleTemplateName, settoggleTemplateName] = useState(true);
 
 	function handleSetOpen(id) {
 		if (opened === "blok" && reorderingBlocks) {
@@ -83,7 +88,6 @@ export default function Sidebar() {
 							<div className="min-w-28 w-28">
 								<Logo color={primaryColor}></Logo>
 							</div>
-
 							<div className="mt-10">
 								<Accordion expanded={opened === "strana"}>
 									<AccordionSummary
@@ -139,60 +143,6 @@ export default function Sidebar() {
 										</div>
 									</AccordionDetails>
 								</Accordion>
-								{/* <Accordion expanded={opened === "sekcia"}>
-									<AccordionSummary
-										expandIcon={<ArrowDown />}
-										onClick={() => {
-											handleSetOpen("sekcia");
-										}}
-									>
-										<div className="flex items-center gap-2">
-											<div className="w-4">
-												<PageIcon color={primaryColor}></PageIcon>
-											</div>
-											<div>Sekcia</div>
-										</div>
-									</AccordionSummary>
-
-									<AccordionDetails>
-										<div>
-											<ButtonPrimary className="w-full" onClick={addSection}>
-												Pridať sekciu
-											</ButtonPrimary>
-										</div>
-									</AccordionDetails>
-								</Accordion>
-
-								<Accordion expanded={opened === "blok"}>
-									<AccordionSummary
-										expandIcon={<ArrowDown />}
-										onClick={() => {
-											handleSetOpen("blok");
-										}}
-									>
-										<div className="flex items-center gap-2">
-											<div className="w-4">
-												<BlockIcon color={primaryColor}></BlockIcon>
-											</div>
-											<div>Blok</div>
-										</div>
-									</AccordionSummary>
-
-									<AccordionDetails>
-										<div className="flex  items-center">
-											<ButtonPrimary
-												className="w-full"
-												variant="outlined"
-												style={{ fontSize: 12 }}
-												onClick={() => {
-													setreorderingBlocks(!reorderingBlocks);
-												}}
-											>
-												{reorderingBlocks ? "Uložiť" : "Usporiadať bloky"}
-											</ButtonPrimary>
-										</div>
-									</AccordionDetails>
-								</Accordion> */}
 
 								<Accordion expanded={opened === "tabulka"}>
 									<AccordionSummary
@@ -275,6 +225,9 @@ export default function Sidebar() {
 												);
 											})}
 										</div>
+										<div>
+											<LayoutTemplates></LayoutTemplates>
+										</div>
 									</AccordionDetails>
 								</Accordion>
 
@@ -336,8 +289,6 @@ export default function Sidebar() {
 								</Accordion>
 
 								<></>
-
-								<BlockSelector></BlockSelector>
 							</div>
 
 							<div className="mt-auto w-full">
@@ -370,6 +321,17 @@ export default function Sidebar() {
 									style={{ color: primaryColor }}
 								>
 									Stiahnuť ponuku
+								</button>
+
+								<button
+									scale={0.98}
+									className="w-full text-sm mt-6"
+									onClick={() => {
+										saveLayoutTemplate();
+									}}
+									style={{ color: primaryColor }}
+								>
+									Uložiť template
 								</button>
 
 								<button className="flex w-full mt-6">

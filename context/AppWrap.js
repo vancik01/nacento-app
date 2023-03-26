@@ -26,6 +26,8 @@ import AddRow from "../public/SVG/AddRow";
 import CenovaPonukaSkeleton from "../components/skeletons/CenovaPonukaSkeleton";
 import { forEach } from "lodash";
 import { useAuth } from "./AuthContext";
+import LayoutContext, { useLayout } from "./LayoutContext";
+import ScreenLayout from "../components/ScreenLayout";
 
 const DataContext = React.createContext();
 
@@ -60,6 +62,7 @@ export function AppWrap({ children, dbData }) {
 	const [templateTrigger, settemplateTrigger] = useState(null);
 
 	const { userData, user } = useAuth();
+	const { getLayout } = useLayout();
 
 	function changeDescription(e) {
 		var newData = description;
@@ -85,6 +88,7 @@ export function AppWrap({ children, dbData }) {
 			name: name,
 			totals: total,
 			description: description ? description : "",
+			layout: getLayout(),
 		})
 			.then((snap) => {
 				//setdata(snap.data().data);

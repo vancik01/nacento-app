@@ -128,13 +128,15 @@ export default function CreateAccount() {
 							.catch((err) => {
 								console.log(err);
 							});
+					} else if (snap.data().setup == false) {
+						router.push("/user-setup/");
 					} else {
-						//router.push("/dashboard");
+						router.push("/dashboard");
 					}
 				});
 			})
 			.catch((err) => {
-				seterror(err);
+				seterror({ firebaseError: "Chyba pri prihlasovaní" });
 				setgoogleLoading(false);
 			});
 	}
@@ -202,7 +204,7 @@ export default function CreateAccount() {
 										loading={userloading}
 										onClick={handleSubmit}
 									>
-										Prihlásiť sa
+										Vytvoriť účet
 									</ButtonLoading>
 								</div>
 

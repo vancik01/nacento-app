@@ -14,6 +14,7 @@ import { useAuth } from "../context/AuthContext";
 import { doc, updateDoc } from "firebase/firestore";
 import { firestore } from "../lib/firebase";
 import { useRouter } from "next/router";
+import Logout from "../components/user_components/Logout";
 
 const Setup = React.createContext();
 
@@ -115,6 +116,9 @@ export default function UserSetup() {
 												Uložiť
 											</ButtonPrimary>
 										)}
+									</div>
+									<div className="mt-8">
+										<Logout></Logout>
 									</div>
 								</div>
 							) : (
