@@ -13,7 +13,7 @@ import debounce from "lodash.debounce";
 import { useRouter } from "next/router";
 import ButtonPrimary from "../components/ButtonPrimary";
 import { toast } from "react-toastify";
-
+import moment from "moment/moment";
 import {
 	splitBetweenBlocks,
 	splitBetweenItems,
@@ -61,6 +61,8 @@ export function AppWrap({ children, dbData }) {
 	const [description, setdescription] = useState(dbData.description);
 	const [templateTrigger, settemplateTrigger] = useState(null);
 	const [dataDB, setdataDB] = useState(dbData);
+	const [signature, setsignature] = useState();
+	const [expiration, setexpiration] = useState();
 
 	const { userData, user } = useAuth();
 	const { getLayout } = useLayout();
@@ -91,6 +93,7 @@ export function AppWrap({ children, dbData }) {
 			totals: total,
 			description: description ? description : "",
 			layout: getLayout(),
+			lastModified: moment().valueOf(),
 		})
 			.then((snap) => {
 				//setdata(snap.data().data);
@@ -642,8 +645,12 @@ export function AppWrap({ children, dbData }) {
 		templateTrigger,
 		settemplateTrigger,
 		triggerTemplate,
-
 		dataDB,
+
+		signature,
+		setsignature,
+		expiration,
+		setexpiration,
 	};
 
 	useEffect(() => {
@@ -664,6 +671,7 @@ export function AppWrap({ children, dbData }) {
 			) : (
 				<CenovaPonukaSkeleton />
 			)}
+
 			{/* <FullPageLoading loading={loading}></FullPageLoading> */}
 		</DataContext.Provider>
 	);

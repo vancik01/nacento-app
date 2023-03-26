@@ -5,6 +5,7 @@ import {
 	getDocs,
 	orderBy,
 	query,
+	updateDoc,
 	where,
 } from "firebase/firestore";
 import ButtonIcon from "../../components/ButtonIcon";
@@ -32,7 +33,7 @@ import Offer from "../../public/SVG/dashboard/EmptyOffer";
 import AddOffer from "../../public/SVG/dashboard/AddOffer";
 import InteractiveOffer from "../../public/SVG/dashboard/InteractiveOffer";
 
-import { numberWithCommas } from "../../lib/helpers";
+import { getLastModified, numberWithCommas } from "../../lib/helpers";
 import { round } from "lodash";
 
 export default function ProjectList() {
@@ -67,7 +68,8 @@ export default function ProjectList() {
 			const collectionRef = collection(firestore, "/offers");
 			const q = query(
 				collectionRef,
-				orderBy("created", "desc"),
+				//orderBy("created", "desc"),
+				orderBy("lastModified", "desc"),
 				where("userId", "==", user.uid)
 			);
 			//const query = query(collectionRef,);
@@ -146,7 +148,8 @@ function Project({ project, handleDelete, handleSelectId }) {
 				</div>
 				<div className="flex justify-between items-center">
 					<div className="text-xs">
-						{moment(project?.created).format("DD.MM. YYYY, HH:mm")}
+						<span>Posledná úprava: </span>{" "}
+						{getLastModified(project?.lastModified)}
 					</div>
 
 					<div className="flex items-center justify-center gap-1">
