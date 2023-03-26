@@ -126,30 +126,45 @@ function Project({ project, handleDelete, handleSelectId }) {
 	const [toggleDelete, settoggleDelete] = useState(false);
 	return (
 		<div className="shadow-md">
-			<div className="bg-gray-50 min-h-[200px] p-4 flex justify-between flex-col">
+			<div className="bg-gray-50 min-h-[250px] p-4 flex justify-between flex-col">
 				<div>
 					<div className="text-lg font-medium text-start">Cenová Ponuka</div>
-					<div className="text-left font-regular text-sm text-black mt-2">
-						Objednávateľ:
-					</div>
-					<div className="text-left font-light text-sm text-gray-500 mt-1">
-						{project.data.customer.name}
-					</div>
+					{project.data.customer.name && (
+						<>
+							<div className="text-left font-regular text-sm text-black mt-2">
+								Objednávateľ:
+							</div>
+							<div className="text-left font-light text-sm text-gray-500 mt-1">
+								{project.data.customer.name}
+							</div>
+						</>
+					)}
 
-					<div className="text-left font-regular text-sm text-black mt-4">
+					<div className="text-left font-regular text-sm text-black mt-3">
 						Cena:
 					</div>
 					<div className="text-left font-light text-sm text-gray-500 mt-1">
 						{project.totals
-							? numberWithCommas(round(parseFloat(project?.totals?.total), 2))
+							? numberWithCommas(parseFloat(project?.totals?.total).toFixed(2))
 							: "00.0"}
 						€<span className="text-[10px]"> vrátane DPH</span>
 					</div>
+
+					{project.expiration && (
+						<>
+							<div className="text-left font-regular text-sm text-black mt-3">
+								Platná do:
+							</div>
+							<div className="text-left font-light text-sm text-gray-500 mt-1">
+								{moment(project.expiration).format("DD.MM. YYYY")} (končí o{" "}
+								{moment(project.expiration).diff(moment(), "days") + 1} dní)
+							</div>
+						</>
+					)}
 				</div>
 				<div className="flex justify-between items-center">
 					<div className="text-xs">
-						<span>Posledná úprava: </span>{" "}
-						{getLastModified(project?.lastModified)}
+						<span>Upravené: </span> {getLastModified(project?.lastModified)}
 					</div>
 
 					<div className="flex items-center justify-center gap-1">

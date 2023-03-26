@@ -11,6 +11,7 @@ import Logo from "../public/SVG/Logo";
 import { Image } from "@react-pdf/renderer";
 import { useLayout } from "../context/LayoutContext";
 import ButtonPrimary from "./ButtonPrimary";
+import moment from "moment/moment";
 
 // Create styles
 Font.register({
@@ -35,7 +36,8 @@ Font.register({
 });
 
 export const DownloadLink = ({ close }) => {
-	const { data, getTitle, name, logo, total } = useData();
+	const { data, getTitle, name, logo, total, expiration, signature } =
+		useData();
 
 	const [displayLink, setdisplayLink] = useState(false);
 	const [title, settitle] = useState(name.toLowerCase());
@@ -77,6 +79,8 @@ export const DownloadLink = ({ close }) => {
 							isHorizontal={layout.isHorizontal}
 							layout={layout}
 							totals={total}
+							expiration={expiration}
+							signature={signature}
 						/>
 					}
 					fileName={`${title}.pdf`}
@@ -104,6 +108,8 @@ export function Pdf({
 	layout,
 	totals,
 	isHorizontal,
+	signature,
+	expiration,
 }) {
 	const variant = layout.variant;
 	const styles = StyleSheet.create({
@@ -278,8 +284,8 @@ export function Pdf({
 			position: "absolute",
 			fontSize: 12,
 			bottom: 20,
-			left: 20,
-			right: 20,
+			left: 40,
+			right: 40,
 			fontFamily: "Poppins",
 			display: "flex",
 			justifyContent: "space-between",
@@ -679,7 +685,7 @@ export function Pdf({
 												<Text
 													style={[
 														styles[`col_total_delivery_price`],
-														{ width: 120 },
+														{ width: 160 },
 														styles.headerUnit,
 													]}
 												>
@@ -688,7 +694,7 @@ export function Pdf({
 												<Text
 													style={[
 														styles[`col_total_delivery_price`],
-														{ width: 120 },
+														{ width: 160 },
 														styles.headerUnit,
 													]}
 												>
@@ -697,7 +703,7 @@ export function Pdf({
 												<Text
 													style={[
 														styles[`col_total_delivery_price`],
-														{ width: 120 },
+														{ width: 160 },
 														styles.headerUnit,
 													]}
 												>
@@ -728,7 +734,7 @@ export function Pdf({
 														<Text
 															style={[
 																styles[`col_total_delivery_price`],
-																{ width: 120 },
+																{ width: 160 },
 																styles.tableUnit,
 															]}
 														>
@@ -740,7 +746,7 @@ export function Pdf({
 														<Text
 															style={[
 																styles[`col_total_delivery_price`],
-																{ width: 120 },
+																{ width: 160 },
 																styles.tableUnit,
 															]}
 														>
@@ -752,7 +758,7 @@ export function Pdf({
 														<Text
 															style={[
 																styles[`col_total_delivery_price`],
-																{ width: 120 },
+																{ width: 160 },
 																styles.tableUnit,
 															]}
 														>
@@ -775,6 +781,12 @@ export function Pdf({
 					</View>
 				)}
 
+				<Footer
+					name={data.supplyer.company_name}
+					signature={signature}
+					expiration={expiration}
+				></Footer>
+
 				<View style={styles.footer} fixed>
 					<Text style={styles.footerText}>{data.supplyer.company_name}</Text>
 
@@ -792,5 +804,85 @@ export function Pdf({
 				</View>
 			</Page>
 		</Document>
+	);
+}
+
+function Footer({ signature, expiration, name }) {
+	const styles = StyleSheet.create({
+		wrap: {
+			display: "flex",
+			flexDirection: "row",
+			justifyContent: "space-between",
+			alignItems: "center",
+			marginTop: "50px",
+		},
+		section: {
+			marginHorizontal: 40,
+			marginVertical: 10,
+		},
+		info: {
+			width: "50%",
+		},
+		signature: {
+			width: "50%",
+		},
+		text: {
+			fontSize: 11,
+			color: "#9CA3AF",
+		},
+		heading: {
+			fontSize: 11,
+			color: "black",
+		},
+		img: {
+			width: 200,
+			marginLeft: "auto",
+		},
+	});
+	return (
+		<View style={[styles.section, { position: "absolute", bottom: 60 }]}>
+			<View style={styles.wrap}>
+				<View style={styles.info}>
+					<View style={{ marginBottom: 10 }}>
+						<Text style={styles.heading}>Ponuku vypracoval:</Text>
+						<Text style={styles.text}>{name}</Text>
+					</View>
+					<View>
+						<Text style={styles.heading}>Platnosť cenovej ponuky:</Text>
+						<Text style={styles.text}>
+							do {moment(expiration).format("DD.MM:YYYY")}
+						</Text>
+					</View>
+				</View>
+				<View style={styles.signature}>
+					<Image style={styles.img} src={signature} />
+				</View>
+			</View>
+			<View
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					justifyContent: "center",
+					alignItems: "center",
+					marginTop: 10,
+				}}
+			>
+				<View
+					style={{
+						display: "flex",
+						flexDirection: "row",
+						justifyContent: "center",
+						alignItems: "baseline",
+						marginTop: 10,
+					}}
+				>
+					<Text style={{ fontSize: 8, marginRight: 4 }}>
+						Vytvorené pomocou aplikácie
+					</Text>
+					<Image style={{ width: 50 }} src={"/logo.png"}></Image>
+				</View>
+				<Text style={{ fontSize: 8, marginTop: 4 }}>nacento.online</Text>
+			</View>
+		</View>
 	);
 }

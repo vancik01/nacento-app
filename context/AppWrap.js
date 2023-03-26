@@ -62,7 +62,9 @@ export function AppWrap({ children, dbData }) {
 	const [templateTrigger, settemplateTrigger] = useState(null);
 	const [dataDB, setdataDB] = useState(dbData);
 	const [signature, setsignature] = useState();
-	const [expiration, setexpiration] = useState();
+	const [expiration, setexpiration] = useState(
+		dbData.expiration && moment(dbData.expiration).valueOf()
+	);
 
 	const { userData, user } = useAuth();
 	const { getLayout } = useLayout();
@@ -82,7 +84,6 @@ export function AppWrap({ children, dbData }) {
 	const router = useRouter();
 
 	function handleSave() {
-		console.log(data);
 		const offerId = router.query.projectId;
 		setsaving(true);
 		const docRef = doc(firestore, `/offers/${offerId}`);
@@ -94,6 +95,7 @@ export function AppWrap({ children, dbData }) {
 			description: description ? description : "",
 			layout: getLayout(),
 			lastModified: moment().valueOf(),
+			expiration: expiration ? moment(expiration).valueOf() : null,
 		})
 			.then((snap) => {
 				//setdata(snap.data().data);

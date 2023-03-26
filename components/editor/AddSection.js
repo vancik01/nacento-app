@@ -6,7 +6,7 @@ import ButtonPrimary from "../ButtonPrimary";
 export default function AddSection({ sectionId }) {
 	const { addBlock, addSection } = useData();
 	return (
-		<div className="mt-16">
+		<div className="">
 			<div className="w-full p-6 border border-dashed min-h-[100px] flex justify-center items-center border-gray-600">
 				<ButtonPrimary
 					onClick={() => {

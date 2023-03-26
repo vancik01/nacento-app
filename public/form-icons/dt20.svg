@@ -4,8 +4,8 @@
 <path d="M11.5 265L102 311.5" stroke="white" stroke-width="11"/>
 <path d="M383.5 1020.5L373.5 448.499L272.5 402.999M272.5 402.999C285.667 394.332 300.4 377.299 270 362.499C239.6 347.699 183 319.666 158.5 307.499C149.333 302.999 124.5 297.299 98.5 310.499C98.5 314.499 100.167 316.166 101 316.499L121 856.499M272.5 402.999L267.5 406.499L276 914.499" stroke="white" stroke-width="11"/>
 <path d="M1346.5 158L374 447.5" stroke="white" stroke-width="11"/>
-<path d="M928 92.5V204.5" stroke="white" stroke-width="6" stroke-linecap="round"/>
-<path d="M320 425.5L326 987.5" stroke="white" stroke-width="6" stroke-linecap="round"/>
-<path d="M57 288.5L74 829.5" stroke="white" stroke-width="6" stroke-linecap="round"/>
-<path d="M462 951.5L1259 675" stroke="white" stroke-width="6" stroke-linecap="round"/>
+<path d="M928 92.5V204.5" stroke="white" stroke-width="6" strokeLinecap="round"/>
+<path d="M320 425.5L326 987.5" stroke="white" stroke-width="6" strokeLinecap="round"/>
+<path d="M57 288.5L74 829.5" stroke="white" stroke-width="6" strokeLinecap="round"/>
+<path d="M462 951.5L1259 675" stroke="white" stroke-width="6" strokeLinecap="round"/>
 </svg>
