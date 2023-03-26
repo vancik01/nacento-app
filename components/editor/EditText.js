@@ -77,10 +77,12 @@ export default function EditText({
 						variant="outlined"
 						placeholder="Zadajte názov..."
 						value={text}
+						defaultValue={initialValue}
 						style={{ fontSize: fontSize, width: `${width}ch` }}
 						onChange={(e) => {
 							settext(e.target.value);
 						}}
+						spellCheck={false}
 						autoFocus
 					/>
 

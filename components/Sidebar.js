@@ -225,9 +225,6 @@ export default function Sidebar() {
 												);
 											})}
 										</div>
-										<div>
-											<LayoutTemplates></LayoutTemplates>
-										</div>
 									</AccordionDetails>
 								</Accordion>
 
@@ -287,6 +284,27 @@ export default function Sidebar() {
 										</div>
 									</AccordionDetails>
 								</Accordion>
+								<Accordion expanded={opened === "template"}>
+									<AccordionSummary
+										expandIcon={<ArrowDown />}
+										onClick={() => {
+											handleSetOpen("template");
+										}}
+									>
+										<div className="flex items-center gap-2">
+											<div className="w-4">
+												<VariantIcon color={primaryColor} />
+											</div>
+											<div>Uložené šablóny</div>
+										</div>
+									</AccordionSummary>
+
+									<AccordionDetails>
+										<div className="flex justify-center items-center flex-col gap-2">
+											<LayoutTemplates />
+										</div>
+									</AccordionDetails>
+								</Accordion>
 
 								<></>
 							</div>
@@ -302,7 +320,7 @@ export default function Sidebar() {
 									Uložiť zmeny
 								</ButtonPrimary>
 
-								<ButtonPrimary
+								{/* <ButtonPrimary
 									scale={0.98}
 									className="w-full text-sm mt-10"
 									onClick={() => {
@@ -310,7 +328,7 @@ export default function Sidebar() {
 									}}
 								>
 									Template
-								</ButtonPrimary>
+								</ButtonPrimary> */}
 
 								<button
 									scale={0.98}
@@ -321,17 +339,6 @@ export default function Sidebar() {
 									style={{ color: primaryColor }}
 								>
 									Stiahnuť ponuku
-								</button>
-
-								<button
-									scale={0.98}
-									className="w-full text-sm mt-6"
-									onClick={() => {
-										saveLayoutTemplate();
-									}}
-									style={{ color: primaryColor }}
-								>
-									Uložiť template
 								</button>
 
 								<button className="flex w-full mt-6">

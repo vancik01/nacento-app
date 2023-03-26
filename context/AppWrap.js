@@ -60,6 +60,7 @@ export function AppWrap({ children, dbData }) {
 	const [showUI, setshowUI] = useState(false);
 	const [description, setdescription] = useState(dbData.description);
 	const [templateTrigger, settemplateTrigger] = useState(null);
+	const [dataDB, setdataDB] = useState(dbData);
 
 	const { userData, user } = useAuth();
 	const { getLayout } = useLayout();
@@ -79,6 +80,7 @@ export function AppWrap({ children, dbData }) {
 	const router = useRouter();
 
 	function handleSave() {
+		console.log(data);
 		const offerId = router.query.projectId;
 		setsaving(true);
 		const docRef = doc(firestore, `/offers/${offerId}`);
@@ -92,15 +94,12 @@ export function AppWrap({ children, dbData }) {
 		})
 			.then((snap) => {
 				//setdata(snap.data().data);
-				toast("Dáta sa uložili", { autoClose: 3000, type: "success" });
+				toast("Dáta sa uložili", { type: "success" });
 				setsaving(false);
 			})
 			.catch((err) => {
 				console.log(err);
-				toast("Vyskytla sa chyba pri ukladaní", {
-					autoClose: 3,
-					type: "error",
-				});
+				toast("Vyskytla sa chyba pri ukladaní", { type: "error" });
 				setsaving(true);
 			});
 	}
@@ -147,11 +146,17 @@ export function AppWrap({ children, dbData }) {
 			loadTotals();
 			var newData = { ...data };
 			newData.supplyer.company_name = userData?.name;
-			newData.supplyer.dic = userData?.supplyer.dic;
-			newData.supplyer.email = userData.email;
-			newData.supplyer.ico = userData?.supplyer.ico;
-			newData.supplyer.phone = userData?.supplyer.phone;
-			newData.supplyer.web = userData?.supplyer.web;
+			newData.supplyer.dic = userData.supplyer.dic ? userData.supplyer.dic : "";
+			newData.supplyer.email = userData.email ? userData.email : "";
+			newData.supplyer.ico = userData.supplyer.ico
+				? userData?.supplyer.ico
+				: "";
+			newData.supplyer.phone = userData.supplyer.phone
+				? userData?.supplyer.phone
+				: "";
+			newData.supplyer.web = userData.supplyer.web
+				? userData?.supplyer.web
+				: "";
 			setdata(newData);
 			setshowUI(true);
 		}
@@ -551,7 +556,7 @@ export function AppWrap({ children, dbData }) {
 		});
 
 		setdata(newData);
-		addBlock(newData.sections.length - 1, -1);
+		addBlock(newData.sections.length - 1, 0);
 		setTimeout(() => {
 			document
 				.getElementById("last-section")
@@ -637,6 +642,8 @@ export function AppWrap({ children, dbData }) {
 		templateTrigger,
 		settemplateTrigger,
 		triggerTemplate,
+
+		dataDB,
 	};
 
 	useEffect(() => {

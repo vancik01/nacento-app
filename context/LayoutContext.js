@@ -49,29 +49,23 @@ export default function LayoutContext({ children, layout, headers }) {
 		} else {
 			newData.push(columnId);
 		}
-
-		var row = getColumnWidth("index");
-
-		headers.map((header, i) => {
-			if (newData.includes(header)) {
-				row += " " + getColumnWidth(header);
-			}
-		});
-		//row += " 40px"
-
-		settableRowTemplate(row);
+		settableRowTemplate(getGridTemplate(newData));
 		setdisplayColumns(newData);
 	}
 
-	useEffect(() => {
+	function getGridTemplate(columns) {
 		var row = getColumnWidth("index");
 		headers.map((header, i) => {
-			if (displayColumns.includes(header)) {
+			if (columns.includes(header)) {
 				row += " " + getColumnWidth(header);
 			}
 		});
 		//row += " 40px"
-		settableRowTemplate(row);
+		return row;
+	}
+
+	useEffect(() => {
+		settableRowTemplate(getGridTemplate(layout.displayColumns));
 	}, []);
 
 	function getLayout() {
@@ -87,11 +81,19 @@ export default function LayoutContext({ children, layout, headers }) {
 		setvariant(getVariantConfig(variant));
 	}
 
-	function saveLayoutTemplate() {
+	function saveLayoutTemplate(name) {
 		const docRef = doc(firestore, `/users/${user.uid}`);
 		updateDoc(docRef, {
-			layoutTemplate: arrayUnion({ ...getLayout(), name: "Test" }),
+			layoutTemplate: arrayUnion({ ...getLayout(), name: name }),
 		}).then(() => {});
+	}
+
+	function setLayout(layout) {
+		settableRowTemplate(getGridTemplate(layout.displayColumns));
+		setdisplayColumns(layout.displayColumns);
+		setprimaryColor(layout.primaryColor);
+		setisHorizontal(layout.isHorizontal);
+		changeVariant(layout.variant);
 	}
 
 	const value = {
@@ -108,6 +110,7 @@ export default function LayoutContext({ children, layout, headers }) {
 		variant,
 		changeVariant,
 		saveLayoutTemplate,
+		setLayout,
 	};
 
 	return <Layout.Provider value={value}>{children}</Layout.Provider>;

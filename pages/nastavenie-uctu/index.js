@@ -33,7 +33,7 @@ export default function index() {
 	function handleSave() {
 		const docRef = doc(firestore, `/users/${user.uid}`);
 		updateDoc(docRef, { name: name }).then(() => {
-			toast("Dáta sa uložili", { autoClose: 3000, type: "success" });
+			toast("Dáta sa uložili", { type: "success" });
 		});
 	}
 

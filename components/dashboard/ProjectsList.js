@@ -198,7 +198,7 @@ function Project({ project, handleDelete, handleSelectId }) {
 			<div className="bg-white px-2 py-3 flex items-center">
 				<div>
 					{/* <InteractiveOffer color="#1400FF"></InteractiveOffer> */}
-					<IconHome color="#1400FF"></IconHome>
+					<IconHome color={project?.layout?.primaryColor}></IconHome>
 				</div>
 				<div className="text-sm ml-2">{project.name}</div>
 			</div>

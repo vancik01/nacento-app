@@ -39,7 +39,11 @@ export default function AuthContext({ children }) {
 						// logOut();
 					} else {
 						setuserData(snap.data());
-						if (snap.data().setup == false) router.push("/user-setup/");
+						if (
+							snap.data().setup == false &&
+							!router.asPath.includes("user-setup")
+						)
+							router.push("/user-setup/");
 						setdisplay(true);
 					}
 				});
