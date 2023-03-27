@@ -1,5 +1,5 @@
 import React from "react";
-import { useLayout } from "../context/LayoutContext";
+import { useLayout } from "../../context/LayoutContext";
 import { motion } from "framer-motion";
 import { Link } from "@mui/material";
 import { useRouter } from "next/router";
@@ -19,14 +19,14 @@ export default function ButtonPrimary({
 }) {
 	const layout = useLayout();
 	const router = useRouter();
-
-	if(color) color = color
-
-	else if(typeof(layout) !== "undefined"){
-		const { primaryColor } = useLayout()
-		color = primaryColor
-	} else color = "#361CC1";
-
+	if (!color) {
+		if (typeof layout !== "undefined") {
+			const { primaryColor } = useLayout();
+			color = primaryColor;
+		} else {
+			color = "#361CC1";
+		}
+	}
 
 	return (
 		<motion.button

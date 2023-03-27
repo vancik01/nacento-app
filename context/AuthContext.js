@@ -9,7 +9,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 import { auth, firestore } from "../lib/firebase";
 
-const publicRoutes = ["/login/", "/vytvorit-ucet/"];
+const publicRoutes = ["/login/", "/vytvorit-ucet/", "/view/"];
 
 const Auth = React.createContext();
 import { GoogleAuthProvider } from "firebase/auth";
@@ -26,7 +26,13 @@ export default function AuthContext({ children }) {
 
 		if (!loading) {
 			if (!user) {
-				if (publicRoutes.includes(router.asPath)) {
+				var isPublic = false;
+				publicRoutes.map((r) => {
+					if (router.asPath.includes(r)) {
+						isPublic = true;
+					}
+				});
+				if (isPublic) {
 					setdisplay(true);
 				} else {
 					router.push("/login");

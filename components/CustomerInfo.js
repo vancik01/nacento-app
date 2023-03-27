@@ -4,8 +4,7 @@ import React, { useState } from "react";
 import { useData } from "../context/AppWrap";
 import Save from "../public/SVG/buttons/Save";
 import EditPen from "../public/SVG/EditPen";
-import ButtonPrimary from "./ButtonPrimary";
-import ButtonSecondary from "./ButtonSecondary";
+import ButtonSecondary from "./buttons/ButtonSecondary";
 
 export default function CustomerInfo({scale}) {
 	const { data, changeCustomerData } = useData();

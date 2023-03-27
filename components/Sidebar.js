@@ -12,7 +12,7 @@ import PaintBrush from "../public/SVG/PaintBrush";
 import TableIcon from "../public/SVG/TableIcon";
 import { motion } from "framer-motion";
 import { layoutConfig } from "../lib/data";
-import ButtonPrimary from "./ButtonPrimary";
+import ButtonPrimary from "./buttons/ButtonPrimary";
 import Paper from "../public/SVG/Paper";
 import { AnimatePresence } from "framer-motion";
 import { AnimateSharedLayout } from "framer-motion";
@@ -25,7 +25,7 @@ import { createTheme } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 
 import BlockSelector from "./BlockSelector";
-import ButtonIcon from "./ButtonIcon";
+import ButtonIcon from "./buttons/ButtonIcon";
 import TrashBin from "../public/SVG/editor/TrashBin";
 import LayoutTemplates from "./editor/LayoutTemplates";
 

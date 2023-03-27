@@ -1,5 +1,5 @@
 import React from "react";
-import { useLayout } from "../context/LayoutContext";
+import { useLayout } from "../../context/LayoutContext";
 import { motion } from "framer-motion";
 import { Link } from "@mui/material";
 import { useRouter } from "next/router";
