@@ -5,12 +5,9 @@ import Settings from "../../public/SVG/account/Settings";
 import Prefill from "../../public/SVG/account/Prefill";
 import Plus from "../../public/SVG/buttons/Plus";
 import Logout from "./Logout";
-import ButtonSecondary from "../ButtonSecondary";
-import ButtonPrimary from "../ButtonPrimary";
+import ButtonPrimary from "../buttons/ButtonPrimary";
 import ArrowBack from "../../public/SVG/buttons/ArrowBack";
-import Dashboard from "../../public/SVG/buttons/Dashboard";
 import { useRouter } from "next/router";
-import Back from "../../public/SVG/user_setup/Back";
 
 export default function AccountSidebarMenu() {
 	const { user, userData } = useAuth();
