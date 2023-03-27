@@ -4,7 +4,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import ButtonLoading from "../components/ButtonLoading";
+import ButtonLoading from "../components/buttons/ButtonLoading";
 import Layout from "../components/Layout";
 import FullPageLoading from "../components/loading/FullPageLoading";
 import { LoggedIn } from "../components/LoggedIn";

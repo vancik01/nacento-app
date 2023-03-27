@@ -1,7 +1,7 @@
 import { Button, Input } from "@mui/material";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useData } from "../../context/AppWrap";
-import ButtonPrimary from "./ButtonPrimary";
+import ButtonPrimary from "../buttons/ButtonPrimary";
 import ButtonTag from "./ButtonTag";
 import PriceChangeIndicator from "../PriceChangeIndicator";
 import { motion } from "framer-motion";

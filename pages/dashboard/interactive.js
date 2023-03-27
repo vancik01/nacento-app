@@ -6,7 +6,7 @@ import HomeSVG from "../../components/HomeSVG";
 import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/router";
 
-import ButtonSecondary from "../buttons/components/ButtonSecondary";
+import ButtonSecondary from "../components/buttons/ButtonSecondary";
 import ArrowBack from "../../public/SVG/buttons/ArrowBack";
 
 import { UseStepperContext } from "../../context/StepperContext";

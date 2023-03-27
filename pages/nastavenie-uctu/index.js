@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import ButtonPrimary from "../../buttons/components/ButtonPrimary";
+import ButtonPrimary from "../../components/buttons/ButtonPrimary";
 import FullPageLoading from "../../components/loading/FullPageLoading";
 import Prefill from "../../public/SVG/account/Prefill";
 import Logout from "../../components/user_components/Logout";
