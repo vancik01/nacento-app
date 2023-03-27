@@ -58,17 +58,19 @@ export default function Block({
 								}}
 							/>
 
-							<div className="flex items-center gap-4 w-fit">
+							<div className="flex items-center gap-1 w-fit">
 								<SaveBlockTemplate block={block} />
 								<AddBlockToolbar sectionId={sectionId} blockId={blockId} />
 
 								<ButtonIcon
+									id={"1"}
+									tooltip="Zmazať blok"
 									icon={<TrashBin color={"#9ca3af"} />}
 									onClick={() => {
 										deleteBlock(sectionId, blockId);
 									}}
 								>
-									Zmazať blok
+									
 								</ButtonIcon>
 
 								{collapsed && (

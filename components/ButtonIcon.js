@@ -8,7 +8,7 @@ export default function ButtonIcon({ icon, children, onClick, tooltip, id }) {
 
 	return (
 		<>
-			{/* {tooltip && (
+			{tooltip && (
 				<Tooltip
 					id={`tooltip`}
 					anchorSelect={`#button-icon-${id}`}
@@ -16,7 +16,7 @@ export default function ButtonIcon({ icon, children, onClick, tooltip, id }) {
 					content={tooltip}
 					delayHide={3}
 				/>
-			)} */}
+			)}
 			<motion.button
 				id={`button-icon-${id}`}
 				whileTap={{ scale: 0.7 }}

@@ -86,7 +86,7 @@ export default function Sidebar() {
 					<div className="py-10 px-6  shadow-lg bg-white h-screen overflow-y-scroll bg-scrol-gray-50">
 						<div className="flex flex-col min-h-full">
 							<div className="min-w-28 w-28">
-								<Logo color={primaryColor}></Logo>
+								<Logo></Logo>
 							</div>
 							<div className="mt-10">
 								<Accordion expanded={opened === "strana"}>
@@ -98,7 +98,7 @@ export default function Sidebar() {
 									>
 										<div className="flex items-center gap-2">
 											<div className="w-4">
-												<PageIcon color={primaryColor}></PageIcon>
+												<PageIcon color={"#63A695"}></PageIcon>
 											</div>
 											<div>Strana</div>
 										</div>
@@ -113,7 +113,7 @@ export default function Sidebar() {
 														setisHorizontal(false);
 													}}
 													style={{
-														backgroundColor: !isHorizontal ? primaryColor : "",
+														backgroundColor: !isHorizontal ? "#63A695" : "",
 													}}
 													className="w-10 h-10 bg-gray-100 flex items-center justify-center rounded-md"
 												>
@@ -129,7 +129,7 @@ export default function Sidebar() {
 														setisHorizontal(true);
 													}}
 													style={{
-														backgroundColor: isHorizontal ? primaryColor : "",
+														backgroundColor: isHorizontal ? "#63A695" : "",
 													}}
 													className="w-10 h-10 bg-gray-100 flex items-center justify-center rounded-md"
 												>
@@ -152,10 +152,10 @@ export default function Sidebar() {
 										}}
 									>
 										<div className="flex items-center gap-2">
-											<TableIcon color={primaryColor}></TableIcon>
+											<TableIcon color={"#63A695"}></TableIcon>
 											<div className="flex flex-row gap-3 items-center">
-												<div>Tabulka</div>
-												<Pro></Pro>
+												<div>Tabuľka</div>
+												{/* <Pro></Pro> */}
 											</div>
 										</div>
 									</AccordionSummary>
@@ -175,7 +175,7 @@ export default function Sidebar() {
 																	({getTitle(header, "sk").short})
 																</span>
 															</div>
-															<Switch
+															<Switch																
 																size="small"
 																defaultChecked={displayColumns.includes(header)}
 																onChange={() => {
@@ -199,7 +199,7 @@ export default function Sidebar() {
 									>
 										<div className="flex items-center gap-2">
 											<div className="w-4">
-												<PaintBrush color={primaryColor}></PaintBrush>
+												<PaintBrush color={"#63A695"}></PaintBrush>
 											</div>
 											<div>Vzhľad</div>
 										</div>
@@ -237,7 +237,7 @@ export default function Sidebar() {
 									>
 										<div className="flex items-center gap-2">
 											<div className="w-4">
-												<VariantIcon color={primaryColor} />
+												<VariantIcon color={"#63A695"} />
 											</div>
 											<div>Variant</div>
 										</div>
@@ -253,7 +253,7 @@ export default function Sidebar() {
 												onClick={() => {
 													changeVariant("basic");
 												}}
-												color={variant.id !== "basic" ? "#d5d5d5" : ""}
+												color={variant.id !== "basic" ? "#d5d5d5" : "#63A695"}
 											>
 												Jednoduchá
 											</ButtonPrimary>
@@ -262,24 +262,24 @@ export default function Sidebar() {
 													changeVariant("normal");
 												}}
 												className="text-sm w-full"
-												color={variant.id !== "normal" ? "#d5d5d5" : ""}
+												color={variant.id !== "normal" ? "#d5d5d5" : "#63A695"}
 											>
-												Štandard
+												Štandardná
 											</ButtonPrimary>
 
-											<div className="relative w-full mt-10">
+											<div className="relative w-full">
 												<ButtonPrimary
 													onClick={() => {
 														changeVariant("pro");
 													}}
 													className="text-sm w-full"
-													color={variant.id !== "pro" ? "#d5d5d5" : ""}
+													color={variant.id !== "pro" ? "#d5d5d5" : "#63A695"}
 												>
 													Profesionálna
 												</ButtonPrimary>
-												<div className="absolute -top-2 -right-2">
+												{/* <div className="absolute -top-2 -right-2">
 													<Pro></Pro>
-												</div>
+												</div> */}
 											</div>
 										</div>
 									</AccordionDetails>
@@ -293,7 +293,7 @@ export default function Sidebar() {
 									>
 										<div className="flex items-center gap-2">
 											<div className="w-4">
-												<VariantIcon color={primaryColor} />
+												<VariantIcon color={"#63A695"} />
 											</div>
 											<div>Uložené šablóny</div>
 										</div>
@@ -306,31 +306,44 @@ export default function Sidebar() {
 									</AccordionDetails>
 								</Accordion>
 
-								<></>
+								<div className="mt-8">Pridať práce do ponuky:</div>
+								<ButtonPrimary
+									scale={0.98}
+									className="w-full text-base mt-1"
+									onClick={() => {
+										triggerTemplate(0, 0, 0, "");
+									}}
+									color="#63A695"
+								>
+									Výber z databázy prác
+								</ButtonPrimary>			
+								
 							</div>
 
-							<div className="mt-auto w-full">
+							<div className="mt-auto w-full flex flex-col gap-2">
 								<ButtonPrimary
 									scale={0.98}
 									className="w-full text-sm"
-									onClick={handleSave}
+									onClick={() => handleSave(true)}
 									style={{ color: primaryColor }}
 									disabled={saving}
+									color="#63A695"
 								>
 									Uložiť zmeny
 								</ButtonPrimary>
 
-								{/* <ButtonPrimary
+								<ButtonPrimary
 									scale={0.98}
-									className="w-full text-sm mt-10"
+									className="w-full text-sm"
 									onClick={() => {
-										triggerTemplate(0, 0, 0, "");
+										setdownload(true);
 									}}
+									color="#63A695"
 								>
-									Template
-								</ButtonPrimary> */}
+									Stiahnuť ponuku
+								</ButtonPrimary>
 
-								<button
+								 {/* <button
 									scale={0.98}
 									className="w-full text-sm mt-6"
 									onClick={() => {
@@ -339,7 +352,7 @@ export default function Sidebar() {
 									style={{ color: primaryColor }}
 								>
 									Stiahnuť ponuku
-								</button>
+								</button> */}
 
 								<button className="flex w-full mt-6">
 									<div

@@ -1,6 +1,6 @@
 import { Link } from "@mui/material";
 import Head from "next/head";
-import React from "react";
+import React, { useState } from "react";
 import CreateToolbar from "../../components/dashboard/CreateToolbar";
 import ProjectList from "../../components/dashboard/ProjectsList";
 import TeamsList from "../../components/dashboard/TeamsList";
@@ -14,11 +14,12 @@ import { useAuth } from "../../context/AuthContext"
 
 export default function Dashboard() {
 	const { userData } = useAuth()
+	const [clicked, setclicked] = useState(false)
 
 	return (
 		<div>
 			<Head>
-				<title>Dashboard</title>
+				<title>Naceňto</title>
 			</Head>
 			{/* <div style={{ backgroundColor: "#363636" }} className={"drop-shadow	"}> */}
 			<div style={{ backgroundColor: "#2C2C2C" }} className={"drop-shadow	"}>
@@ -42,12 +43,12 @@ export default function Dashboard() {
 				{/* </Layout> */}
 			</div>
 
-			<div className="xl:grid" style={{ gridTemplateColumns: "240px 1fr" }}>
+			<div className="xl:grid" onClick={() => setclicked(!clicked)} style={{ gridTemplateColumns: "240px 1fr" }}>
 				<TeamsList></TeamsList>
 
 				<div className="mb-16 mt-8 mx-16">
 					<CreateToolbar></CreateToolbar>
-					<ProjectList></ProjectList>
+					<ProjectList clicked={clicked}></ProjectList>
 				</div>
 			</div>
 		</div>

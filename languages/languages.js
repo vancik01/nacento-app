@@ -29,7 +29,7 @@ export const lang = {
 			short: "cmj",
 		},
 		total_delivery_price: {
-			long: "Cena dedávky",
+			long: "Cena dodávky",
 			short: "cd",
 		},
 		total_construction_price: {

@@ -57,14 +57,6 @@ export default function ScreenLayout() {
 
 					<div>
 						<AnimatePresence>
-							{
-								<div className="z-10 fixed left-0 right-0 bottom-0 transition-all">
-									<BottomBar></BottomBar>
-								</div>
-							}
-						</AnimatePresence>
-
-						<AnimatePresence>
 							{openTemplate && (
 								<TemplateContext>
 									<motion.div

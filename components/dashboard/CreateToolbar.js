@@ -22,7 +22,7 @@ import { motion } from "framer-motion";
 
 export default function CreateToolbar() {
 	return (
-		<div className=" flex items-center justify-start gap-8">
+		<div className="flex flex-col sm:flex-row sm:items-center justify-start gap-2 sm:gap-8">
 			<AddEmpty
 				text="Prázdna cenová ponuka"
 				subtext="Začnite od nuly"
@@ -46,14 +46,14 @@ function AddButton({ text, subtext, color, onClick }) {
 			onClick={() => {
 				router.push(`/dashboard/interactive/`);
 			}}
-			className="py-3 px-3 border rounded-md flex items-center justify-center gap-2 text-start hover:bg-gray-50 transition-all"
+			className="py-3 px-3 cursor-default border rounded-md flex items-center justify-between sm:justify-center gap-2 text-start trans hover:bg-gray-100 transition-all"
 		>
 			{/* <IconHome color={color}></IconHome> */}
 			{/* <InteractiveOffer color={color}></InteractiveOffer> */}
 			<InteractiveOffer color={color}></InteractiveOffer>
 
 			<div>
-				<div className="text-sm font-regular">{text}</div>
+				<div className="text-xs md:text-sm font-regular">{text}</div>
 				<div className="text-xs font-light text-gray-400">{subtext}</div>
 			</div>
 
@@ -109,11 +109,11 @@ function AddFromFile({ text, color, onClick }) {
 	}
 
 	return (
-		<div>
+		<div className="hidden lg:block">
 			<label
 				htmlFor="fileInput"
 				onClick={onClick}
-				className="py-3 px-3 border rounded-md flex items-center border-dashed justify-center gap-2 text-start hover:bg-gray-50 transition-all"
+				className="py-3 px-3 border rounded-md flex items-center border-dashed justify-center gap-2 text-start trans hover:bg-gray-100 transition-all"
 			>
 				<JsonOffer color={color}></JsonOffer>
 				<div>
@@ -187,19 +187,19 @@ function AddEmpty({ text, subtext, color }) {
 	}
 
 	return (
-		<div className="relative">
+		<div className="">
 			<FullPageLoading loading={loading}></FullPageLoading>
 			<button
 				onClick={() => {
 					//setdisplay(true);
 					createEmpty();
 				}}
-				className=" py-3 px-3 border rounded-md flex items-center justify-center gap-2 text-start hover:bg-gray-50 transition-all"
+				className="w-full py-3 px-3 cursor-default border rounded-md flex items-center justify-between sm:justify-center gap-2 text-start trans hover:bg-gray-100 transition-all"
 			>
 				{/* <IconHome color={color}></IconHome> */}
 				<AddOffer color={color}></AddOffer>
 				<div>
-					<div className="text-sm font-regular">{text}</div>
+					<div className="text-xs md:text-sm font-regular">{text}</div>
 					<div className="text-xs font-light text-gray-400">{subtext}</div>
 				</div>
 

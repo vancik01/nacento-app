@@ -7,7 +7,7 @@ import EditPen from "../public/SVG/EditPen";
 import ButtonPrimary from "./ButtonPrimary";
 import ButtonSecondary from "./ButtonSecondary";
 
-export default function CustomerInfo() {
+export default function CustomerInfo({scale}) {
 	const { data, changeCustomerData } = useData();
 	const [editing, setediting] = useState(true);
 	const [customer, setcustomer] = useState(data.customer);
@@ -27,7 +27,7 @@ export default function CustomerInfo() {
 		return (
 			<div className="min-w-[200px]">
 				<div className="relative w-fit">
-					<div className="mb-2 text-gray-300 capitalize">OBJEDNÁVATEL:</div>
+					<div className={`${scale && "text-xl"} mb-2 text-gray-300 capitalize`}>OBJEDNÁVATEĽ:</div>
 					<button
 						onClick={() => {
 							setediting(true);
@@ -38,23 +38,23 @@ export default function CustomerInfo() {
 					</button>
 				</div>
 
-				<div className="text-sm">
+				<div className={`${scale? "text-lg" : "text-sm"}`}>
 					<div>{customer.name}</div>
 				</div>
 			</div>
 		);
 	} else {
 		return (
-			<div className="min-w-[200px]">
-				<div className="mb-2 text-gray-300 capitalize">OBJEDNÁVATEL:</div>
+			<div className="max-w-[200px]">
+				<div className={`${scale && "text-xl"} mb-2 text-gray-300 capitalize`}>OBJEDNÁVATEL:</div>
 				<div className="flex flex-col gap-1 text-sm">
 					<input
+						className={`${scale? "text-lg" : "text-sm"} outline-none w-[100%]`}
 						onChange={handleChange}
 						name="name"
 						variant="standard"
 						placeholder="Meno Objednávatela"
 						value={customer.name}
-						className="outline-none"
 					></input>
 				</div>
 				<ButtonSecondary

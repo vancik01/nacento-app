@@ -86,7 +86,7 @@ export function AppWrap({ children, dbData }) {
 	const [initialTotal, setinitialTotal] = useState(total);
 	const router = useRouter();
 
-	function handleSave() {
+	function handleSave(show) {
 		const offerId = router.query.projectId;
 		setsaving(true);
 		const docRef = doc(firestore, `/offers/${offerId}`);
@@ -103,7 +103,7 @@ export function AppWrap({ children, dbData }) {
 		})
 			.then((snap) => {
 				//setdata(snap.data().data);
-				toast("Dáta sa uložili", { type: "success" });
+				if(show) toast("Dáta sa uložili", { autoClose: 3000, type: "success" });
 				setsaving(false);
 			})
 			.catch((err) => {

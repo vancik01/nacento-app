@@ -19,6 +19,8 @@ import Section from "./Section";
 import EditText from "./editor/EditText";
 import AddSection from "./editor/AddSection";
 import { TextareaAutosize } from "@mui/material";
+import { TemplateContext } from "./template_gallery/TemplateContext";
+import TemplateGallery from "./template_gallery/TemplateGallery"
 import OfferFooter from "./editor/OfferFooter";
 import SubHeading from "./editor/SubHeading";
 
@@ -41,9 +43,10 @@ export default function CenovaPonuka() {
 		logo,
 		description,
 		changeDescription,
+		openTemplate
 	} = useData();
 
-	const { primaryColor } = useLayout();
+	const { primaryColor, isHorizontal } = useLayout();
 
 	useEffect(() => {
 		setwinReady(true);
@@ -51,7 +54,7 @@ export default function CenovaPonuka() {
 
 	return (
 		<>
-			<div className="pt-10 pb-32">
+			<div className="pt-10 pb-32 relative">
 				{<BulkEdit blockTitle={bulkEditData.title} />}
 
 				<div className="flex items-start justify-start w-full px-8 overflow-x-auto pb-20">
@@ -71,11 +74,7 @@ export default function CenovaPonuka() {
 									<label htmlFor="upload-logo">
 										{!logo && (
 											<div
-												className="text-xl px-6 py-2 border"
-												style={{
-													color: primaryColor,
-													borderColor: primaryColor,
-												}}
+												className="text-xl px-6 py-4 rounded border border-dashed hover:border-solid hover:text-gray-500 trans border-gray-400 text-gray-400 border-b transition-all duration-200 ease-in"
 											>
 												Nahrať logo
 											</div>
@@ -106,20 +105,20 @@ export default function CenovaPonuka() {
 								</div>
 							</div>
 
-							<div className="flex flex-row gap-10 justify-start mt-4">
+							<div className="flex flex-row gap-10 justify-between mt-4">
 								<div>
-									<CustomerInfo></CustomerInfo>
+									<CustomerInfo scale={isHorizontal}></CustomerInfo>
 								</div>
 
 								<div>
-									<SupplyerInfo></SupplyerInfo>
+									<SupplyerInfo scale={isHorizontal}></SupplyerInfo>
 								</div>
 
 								<div>
-									<div className="mb-1 text-gray-300 capitalize">CENA:</div>
+									<div className={`${isHorizontal && "text-lg"} mb-1 text-gray-300 capitalize`}>CENA:</div>
 
-									<div className="text-sm">
-										<div className="relative w-fit text-sm">
+									<div className={`${isHorizontal? "text-lg" : "text-sm"} `}>
+										<div className={`relative w-fit`}>
 											<div>
 												Cena Montáže:{" "}
 												{numberWithCommas(
@@ -147,7 +146,7 @@ export default function CenovaPonuka() {
 											)}
 										</div>
 
-										<div className="relative w-fit text-sm">
+										<div className="relative w-fit">
 											<div>
 												Cena Dodávky:{" "}
 												{numberWithCommas(
@@ -181,8 +180,8 @@ export default function CenovaPonuka() {
 										></div>
 										<div className="relative w-fit">
 											<div>
-												Spolu: {numberWithCommas(total.total.toFixed(2))} €{" "}
-												<span className="text-[10px]">bez DPH</span>
+												Spolu: {numberWithCommas((total.total * 1.2).toFixed(2))} €{" "}
+												<span className="text-[10px]">s DPH</span>
 											</div>
 											{!bulkEdit && (
 												<button
@@ -234,8 +233,8 @@ export default function CenovaPonuka() {
 										</div>
 
 										<div className="mt-2 font-medium text-xl">
-											{numberWithCommas((total.total * 1.2).toFixed(2))} €{" "}
-											<span className="text-[10px]">vrátane DPH</span>
+											{numberWithCommas(total.total.toFixed(2))} €{" "}
+											<span className="text-[10px]">bez DPH</span>
 										</div>
 									</div>
 								</div>
@@ -305,6 +304,10 @@ export default function CenovaPonuka() {
 					</A4>
 				</div>
 			</div>
+									
+			{winReady && <div className="sticky bottom-0 z-10 transition-all">
+				<AnimatePresence> {<BottomBar></BottomBar> }</AnimatePresence>
+			</div>}
 		</>
 	);
 }

@@ -12,7 +12,7 @@ export default function Murivo() {
 
   return (
     <>
-        <IntroSection title={"murovacie práce"} text={"pôdorysu 1. NP"} type={"MP"}/>
+        <IntroSection title={"murovacie práce"} ix={1}  text={"pôdorysu 1. NP"} type={"MP"}/>
 
         <FormLayout>
 

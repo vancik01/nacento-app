@@ -12,6 +12,7 @@ export default function AddBlockToolbar({ blockId, sectionId }) {
 	return (
 		<div className="relative">
 			<ButtonIcon
+				id={"2"}
 				icon={<PlusCircle />}
 				onClick={() => {
 					//addBlock(sectionId, blockId);

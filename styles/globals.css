@@ -4,7 +4,7 @@
 
 /* width */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 10px;
 }
 
 
@@ -253,9 +253,9 @@ option {
     }
   }
 
-/* input[type="file"] {
+#file-hidden {
     display: none;
-} */
+}
 
 .icon-grid{
   grid-template-columns: 1fr 1fr 1fr;
@@ -272,8 +272,27 @@ option {
   @apply text-xl shadow-sm font-medium border border-slate-300 rounded-sm focus:border-emerald-600
 }
 
+.input-blue{
+  @apply text-xl shadow-sm font-medium border border-slate-300 rounded-sm focus:border-blue-600
+}
 
 .trans{
   @apply transition duration-200 ease-in-out
 }
 
+.project-div{
+  aspect-ratio: 2 / 1;
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+#form-input::-webkit-outer-spin-button,
+#form-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+#form-input[type=number] {
+  -moz-appearance: textfield;
+}

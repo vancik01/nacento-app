@@ -35,6 +35,22 @@ Font.register({
 	],
 });
 
+function formatSpaces(x) {
+	x = x.toString();
+	var pattern = /(-?\d+)(\d{3})/;
+	while (pattern.test(x))
+		x = x.replace(pattern, "$1 $2");
+	return x;
+}
+
+function formatCommas(x) {
+	x = x.toString();
+	var pattern = /(-?\d+)(\d{3})/;
+	while (pattern.test(x))
+		x = x.replace(pattern, "$1,$2");
+	return x;
+}
+
 export const DownloadLink = ({ close }) => {
 	const {
 		data,
@@ -48,7 +64,7 @@ export const DownloadLink = ({ close }) => {
 		description,
 	} = useData();
 
-	const [displayLink, setdisplayLink] = useState(false);
+	const [displayLink, setdisplayLink] = useState(true);
 	const [title, settitle] = useState(name.toLowerCase());
 	const layout = useLayout();
 	const [pdfUrl, setpdfUrl] = useState(null);
@@ -101,6 +117,7 @@ export const DownloadLink = ({ close }) => {
 						<>
 							<ButtonPrimary
 								disabled={loading}
+								color="#63A695"
 								onClick={() => {
 									null;
 								}}
@@ -194,7 +211,7 @@ export function Pdf({
 
 		line: {
 			width: "100%",
-			height: "1px",
+			height: "0.4px",
 			backgroundColor: "#000",
 		},
 
@@ -366,7 +383,7 @@ export function Pdf({
           
 
         </View> */}
-				<View style={styles.section}>
+				<View style={styles.section} >
 					<View
 						style={{
 							display: "flex",
@@ -385,12 +402,12 @@ export function Pdf({
 				</View>
 				<View style={[styles.infoWraper, styles.section]}>
 					<View style={[{ marginRight: 40 }]}>
-						<Text style={styles.infoHeading}>OBJEDNÁVATEL</Text>
+						<Text style={styles.infoHeading}>OBJEDNÁVATEĽ</Text>
 						<Text style={styles.text}>{data.customer.name}</Text>
 					</View>
 
 					<View style={{ marginRight: 40 }}>
-						<Text style={styles.infoHeading}>DODÁVATEL:</Text>
+						<Text style={styles.infoHeading}>DODÁVATEĽ:</Text>
 						<Text style={styles.text}>{data.supplyer.company_name}</Text>
 						{data.supplyer.ico && (
 							<Text style={styles.text}>IČO: {data.supplyer.ico}</Text>
@@ -410,40 +427,38 @@ export function Pdf({
 					<View>
 						<Text style={styles.infoHeading}>CENA:</Text>
 						<Text style={styles.text}>
-							Cena montáže celkom: {totals.total_construction_price.toFixed(2)}{" "}
+							Cena montáže celkom: {formatSpaces(totals.total_construction_price.toFixed(2))}{" "}
 							€
 						</Text>
 						<Text style={styles.text}>
-							Cena dodávky celkom: {totals.total_delivery_price.toFixed(2)} €
-						</Text>
-						<Text style={[styles.text, { marginTop: 16 }]}>
-							Spolu: {totals.total.toFixed(2)} € bez DPH
+							Cena dodávky celkom: {formatSpaces(totals.total_delivery_price.toFixed(2))} €
 						</Text>
 						<Text style={[styles.text]}>
-							DPH 20%: {(totals.total.toFixed(2) * 0.2).toFixed(2)} €{" "}
+							Spolu: {formatSpaces((totals.total + totals.total * 0.2).toFixed(2))} € s DPH
 						</Text>
+						{/* <Text style={[styles.text]}>
+							DPH 20%: {formatSpaces((totals.total.toFixed(2) * 0.2).toFixed(2))} €{" "}
+						</Text> */}
 						<View>
 							<Text style={[styles.textBold, { fontSize: 13, marginTop: 10 }]}>
 								Cena Spolu:
 							</Text>
 							<Text style={[styles.textBold, { fontSize: 13 }]}>
-								{(totals.total + totals.total * 0.2).toFixed(2)} € s DPH
+								{formatSpaces(totals.total.toFixed(2))} € 
+								<Text style={{ fontSize: 10 }}>
+									{" "} bez DPH
+								</Text>
 							</Text>
 						</View>
 					</View>
 				</View>
 
-				<View style={[styles.section]}>
+				<View style={[styles.section,{paddingBottom: "20"}]}>
 					<View style={styles.line}></View>
 					<Text
 						style={[
 							styles.heading,
-							{
-								textAlign: "center",
-								fontSize: 18,
-								marginTop: 20,
-								marginBottom: 4,
-							},
+							{ textAlign: "center", fontSize: "14", marginVertical: "8" },
 						]}
 					>
 						{title}
@@ -465,14 +480,14 @@ export function Pdf({
 
 				{data.sections.map((section, sectionId) => {
 					return (
-						<View break={variant.sectionWrap} wrap={variant.sectionWrap}>
+						<View break={sectionId && variant.sectionWrap}>
 							<View style={[styles.section, styles.sectionWrap]}>
 								<Text style={styles.sectionHeading}>{section.info.title}</Text>
 								<View style={styles.blockSummary}>
 									<View style={{ marginRight: 18 }}>
 										<Text style={[styles.text]}>Cena dodávky celkom:</Text>
 										<Text style={[styles.text]}>
-											{parseFloat(section.info.total_delivery_price).toFixed(2)}
+											{formatSpaces(parseFloat(section.info.total_delivery_price).toFixed(2))}
 											€
 										</Text>
 									</View>
@@ -480,9 +495,9 @@ export function Pdf({
 									<View style={{ marginRight: 18 }}>
 										<Text style={[styles.text]}>Cena montáže celkom:</Text>
 										<Text style={[styles.text]}>
-											{parseFloat(
+											{formatSpaces(parseFloat(
 												section.info.total_construction_price
-											).toFixed(2)}{" "}
+											).toFixed(2))}{" "}
 											€
 										</Text>
 									</View>
@@ -490,7 +505,7 @@ export function Pdf({
 									<View>
 										<Text style={[styles.textBold]}>Spolu:</Text>
 										<Text style={[styles.textBold]}>
-											{parseFloat(section.info.total).toFixed(2)} €
+											{formatSpaces(parseFloat(section.info.total).toFixed(2))} €
 										</Text>
 									</View>
 								</View>
@@ -639,7 +654,7 @@ export function Pdf({
 																		styles.tableUnitFirst,
 																	]}
 																>
-																	{itemId}
+																	{itemId + 1}
 																</Text>
 																{data.headers.map((header, i) => {
 																	if (layout.displayColumns.includes(header)) {
@@ -673,18 +688,18 @@ export function Pdf({
 											<View style={styles.blockSummary}>
 												<Text style={[styles.text, { marginRight: 18 }]}>
 													Cena dodávky celkom:{" "}
-													{block.info.total_delivery_price.toFixed(2)} €
+													{formatSpaces(block.info.total_delivery_price.toFixed(2))} €
 												</Text>
 												<Text style={[styles.text, { marginRight: 18 }]}>
 													Cena montáže celkom:{" "}
-													{block.info.total_construction_price.toFixed(2)} €
+													{formatSpaces(block.info.total_construction_price.toFixed(2))} €
 												</Text>
 												<Text style={[styles.textBold, { marginRight: 18 }]}>
 													Spolu:{" "}
-													{(
+													{formatSpaces((
 														block.info.total_delivery_price +
 														block.info.total_construction_price
-													).toFixed(2)}{" "}
+													).toFixed(2))}{" "}
 													€
 												</Text>
 											</View>
@@ -715,7 +730,7 @@ export function Pdf({
 														styles.headerUnit,
 													]}
 												>
-													Položka
+													Práce
 												</Text>
 												<Text
 													style={[
@@ -755,7 +770,7 @@ export function Pdf({
 																styles.tableUnitFirst,
 															]}
 														>
-															{itemId}
+															{itemId + 1}
 														</Text>
 														<Text
 															style={[
@@ -809,9 +824,13 @@ export function Pdf({
 						</View>
 
 						<View>
-							<Text style={{ font: 26, fontWeight: 500, marginTop: 10 }}>
-								Cena Spolu: {totals.total} €
+							<Text style={{ font: 26, fontWeight: 500 }}>
+								Cena Spolu: {formatSpaces(totals.total.toFixed(2))}€
+								<Text style={{ fontSize: 12, fontWeight: 800 }}>
+									{" "}bez DPH
+								</Text>
 							</Text>
+							
 						</View>
 					</View>
 				)}

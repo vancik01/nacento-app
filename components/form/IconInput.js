@@ -6,7 +6,8 @@ function IconInput({ label, add, img, path}) {
 
     const colors={
         "red" : ["text-rose-600", "border-rose-600", "input-red"],
-        "green" : ["text-emerald-600", "border-emerald-600", "input-green"]
+        "green" : ["text-emerald-600", "border-emerald-600", "input-green"],
+        "blue" : ["text-blue-700", "border-blue-700", "input-blue"]
     }
 
     

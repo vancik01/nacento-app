@@ -7,7 +7,8 @@ function IntroText({title, info}) {
 
   const colors={
     "red" : ["hover:border-rose-600 hover:text-rose-600", "bg-rose-600 hover:bg-rose-400", "hover:text-rose-600"],
-    "green" : ["hover:border-emerald-600 hover:text-emerald-600", "bg-emerald-600 hover:bg-emerald-400", "hover:text-emerald-600"]
+    "green" : ["hover:border-emerald-600 hover:text-emerald-600", "bg-emerald-600 hover:bg-emerald-400", "hover:text-emerald-600"],
+    "blue" : ["hover:border-blue-700 hover:text-blue-700", "bg-blue-700 hover:bg-blue-400", "hover:text-blue-700"]
   }
 
 

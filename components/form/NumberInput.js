@@ -7,7 +7,8 @@ function NumberInput({ id, unit, sup, decimal, path }) {
 
     const colors = {
         "red" : "input-red",
-        "green" : "input-green"
+        "green" : "input-green",
+        "blue" : "input-blue"
     }
 
     var data = {}
@@ -20,7 +21,7 @@ function NumberInput({ id, unit, sup, decimal, path }) {
 
         <div className='flex items-center relative'>
 
-            <input id={id} value={value} type={"number"} min={1} placeholder={"0"} onChange={(e) => ChangeValue(e,path)}
+            <input id={"form-input"} value={value} type={"number"} min={1} placeholder={"0"} onChange={(e) => ChangeValue(e,path)}
                 className={`${colors[color]} py-2 px-4  w-[300px] trans` }
                 style={{outline: "none", }} step={decimal?  .01 : 1} >
             
