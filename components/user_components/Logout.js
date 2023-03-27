@@ -1,9 +1,11 @@
+import { useRouter } from "next/router";
 import React from "react";
 import { useAuth } from "../../context/AuthContext";
 import LogOut from "../../public/SVG/buttons/LogOut";
 
 export default function Logout() {
 	const { logOut } = useAuth();
+	const router = useRouter();
 
 	function handleLogout() {
 		logOut().then(() => {
@@ -16,7 +18,7 @@ export default function Logout() {
 			onClick={handleLogout}
 		>
 			<LogOut></LogOut>
-			<div className="text-red-500">Logout</div>
+			<div className="text-red-500">Odhlásiť sa</div>
 		</button>
 	);
 }

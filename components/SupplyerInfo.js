@@ -61,6 +61,7 @@ export default function SupplyerInfo() {
 						variant="standard"
 						placeholder="Názov Spoločnosti"
 						value={supplyer.company_name}
+						className="outline-none "
 					></input>
 					<input
 						onChange={handleChange}
@@ -68,6 +69,7 @@ export default function SupplyerInfo() {
 						variant="standard"
 						placeholder="IČO"
 						value={supplyer.ico}
+						className="outline-none "
 					></input>
 					<input
 						onChange={handleChange}
@@ -75,6 +77,7 @@ export default function SupplyerInfo() {
 						variant="standard"
 						placeholder="DIČ"
 						value={supplyer.dic}
+						className="outline-none "
 					></input>
 					<input
 						onChange={handleChange}
@@ -82,6 +85,7 @@ export default function SupplyerInfo() {
 						variant="standard"
 						placeholder="Tel"
 						value={supplyer.phone}
+						className="outline-none "
 					></input>
 					<input
 						onChange={handleChange}
@@ -89,6 +93,7 @@ export default function SupplyerInfo() {
 						variant="standard"
 						placeholder="Email"
 						value={supplyer.email}
+						className="outline-none "
 					></input>
 					<input
 						onChange={handleChange}
@@ -96,6 +101,7 @@ export default function SupplyerInfo() {
 						variant="standard"
 						placeholder="Web"
 						value={supplyer.web}
+						className="outline-none "
 					></input>
 				</div>
 				<ButtonSecondary

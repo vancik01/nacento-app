@@ -20,14 +20,12 @@ export default function ButtonPrimary({
 	const layout = useLayout();
 	const router = useRouter();
 
-	if(typeof(layout) !== "undefined"){
-		const { primaryColor } = useLayout()
-		color = primaryColor
+	if (typeof layout !== "undefined") {
+		const { primaryColor } = useLayout();
+		color = primaryColor;
 	} else {
 		color = "#361CC1";
 	}
-
-	
 
 	return (
 		<motion.button
@@ -60,11 +58,13 @@ export default function ButtonPrimary({
 				<div>
 					{href && (
 						<div>
-							<span className="no-underline text-white">{children}</span>
+							<span className="no-underline text-white whitespace-nowrap">
+								{children}
+							</span>
 						</div>
 					)}
 
-					{!href && <>{children}</>}
+					{!href && <span className="whitespace-nowrap ">{children}</span>}
 				</div>
 				{icon && iconAfter && <div className="ml-1">{icon}</div>}
 			</div>

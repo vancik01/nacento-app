@@ -19,6 +19,8 @@ import Section from "./Section";
 import EditText from "./editor/EditText";
 import AddSection from "./editor/AddSection";
 import { TextareaAutosize } from "@mui/material";
+import OfferFooter from "./editor/OfferFooter";
+import SubHeading from "./editor/SubHeading";
 
 export default function CenovaPonuka() {
 	const [winReady, setwinReady] = useState(false);
@@ -62,7 +64,7 @@ export default function CenovaPonuka() {
 							<div className="flex justify-between items-center mb-20">
 								<div className="">
 									<div className="text-4xl">Cenová ponuka</div>
-									<div className="text-gray-300">#2341</div>
+									<SubHeading></SubHeading>
 								</div>
 
 								<div className="flex justify-between items-center relative">
@@ -295,6 +297,9 @@ export default function CenovaPonuka() {
 										);
 									})}
 								<AddSection></AddSection>
+							</div>
+							<div className="mt-10">
+								<OfferFooter></OfferFooter>
 							</div>
 						</div>
 					</A4>

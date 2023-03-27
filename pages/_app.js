@@ -4,15 +4,19 @@ import AuthContext from "../context/AuthContext";
 import TeamContext from "../context/TeamContext";
 import "../styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
+import { AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps }) {
+	const router = useRouter();
 	return (
 		<AuthContext>
 			<TeamContext>
 				<ToastContainer
 					position="top-center"
-					autoClose={5000}
-					hideProgressBar={false}
+					autoClose={1000}
+					hideProgressBar={true}
 					newestOnTop={false}
 					closeOnClick
 					rtl={false}
@@ -21,7 +25,17 @@ function MyApp({ Component, pageProps }) {
 					pauseOnHover
 					theme="light"
 				/>
-				<Component {...pageProps} />
+				<AnimatePresence mode="wait">
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+						transition={{ duration: 0.1 }}
+						key={router.asPath}
+					>
+						<Component {...pageProps} />
+					</motion.div>
+				</AnimatePresence>
 			</TeamContext>
 		</AuthContext>
 	);
