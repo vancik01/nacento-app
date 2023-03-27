@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import AccountToolbar from "./user_components/AccountToolbar";
 import UserInfoHeader from "./user_components/UserInfoHeader";
 import SelectProjectToolbar from "./editor/SelectProjectToolbar";
-import ButtonSecondary from "./ButtonSecondary";
+import ButtonSecondary from "./buttons/ButtonSecondary";
 import ArrowBack from "../public/SVG/buttons/ArrowBack";
 
 export default function EditorHeader() {

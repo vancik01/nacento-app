@@ -5,7 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useLayout } from "../../context/LayoutContext";
 import Logo from "../../public/SVG/Logo";
 import moment from "moment/moment";
-import ButtonSecondary from "../ButtonSecondary";
+import ButtonSecondary from "../buttons/ButtonSecondary";
 import UploadSignature from "./UploadSignature";
 
 export default function OfferFooter() {

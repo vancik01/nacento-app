@@ -5,8 +5,8 @@ import { useData } from "../context/AppWrap";
 import { useAuth } from "../context/AuthContext";
 import Save from "../public/SVG/buttons/Save";
 import EditPen from "../public/SVG/EditPen";
-import ButtonPrimary from "./ButtonPrimary";
-import ButtonSecondary from "./ButtonSecondary";
+import ButtonPrimary from "./buttons/ButtonPrimary";
+import ButtonSecondary from "./buttons/ButtonSecondary";
 
 export default function SupplyerInfo() {
 	const { data, changeSupplyerData } = useData();

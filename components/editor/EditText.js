@@ -2,8 +2,8 @@ import { Input } from "@mui/material";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Save from "../../public/SVG/buttons/Save";
 import EditPen from "../../public/SVG/EditPen";
-import ButtonPrimary from "../ButtonPrimary";
-import ButtonSecondary from "../ButtonSecondary";
+import ButtonPrimary from "../buttons/ButtonPrimary";
+import ButtonSecondary from "../buttons/ButtonSecondary";
 
 export default function EditText({
 	initialValue,

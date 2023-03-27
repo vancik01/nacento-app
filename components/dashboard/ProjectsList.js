@@ -8,7 +8,7 @@ import {
 	updateDoc,
 	where,
 } from "firebase/firestore";
-import ButtonIcon from "../../components/ButtonIcon";
+import ButtonIcon from "../buttons/ButtonIcon";
 import { motion } from "framer-motion";
 
 import Link from "next/link";
@@ -26,7 +26,7 @@ import Edit from "../../public/SVG/Edit";
 import UserInfoHeader from "../../components/user_components/UserInfoHeader";
 import { useAuth } from "../../context/AuthContext";
 import TrashBin from "../../public/SVG/editor/TrashBin";
-import ButtonPrimary from "../../components/ButtonPrimary";
+import ButtonPrimary from "../buttons/ButtonPrimary";
 import { AnimatePresence } from "framer-motion";
 import IconHome from "../../public/SVG/dashboard/IconHome";
 import Offer from "../../public/SVG/dashboard/EmptyOffer";

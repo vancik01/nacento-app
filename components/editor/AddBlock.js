@@ -1,6 +1,6 @@
 import React from "react";
 import { useData } from "../../context/AppWrap";
-import ButtonPrimary from "../ButtonPrimary";
+import ButtonPrimary from "../buttons/ButtonPrimary";
 
 export default function AddBlock({ sectionId }) {
 	const { addBlock } = useData();

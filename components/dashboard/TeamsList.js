@@ -1,12 +1,10 @@
 import { Button } from "@mui/material";
 import React from "react";
-import ButtonPrimary from "../ButtonPrimary";
+import ButtonPrimary from "../buttons/ButtonPrimary";
 import Pro from "../Pro";
-import { useAuth } from "../../context/AuthContext"
-
+import { useAuth } from "../../context/AuthContext";
 
 export default function TeamsList() {
-
 	return (
 		<div className="hidden xl:h-screen xl:border-r-[1px] xl:py-4 xl:block">
 			{/* <div className="bg-primary bg-opacity-10 m-4 p-2 rounded-md">
@@ -25,7 +23,7 @@ export default function TeamsList() {
 				<h2 className="px-4 mt-1 text-lg">Tímy</h2>
 
 				<div className="pl-4">
-					<ProjectItem/>
+					<ProjectItem />
 				</div>
 			</div>
 		</div>
@@ -33,27 +31,20 @@ export default function TeamsList() {
 }
 
 function ProjectItem({ selected, team }) {
-	const { userData } = useAuth()
+	const { userData } = useAuth();
 
 	return (
 		<>
-		<div
-			className={`px-4 pt-2 pb-1 flex items-center gap-2 hover:bg-gray-50 transition-colors w-full ${
-				selected ? "bg-gray-50" : ""
-			}`}
-		>	
-			
-			<div className="h-3 aspect-square bg-blue-500"></div>
-			<div className="text-sm"> 
-				{userData.name.replace(/ .*/,'')} tím 
+			<div
+				className={`px-4 pt-2 pb-1 flex items-center gap-2 hover:bg-gray-50 transition-colors w-full ${
+					selected ? "bg-gray-50" : ""
+				}`}
+			>
+				<div className="h-3 aspect-square bg-blue-500"></div>
+				<div className="text-sm">{userData.name.replace(/ .*/, "")} tím</div>
 			</div>
 
-			
-			
-		</div>
-
-		<div className="ml-7 text-xs cursor-pointer"> + pozvať člena</div>
+			<div className="ml-7 text-xs cursor-pointer"> + pozvať člena</div>
 		</>
-		
 	);
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useData } from "../../context/AppWrap";
 import PlusCircle from "../../public/SVG/editor/PlusCircle";
-import ButtonIcon from "../ButtonIcon";
+import ButtonIcon from "../buttons/ButtonIcon";
 import { motion } from "framer-motion";
 import Copy from "../../public/SVG/buttons/Copy";
 import { AnimatePresence } from "framer-motion";

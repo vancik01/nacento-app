@@ -14,8 +14,8 @@ import FullPageLoading from "../loading/FullPageLoading";
 import Plus from "../../public/SVG/dashboard/Plus";
 import moment from "moment/moment";
 import { useData } from "../../context/AppWrap";
-import ButtonPrimary from "../ButtonPrimary";
-import ButtonSecondary from "../ButtonSecondary";
+import ButtonPrimary from "../buttons/ButtonPrimary";
+import ButtonSecondary from "../buttons/ButtonSecondary";
 import Next from "../../public/SVG/user_setup/Next";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
@@ -78,7 +78,7 @@ function AddFromFile({ text, color, onClick }) {
 			name: "Nová cenová",
 			created: moment().valueOf(),
 			userId: user != null ? user.uid : "none",
-			total: {
+			totals: {
 				total_delivery_price: 0,
 				total_construction_price: 0,
 				total: 0,
@@ -174,7 +174,7 @@ function AddEmpty({ text, subtext, color }) {
 		})
 			.then((response) => {
 				router.push(`/cenova-ponuka/${collectionRef.id}`);
-				setloading(false);
+				//setloading(false);
 			})
 			.catch((err) => {
 				console.log(err);
