@@ -11,7 +11,6 @@ import EditPen from "../public/SVG/EditPen";
 import { numberWithCommas } from "../lib/helpers";
 import A4 from "./A4";
 import { useLayout } from "../context/LayoutContext";
-import ButtonPrimary from "./buttons/ButtonPrimary";
 import BulkEdit from "./buttons/BulkEdit";
 import CustomerInfo from "./CustomerInfo";
 import Close from "../public/SVG/Close";

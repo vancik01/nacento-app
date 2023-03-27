@@ -179,7 +179,6 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 		changeValue({
 			blockId: blockId,
 			itemId: itemId,
-			sectionId: sectionId,
 			valueId: item,
 			value: e.target.value,
 			sectionId: sectionId,

@@ -4,11 +4,14 @@ import React from "react";
 import ButtonPrimary from "../../components/buttons/ButtonPrimary";
 import ButtonSecondary from "../../components/buttons/ButtonSecondary";
 import Layout from "../../components/Layout";
+import VOoffer from "../../components/ViewOnlyOffer/VOoffer";
+import LayoutContext from "../../context/LayoutContext";
+import ViewOnlyContext from "../../context/ViewOnlyContext";
 import { firestore } from "../../lib/firebase";
 import ArrowBack from "../../public/SVG/buttons/ArrowBack";
 import Logo from "../../public/SVG/Logo";
 
-export default function View() {
+export default function View({ dbData }) {
 	const router = useRouter();
 	const offerId = router.query.offerId;
 	return (
@@ -32,7 +35,13 @@ export default function View() {
 					</div>
 				</div>
 			</nav>
-			<div></div>
+			<div>
+				<LayoutContext layout={dbData.layout} headers={dbData.data.headers}>
+					<ViewOnlyContext dbData={dbData}>
+						<VOoffer></VOoffer>
+					</ViewOnlyContext>
+				</LayoutContext>
+			</div>
 		</Layout>
 	);
 }
