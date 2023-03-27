@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import ButtonPrimary from "../../components/ButtonPrimary";
+import ButtonPrimary from "../../buttons/components/ButtonPrimary";
 import { useLayout } from "../../context/LayoutContext";
 import ArrowBack from "../../public/SVG/buttons/ArrowBack";
 
