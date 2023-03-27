@@ -99,7 +99,12 @@ export const DownloadLink = ({ close }) => {
 				>
 					{({ blob, url, loading, error }) => (
 						<>
-							<ButtonPrimary disabled={loading} href="#">
+							<ButtonPrimary
+								disabled={loading}
+								onClick={() => {
+									null;
+								}}
+							>
 								{loading ? "Načítavam..." : "Stiahnuť ponuku"}
 							</ButtonPrimary>
 						</>
