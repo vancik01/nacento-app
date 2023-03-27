@@ -6,12 +6,7 @@ import ButtonTag from "./ButtonTag";
 import PriceChangeIndicator from "../PriceChangeIndicator";
 import { motion } from "framer-motion";
 import Close from "../../public/SVG/Close";
-import {
-	splitBetweenBlocks,
-	splitBetweenItems,
-	splitBetweenSections,
-	updateSectionTotals,
-} from "../../lib/valueChangeFunctions";
+
 import { AnimatePresence } from "framer-motion";
 
 export default function BulkEdit() {
