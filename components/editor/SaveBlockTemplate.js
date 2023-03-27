@@ -56,7 +56,6 @@ export default function SaveBlockTemplate({ block }) {
 
 		toast("Dáta sa uložili", { type: "success" });
 		close();
-
 		setloading(false);
 	}
 

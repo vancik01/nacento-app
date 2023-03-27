@@ -27,7 +27,6 @@ export default function LayoutContext({ children, layout, headers }) {
 			isHorizontal: false,
 			variant: "pro",
 		};
-	console.log(layout, headers);
 
 	const [displayColumns, setdisplayColumns] = useState([
 		...layout.displayColumns,

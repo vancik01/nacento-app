@@ -36,8 +36,17 @@ Font.register({
 });
 
 export const DownloadLink = ({ close }) => {
-	const { data, getTitle, name, logo, total, expiration, signature } =
-		useData();
+	const {
+		data,
+		getTitle,
+		name,
+		logo,
+		total,
+		expiration,
+		signature,
+		subHeading,
+		description,
+	} = useData();
 
 	const [displayLink, setdisplayLink] = useState(false);
 	const [title, settitle] = useState(name.toLowerCase());
@@ -81,6 +90,8 @@ export const DownloadLink = ({ close }) => {
 							totals={total}
 							expiration={expiration}
 							signature={signature}
+							subHeading={subHeading}
+							description={description}
 						/>
 					}
 					fileName={`${title}.pdf`}
@@ -110,6 +121,8 @@ export function Pdf({
 	isHorizontal,
 	signature,
 	expiration,
+	subHeading,
+	description,
 }) {
 	const variant = layout.variant;
 	const styles = StyleSheet.create({
@@ -359,7 +372,7 @@ export function Pdf({
 					>
 						<View>
 							<Text style={styles.heading}>Cenová ponuka</Text>
-							<Text style={styles.infoHeading}>#1234</Text>
+							<Text style={styles.infoHeading}>{subHeading}</Text>
 						</View>
 
 						<View>{logo && <Image style={styles.logo} src={logo} />}</View>
@@ -420,11 +433,28 @@ export function Pdf({
 					<Text
 						style={[
 							styles.heading,
-							{ textAlign: "center", fontSize: "18", marginVertical: "20" },
+							{
+								textAlign: "center",
+								fontSize: 18,
+								marginTop: 20,
+								marginBottom: 4,
+							},
 						]}
 					>
 						{title}
 					</Text>
+					{description && (
+						<Text
+							style={{
+								fontSize: 10,
+								textAlign: "center",
+								color: "#9CA3AF",
+								marginBottom: 20,
+							}}
+						>
+							{description}
+						</Text>
+					)}
 					<View style={styles.line}></View>
 				</View>
 
@@ -855,7 +885,7 @@ function Footer({ signature, expiration, name }) {
 					</View>
 				</View>
 				<View style={styles.signature}>
-					<Image style={styles.img} src={signature} />
+					{signature && <Image style={styles.img} src={signature} />}
 				</View>
 			</View>
 			<View

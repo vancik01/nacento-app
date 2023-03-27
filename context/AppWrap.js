@@ -65,6 +65,9 @@ export function AppWrap({ children, dbData }) {
 	const [expiration, setexpiration] = useState(
 		dbData.expiration && moment(dbData.expiration).valueOf()
 	);
+	const [subHeading, setsubHeading] = useState(
+		dbData.subHeading ? dbData.subHeading : ""
+	);
 
 	const { userData, user } = useAuth();
 	const { getLayout } = useLayout();
@@ -96,6 +99,7 @@ export function AppWrap({ children, dbData }) {
 			layout: getLayout(),
 			lastModified: moment().valueOf(),
 			expiration: expiration ? moment(expiration).valueOf() : null,
+			subHeading: subHeading ? subHeading : "",
 		})
 			.then((snap) => {
 				//setdata(snap.data().data);
@@ -653,6 +657,9 @@ export function AppWrap({ children, dbData }) {
 		setsignature,
 		expiration,
 		setexpiration,
+
+		subHeading,
+		setsubHeading,
 	};
 
 	useEffect(() => {
