@@ -31,7 +31,7 @@ export default function Login() {
 
 		loginWithEmailAndPassword(email, pass)
 			.then((user) => {
-				//router.push("/");
+				router.push("/dashboard");
 				console.log(user);
 			})
 			.catch((err) => {
@@ -47,9 +47,7 @@ export default function Login() {
 				const docRef = doc(firestore, `/users/${user.user.uid}`);
 				getDoc(docRef).then((snap) => {
 					console.log(snap.data());
-					if (!snap.exists()) {
-						//const docRef = doc(firestore, `/users/${user.user.uid}`);
-						//console.log(docRef.path);
+					if (!snap.exists() || snap.data().setup == false) {
 						setDoc(docRef, {
 							email: user.user.email,
 							createdAt: moment().valueOf(),
@@ -73,7 +71,7 @@ export default function Login() {
 				});
 			})
 			.catch((err) => {
-				seterror(err);
+				seterror("Chyba pri prihlasovaní");
 				setgoogleLoading(false);
 			});
 	}

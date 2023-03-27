@@ -11,8 +11,6 @@ import DragableIcon from "../public/SVG/Dragable";
 import Dragable from "../public/SVG/Dragable";
 import { motion } from "framer-motion";
 import { TextareaAutosize } from "@mui/material";
-import { Select } from "@mui/material";
-import ButtonPrimary from "./ButtonPrimary";
 import Save from "../public/SVG/Save";
 import _ from "lodash";
 import "react-tooltip/dist/react-tooltip.css";
@@ -228,7 +226,6 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 					<option value="diel">diel</option>
 					<option value="ks">ks</option>
 					<option value="sub">súb.</option>
-					
 				</select>
 			</div>
 		);

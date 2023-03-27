@@ -13,15 +13,15 @@ export default function Plus() {
 				d="M6 1L6 11"
 				stroke="white"
 				stroke-width="1.4"
-				stroke-linecap="round"
-				stroke-linejoin="round"
+				strokeLinecap="round"
+				strokeLinejoin="round"
 			/>
 			<path
 				d="M1 6H11"
 				stroke="white"
 				stroke-width="1.4"
-				stroke-linecap="round"
-				stroke-linejoin="round"
+				strokeLinecap="round"
+				strokeLinejoin="round"
 			/>
 		</svg>
 	);

@@ -10,9 +10,8 @@ import LogoutIcon from "./LogoutIcon";
 
 export default function AccountToolbar() {
 	function handleLogout() {
-		logOut().then(() => {
-			router.push("/");
-		});
+		logOut();
+		router.push("/");
 	}
 	const router = useRouter();
 	const { logOut, userData, user } = useAuth();
@@ -28,7 +27,9 @@ export default function AccountToolbar() {
 								className="w-[24px] aspect-square rounded-full"
 								alt="" />}>
 
-								{userData.email}</MenuItem>
+					<MenuItem icon={<AccountIcon />} href={"/nastavenie-uctu"}>
+						Môj účet
+					</MenuItem>
 
 					<MenuItem icon={<AccountIcon/>} href={"/nastavenie-uctu"}>Môj účet</MenuItem>
 
@@ -38,8 +39,7 @@ export default function AccountToolbar() {
 
 					<MenuItem icon={<LogoutIcon/>} onClick={handleLogout} className="text-red-500">
 						Odhlásiť
-					</MenuItem> 
-
+					</MenuItem>
 				</div>
 			</div>
 		</div>

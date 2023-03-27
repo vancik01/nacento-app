@@ -1,41 +1,39 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { collection, doc, setDoc } from "firebase/firestore"
+import { collection, doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { firestore } from "../lib/firebase";
+import moment from "moment/moment";
 
-import moment from "moment";
 import { useAuth } from "../context/AuthContext";
 
 import { useStepper } from "./StepperContext";
 
-
 const UseApiContext = createContext();
 
 export function ApiContext({ children }) {
-    const [images, setimages] = useState([]);
+	const [images, setimages] = useState([]);
 	const [pdf, setPdf] = useState("");
     const [dataloading, setdataloading] = useState(false);
     const { hsdata, sethsdata, edata } = useStepper()
 
-    const { user } = useAuth();
-    const router = useRouter();
+	const { user } = useAuth();
+	const router = useRouter();
 
-    function DataToPriceOffer(type) {
+	function DataToPriceOffer(type) {
+		var api_route, data;
 
-        var api_route, data
-
-        if(type=="HS"){
-            api_route = "hruba_stavba/"
-            data = {...hsdata}
-        } 
+		if (type == "HS") {
+			api_route = "hruba_stavba/";
+			data = { ...hsdata };
+		}
 
         if(type=="EL"){
             api_route = "elektro/"
             data = {...edata}
         }
 
-        fetch(`http://127.0.0.1:8000/api/data_offer_${api_route}`, {
-        // fetch(`https://api.nacento.online/api/data_offer_${api_route}`, {
+        // fetch(`http://127.0.0.1:8000/api/data_offer_${api_route}`, {
+        fetch(`https://api.nacento.online/api/data_offer_${api_route}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
@@ -61,79 +59,77 @@ export function ApiContext({ children }) {
                         .then((response) => {
                             router.push(`/cenova-ponuka/${collectionRef.id}`);
 
-                            setloading(false);
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                        });
-                });
-            }
-        });
-    }
+							setloading(false);
+						})
+						.catch((err) => {
+							console.log(err);
+						});
+				});
+			}
+		});
+	}
 
-    function PredictParameters(type, pdf, setImage) {
-        
-        var path
-        if(type === "ZD") path  = "zaklady/"
-        else if(type === "MP") path  = "murivo/"
-        else if(type === "ST") path  = "strecha/"
+	function PredictParameters(type, pdf, setImage) {
+		var path;
+		if (type === "ZD") path = "zaklady/";
+		else if (type === "MP") path = "murivo/";
+		else if (type === "ST") path = "strecha/";
 
-        // setActive(false);
-        setdataloading(true);
-        // fetch(`http://127.0.0.1:8000/api/${path}`, {
-        fetch(`https://api.nacento.online/api/${path}`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(pdf),
-        }).then((response) => {
-            setdataloading(false);
-            if (response.ok) {
-                response.json().then((json) => {
+		// setActive(false);
+		setdataloading(true);
+		// fetch(`http://127.0.0.1:8000/api/${path}`, {
+		fetch(`https://api.nacento.online/api/${path}`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(pdf),
+		}).then((response) => {
+			setdataloading(false);
+			if (response.ok) {
+				response.json().then((json) => {
+					if (type === "ZD") setZakladyData(json.data);
+					else if (type === "MP") setMurivoData(json.data);
+					else if (type === "ST") setStrechaData(json.data);
 
-                    if(type === "ZD") setZakladyData(json.data)
-                    else if(type === "MP") setMurivoData(json.data)
-                    else if(type === "ST") setStrechaData(json.data)
+					setImage(json.image);
+				});
+			}
+		});
+	}
 
-                    setImage(json.image);
-                });
-            }
-        });
-    }
-    
-    function setZakladyData(data){
-        var newData = {...hsdata}
+	function setZakladyData(data) {
+		var newData = { ...hsdata };
 
-        if(parseInt(data[0])) newData.doska.objem = data[0]
-        if(parseInt(data[1])) newData.doska.dt20 = data[1]
-        if(parseInt(data[2])) newData.doska.dt30 = data[2]
-        if(parseInt(data[3])) newData.doska.dt40 = data[3]
-        if(parseInt(data[4])) newData.doska.obvod = data[4]
-        if(parseInt(data[5])) newData.doska.plocha = data[5]
+		if (parseInt(data[0])) newData.doska.objem = data[0];
+		if (parseInt(data[1])) newData.doska.dt20 = data[1];
+		if (parseInt(data[2])) newData.doska.dt30 = data[2];
+		if (parseInt(data[3])) newData.doska.dt40 = data[3];
+		if (parseInt(data[4])) newData.doska.obvod = data[4];
+		if (parseInt(data[5])) newData.doska.plocha = data[5];
 
-        sethsdata(newData)
-    }
+		sethsdata(newData);
+	}
 
-    function setMurivoData(data){
-        var newData = {...hsdata}
+	function setMurivoData(data) {
+		var newData = { ...hsdata };
 
-        if(parseInt(data[0])) newData.murivo.t10 = data[0]
-        if(parseInt(data[1])) newData.murivo.t15 = data[1]
-        if(parseInt(data[2])) newData.murivo.t25 = data[2]
-        if(parseInt(data[3])) newData.murivo.t30 = data[3]
-        if(parseInt(data[4])) newData.murivo.t45 = data[4]
+		if (parseInt(data[0])) newData.murivo.t10 = data[0];
+		if (parseInt(data[1])) newData.murivo.t15 = data[1];
+		if (parseInt(data[2])) newData.murivo.t25 = data[2];
+		if (parseInt(data[3])) newData.murivo.t30 = data[3];
+		if (parseInt(data[4])) newData.murivo.t45 = data[4];
 
-        sethsdata(newData)
-    }
+		sethsdata(newData);
+	}
 
-    function setStrechaData(data){
-        var newData = {...hsdata}
+	function setStrechaData(data) {
+		var newData = { ...hsdata };
 
-        if(parseInt(data[0])) newData.strecha.plocha = data[0]
+		if (parseInt(data[0])) newData.strecha.plocha = data[0];
 
-        sethsdata(newData)
-    }
+		sethsdata(newData);
+	}
 
-    const fileToBase64 = (file, cb) => {
+	const fileToBase64 = (file, cb) => {
 		const reader = new FileReader();
 		reader.readAsDataURL(file);
 		reader.onload = function () {
@@ -166,30 +162,29 @@ export function ApiContext({ children }) {
 	function deletePdf(setFileName, setPdf, setPassed) {
 		setFileName(null);
 		setPdf("");
-        setPassed(false)
+		setPassed(false);
 	}
 
-  const value = {
-    pdf, setPdf,
+	const value = {
+		pdf,
+		setPdf,
 
-    DataToPriceOffer,
-    PredictParameters,
+		DataToPriceOffer,
+		PredictParameters,
 
-    fileToBase64,
-    handleFileChange,
+		fileToBase64,
+		handleFileChange,
 
-    deletePdf,
+		deletePdf,
 
-    dataloading
-  }
+		dataloading,
+	};
 
-  return (
-      <UseApiContext.Provider value={value}>
-        {children}
-      </UseApiContext.Provider>
-  )
+	return (
+		<UseApiContext.Provider value={value}>{children}</UseApiContext.Provider>
+	);
 }
 
 export function useApi() {
-  return useContext(UseApiContext);
+	return useContext(UseApiContext);
 }

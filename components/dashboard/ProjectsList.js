@@ -5,6 +5,7 @@ import {
 	getDocs,
 	orderBy,
 	query,
+	updateDoc,
 	where,
 } from "firebase/firestore";
 import ButtonIcon from "../../components/ButtonIcon";
@@ -32,7 +33,7 @@ import Offer from "../../public/SVG/dashboard/EmptyOffer";
 import AddOffer from "../../public/SVG/dashboard/AddOffer";
 import InteractiveOffer from "../../public/SVG/dashboard/InteractiveOffer";
 
-import { numberWithCommas } from "../../lib/helpers";
+import { getLastModified, numberWithCommas } from "../../lib/helpers";
 import { round } from "lodash";
 
 export default function ProjectList({clicked}) {
@@ -70,7 +71,8 @@ export default function ProjectList({clicked}) {
 			const collectionRef = collection(firestore, "/offers");
 			const q = query(
 				collectionRef,
-				orderBy("created", "desc"),
+				//orderBy("created", "desc"),
+				orderBy("lastModified", "desc"),
 				where("userId", "==", user.uid)
 			);
 			//const query = query(collectionRef,);
@@ -241,7 +243,7 @@ function Project({ project, ix, handleDelete, handleSelectId, setselect, select 
 			<div className="bg-white px-2 py-3 flex items-center">
 				<div>
 					{/* <InteractiveOffer color="#1400FF"></InteractiveOffer> */}
-					<IconHome color="#1400FF"></IconHome>
+					<IconHome color={project?.layout?.primaryColor}></IconHome>
 				</div>
 				<div className="text-sm ml-2 overflow-hidden w-[80%]">{project.name}</div>
 

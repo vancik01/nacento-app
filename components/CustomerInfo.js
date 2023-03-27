@@ -55,6 +55,7 @@ export default function CustomerInfo({scale}) {
 						variant="standard"
 						placeholder="Meno Objednávatela"
 						value={customer.name}
+						className="outline-none"
 					></input>
 				</div>
 				<ButtonSecondary

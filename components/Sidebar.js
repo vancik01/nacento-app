@@ -25,6 +25,9 @@ import { createTheme } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 
 import BlockSelector from "./BlockSelector";
+import ButtonIcon from "./ButtonIcon";
+import TrashBin from "../public/SVG/editor/TrashBin";
+import LayoutTemplates from "./editor/LayoutTemplates";
 
 export default function Sidebar() {
 	const {
@@ -48,8 +51,10 @@ export default function Sidebar() {
 		setisHorizontal,
 		changeVariant,
 		variant,
+		saveLayoutTemplate,
 	} = useLayout();
 	const [opened, setopened] = useState("");
+	const [toggleTemplateName, settoggleTemplateName] = useState(true);
 
 	function handleSetOpen(id) {
 		if (opened === "blok" && reorderingBlocks) {
@@ -83,7 +88,6 @@ export default function Sidebar() {
 							<div className="min-w-28 w-28">
 								<Logo></Logo>
 							</div>
-
 							<div className="mt-10">
 								<Accordion expanded={opened === "strana"}>
 									<AccordionSummary
@@ -139,60 +143,6 @@ export default function Sidebar() {
 										</div>
 									</AccordionDetails>
 								</Accordion>
-								{/* <Accordion expanded={opened === "sekcia"}>
-									<AccordionSummary
-										expandIcon={<ArrowDown />}
-										onClick={() => {
-											handleSetOpen("sekcia");
-										}}
-									>
-										<div className="flex items-center gap-2">
-											<div className="w-4">
-												<PageIcon color={primaryColor}></PageIcon>
-											</div>
-											<div>Sekcia</div>
-										</div>
-									</AccordionSummary>
-
-									<AccordionDetails>
-										<div>
-											<ButtonPrimary className="w-full" onClick={addSection}>
-												Pridať sekciu
-											</ButtonPrimary>
-										</div>
-									</AccordionDetails>
-								</Accordion>
-
-								<Accordion expanded={opened === "blok"}>
-									<AccordionSummary
-										expandIcon={<ArrowDown />}
-										onClick={() => {
-											handleSetOpen("blok");
-										}}
-									>
-										<div className="flex items-center gap-2">
-											<div className="w-4">
-												<BlockIcon color={primaryColor}></BlockIcon>
-											</div>
-											<div>Blok</div>
-										</div>
-									</AccordionSummary>
-
-									<AccordionDetails>
-										<div className="flex  items-center">
-											<ButtonPrimary
-												className="w-full"
-												variant="outlined"
-												style={{ fontSize: 12 }}
-												onClick={() => {
-													setreorderingBlocks(!reorderingBlocks);
-												}}
-											>
-												{reorderingBlocks ? "Uložiť" : "Usporiadať bloky"}
-											</ButtonPrimary>
-										</div>
-									</AccordionDetails>
-								</Accordion> */}
 
 								<Accordion expanded={opened === "tabulka"}>
 									<AccordionSummary
@@ -334,20 +284,29 @@ export default function Sidebar() {
 										</div>
 									</AccordionDetails>
 								</Accordion>
-								
-						
-							<div className="mt-8">Pridať práce do ponuky:</div>
-								<ButtonPrimary
-									scale={0.98}
-									className="w-full text-base mt-1"
-									onClick={() => {
-										triggerTemplate(0, 0, 0, "");
-									}}
-									color="#63A695"
-								>
-									Výber z databázy prác
-								</ButtonPrimary>
-								{/* <BlockSelector></BlockSelector> */}
+								<Accordion expanded={opened === "template"}>
+									<AccordionSummary
+										expandIcon={<ArrowDown />}
+										onClick={() => {
+											handleSetOpen("template");
+										}}
+									>
+										<div className="flex items-center gap-2">
+											<div className="w-4">
+												<VariantIcon color={primaryColor} />
+											</div>
+											<div>Uložené šablóny</div>
+										</div>
+									</AccordionSummary>
+
+									<AccordionDetails>
+										<div className="flex justify-center items-center flex-col gap-2">
+											<LayoutTemplates />
+										</div>
+									</AccordionDetails>
+								</Accordion>
+
+								<></>
 							</div>
 
 							<div className="mt-auto w-full flex flex-col gap-2">
@@ -362,7 +321,7 @@ export default function Sidebar() {
 									Uložiť zmeny
 								</ButtonPrimary>
 
-								<ButtonPrimary
+								{/* <ButtonPrimary
 									scale={0.98}
 									className="w-full text-sm"
 									onClick={() => {

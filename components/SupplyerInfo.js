@@ -62,6 +62,7 @@ export default function SupplyerInfo({scale}) {
 						variant="standard"
 						placeholder="Názov Spoločnosti"
 						value={supplyer.company_name}
+						className="outline-none "
 					></input>
 					<input
 						className={`${scale? "text-lg" : "text-sm"} w-[80%]`}
@@ -70,6 +71,7 @@ export default function SupplyerInfo({scale}) {
 						variant="standard"
 						placeholder="IČO"
 						value={supplyer.ico}
+						className="outline-none "
 					></input>
 					<input
 						className={`${scale? "text-lg" : "text-sm"} w-[80%]`}
@@ -78,6 +80,7 @@ export default function SupplyerInfo({scale}) {
 						variant="standard"
 						placeholder="DIČ"
 						value={supplyer.dic}
+						className="outline-none "
 					></input>
 					<input
 						className={`${scale? "text-lg" : "text-sm"} w-[80%]`}
@@ -86,6 +89,7 @@ export default function SupplyerInfo({scale}) {
 						variant="standard"
 						placeholder="Telefónne číslo"
 						value={supplyer.phone}
+						className="outline-none "
 					></input>
 					<input
 						className={`${scale? "text-lg" : "text-sm"} w-[80%]`}
@@ -94,6 +98,7 @@ export default function SupplyerInfo({scale}) {
 						variant="standard"
 						placeholder="Email"
 						value={supplyer.email}
+						className="outline-none "
 					></input>
 					<input
 						className={`${scale? "text-lg" : "text-sm"} w-[80%]`}
@@ -102,6 +107,7 @@ export default function SupplyerInfo({scale}) {
 						variant="standard"
 						placeholder="Web"
 						value={supplyer.web}
+						className="outline-none "
 					></input>
 				</div>
 				<ButtonSecondary

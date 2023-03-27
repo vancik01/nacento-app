@@ -36,7 +36,7 @@ export default function predvyplnenia() {
 	function handleSave() {
 		const docRef = doc(firestore, `/users/${user.uid}`);
 		updateDoc(docRef, { supplyer: { ...supplyer } }).then(() => {
-			toast("Dáta sa uložili", { autoClose: 3000, type: "success" });
+			toast("Dáta sa uložili", { type: "success" });
 		});
 	}
 

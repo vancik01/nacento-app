@@ -13,7 +13,7 @@ import debounce from "lodash.debounce";
 import { useRouter } from "next/router";
 import ButtonPrimary from "../components/ButtonPrimary";
 import { toast } from "react-toastify";
-
+import moment from "moment/moment";
 import {
 	splitBetweenBlocks,
 	splitBetweenItems,
@@ -26,6 +26,8 @@ import AddRow from "../public/SVG/AddRow";
 import CenovaPonukaSkeleton from "../components/skeletons/CenovaPonukaSkeleton";
 import { forEach } from "lodash";
 import { useAuth } from "./AuthContext";
+import LayoutContext, { useLayout } from "./LayoutContext";
+import ScreenLayout from "../components/ScreenLayout";
 
 const DataContext = React.createContext();
 
@@ -58,8 +60,17 @@ export function AppWrap({ children, dbData }) {
 	const [showUI, setshowUI] = useState(false);
 	const [description, setdescription] = useState(dbData.description);
 	const [templateTrigger, settemplateTrigger] = useState(null);
+	const [dataDB, setdataDB] = useState(dbData);
+	const [signature, setsignature] = useState();
+	const [expiration, setexpiration] = useState(
+		dbData.expiration && moment(dbData.expiration).valueOf()
+	);
+	const [subHeading, setsubHeading] = useState(
+		dbData.subHeading ? dbData.subHeading : ""
+	);
 
 	const { userData, user } = useAuth();
+	const { getLayout } = useLayout();
 
 	function changeDescription(e) {
 		var newData = description;
@@ -85,6 +96,10 @@ export function AppWrap({ children, dbData }) {
 			name: name,
 			totals: total,
 			description: description ? description : "",
+			layout: getLayout(),
+			lastModified: moment().valueOf(),
+			expiration: expiration ? moment(expiration).valueOf() : null,
+			subHeading: subHeading ? subHeading : "",
 		})
 			.then((snap) => {
 				//setdata(snap.data().data);
@@ -93,10 +108,7 @@ export function AppWrap({ children, dbData }) {
 			})
 			.catch((err) => {
 				console.log(err);
-				toast("Vyskytla sa chyba pri ukladaní", {
-					autoClose: 3,
-					type: "error",
-				});
+				toast("Vyskytla sa chyba pri ukladaní", { type: "error" });
 				setsaving(true);
 			});
 	}
@@ -143,11 +155,17 @@ export function AppWrap({ children, dbData }) {
 			loadTotals();
 			var newData = { ...data };
 			newData.supplyer.company_name = userData?.name;
-			newData.supplyer.dic = userData?.supplyer.dic;
-			newData.supplyer.email = userData.email;
-			newData.supplyer.ico = userData?.supplyer.ico;
-			newData.supplyer.phone = userData?.supplyer.phone;
-			newData.supplyer.web = userData?.supplyer.web;
+			newData.supplyer.dic = userData.supplyer.dic ? userData.supplyer.dic : "";
+			newData.supplyer.email = userData.email ? userData.email : "";
+			newData.supplyer.ico = userData.supplyer.ico
+				? userData?.supplyer.ico
+				: "";
+			newData.supplyer.phone = userData.supplyer.phone
+				? userData?.supplyer.phone
+				: "";
+			newData.supplyer.web = userData.supplyer.web
+				? userData?.supplyer.web
+				: "";
 			setdata(newData);
 			setshowUI(true);
 		}
@@ -547,7 +565,7 @@ export function AppWrap({ children, dbData }) {
 		});
 
 		setdata(newData);
-		addBlock(newData.sections.length - 1, -1);
+		addBlock(newData.sections.length - 1, 0);
 		setTimeout(() => {
 			document
 				.getElementById("last-section")
@@ -633,6 +651,15 @@ export function AppWrap({ children, dbData }) {
 		templateTrigger,
 		settemplateTrigger,
 		triggerTemplate,
+		dataDB,
+
+		signature,
+		setsignature,
+		expiration,
+		setexpiration,
+
+		subHeading,
+		setsubHeading,
 	};
 
 	useEffect(() => {
@@ -653,6 +680,7 @@ export function AppWrap({ children, dbData }) {
 			) : (
 				<CenovaPonukaSkeleton />
 			)}
+
 			{/* <FullPageLoading loading={loading}></FullPageLoading> */}
 		</DataContext.Provider>
 	);

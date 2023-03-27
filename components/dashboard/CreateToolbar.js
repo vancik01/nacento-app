@@ -148,7 +148,7 @@ function AddEmpty({ text, subtext, color }) {
 	const [display, setdisplay] = useState(false);
 	const [title, settitle] = useState("");
 	const [error, seterror] = useState("");
-	const [loading, setloading] = useState(false)
+	const [loading, setloading] = useState(false);
 
 	function createEmpty() {
 		// seterror("");
@@ -162,19 +162,19 @@ function AddEmpty({ text, subtext, color }) {
 		setDoc(collectionRef, {
 			id: collectionRef.id,
 			data: customBuild,
-			name:  "Nová cenová ponuka",
+			name: "Nová cenová ponuka",
 			created: moment().valueOf(),
 			userId: user != null ? user.uid : "none",
-			total: {
+			totals: {
 				total_delivery_price: 0,
 				total_construction_price: 0,
 				total: 0,
 			},
+			lastModified: moment().valueOf(),
 		})
 			.then((response) => {
 				router.push(`/cenova-ponuka/${collectionRef.id}`);
 				setloading(false);
-				
 			})
 			.catch((err) => {
 				console.log(err);
@@ -192,7 +192,7 @@ function AddEmpty({ text, subtext, color }) {
 			<button
 				onClick={() => {
 					//setdisplay(true);
-					createEmpty()
+					createEmpty();
 				}}
 				className="w-full py-3 px-3 cursor-default border rounded-md flex items-center justify-between sm:justify-center gap-2 text-start trans hover:bg-gray-100 transition-all"
 			>

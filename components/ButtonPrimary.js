@@ -59,11 +59,13 @@ export default function ButtonPrimary({
 				<div>
 					{href && (
 						<div>
-							<span className="no-underline text-white">{children}</span>
+							<span className="no-underline text-white whitespace-nowrap">
+								{children}
+							</span>
 						</div>
 					)}
 
-					{!href && <>{children}</>}
+					{!href && <span className="whitespace-nowrap ">{children}</span>}
 				</div>
 				{icon && iconAfter && <div className="ml-1">{icon}</div>}
 			</div>

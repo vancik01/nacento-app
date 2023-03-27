@@ -22,12 +22,11 @@ export default function Home({ dbData }) {
 			<Head>
 				<title>Cenová ponuka</title>
 			</Head>
-
-			<AppWrap dbData={dbData}>
-				<LayoutContext>
+			<LayoutContext layout={dbData?.layout} headers={dbData.data.headers}>
+				<AppWrap dbData={dbData}>
 					<ScreenLayout />
-				</LayoutContext>
-			</AppWrap>
+				</AppWrap>
+			</LayoutContext>
 		</ThemeProvider>
 	);
 }
