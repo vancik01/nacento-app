@@ -49,13 +49,12 @@ export default function CustomerInfo({scale}) {
 				<div className={`${scale && "text-xl"} mb-2 text-gray-300 capitalize`}>OBJEDNÁVATEL:</div>
 				<div className="flex flex-col gap-1 text-sm">
 					<input
-						className={`${scale? "text-lg" : "text-sm"} w-[100%]`}
+						className={`${scale? "text-lg" : "text-sm"} outline-none w-[100%]`}
 						onChange={handleChange}
 						name="name"
 						variant="standard"
 						placeholder="Meno Objednávatela"
 						value={customer.name}
-						className="outline-none"
 					></input>
 				</div>
 				<ButtonSecondary
