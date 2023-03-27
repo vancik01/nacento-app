@@ -4,8 +4,15 @@ import ButtonPrimary from "../ButtonPrimary";
 import Pro from "../Pro";
 import { useAuth } from "../../context/AuthContext"
 
+import { useRouter } from 'next/router'
+
+import HS from "../../pages/dashboard/icons/HS";
+import Elektro from "../../pages/dashboard/icons/Elektro";
+import Vykurovanie from "../../pages/dashboard/icons/Vykurovanie";
+
 
 export default function TeamsList() {
+	const router = useRouter()
 
 	return (
 		<div className="hidden xl:h-screen xl:border-r-[1px] xl:py-4 xl:block">
@@ -28,8 +35,41 @@ export default function TeamsList() {
 					<ProjectItem/>
 				</div>
 			</div>
+
+			{router.asPath === "/dashboard/" && <div>
+				<h2 className="px-4 mt-8 text-lg">Rýchle nacenenie</h2>
+
+				<div className="flex flex-col pl-4">
+				{/* #e11d48 */}
+					<WorkItem text={"Hrubá stavba"} ix={0}/>
+					<WorkItem text={"Elektroinštalácie"} ix={1}/>
+					<WorkItem text={"Vykurovanie"} ix={2}/>
+				</div>
+			</div>}
 		</div>
 	);
+}
+
+function WorkItem({text, ix}){
+	const router = useRouter()
+	return(
+		<div onClick={() => {
+			window.localStorage.setItem("WORK_TYPE", ix)
+			router.push("/dashboard/interactive/")
+		}
+		}
+		className="px-4 pt-2 pb-1 flex items-center cursor-default gap-2 hover:bg-gray-50 transition-colors w-full">
+			{/* <div className={`h-3 ${bg} aspect-square`}></div> */}
+			
+			<div style={{borderWidth: "3px"}} 
+			className={`rounded-full border-gray-700 h-[5px] w-[5px] flex items-center justify-center`}>
+          	</div>
+
+			<div className="text-sm"> 
+				{text}
+			</div>
+		</div>
+	)
 }
 
 function ProjectItem({ selected, team }) {

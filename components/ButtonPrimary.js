@@ -20,13 +20,13 @@ export default function ButtonPrimary({
 	const layout = useLayout();
 	const router = useRouter();
 
-	if(typeof(layout) !== "undefined"){
+	if(color) color = color
+
+	else if(typeof(layout) !== "undefined"){
 		const { primaryColor } = useLayout()
 		color = primaryColor
-	} else {
-		if(color) color = color
-		else color = "#361CC1";
-	}
+	} else color = "#361CC1";
+
 
 	return (
 		<motion.button

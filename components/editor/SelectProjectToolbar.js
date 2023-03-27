@@ -26,7 +26,7 @@ export default function SelectProjectToolbar() {
 			onHoverEnd={() => {
 				sethover(false);
 			}}
-			className="relative"
+			className="relative z-50"
 		>
 			<button>
 				<div className="flex justify-start items-center gap-2">

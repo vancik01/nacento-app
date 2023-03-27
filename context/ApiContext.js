@@ -15,7 +15,7 @@ export function ApiContext({ children }) {
     const [images, setimages] = useState([]);
 	const [pdf, setPdf] = useState("");
     const [dataloading, setdataloading] = useState(false);
-    const { hsdata, sethsdata } = useStepper()
+    const { hsdata, sethsdata, edata } = useStepper()
 
     const { user } = useAuth();
     const router = useRouter();
@@ -29,15 +29,19 @@ export function ApiContext({ children }) {
             data = {...hsdata}
         } 
 
-        // fetch(`http://127.0.0.1:8000/api/data_offer_${api_route}`, {
-        fetch(`https://api.nacento.online/api/data_offer_${api_route}`, {
+        if(type=="EL"){
+            api_route = "elektro/"
+            data = {...edata}
+        }
+
+        fetch(`http://127.0.0.1:8000/api/data_offer_${api_route}`, {
+        // fetch(`https://api.nacento.online/api/data_offer_${api_route}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
         }).then((response) => {
             if (response.ok) {
                 response.json().then((CP) => {
-
                     setdataloading(true);
 
                     const collectionRef = doc(collection(firestore, "/offers"));
@@ -48,6 +52,11 @@ export function ApiContext({ children }) {
                         name: "Nová cenová ponuka",
                         created: moment().valueOf(),
                         userId: user != null ? user.uid : "none",
+                        total: {
+                            total_delivery_price: 0,
+                            total_construction_price: 0,
+                            total: 0,
+                        },
                     })
                         .then((response) => {
                             router.push(`/cenova-ponuka/${collectionRef.id}`);

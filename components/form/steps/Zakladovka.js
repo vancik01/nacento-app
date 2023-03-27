@@ -15,7 +15,7 @@ export default function Zakladovka() {
   return (
     <>
     
-    <IntroSection title={"základovú dosku"} text={"pôdorysu základov"} type={"ZD"}/>
+    <IntroSection title={"základovú dosku"} ix={0} text={"pôdorysu základov"} type={"ZD"}/>
    
     <FormLayout>
 

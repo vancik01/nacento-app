@@ -108,12 +108,13 @@ export default function ProjectList({clicked}) {
 					{
 						<div className="w-full">
 							{!sceletonLoading ? (
-								<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  2xl:grid-cols-5 w-full mt-10 gap-4">
+								<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 mt-10 gap-4">
 									{data?.map((project, i) => {
 										return (
 											<Project
 												project={project}
 												ix={i}
+												key={i}
 												handleDelete={handleDelete}
 												handleSelectId={handleSelectId}
 												setselect={setselected}
@@ -154,9 +155,9 @@ function Project({ project, ix, handleDelete, handleSelectId, setselect, select 
 			}
 			e.stopPropagation();
 		}} 
-		
-		className={`shadow-md outline ${!select[ix] ? "outline-gray-300 outline-0 hover:outline-1" : "outline-blue-500 outline-2"}  rounded-sm transition duration-100 ease-in-out`}>
-			<div className="bg-gray-50 rounded-sm min-h-[200px] p-4 flex justify-between flex-col">
+		//w-[18vw] h-[16vw]
+		className={`shadow-md project-div outline ${!select[ix] ? "outline-gray-300 outline-0 hover:outline-1" : "outline-blue-500 outline-2"}  rounded-sm transition duration-100 ease-in-out`}>
+			<div className="bg-gray-50 rounded-sm p-4 min-h-[250px] flex justify-between flex-col">
 				<div className="">
 					<div className="flex justify-between items-center">
 						<div className="text-lg font-medium text-start">Cenová Ponuka</div>
@@ -175,6 +176,7 @@ function Project({ project, ix, handleDelete, handleSelectId, setselect, select 
 						<AnimatePresence mode="wait">
 							{toggleDelete && (
 								<motion.div
+									onClick={(e) => e.stopPropagation()}
 									key={`delete-${project.id}`}
 									initial={{ opacity: 0, y: 10 }}
 									exit={{ opacity: 0, y: 10 }}
@@ -203,7 +205,7 @@ function Project({ project, ix, handleDelete, handleSelectId, setselect, select 
 						Objednávateľ:
 					</div>
 					<div className="text-left font-light text-sm text-gray-500 mt-1">
-						{project.data.customer.name}
+						{project.data.customer && project.data.customer.name}
 					</div>
 
 					<div className="text-left font-regular text-sm text-black mt-4">
@@ -253,8 +255,8 @@ function Skeleton() {
 		<div className="grid grid-cols-4 w-full mt-10 gap-4">
 			{Array(12)
 				.fill("")
-				.map(() => {
-					return <div className="w-full h-[240px] bg-gray-100 skeleton"></div>;
+				.map((name, ix) => {
+					return <div key={`sk${ix}`} className="w-full h-[240px] bg-gray-100 skeleton"></div>;
 				})}
 		</div>
 	);

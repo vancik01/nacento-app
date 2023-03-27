@@ -19,7 +19,7 @@ export default function Dashboard() {
 	return (
 		<div>
 			<Head>
-				<title>Dashboard</title>
+				<title>Naceňto</title>
 			</Head>
 			{/* <div style={{ backgroundColor: "#363636" }} className={"drop-shadow	"}> */}
 			<div style={{ backgroundColor: "#2C2C2C" }} className={"drop-shadow	"}>

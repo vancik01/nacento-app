@@ -46,7 +46,7 @@ function AddButton({ text, subtext, color, onClick }) {
 			onClick={() => {
 				router.push(`/dashboard/interactive/`);
 			}}
-			className="py-3 px-3 border rounded-md flex items-center justify-between sm:justify-center gap-2 text-start hover:bg-gray-50 transition-all"
+			className="py-3 px-3 cursor-default border rounded-md flex items-center justify-between sm:justify-center gap-2 text-start trans hover:bg-gray-100 transition-all"
 		>
 			{/* <IconHome color={color}></IconHome> */}
 			{/* <InteractiveOffer color={color}></InteractiveOffer> */}
@@ -113,7 +113,7 @@ function AddFromFile({ text, color, onClick }) {
 			<label
 				htmlFor="fileInput"
 				onClick={onClick}
-				className="py-3 px-3 border rounded-md flex items-center border-dashed justify-center gap-2 text-start hover:bg-gray-50 transition-all"
+				className="py-3 px-3 border rounded-md flex items-center border-dashed justify-center gap-2 text-start trans hover:bg-gray-100 transition-all"
 			>
 				<JsonOffer color={color}></JsonOffer>
 				<div>
@@ -194,7 +194,7 @@ function AddEmpty({ text, subtext, color }) {
 					//setdisplay(true);
 					createEmpty()
 				}}
-				className="w-full py-3 px-3 border rounded-md flex items-center justify-between sm:justify-center gap-2 text-start hover:bg-gray-50 transition-all"
+				className="w-full py-3 px-3 cursor-default border rounded-md flex items-center justify-between sm:justify-center gap-2 text-start trans hover:bg-gray-100 transition-all"
 			>
 				{/* <IconHome color={color}></IconHome> */}
 				<AddOffer color={color}></AddOffer>

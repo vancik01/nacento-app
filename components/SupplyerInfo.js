@@ -8,7 +8,7 @@ import EditPen from "../public/SVG/EditPen";
 import ButtonPrimary from "./ButtonPrimary";
 import ButtonSecondary from "./ButtonSecondary";
 
-export default function SupplyerInfo() {
+export default function SupplyerInfo({scale}) {
 	const { data, changeSupplyerData } = useData();
 	const { userData } = useAuth();
 	const [editing, setediting] = useState(false);
@@ -27,9 +27,9 @@ export default function SupplyerInfo() {
 
 	if (!editing) {
 		return (
-			<div className="min-w-[250px]">
+			<div>
 				<div className="relative w-fit">
-					<div className="mb-2 text-gray-300 capitalize">DODÁVATEL:</div>
+					<div className={`${scale && "text-xl"} mb-2 text-gray-300 capitalize`}>DODÁVATEĽ:</div>
 					<button
 						onClick={() => {
 							setediting(true);
@@ -40,7 +40,7 @@ export default function SupplyerInfo() {
 					</button>
 				</div>
 
-				<div className="text-sm flex flex-col gap-1">
+				<div className={`${scale? "text-lg" : "text-sm"} flex flex-col gap-1`}>
 					{supplyer.company_name && <div>{supplyer.company_name}</div>}
 					{data.supplyer.ico && <div>IČO: {data.supplyer.ico}</div>}
 					{data.supplyer.dic && <div>DIČ: {data.supplyer.dic}</div>}
@@ -52,10 +52,11 @@ export default function SupplyerInfo() {
 		);
 	} else {
 		return (
-			<div className="min-w-[250px]">
-				<div className="mb-2 text-gray-300 capitalize">DODÁVATEL:</div>
+			<div>
+				<div className={`${scale && "text-xl"} mb-2 text-gray-300 capitalize`}>DODÁVATEĽ:</div>
 				<div className="flex flex-col gap-1 text-sm">
 					<input
+						className={`${scale? "text-lg" : "text-sm"} w-[80%]`}
 						onChange={handleChange}
 						name="company_name"
 						variant="standard"
@@ -63,6 +64,7 @@ export default function SupplyerInfo() {
 						value={supplyer.company_name}
 					></input>
 					<input
+						className={`${scale? "text-lg" : "text-sm"} w-[80%]`}
 						onChange={handleChange}
 						name="ico"
 						variant="standard"
@@ -70,6 +72,7 @@ export default function SupplyerInfo() {
 						value={supplyer.ico}
 					></input>
 					<input
+						className={`${scale? "text-lg" : "text-sm"} w-[80%]`}
 						onChange={handleChange}
 						name="dic"
 						variant="standard"
@@ -77,13 +80,15 @@ export default function SupplyerInfo() {
 						value={supplyer.dic}
 					></input>
 					<input
+						className={`${scale? "text-lg" : "text-sm"} w-[80%]`}
 						onChange={handleChange}
 						name="phone"
 						variant="standard"
-						placeholder="Tel"
+						placeholder="Telefónne číslo"
 						value={supplyer.phone}
 					></input>
 					<input
+						className={`${scale? "text-lg" : "text-sm"} w-[80%]`}
 						onChange={handleChange}
 						name="email"
 						variant="standard"
@@ -91,6 +96,7 @@ export default function SupplyerInfo() {
 						value={supplyer.email}
 					></input>
 					<input
+						className={`${scale? "text-lg" : "text-sm"} w-[80%]`}
 						onChange={handleChange}
 						name="web"
 						variant="standard"

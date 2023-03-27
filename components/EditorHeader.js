@@ -10,25 +10,31 @@ import UserInfoHeader from "./user_components/UserInfoHeader";
 import SelectProjectToolbar from "./editor/SelectProjectToolbar";
 import ButtonSecondary from "./ButtonSecondary";
 import ArrowBack from "../public/SVG/buttons/ArrowBack";
+import { useData } from "../context/AppWrap";
 
 export default function EditorHeader() {
+	const router = useRouter();
+	const {handleSave} = useData()
+
 	return (
-		<nav className="h-32 flex items-center px-10">
-			<div className="flex justify-between items-center w-full">
+			<div className="flex justify-between items-center w-full px-10 pt-10 pb-5">
 				<div className="flex items-center gap-8">
 					<div>
 						<ButtonSecondary
-							href="/dashboard"
+							onClick={() => {
+								handleSave(false)
+								router.replace('/dashboard')
+							}}
+							// href="/dashboard"
 							iconBefore
 							icon={<ArrowBack color={"black"}></ArrowBack>}
 						>
-							Dashboard
+							Zoznam ponúk
 						</ButtonSecondary>
 					</div>
 					<SelectProjectToolbar />
 				</div>
 				<UserInfoHeader />
 			</div>
-		</nav>
 	);
 }

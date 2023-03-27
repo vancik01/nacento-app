@@ -240,7 +240,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 					inputProps={{ min: 1 }}
 					type="number"
 					onChange={update}
-					value={polozka.quantity}
+					value={polozka.quantity.toString()}
 				/>
 			</div>
 		);
@@ -252,7 +252,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.unit_delivery_price}
+					value={polozka.unit_delivery_price.toString()}
 					endAdornment="€"
 				/>
 			</div>
@@ -265,7 +265,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.unit_construction_price}
+					value={polozka.unit_construction_price.toString()}
 					endAdornment="€"
 				/>
 			</div>
@@ -278,7 +278,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.total_delivery_price}
+					value={polozka.total_delivery_price.toString()}
 					endAdornment="€"
 				/>
 			</div>
@@ -291,22 +291,23 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.total_construction_price}
+					value={polozka.total_construction_price.toString()}
 					endAdornment="€"
 				/>
 			</div>
 		);
 	} else if (item === "total") {
 		return (
-			<div className={`flex align-middle items-center ${label.short}`}>
+			<div className={`flex text-[11px] align-middle items-center ${label.short}`}>
 				<Input
 					disableUnderline
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.total}
+					value={polozka.total.toString()}
 					endAdornment="€"
 				/>
+
 			</div>
 		);
 	}

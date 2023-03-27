@@ -9,6 +9,7 @@ const Stepper = ({ steps, currentStep, setCurrentStep }) => {
   const colors = {
     "red" : 'text-rose-600 font-bold',
     "green" : 'text-emerald-600',
+    "blue" : 'text-blue-700',
   }
 
   const updateStep = (stepNumber, steps) => {

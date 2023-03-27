@@ -11,7 +11,7 @@ export default function Strecha() {
 
   return (
     <>
-        <IntroSection title={"strechu"} text={"pôdorys strechy"} type={"ST"}/>
+        <IntroSection title={"strechu"} ix={2}  text={"pôdorys strechy"} type={"ST"}/>
 
         <FormLayout>
 

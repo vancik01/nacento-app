@@ -82,6 +82,7 @@ function ElektromontazForm({ theme_color }) {
           handleClick={handleClick}
           currentStep={currentStep}
           steps={steps}
+          typ="EL"
         />
       </div>
         

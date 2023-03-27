@@ -7,7 +7,8 @@ function NumberInput({ id, unit, sup, decimal, path }) {
 
     const colors = {
         "red" : "input-red",
-        "green" : "input-green"
+        "green" : "input-green",
+        "blue" : "input-blue"
     }
 
     var data = {}
