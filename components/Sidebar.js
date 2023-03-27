@@ -293,7 +293,7 @@ export default function Sidebar() {
 									>
 										<div className="flex items-center gap-2">
 											<div className="w-4">
-												<VariantIcon color={primaryColor} />
+												<VariantIcon color={"#63A695"} />
 											</div>
 											<div>Uložené šablóny</div>
 										</div>
@@ -306,7 +306,18 @@ export default function Sidebar() {
 									</AccordionDetails>
 								</Accordion>
 
-								<></>
+								<div className="mt-8">Pridať práce do ponuky:</div>
+								<ButtonPrimary
+									scale={0.98}
+									className="w-full text-base mt-1"
+									onClick={() => {
+										triggerTemplate(0, 0, 0, "");
+									}}
+									color="#63A695"
+								>
+									Výber z databázy prác
+								</ButtonPrimary>			
+								
 							</div>
 
 							<div className="mt-auto w-full flex flex-col gap-2">
@@ -321,7 +332,7 @@ export default function Sidebar() {
 									Uložiť zmeny
 								</ButtonPrimary>
 
-								{/* <ButtonPrimary
+								<ButtonPrimary
 									scale={0.98}
 									className="w-full text-sm"
 									onClick={() => {
@@ -332,7 +343,7 @@ export default function Sidebar() {
 									Stiahnuť ponuku
 								</ButtonPrimary>
 
-								{/* <button
+								 {/* <button
 									scale={0.98}
 									className="w-full text-sm mt-6"
 									onClick={() => {

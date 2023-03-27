@@ -25,13 +25,13 @@ export default function AccountToolbar() {
 					<MenuItem profile={true} href={""} className={"cursor-default"} 
 					icon={<img src={user.photoURL ? user.photoURL : "/static/default-user.png"}
 								className="w-[24px] aspect-square rounded-full"
-								alt="" />}>
+								alt="" />}> 
+						{userData.email}
+					</MenuItem>
 
 					<MenuItem icon={<AccountIcon />} href={"/nastavenie-uctu"}>
 						Môj účet
 					</MenuItem>
-
-					<MenuItem icon={<AccountIcon/>} href={"/nastavenie-uctu"}>Môj účet</MenuItem>
 
 					<MenuItem icon={<OfferIcon/>} href={"/nastavenie-uctu/vzory"}>Nastavenia ponuky</MenuItem>
 

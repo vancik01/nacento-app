@@ -117,6 +117,7 @@ export const DownloadLink = ({ close }) => {
 						<>
 							<ButtonPrimary
 								disabled={loading}
+								color="#63A695"
 								onClick={() => {
 									null;
 								}}

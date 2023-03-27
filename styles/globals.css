@@ -253,9 +253,9 @@ option {
     }
   }
 
-/* input[type="file"] {
+#file-hidden {
     display: none;
-} */
+}
 
 .icon-grid{
   grid-template-columns: 1fr 1fr 1fr;

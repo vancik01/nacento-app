@@ -84,7 +84,7 @@ function IntroSection({title, text, ix, type}) {
           </div>
         </div>
 
-        <input className='' type="file" ref={inputRef} onChange={(e) => handleFileChange(e, setFileName, setPdf)}/>
+        <input id="file-hidden" className='' type="file" ref={inputRef} onChange={(e) => handleFileChange(e, setFileName, setPdf)}/>
             <div onClick={!passed? handleClick: () => {}} className={"shadow-sm cursor-pointer border border-slate-300 trans font-medium rounded-sm text-gray-500 inline-block px-6 py-3 " + (!passed? colors[color][0] : "")}>
                Vložiť PDF {text}
             </div>
