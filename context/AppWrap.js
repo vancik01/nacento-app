@@ -175,11 +175,11 @@ export function AppWrap({ children, dbData }) {
 			setshowUI(true);
 
 			console.log(dbData.images);
-			if (dbData.images.logo) {
+			if (dbData?.images?.logo) {
 				setlogo(dbData.images.logo);
 			}
 
-			if (dbData.images.signature) {
+			if (dbData?.images?.signature) {
 				setsignature(dbData.images.signature);
 			}
 		}

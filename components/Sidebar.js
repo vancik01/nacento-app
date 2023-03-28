@@ -28,6 +28,10 @@ import BlockSelector from "./BlockSelector";
 import ButtonIcon from "./buttons/ButtonIcon";
 import TrashBin from "../public/SVG/editor/TrashBin";
 import LayoutTemplates from "./editor/LayoutTemplates";
+import ButtonSecondary from "./buttons/ButtonSecondary";
+import { httpsCallable } from "firebase/functions";
+import { functions } from "../lib/firebase";
+import { useRouter } from "next/router";
 
 export default function Sidebar() {
 	const {
@@ -40,7 +44,10 @@ export default function Sidebar() {
 		handleSave,
 		saving,
 		triggerTemplate,
+		name,
 	} = useData();
+
+	const router = useRouter();
 
 	const {
 		displayColumns,
@@ -78,6 +85,32 @@ export default function Sidebar() {
 			},
 		},
 	});
+
+	function getServerPdf() {
+		const projectId = router.query.projectId;
+		fetch(
+			`https://us-central1-cenova-ponuka.cloudfunctions.net/renderPdf?offerId=${projectId}`
+		)
+			.then((response) => {
+				return response.blob();
+			})
+			.then((blob) => {
+				// create a temporary <a> element to download the blob
+				const url = URL.createObjectURL(blob);
+				const a = document.createElement("a");
+				a.href = url;
+				a.download = `${name}.pdf`; // replace "your_filename" with your desired filename
+				a.click();
+
+				// cleanup: remove the temporary URL created by URL.createObjectURL()
+				setTimeout(() => {
+					URL.revokeObjectURL(url);
+				}, 0);
+			})
+			.catch((error) => {
+				console.error("Error fetching PDF:", error);
+			});
+	}
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -175,7 +208,7 @@ export default function Sidebar() {
 																	({getTitle(header, "sk").short})
 																</span>
 															</div>
-															<Switch																
+															<Switch
 																size="small"
 																defaultChecked={displayColumns.includes(header)}
 																onChange={() => {
@@ -316,8 +349,13 @@ export default function Sidebar() {
 									color="#63A695"
 								>
 									Výber z databázy prác
-								</ButtonPrimary>			
-								
+								</ButtonPrimary>
+							</div>
+
+							<div className="mt-8">
+								<ButtonSecondary onClick={getServerPdf}>
+									Render from server
+								</ButtonSecondary>
 							</div>
 
 							<div className="mt-auto w-full flex flex-col gap-2">
@@ -343,7 +381,7 @@ export default function Sidebar() {
 									Stiahnuť ponuku
 								</ButtonPrimary>
 
-								 {/* <button
+								{/* <button
 									scale={0.98}
 									className="w-full text-sm mt-6"
 									onClick={() => {
