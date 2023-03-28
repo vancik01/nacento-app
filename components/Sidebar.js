@@ -62,6 +62,7 @@ export default function Sidebar() {
 	} = useLayout();
 	const [opened, setopened] = useState("");
 	const [toggleTemplateName, settoggleTemplateName] = useState(true);
+	const [loadingPDF, setloadingPDF] = useState(false);
 
 	function handleSetOpen(id) {
 		if (opened === "blok" && reorderingBlocks) {
@@ -87,6 +88,7 @@ export default function Sidebar() {
 	});
 
 	function getServerPdf() {
+		setloadingPDF(true);
 		const projectId = router.query.projectId;
 		fetch(
 			`https://us-central1-cenova-ponuka.cloudfunctions.net/renderPdf?offerId=${projectId}`
@@ -106,9 +108,11 @@ export default function Sidebar() {
 				setTimeout(() => {
 					URL.revokeObjectURL(url);
 				}, 0);
+				setloadingPDF(false);
 			})
 			.catch((error) => {
 				console.error("Error fetching PDF:", error);
+				setloadingPDF(false);
 			});
 	}
 
@@ -356,6 +360,7 @@ export default function Sidebar() {
 								<ButtonSecondary onClick={getServerPdf}>
 									Render from server
 								</ButtonSecondary>
+								{loadingPDF && <div>Loading, hang on...</div>}
 							</div>
 
 							<div className="mt-auto w-full flex flex-col gap-2">
