@@ -81,7 +81,7 @@ export default function BulkEdit() {
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.2, ease: "easeInOut" }}
 					key={`bulk-edit`}
-					className="mt-4 absolute w-[400px] shadow-bulk bg-white z-50 p-6 rounded-sm"
+					className="absolute w-[400px] shadow-bulk bg-white z-50 p-6 rounded-sm"
 					style={{ left: bulkEditData.x, top: bulkEditData.y }}
 				>
 					<div className="relative">

@@ -15,7 +15,7 @@ export default function OfferFooter() {
 	const { signature, setsignature, expiration, setexpiration } = useData();
 
 	return (
-		<div>
+		<div className="pt-16">
 			<div className="grid grid-cols-2 items-center">
 				<div className="text-sm">
 					<div className="mb-4">
@@ -33,7 +33,7 @@ export default function OfferFooter() {
 							) : (
 								<div className="text-sm text-gray-400">Vyberte platnosť:</div>
 							)}
-							<div className="flex gap-4 mt-4">
+							<div className="flex gap-1 mt-4">
 								<ButtonSecondary
 									onClick={() => {
 										setexpiration(moment().add(7, "days"));

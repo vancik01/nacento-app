@@ -22,8 +22,8 @@ export default function UploadSignature() {
 		<div className="flex justify-between items-center relative">
 			<label htmlFor="upload-signature">
 				{!signature && (
-					<div className="text-xl px-6 py-2 border h-40 w-64 flex justify-center items-center hover:bg-gray-100 transition-all">
-						Nahrať podpis
+					<div className="text-lg px-6 py-2 text-center border-2 rounded-md border-dashed h-40 w-64 flex justify-center items-center hover:bg-gray-100 transition-all">
+						Nahrať pečiatku a podpis
 					</div>
 				)}
 			</label>
