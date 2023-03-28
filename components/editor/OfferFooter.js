@@ -7,6 +7,7 @@ import Logo from "../../public/SVG/Logo";
 import moment from "moment/moment";
 import ButtonSecondary from "../buttons/ButtonSecondary";
 import UploadSignature from "./UploadSignature";
+import UploadImage from "./UploadImage";
 
 export default function OfferFooter() {
 	const { userData } = useAuth();
@@ -73,7 +74,15 @@ export default function OfferFooter() {
 						className="max-w-[200px] h-full"
 						alt=""
 					/> */}
-					<UploadSignature></UploadSignature>
+					<UploadImage
+						onUpload={(url) => {
+							setsignature(url);
+						}}
+						defaultPreview={signature}
+						placeholder="Nahrať podpis"
+						height={160}
+						width={250}
+					/>
 				</div>
 			</div>
 

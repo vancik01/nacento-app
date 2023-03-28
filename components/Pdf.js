@@ -38,16 +38,14 @@ Font.register({
 function formatSpaces(x) {
 	x = x.toString();
 	var pattern = /(-?\d+)(\d{3})/;
-	while (pattern.test(x))
-		x = x.replace(pattern, "$1 $2");
+	while (pattern.test(x)) x = x.replace(pattern, "$1 $2");
 	return x;
 }
 
 function formatCommas(x) {
 	x = x.toString();
 	var pattern = /(-?\d+)(\d{3})/;
-	while (pattern.test(x))
-		x = x.replace(pattern, "$1,$2");
+	while (pattern.test(x)) x = x.replace(pattern, "$1,$2");
 	return x;
 }
 
@@ -383,7 +381,7 @@ export function Pdf({
           
 
         </View> */}
-				<View style={styles.section} >
+				<View style={styles.section}>
 					<View
 						style={{
 							display: "flex",
@@ -397,7 +395,19 @@ export function Pdf({
 							<Text style={styles.infoHeading}>{subHeading}</Text>
 						</View>
 
-						<View>{logo && <Image style={styles.logo} src={logo} />}</View>
+						<View>
+							{logo && (
+								<Image
+									style={styles.logo}
+									src={{
+										uri: logo,
+										method: "GET",
+										headers: { "Cache-Control": "no-cache" },
+										body: "",
+									}}
+								/>
+							)}
+						</View>
 					</View>
 				</View>
 				<View style={[styles.infoWraper, styles.section]}>
@@ -427,14 +437,17 @@ export function Pdf({
 					<View>
 						<Text style={styles.infoHeading}>CENA:</Text>
 						<Text style={styles.text}>
-							Cena montáže celkom: {formatSpaces(totals.total_construction_price.toFixed(2))}{" "}
-							€
+							Cena montáže celkom:{" "}
+							{formatSpaces(totals.total_construction_price.toFixed(2))} €
 						</Text>
 						<Text style={styles.text}>
-							Cena dodávky celkom: {formatSpaces(totals.total_delivery_price.toFixed(2))} €
+							Cena dodávky celkom:{" "}
+							{formatSpaces(totals.total_delivery_price.toFixed(2))} €
 						</Text>
 						<Text style={[styles.text]}>
-							Spolu: {formatSpaces((totals.total + totals.total * 0.2).toFixed(2))} € s DPH
+							Spolu:{" "}
+							{formatSpaces((totals.total + totals.total * 0.2).toFixed(2))} € s
+							DPH
 						</Text>
 						{/* <Text style={[styles.text]}>
 							DPH 20%: {formatSpaces((totals.total.toFixed(2) * 0.2).toFixed(2))} €{" "}
@@ -444,16 +457,14 @@ export function Pdf({
 								Cena Spolu:
 							</Text>
 							<Text style={[styles.textBold, { fontSize: 13 }]}>
-								{formatSpaces(totals.total.toFixed(2))} € 
-								<Text style={{ fontSize: 10 }}>
-									{" "} bez DPH
-								</Text>
+								{formatSpaces(totals.total.toFixed(2))} €
+								<Text style={{ fontSize: 10 }}> bez DPH</Text>
 							</Text>
 						</View>
 					</View>
 				</View>
 
-				<View style={[styles.section,{paddingBottom: "20"}]}>
+				<View style={[styles.section, { paddingBottom: "20" }]}>
 					<View style={styles.line}></View>
 					<Text
 						style={[
@@ -487,7 +498,9 @@ export function Pdf({
 									<View style={{ marginRight: 18 }}>
 										<Text style={[styles.text]}>Cena dodávky celkom:</Text>
 										<Text style={[styles.text]}>
-											{formatSpaces(parseFloat(section.info.total_delivery_price).toFixed(2))}
+											{formatSpaces(
+												parseFloat(section.info.total_delivery_price).toFixed(2)
+											)}
 											€
 										</Text>
 									</View>
@@ -495,9 +508,11 @@ export function Pdf({
 									<View style={{ marginRight: 18 }}>
 										<Text style={[styles.text]}>Cena montáže celkom:</Text>
 										<Text style={[styles.text]}>
-											{formatSpaces(parseFloat(
-												section.info.total_construction_price
-											).toFixed(2))}{" "}
+											{formatSpaces(
+												parseFloat(
+													section.info.total_construction_price
+												).toFixed(2)
+											)}{" "}
 											€
 										</Text>
 									</View>
@@ -505,7 +520,8 @@ export function Pdf({
 									<View>
 										<Text style={[styles.textBold]}>Spolu:</Text>
 										<Text style={[styles.textBold]}>
-											{formatSpaces(parseFloat(section.info.total).toFixed(2))} €
+											{formatSpaces(parseFloat(section.info.total).toFixed(2))}{" "}
+											€
 										</Text>
 									</View>
 								</View>
@@ -688,18 +704,26 @@ export function Pdf({
 											<View style={styles.blockSummary}>
 												<Text style={[styles.text, { marginRight: 18 }]}>
 													Cena dodávky celkom:{" "}
-													{formatSpaces(block.info.total_delivery_price.toFixed(2))} €
+													{formatSpaces(
+														block.info.total_delivery_price.toFixed(2)
+													)}{" "}
+													€
 												</Text>
 												<Text style={[styles.text, { marginRight: 18 }]}>
 													Cena montáže celkom:{" "}
-													{formatSpaces(block.info.total_construction_price.toFixed(2))} €
+													{formatSpaces(
+														block.info.total_construction_price.toFixed(2)
+													)}{" "}
+													€
 												</Text>
 												<Text style={[styles.textBold, { marginRight: 18 }]}>
 													Spolu:{" "}
-													{formatSpaces((
-														block.info.total_delivery_price +
-														block.info.total_construction_price
-													).toFixed(2))}{" "}
+													{formatSpaces(
+														(
+															block.info.total_delivery_price +
+															block.info.total_construction_price
+														).toFixed(2)
+													)}{" "}
 													€
 												</Text>
 											</View>
@@ -826,11 +850,8 @@ export function Pdf({
 						<View>
 							<Text style={{ font: 26, fontWeight: 500 }}>
 								Cena Spolu: {formatSpaces(totals.total.toFixed(2))}€
-								<Text style={{ fontSize: 12, fontWeight: 800 }}>
-									{" "}bez DPH
-								</Text>
+								<Text style={{ fontSize: 12, fontWeight: 800 }}> bez DPH</Text>
 							</Text>
-							
 						</View>
 					</View>
 				)}

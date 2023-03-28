@@ -54,7 +54,7 @@ export function AppWrap({ children, dbData }) {
 	const [reorderingBlocks, setreorderingBlocks] = useState(false);
 	const [download, setdownload] = useState(false);
 	const [selectedFile, setselectedFile] = useState(null);
-	const [logo, setlogo] = useState(null);
+	const [logo, setlogo] = useState(dbData.logo);
 	const [displaySidebar, setdisplaySidebar] = useState(true);
 	const [saving, setsaving] = useState(false);
 	const [showUI, setshowUI] = useState(false);
@@ -100,10 +100,15 @@ export function AppWrap({ children, dbData }) {
 			lastModified: moment().valueOf(),
 			expiration: expiration ? moment(expiration).valueOf() : null,
 			subHeading: subHeading ? subHeading : "",
+			images: {
+				logo: logo ? logo : "",
+				signature: signature ? signature : "",
+			},
 		})
 			.then((snap) => {
 				//setdata(snap.data().data);
-				if(show) toast("Dáta sa uložili", { autoClose: 3000, type: "success" });
+				if (show)
+					toast("Dáta sa uložili", { autoClose: 3000, type: "success" });
 				setsaving(false);
 			})
 			.catch((err) => {
@@ -168,6 +173,15 @@ export function AppWrap({ children, dbData }) {
 				: "";
 			setdata(newData);
 			setshowUI(true);
+
+			console.log(dbData.images);
+			if (dbData.images.logo) {
+				setlogo(dbData.images.logo);
+			}
+
+			if (dbData.images.signature) {
+				setsignature(dbData.images.signature);
+			}
 		}
 	}, [loading]);
 
@@ -626,9 +640,11 @@ export function AppWrap({ children, dbData }) {
 
 		selectedFile,
 		setselectedFile,
-		logo,
-		loading,
 
+		logo,
+		setlogo,
+
+		loading,
 		displaySidebar,
 		setdisplaySidebar,
 
@@ -661,14 +677,6 @@ export function AppWrap({ children, dbData }) {
 		subHeading,
 		setsubHeading,
 	};
-
-	useEffect(() => {
-		if (selectedFile && selectedFile.target.files.length > 0) {
-			setlogo(URL.createObjectURL(selectedFile?.target?.files[0]));
-		} else {
-			setlogo(null);
-		}
-	}, [selectedFile]);
 
 	return (
 		<DataContext.Provider value={value}>

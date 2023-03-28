@@ -19,9 +19,10 @@ import EditText from "./editor/EditText";
 import AddSection from "./editor/AddSection";
 import { TextareaAutosize } from "@mui/material";
 import { TemplateContext } from "./template_gallery/TemplateContext";
-import TemplateGallery from "./template_gallery/TemplateGallery"
+import TemplateGallery from "./template_gallery/TemplateGallery";
 import OfferFooter from "./editor/OfferFooter";
 import SubHeading from "./editor/SubHeading";
+import UploadImage from "./editor/UploadImage";
 
 export default function CenovaPonuka() {
 	const [winReady, setwinReady] = useState(false);
@@ -38,11 +39,10 @@ export default function CenovaPonuka() {
 		openBulkEdit,
 		download,
 		setdownload,
-		setselectedFile,
 		logo,
+		setlogo,
 		description,
 		changeDescription,
-		openTemplate
 	} = useData();
 
 	const { primaryColor, isHorizontal } = useLayout();
@@ -70,37 +70,15 @@ export default function CenovaPonuka() {
 								</div>
 
 								<div className="flex justify-between items-center relative">
-									<label htmlFor="upload-logo">
-										{!logo && (
-											<div
-												className="text-xl px-6 py-4 rounded border border-dashed hover:border-solid hover:text-gray-500 trans border-gray-400 text-gray-400 border-b transition-all duration-200 ease-in"
-											>
-												Nahrať logo
-											</div>
-										)}
-									</label>
-									{logo && (
-										<img src={logo} alt="logo" className="max-w-32 max-h-16" />
-									)}
-									{logo && (
-										<button
-											onClick={() => {
-												setselectedFile(null);
-											}}
-											className="absolute -top-3 -right-2"
-										>
-											<Close color={"red"}></Close>
-										</button>
-									)}
-
-									<input
-										accept=".jpg,.jpeg,.png"
-										type="file"
-										onChange={setselectedFile}
-										className="hidden"
-										name=""
-										id="upload-logo"
-									/>
+									<UploadImage
+										placeholder="Nahrať logo"
+										width={200}
+										height={80}
+										defaultPreview={logo}
+										onUpload={(url) => {
+											setlogo(url);
+										}}
+									></UploadImage>
 								</div>
 							</div>
 
@@ -114,9 +92,15 @@ export default function CenovaPonuka() {
 								</div>
 
 								<div>
-									<div className={`${isHorizontal && "text-lg"} mb-1 text-gray-300 capitalize`}>CENA:</div>
+									<div
+										className={`${
+											isHorizontal && "text-lg"
+										} mb-1 text-gray-300 capitalize`}
+									>
+										CENA:
+									</div>
 
-									<div className={`${isHorizontal? "text-lg" : "text-sm"} `}>
+									<div className={`${isHorizontal ? "text-lg" : "text-sm"} `}>
 										<div className={`relative w-fit`}>
 											<div>
 												Cena Montáže:{" "}
@@ -179,7 +163,8 @@ export default function CenovaPonuka() {
 										></div>
 										<div className="relative w-fit">
 											<div>
-												Spolu: {numberWithCommas((total.total * 1.2).toFixed(2))} €{" "}
+												Spolu:{" "}
+												{numberWithCommas((total.total * 1.2).toFixed(2))} €{" "}
 												<span className="text-[10px]">s DPH</span>
 											</div>
 											{!bulkEdit && (
@@ -303,10 +288,12 @@ export default function CenovaPonuka() {
 					</A4>
 				</div>
 			</div>
-									
-			{winReady && <div className="sticky bottom-0 z-10 transition-all">
-				<AnimatePresence> {<BottomBar></BottomBar> }</AnimatePresence>
-			</div>}
+
+			{winReady && (
+				<div className="sticky bottom-0 z-10 transition-all">
+					<AnimatePresence> {<BottomBar></BottomBar>}</AnimatePresence>
+				</div>
+			)}
 		</>
 	);
 }

@@ -41,9 +41,11 @@ export default function ButtonSecondary({
 			onClick={
 				onClick
 					? onClick
-					: () => {
+					: href
+					? () => {
 							router.push(href);
 					  }
+					: null
 			}
 			onKeyDown={onKeyDown}
 			disabled={disabled}
