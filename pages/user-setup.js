@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import Slide1 from "../components/user_setup/Slide1";
-import ButtonPrimary from "../components/ButtonPrimary";
-import ButtonSecondary from "../components/ButtonSecondary";
+import ButtonPrimary from "../components/buttons/ButtonPrimary";
+import ButtonSecondary from "../components/buttons/ButtonSecondary";
 import Next from "../public/SVG/user_setup/Next";
 import Slide2 from "../components/user_setup/Slide2";
 import Back from "../public/SVG/user_setup/Back";

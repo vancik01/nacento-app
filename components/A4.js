@@ -3,7 +3,6 @@ import { useData } from "../context/AppWrap";
 import { useLayout } from "../context/LayoutContext";
 
 export default function A4({ children }) {
-	const { loading } = useData();
 	const { styles, isHorizontal } = useLayout();
 	const [margin, setmargin] = useState(0);
 

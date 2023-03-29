@@ -1,7 +1,7 @@
 import React from "react";
 import { useData } from "../../context/AppWrap";
 import Plus from "../../public/SVG/buttons/Plus";
-import ButtonPrimary from "../ButtonPrimary";
+import ButtonPrimary from "../buttons/ButtonPrimary";
 
 export default function AddSection({ sectionId }) {
 	const { addBlock, addSection } = useData();

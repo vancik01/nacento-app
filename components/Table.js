@@ -14,7 +14,7 @@ import { TextareaAutosize } from "@mui/material";
 import Save from "../public/SVG/Save";
 import _ from "lodash";
 import "react-tooltip/dist/react-tooltip.css";
-import ButtonIcon from "./ButtonIcon";
+import ButtonIcon from "./buttons/ButtonIcon";
 
 export default function Table({ items, headers, blockId, sectionId }) {
 	const { reorderRows, getTitle } = useData();
@@ -179,7 +179,6 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 		changeValue({
 			blockId: blockId,
 			itemId: itemId,
-			sectionId: sectionId,
 			valueId: item,
 			value: e.target.value,
 			sectionId: sectionId,

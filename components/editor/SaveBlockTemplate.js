@@ -1,10 +1,10 @@
 import { AnimatePresence } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import Copy from "../../public/SVG/buttons/Copy";
-import ButtonIcon from "../ButtonIcon";
+import ButtonIcon from "../buttons/ButtonIcon";
 import { motion } from "framer-motion";
-import ButtonPrimary from "../ButtonPrimary";
-import ButtonSecondary from "../ButtonSecondary";
+import ButtonPrimary from "../buttons/ButtonPrimary";
+import ButtonSecondary from "../buttons/ButtonSecondary";
 import Next from "../../public/SVG/user_setup/Next";
 import { arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { firestore } from "../../lib/firebase";

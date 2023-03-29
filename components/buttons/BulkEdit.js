@@ -1,17 +1,12 @@
 import { Button, Input } from "@mui/material";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useData } from "../context/AppWrap";
-import ButtonPrimary from "./ButtonPrimary";
+import { useData } from "../../context/AppWrap";
+import ButtonPrimary from "../buttons/ButtonPrimary";
 import ButtonTag from "./ButtonTag";
-import PriceChangeIndicator from "./PriceChangeIndicator";
+import PriceChangeIndicator from "../PriceChangeIndicator";
 import { motion } from "framer-motion";
-import Close from "../public/SVG/Close";
-import {
-	splitBetweenBlocks,
-	splitBetweenItems,
-	splitBetweenSections,
-	updateSectionTotals,
-} from "../lib/valueChangeFunctions";
+import Close from "../../public/SVG/Close";
+
 import { AnimatePresence } from "framer-motion";
 
 export default function BulkEdit() {

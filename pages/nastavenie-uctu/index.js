@@ -1,19 +1,11 @@
 import React, { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import ButtonPrimary from "../../components/ButtonPrimary";
-import { useLayout } from "../../context/LayoutContext";
-import ArrowBack from "../../public/SVG/buttons/ArrowBack";
-
-import Plus from "../../public/SVG/buttons/Plus";
-import Settings from "../../public/SVG/account/Settings";
-import Link from "next/link";
+import ButtonPrimary from "../../components/buttons/ButtonPrimary";
 import FullPageLoading from "../../components/loading/FullPageLoading";
 import Prefill from "../../public/SVG/account/Prefill";
 import Logout from "../../components/user_components/Logout";
 import AccountSidebarSkeleton from "../../components/skeletons/AccountSidebarSkeleton";
 import { useRouter } from "next/router";
-import ButtonSecondary from "../../components/ButtonSecondary";
-import Dashboard from "../../public/SVG/buttons/Dashboard";
 import EditName from "../../components/user_components/EditName";
 import SupplyerTemplate from "../../components/user_components/SupplyerTemplate";
 import AccountSidebarMenu from "../../components/user_components/AccountSidebarMenu";

@@ -10,7 +10,7 @@ import { Button } from "@mui/material";
 import Logo from "../public/SVG/Logo";
 import { Image } from "@react-pdf/renderer";
 import { useLayout } from "../context/LayoutContext";
-import ButtonPrimary from "./ButtonPrimary";
+import ButtonPrimary from "./buttons/ButtonPrimary";
 import moment from "moment/moment";
 
 // Create styles

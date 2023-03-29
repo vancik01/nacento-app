@@ -11,7 +11,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { firestore } from "../lib/firebase";
 import debounce from "lodash.debounce";
 import { useRouter } from "next/router";
-import ButtonPrimary from "../components/ButtonPrimary";
+import ButtonPrimary from "../components/buttons/ButtonPrimary";
 import { toast } from "react-toastify";
 import moment from "moment/moment";
 import {

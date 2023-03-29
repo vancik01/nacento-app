@@ -6,10 +6,10 @@ import HomeSVG from "../../components/HomeSVG";
 import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/router";
 
-import ButtonSecondary from "../../components/ButtonSecondary";
+import ButtonSecondary from "../../components/buttons/ButtonPrimary";
 import ArrowBack from "../../public/SVG/buttons/ArrowBack";
 
-import {UseStepperContext,} from "../../context/StepperContext";
+import { UseStepperContext } from "../../context/StepperContext";
 import { ApiContext } from "../../context/ApiContext";
 
 import HSForm from "../../components/form/HrubaStavbaForm";
@@ -22,25 +22,23 @@ import Vykurovanie from "./icons/Vykurovanie";
 export default function Dashboard() {
 	const router = useRouter();
 
-	var work_type
+	var work_type;
 	if (localStorage.getItem("WORK_TYPE") !== null) {
-		work_type = window.localStorage.getItem("WORK_TYPE")
-	}
-	
-	else work_type = -1
+		work_type = window.localStorage.getItem("WORK_TYPE");
+	} else work_type = -1;
 
 	const [workTypes, SetWorkTypes] = useState(work_type);
 	const [loading, setloading] = useState(false);
 	const { userData } = useAuth();
 
 	function hadndleWorkChange(ix) {
-		if(workTypes == ix){
-			window.localStorage.setItem("WORK_TYPE", -1)
+		if (workTypes == ix) {
+			window.localStorage.setItem("WORK_TYPE", -1);
 			SetWorkTypes(-1);
-			return
-		} 
+			return;
+		}
 
-		window.localStorage.setItem("WORK_TYPE", ix)
+		window.localStorage.setItem("WORK_TYPE", ix);
 		SetWorkTypes(ix);
 	}
 
@@ -77,16 +75,13 @@ export default function Dashboard() {
 				<TeamsList></TeamsList>
 
 				<div className="mb-16 mt-16 lg:mx-16">
-
-
-						<ButtonSecondary
-							href="/dashboard"
-							iconBefore
-							icon={<ArrowBack color={"black"}></ArrowBack>}
-						>
-							Zoznam ponúk
-						</ButtonSecondary>
-
+					<ButtonSecondary
+						href="/dashboard"
+						iconBefore
+						icon={<ArrowBack color={"black"}></ArrowBack>}
+					>
+						Zoznam ponúk
+					</ButtonSecondary>
 
 					<div className="flex items-center gap-12 mt-8 pb-6">
 						<div className="text-center  text-xl font-medium	">
@@ -94,12 +89,11 @@ export default function Dashboard() {
 						</div>
 
 						<div className="flex gap-4 items-center font-medium justify-center">
-
 							<SimpleButton
 								color={"red"}
 								active={workTypes == 0}
 								title={"Hrubá stavba"}
-								icon={<HS color={"#e11d48"}/>}
+								icon={<HS color={"#e11d48"} />}
 								onClick={() => hadndleWorkChange(0)}
 							></SimpleButton>
 
@@ -107,7 +101,7 @@ export default function Dashboard() {
 								color={"blue"}
 								active={workTypes == 1}
 								title={"Elektroinštalácie"}
-								icon={<Elektro color={"blue"}/>}
+								icon={<Elektro color={"blue"} />}
 								onClick={() => hadndleWorkChange(1)}
 							></SimpleButton>
 
@@ -115,10 +109,9 @@ export default function Dashboard() {
 								color={"green"}
 								active={workTypes == 2}
 								title={"Vykurovanie"}
-								icon={<Vykurovanie color={"green"}/>}
+								icon={<Vykurovanie color={"green"} />}
 								onClick={() => hadndleWorkChange(2)}
 							></SimpleButton>
-
 						</div>
 					</div>
 
@@ -159,22 +152,18 @@ function SimpleButton({ color, active, title, onClick, icon }) {
 	};
 
 	return (
-			
-			<button
-				onClick={onClick}
-				className={`py-2 pr-4 pl-3 trans ${
-					active ? colors[color][1] : colors[color][2]
-				} ${
-					colors[color][0]
-				} border rounded-md flex items-center justify-center gap-2 text-start `}
-			>
-
-				<div className="flex items-center gap-2 justify-around">
-					{icon && icon}
-					{title}
-				</div>
-			
-			</button>
-	
+		<button
+			onClick={onClick}
+			className={`py-2 pr-4 pl-3 trans ${
+				active ? colors[color][1] : colors[color][2]
+			} ${
+				colors[color][0]
+			} border rounded-md flex items-center justify-center gap-2 text-start `}
+		>
+			<div className="flex items-center gap-2 justify-around">
+				{icon && icon}
+				{title}
+			</div>
+		</button>
 	);
 }

@@ -1,8 +1,8 @@
 import { AnimatePresence } from "framer-motion";
 import React, { useState } from "react";
-import ButtonPrimary from "../ButtonPrimary";
+import ButtonPrimary from "../buttons/ButtonPrimary";
 import { motion } from "framer-motion";
-import ButtonSecondary from "../ButtonSecondary";
+import ButtonSecondary from "../buttons/ButtonSecondary";
 import Next from "../../public/SVG/user_setup/Next";
 import { useData } from "../../context/AppWrap";
 import { useAuth } from "../../context/AuthContext";
