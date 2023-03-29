@@ -12,11 +12,7 @@ function AnoNie({path, component}) {
 
 
   return (
-    <div>
-        <SingleChoice path={path} labels={["nie", "áno"]}/>
-
-        {data[path[1]][path[2]][0] === `1` && component}
-    </div>
+      <></>
   )
 }
 

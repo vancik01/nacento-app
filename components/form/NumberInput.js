@@ -14,7 +14,10 @@ function NumberInput({ id, unit, sup, decimal, path }) {
     var data = {}
     if(path[0] == "e") data = edata
     if(path[0] == "h") data = hsdata
-    var value = data[path[1]][path[2]]
+
+    var value
+    if(path.length == 4)  value = data[path[1]][path[2]][path[3]]
+    else value = data[path[1]][path[2]]
 
 
     return (

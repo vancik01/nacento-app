@@ -63,10 +63,11 @@ export function AppWrap({ children, dbData }) {
 	const [dataDB, setdataDB] = useState(dbData);
 	const [signature, setsignature] = useState();
 	const [expiration, setexpiration] = useState(
-		dbData.expiration && moment(dbData.expiration).valueOf()
+		dbData.expiration? moment(dbData.expiration).valueOf() : moment().add(14, "days")
 	);
+	var today  = new Date()
 	const [subHeading, setsubHeading] = useState(
-		dbData.subHeading ? dbData.subHeading : ""
+		dbData.subHeading ? dbData.subHeading : "#" + today.toLocaleDateString("sk")
 	);
 
 	const { userData, user } = useAuth();

@@ -904,7 +904,7 @@ function Footer({ signature, expiration, name }) {
 					<View>
 						<Text style={styles.heading}>Platnosť cenovej ponuky:</Text>
 						<Text style={styles.text}>
-							do {moment(expiration).format("DD.MM:YYYY")}
+							do {moment(expiration).format("DD.MM.YYYY")}
 						</Text>
 					</View>
 				</View>
@@ -919,8 +919,7 @@ function Footer({ signature, expiration, name }) {
 					justifyContent: "center",
 					alignItems: "center",
 					marginTop: 10,
-				}}
-			>
+				}}>
 				<View
 					style={{
 						display: "flex",

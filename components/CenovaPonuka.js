@@ -73,7 +73,7 @@ export default function CenovaPonuka() {
 									<label htmlFor="upload-logo">
 										{!logo && (
 											<div
-												className="text-xl px-6 py-4 rounded border border-dashed hover:border-solid hover:text-gray-500 trans border-gray-400 text-gray-400 border-b transition-all duration-200 ease-in"
+												className="text-lg px-9 py-5 rounded border-2 border-dashed b hover:bg-gray-100 trans transition-all duration-200 ease-in"
 											>
 												Nahrať logo
 											</div>

@@ -118,7 +118,8 @@ export function UseStepperContext({ children }) {
 
 		let newData = {...data}
 
-    newData[path[1]][path[2]] = e.target.value
+    if(path.length == 4) newData[path[1]][path[2]][path[3]] = e.target.value
+    else newData[path[1]][path[2]] = e.target.value
     
     if(path[0] == "e") setedata(newData);
     if(path[0] == "h") sethsdata(newData);
