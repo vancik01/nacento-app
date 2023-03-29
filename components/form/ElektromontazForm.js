@@ -27,8 +27,8 @@ function ElektromontazForm({ theme_color }) {
   const steps = [
     "Prípojka nízkeho napätia",
     "Elektroinštalačné práce",
-    "Predprípravy",
     "Bleskozvod",
+    "Predprípravy",
     "Administratíva",
   ];
 
@@ -39,9 +39,9 @@ function ElektromontazForm({ theme_color }) {
       case 2:
         return <InstalacnePrace/>;
       case 3:
-        return <Predpripravy/>;
-      case 4:
         return <Bleskozvod/>;
+      case 4:
+        return <Predpripravy/>;
       case 5:
         return <Administrativa/>;
       default:

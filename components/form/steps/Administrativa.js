@@ -18,7 +18,7 @@ export default function Administrativa() {
         <FormLayout>
 
           <Divider title={"Revízne správy"}
-          component={<SingleChoice path={["e", "admin", "revizia"]} labels={["prípojka", "elektroinšťalácia", "bleskozvod"]}/>} />
+          component={<SingleChoice path={["e", "admin", "revizia"]} labels={["prípojka", "elektroinštalácia", "bleskozvod"]}/>} />
 
 
         <Divider title={"Projekty - zmena"}

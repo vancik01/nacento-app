@@ -34,7 +34,9 @@ function SingleChoice({ id, labels, onClick, path }) {
     if(path[0] == "e") data = {...edata} 
     if(path[0] == "h") data = {...hsdata} 
 
-    data[path[1]][path[2]][0] = `${i}`
+    console.log(data, path)
+    if(path.length == 4) data[path[1]][path[2]][1] = `${i}`
+    else data[path[1]][path[2]][0] = `${i}`
 
     if(path[0] == "e") setedata(data)
     if(path[0] == "h") sethsdata(data)
