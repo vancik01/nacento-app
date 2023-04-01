@@ -66,7 +66,6 @@ export const DownloadLink = ({ close }) => {
 	const [title, settitle] = useState(name.toLowerCase());
 	const layout = useLayout();
 	const [pdfUrl, setpdfUrl] = useState(null);
-
 	return (
 		<>
 			<div>
@@ -143,7 +142,6 @@ export function Pdf({
 	description,
 }) {
 	const variant = getVariantConfig(layout.variant);
-	console.log(logo, "logo");
 	const styles = StyleSheet.create({
 		page: {
 			backgroundColor: "#fff",
@@ -152,8 +150,8 @@ export function Pdf({
 			paddingBottom: 20,
 		},
 		logo: {
-			maxWidth: 60,
-			maxHeight: 60,
+			maxWidth: 150,
+			maxHeight: 80,
 		},
 		row: {
 			flexDirection: "row",
