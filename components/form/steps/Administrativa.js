@@ -22,15 +22,16 @@ export default function Administrativa() {
 
 
         <Divider title={"Projekty - zmena"}
-          component={<AnoNie path={["e", "admin", "projekty"]} component={<div></div>}/>}
+          component={<SingleChoice path={["e", "admin", "projekty"]} labels={["nie", "áno"]}/>}
         />
 
+
         <Divider title={"Jednopólová schéma"}
-          component={<AnoNie path={["e", "admin", "schema"]} component={<div></div>}/>}
+        component={<SingleChoice path={["e", "admin", "schema"]} labels={["nie", "áno"]}/>}
         />
 
         <Divider title={"Skutkový stav"}
-          component={<AnoNie path={["e", "admin", "skutok"]} component={<div></div>}/>}
+          component={<SingleChoice path={["e", "admin", "skutok"]} labels={["nie", "áno"]}/>}
         />
     
 

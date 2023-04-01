@@ -6,7 +6,7 @@ import HomeSVG from "../../components/HomeSVG";
 import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/router";
 
-import ButtonSecondary from "../../components/buttons/ButtonPrimary";
+import ButtonSecondary from "../../components/buttons/ButtonSecondary";
 import ArrowBack from "../../public/SVG/buttons/ArrowBack";
 
 import { UseStepperContext } from "../../context/StepperContext";
@@ -75,13 +75,14 @@ export default function Dashboard() {
 				<TeamsList></TeamsList>
 
 				<div className="mb-16 mt-16 lg:mx-16">
-					<ButtonSecondary
-						href="/dashboard"
-						iconBefore
-						icon={<ArrowBack color={"black"}></ArrowBack>}
-					>
-						Zoznam ponúk
-					</ButtonSecondary>
+						<ButtonSecondary
+							href="/dashboard"
+							iconBefore
+							icon={<ArrowBack color={"black"}></ArrowBack>}
+						>
+							Zoznam ponúk
+						</ButtonSecondary>
+
 
 					<div className="flex items-center gap-12 mt-8 pb-6">
 						<div className="text-center  text-xl font-medium	">
