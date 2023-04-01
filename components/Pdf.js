@@ -12,6 +12,7 @@ import { Image } from "@react-pdf/renderer";
 import { useLayout } from "../context/LayoutContext";
 import ButtonPrimary from "./buttons/ButtonPrimary";
 import moment from "moment/moment";
+import { getTitle, getVariantConfig } from "../lib/helpers";
 
 // Create styles
 Font.register({
@@ -52,7 +53,6 @@ function formatCommas(x) {
 export const DownloadLink = ({ close }) => {
 	const {
 		data,
-		getTitle,
 		name,
 		logo,
 		total,
@@ -71,17 +71,17 @@ export const DownloadLink = ({ close }) => {
 		<>
 			<div>
 				<Input
-					type="text"
-					className="w-full my-6"
+					type='text'
+					className='w-full my-6'
 					value={title}
-					endAdornment=".pdf"
+					endAdornment='.pdf'
 					onChange={(e) => {
 						settitle(e.target.value);
 					}}
 				/>
 				{!displayLink && (
 					<ButtonPrimary
-						className="w-full"
+						className='w-full'
 						onClick={() => {
 							setdisplayLink(true);
 						}}
@@ -97,7 +97,6 @@ export const DownloadLink = ({ close }) => {
 						<Pdf
 							data={data}
 							title={name}
-							getTitle={getTitle}
 							logo={logo}
 							isHorizontal={layout.isHorizontal}
 							layout={layout}
@@ -115,7 +114,7 @@ export const DownloadLink = ({ close }) => {
 						<>
 							<ButtonPrimary
 								disabled={loading}
-								color="#63A695"
+								color='#63A695'
 								onClick={() => {
 									null;
 								}}
@@ -133,7 +132,6 @@ export const DownloadLink = ({ close }) => {
 // Create Document Component
 export function Pdf({
 	data,
-	getTitle,
 	title,
 	logo,
 	layout,
@@ -144,7 +142,8 @@ export function Pdf({
 	subHeading,
 	description,
 }) {
-	const variant = layout.variant;
+	const variant = getVariantConfig(layout.variant);
+	console.log(logo, "logo");
 	const styles = StyleSheet.create({
 		page: {
 			backgroundColor: "#fff",
@@ -170,7 +169,7 @@ export function Pdf({
 
 		infoHeading: {
 			fontFamily: "Poppins",
-			fontSize: 16,
+			fontSize: 14,
 			fontWeight: 500,
 			marginBottom: 4,
 			color: "#d1d5db",
@@ -361,12 +360,12 @@ export function Pdf({
 		<Document title={title}>
 			<Page
 				orientation={isHorizontal && "landscape"}
-				size="A4"
+				size='A4'
 				style={styles.page}
 			>
 				<View
 					style={{
-						height: 50,
+						height: 80,
 						backgroundColor: layout.primaryColor,
 						width: "100%",
 						marginTop: "-40px",
@@ -375,12 +374,6 @@ export function Pdf({
 					<Text> </Text>
 				</View>
 
-				{/* <View style={styles.header} fixed>
-          <Text style={styles.headerText}>{title}</Text>
-          
-          
-
-        </View> */}
 				<View style={styles.section}>
 					<View
 						style={{
@@ -396,20 +389,11 @@ export function Pdf({
 						</View>
 
 						<View>
-							{logo && (
-								<Image
-									style={styles.logo}
-									src={{
-										uri: logo,
-										method: "GET",
-										headers: { "Cache-Control": "no-cache" },
-										body: "",
-									}}
-								/>
-							)}
+							{logo && <Image cache={false} style={styles.logo} src={logo} />}
 						</View>
 					</View>
 				</View>
+
 				<View style={[styles.infoWraper, styles.section]}>
 					<View style={[{ marginRight: 40 }]}>
 						<Text style={styles.infoHeading}>OBJEDNÁVATEĽ</Text>
@@ -930,7 +914,9 @@ function Footer({ signature, expiration, name }) {
 					</View>
 				</View>
 				<View style={styles.signature}>
-					{signature && <Image style={styles.img} src={signature} />}
+					{signature && (
+						<Image cache={false} style={styles.img} src={signature} />
+					)}
 				</View>
 			</View>
 			<View
@@ -954,7 +940,8 @@ function Footer({ signature, expiration, name }) {
 					<Text style={{ fontSize: 8, marginRight: 4 }}>
 						Vytvorené pomocou aplikácie
 					</Text>
-					<Image style={{ width: 50 }} src={"/logo.png"}></Image>
+					{/* <Image style={{ width: 50 }} src={"./logo.png"}></Image> */}
+					<Text>LOGO</Text>
 				</View>
 				<Text style={{ fontSize: 8, marginTop: 4 }}>nacento.online</Text>
 			</View>

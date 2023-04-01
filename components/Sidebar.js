@@ -91,7 +91,7 @@ export default function Sidebar() {
 		setloadingPDF(true);
 		const projectId = router.query.projectId;
 		fetch(
-			`https://us-central1-cenova-ponuka.cloudfunctions.net/renderPdf?offerId=${projectId}`
+			`/api/renderPdf/${projectId}`
 			//`http://127.0.0.1:5001/cenova-ponuka/us-central1/renderPdf?offerId=${projectId}`
 		)
 			.then((response) => {
@@ -357,13 +357,6 @@ export default function Sidebar() {
 								</ButtonPrimary>
 							</div>
 
-							<div className='mt-8'>
-								<ButtonSecondary onClick={getServerPdf}>
-									Render from server
-								</ButtonSecondary>
-								{loadingPDF && <div>Loading, hang on...</div>}
-							</div>
-
 							<div className='mt-auto w-full flex flex-col gap-2'>
 								<ButtonPrimary
 									scale={0.98}
@@ -376,7 +369,7 @@ export default function Sidebar() {
 									Uložiť zmeny
 								</ButtonPrimary>
 
-								<ButtonPrimary
+								{/* <ButtonPrimary
 									scale={0.98}
 									className='w-full text-sm'
 									onClick={() => {
@@ -385,18 +378,13 @@ export default function Sidebar() {
 									color='#63A695'
 								>
 									Stiahnuť ponuku
-								</ButtonPrimary>
-
-								{/* <button
-									scale={0.98}
-									className="w-full text-sm mt-6"
-									onClick={() => {
-										setdownload(true);
-									}}
-									style={{ color: primaryColor }}
-								>
-									Stiahnuť ponuku
-								</button> */}
+								</ButtonPrimary> */}
+								<div className=''>
+									<ButtonSecondary onClick={getServerPdf} className='w-full'>
+										Stiahnuť ponuku
+									</ButtonSecondary>
+									{loadingPDF && <div>Loading, hang on...</div>}
+								</div>
 
 								<button className='flex w-full mt-6'>
 									<div

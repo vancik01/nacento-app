@@ -23,6 +23,7 @@ import TemplateGallery from "./template_gallery/TemplateGallery";
 import OfferFooter from "./editor/OfferFooter";
 import SubHeading from "./editor/SubHeading";
 import UploadImage from "./editor/UploadImage";
+import GeneratePDF from "./editor/GeneratePDF";
 
 export default function CenovaPonuka() {
 	const [winReady, setwinReady] = useState(false);
@@ -53,25 +54,25 @@ export default function CenovaPonuka() {
 
 	return (
 		<>
-			<div className="pt-10 pb-32 relative">
+			<div className='pt-10 pb-32 relative'>
 				{<BulkEdit blockTitle={bulkEditData.title} />}
 
-				<div className="flex items-start justify-start w-full px-8 overflow-x-auto pb-20">
+				<div className='flex items-start justify-start w-full px-8 overflow-x-auto pb-20'>
 					<A4>
 						<div
-							className="h-20"
+							className='h-20'
 							style={{ backgroundColor: primaryColor }}
 						></div>
-						<div className="px-16 py-16">
-							<div className="flex justify-between items-center mb-20">
-								<div className="">
-									<div className="text-4xl">Cenová ponuka</div>
+						<div className='px-16 py-16'>
+							<div className='flex justify-between items-center mb-20'>
+								<div className=''>
+									<div className='text-4xl'>Cenová ponuka</div>
 									<SubHeading></SubHeading>
 								</div>
 
-								<div className="flex justify-between items-center relative">
+								<div className='flex justify-between items-center relative'>
 									<UploadImage
-										placeholder="Nahrať logo"
+										placeholder='Nahrať logo'
 										width={200}
 										height={80}
 										defaultPreview={logo}
@@ -82,7 +83,7 @@ export default function CenovaPonuka() {
 								</div>
 							</div>
 
-							<div className="flex flex-row gap-10 justify-between mt-4">
+							<div className='flex flex-row gap-10 justify-between mt-4'>
 								<div>
 									<CustomerInfo scale={isHorizontal}></CustomerInfo>
 								</div>
@@ -122,14 +123,14 @@ export default function CenovaPonuka() {
 															e
 														);
 													}}
-													className="absolute top-0 -right-3 w-2"
+													className='absolute top-0 -right-3 w-2'
 												>
 													<EditPen></EditPen>
 												</button>
 											)}
 										</div>
 
-										<div className="relative w-fit">
+										<div className='relative w-fit'>
 											<div>
 												Cena Dodávky:{" "}
 												{numberWithCommas(
@@ -150,7 +151,7 @@ export default function CenovaPonuka() {
 															e
 														);
 													}}
-													className="absolute top-0 -right-3 w-2"
+													className='absolute top-0 -right-3 w-2'
 												>
 													<EditPen></EditPen>
 												</button>
@@ -158,14 +159,14 @@ export default function CenovaPonuka() {
 										</div>
 
 										<div
-											className="w-full h-[1px] my-2"
+											className='w-full h-[1px] my-2'
 											style={{ backgroundColor: primaryColor, opacity: 0.7 }}
 										></div>
-										<div className="relative w-fit">
+										<div className='relative w-fit'>
 											<div>
 												Spolu:{" "}
 												{numberWithCommas((total.total * 1.2).toFixed(2))} €{" "}
-												<span className="text-[10px]">s DPH</span>
+												<span className='text-[10px]'>s DPH</span>
 											</div>
 											{!bulkEdit && (
 												<button
@@ -180,7 +181,7 @@ export default function CenovaPonuka() {
 															e
 														);
 													}}
-													className="absolute top-0 -right-3 w-2"
+													className='absolute top-0 -right-3 w-2'
 												>
 													<EditPen></EditPen>
 												</button>
@@ -192,8 +193,8 @@ export default function CenovaPonuka() {
 											{numberWithCommas((total.total * 0.2).toFixed(2))} €
 										</div>
 
-										<div className="relative w-fit">
-											<div className="mt-2 font-medium text-xl">
+										<div className='relative w-fit'>
+											<div className='mt-2 font-medium text-xl'>
 												Cena spolu:
 											</div>
 											{!bulkEdit && (
@@ -209,24 +210,24 @@ export default function CenovaPonuka() {
 															e
 														);
 													}}
-													className="absolute top-0 -right-3 w-2"
+													className='absolute top-0 -right-3 w-2'
 												>
 													<EditPen></EditPen>
 												</button>
 											)}
 										</div>
 
-										<div className="mt-2 font-medium text-xl">
+										<div className='mt-2 font-medium text-xl'>
 											{numberWithCommas(total.total.toFixed(2))} €{" "}
-											<span className="text-[10px]">bez DPH</span>
+											<span className='text-[10px]'>bez DPH</span>
 										</div>
 									</div>
 								</div>
 							</div>
 
-							<div className="my-10">
-								<div className="w-full h-[1px] bg-black"></div>
-								<div className="py-4">
+							<div className='my-10'>
+								<div className='w-full h-[1px] bg-black'></div>
+								<div className='py-4'>
 									<EditText
 										initialValue={name}
 										onSave={(value) => {
@@ -235,25 +236,25 @@ export default function CenovaPonuka() {
 									/>
 
 									<TextareaAutosize
-										spellCheck="false"
+										spellCheck='false'
 										value={description}
 										onChange={changeDescription}
-										placeholder="Zadajte krátky text..."
+										placeholder='Zadajte krátky text...'
 										style={{
 											textAlign: "center",
 											fontSize: 14,
 											resize: "none",
 										}}
-										className="w-full text-center mt-2 focus:outline-none text-gray-400 font-light"
+										className='w-full text-center mt-2 focus:outline-none text-gray-400 font-light'
 									></TextareaAutosize>
 								</div>
-								<div className="w-full h-[1px] bg-black"></div>
+								<div className='w-full h-[1px] bg-black'></div>
 							</div>
 
-							<AnimatePresence>
+							{/* <AnimatePresence>
 								{download && (
 									<Modal
-										title="Stiahnuť ponuku"
+										title='Stiahnuť ponuku'
 										close={() => {
 											setdownload(false);
 										}}
@@ -265,7 +266,8 @@ export default function CenovaPonuka() {
 										/>
 									</Modal>
 								)}
-							</AnimatePresence>
+							</AnimatePresence> */}
+
 							<div>
 								{winReady &&
 									data.sections.map((section, i) => {
@@ -281,7 +283,7 @@ export default function CenovaPonuka() {
 									})}
 								<AddSection></AddSection>
 							</div>
-							<div className="mt-10">
+							<div className='mt-10'>
 								<OfferFooter></OfferFooter>
 							</div>
 						</div>
@@ -290,7 +292,7 @@ export default function CenovaPonuka() {
 			</div>
 
 			{winReady && (
-				<div className="sticky bottom-0 z-10 transition-all">
+				<div className='sticky bottom-0 z-10 transition-all'>
 					<AnimatePresence> {<BottomBar></BottomBar>}</AnimatePresence>
 				</div>
 			)}
