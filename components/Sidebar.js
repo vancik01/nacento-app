@@ -88,7 +88,7 @@ export default function Sidebar() {
 	});
 
 	function getServerPdf() {
-		setloadingPDF(true);
+		setdownload(true);
 		const projectId = router.query.projectId;
 		fetch(
 			`/api/renderPdf/${projectId}`
@@ -109,11 +109,11 @@ export default function Sidebar() {
 				setTimeout(() => {
 					URL.revokeObjectURL(url);
 				}, 0);
-				setloadingPDF(false);
+				setdownload(false);
 			})
 			.catch((error) => {
 				console.error("Error fetching PDF:", error);
-				setloadingPDF(false);
+				setdownload(false);
 			});
 	}
 

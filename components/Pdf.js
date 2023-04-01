@@ -146,12 +146,13 @@ export function Pdf({
 		page: {
 			backgroundColor: "#fff",
 			fontFamily: "Poppins",
-			paddingTop: 20,
-			paddingBottom: 20,
+			paddingTop: 40,
+			paddingBottom: 40,
 		},
 		logo: {
 			maxWidth: 150,
 			maxHeight: 80,
+			objectFit: "contain",
 		},
 		row: {
 			flexDirection: "row",
@@ -181,7 +182,6 @@ export function Pdf({
 			fontFamily: "Poppins",
 			fontSize: 26,
 			fontWeight: 500,
-			marginTop: 10,
 		},
 
 		name: {
@@ -226,9 +226,6 @@ export function Pdf({
 			flexDirection: "row",
 			justifyContent: "space-between",
 			alignItems: "center",
-			//paddingHorizontal:8,
-
-			minHeight: 20,
 			backgroundColor: "#f3f4f6",
 		},
 
@@ -241,13 +238,15 @@ export function Pdf({
 			//paddingVertical:6,
 			backgroundColor: layout.primaryColor,
 			color: "#fff",
-			minHeight: 20,
 			paddingHorizontal: 4,
+			paddingVertical: 6,
 		},
 
 		headerUnit: {
 			paddingRight: 6,
 			paddingLeft: 4,
+			paddingTop: 2,
+			paddingBottom: 2,
 		},
 
 		tableText: {
@@ -302,7 +301,7 @@ export function Pdf({
 			height: "100%",
 			paddingRight: 6,
 			paddingLeft: 4,
-			paddingVertical: 2,
+			paddingVertical: 4,
 			marginVertical: "auto",
 		},
 
@@ -344,13 +343,14 @@ export function Pdf({
 
 		sectionWrap: {
 			border: "1px solid #e5e7eb",
-			padding: 14,
+			padding: 24,
 		},
 
 		sectionHeading: {
 			fontSize: 14,
 			fontWeight: 400,
 			textAlign: "center",
+			marginBottom: 20,
 		},
 	});
 
@@ -361,114 +361,125 @@ export function Pdf({
 				size='A4'
 				style={styles.page}
 			>
-				<View
-					style={{
-						height: 80,
-						backgroundColor: layout.primaryColor,
-						width: "100%",
-						marginTop: "-40px",
-					}}
-				>
-					<Text> </Text>
-				</View>
-
-				<View style={styles.section}>
+				<View style={{ height: "100%", position: "relative" }}>
 					<View
 						style={{
-							display: "flex",
-							flexDirection: "row",
-							alignItems: "center",
-							justifyContent: "space-between",
+							height: 60,
+							backgroundColor: layout.primaryColor,
+							width: "100%",
+							marginTop: "-40px",
 						}}
-					>
-						<View>
-							<Text style={styles.heading}>Cenová ponuka</Text>
-							<Text style={styles.infoHeading}>{subHeading}</Text>
-						</View>
+					></View>
 
-						<View>
-							{logo && <Image cache={false} style={styles.logo} src={logo} />}
-						</View>
-					</View>
-				</View>
-
-				<View style={[styles.infoWraper, styles.section]}>
-					<View style={[{ marginRight: 40 }]}>
-						<Text style={styles.infoHeading}>OBJEDNÁVATEĽ</Text>
-						<Text style={styles.text}>{data.customer.name}</Text>
-					</View>
-
-					<View style={{ marginRight: 40 }}>
-						<Text style={styles.infoHeading}>DODÁVATEĽ:</Text>
-						<Text style={styles.text}>{data.supplyer.company_name}</Text>
-						{data.supplyer.ico && (
-							<Text style={styles.text}>IČO: {data.supplyer.ico}</Text>
-						)}
-						{data.supplyer.dic && (
-							<Text style={styles.text}>DIČ: {data.supplyer.dic}</Text>
-						)}
-						{data.supplyer.phone && (
-							<Text style={styles.text}>Tel.: {data.supplyer.phone}</Text>
-						)}
-						{data.supplyer.email && (
-							<Text style={styles.text}>Email: {data.supplyer.email}</Text>
-						)}
-						<Text style={styles.text}>{data.supplyer.web}</Text>
-					</View>
-
-					<View>
-						<Text style={styles.infoHeading}>CENA:</Text>
-						<Text style={styles.text}>
-							Cena montáže celkom:{" "}
-							{formatSpaces(totals.total_construction_price.toFixed(2))} €
-						</Text>
-						<Text style={styles.text}>
-							Cena dodávky celkom:{" "}
-							{formatSpaces(totals.total_delivery_price.toFixed(2))} €
-						</Text>
-						<Text style={[styles.text]}>
-							Spolu:{" "}
-							{formatSpaces((totals.total + totals.total * 0.2).toFixed(2))} € s
-							DPH
-						</Text>
-						{/* <Text style={[styles.text]}>
-							DPH 20%: {formatSpaces((totals.total.toFixed(2) * 0.2).toFixed(2))} €{" "}
-						</Text> */}
-						<View>
-							<Text style={[styles.textBold, { fontSize: 13, marginTop: 10 }]}>
-								Cena Spolu:
-							</Text>
-							<Text style={[styles.textBold, { fontSize: 13 }]}>
-								{formatSpaces(totals.total.toFixed(2))} €
-								<Text style={{ fontSize: 10 }}> bez DPH</Text>
-							</Text>
-						</View>
-					</View>
-				</View>
-
-				<View style={[styles.section, { paddingBottom: "20" }]}>
-					<View style={styles.line}></View>
-					<Text
-						style={[
-							styles.heading,
-							{ textAlign: "center", fontSize: "14", marginVertical: "8" },
-						]}
-					>
-						{title}
-					</Text>
-					{description && (
-						<Text
+					<View style={[styles.section, { marginBottom: 40 }]}>
+						<View
 							style={{
-								fontSize: 10,
-								textAlign: "center",
-								color: "#9CA3AF",
-								marginBottom: 20,
+								display: "flex",
+								flexDirection: "row",
+								alignItems: "center",
+								justifyContent: "space-between",
+								marginTop: 20,
 							}}
 						>
-							{description}
+							<View>
+								<Text style={styles.heading}>Cenová ponuka</Text>
+								<Text style={styles.infoHeading}>{subHeading}</Text>
+							</View>
+
+							<View>
+								{logo && <Image cache={false} style={styles.logo} src={logo} />}
+							</View>
+						</View>
+					</View>
+
+					<View style={[styles.infoWraper, styles.section]}>
+						<View style={[{ marginRight: 40 }]}>
+							<Text style={styles.infoHeading}>OBJEDNÁVATEĽ</Text>
+							<Text style={styles.text}>{data.customer.name}</Text>
+						</View>
+
+						<View style={{ marginRight: 40 }}>
+							<Text style={styles.infoHeading}>DODÁVATEĽ:</Text>
+							<Text style={styles.text}>{data.supplyer.company_name}</Text>
+							{data.supplyer.ico && (
+								<Text style={styles.text}>IČO: {data.supplyer.ico}</Text>
+							)}
+							{data.supplyer.dic && (
+								<Text style={styles.text}>DIČ: {data.supplyer.dic}</Text>
+							)}
+							{data.supplyer.phone && (
+								<Text style={styles.text}>Tel.: {data.supplyer.phone}</Text>
+							)}
+							{data.supplyer.email && (
+								<Text style={styles.text}>{data.supplyer.email}</Text>
+							)}
+							<Text style={styles.text}>{data.supplyer.web}</Text>
+						</View>
+
+						<View>
+							<Text style={styles.infoHeading}>CENA:</Text>
+							<Text style={styles.text}>
+								Cena montáže celkom:{" "}
+								{formatSpaces(totals.total_construction_price.toFixed(2))} €
+							</Text>
+							<Text style={styles.text}>
+								Cena dodávky celkom:{" "}
+								{formatSpaces(totals.total_delivery_price.toFixed(2))} €
+							</Text>
+							<Text style={[styles.text]}>
+								Spolu:{" "}
+								{formatSpaces((totals.total + totals.total * 0.2).toFixed(2))} €
+								s DPH
+							</Text>
+							{/* <Text style={[styles.text]}>
+							DPH 20%: {formatSpaces((totals.total.toFixed(2) * 0.2).toFixed(2))} €{" "}
+						</Text> */}
+							<View>
+								<Text
+									style={[styles.textBold, { fontSize: 13, marginTop: 10 }]}
+								>
+									Cena Spolu:
+								</Text>
+								<Text style={[styles.textBold, { fontSize: 13 }]}>
+									{formatSpaces(totals.total.toFixed(2))} €
+									<Text style={{ fontSize: 10 }}> bez DPH</Text>
+								</Text>
+							</View>
+						</View>
+					</View>
+
+					<View style={[styles.section, { paddingBottom: "20" }]}>
+						<View style={styles.line}></View>
+						<Text
+							style={[
+								styles.heading,
+								{ textAlign: "center", fontSize: "14", marginVertical: "8" },
+							]}
+						>
+							{title}
 						</Text>
-					)}
-					<View style={styles.line}></View>
+						{description && (
+							<Text
+								style={{
+									fontSize: 10,
+									textAlign: "center",
+									color: "#9CA3AF",
+									marginBottom: 20,
+								}}
+							>
+								{description}
+							</Text>
+						)}
+						<View style={styles.line}></View>
+					</View>
+
+					<View style={[styles.section, { position: "absolute", bottom: 40 }]}>
+						<Footer
+							name={data.supplyer.company_name}
+							signature={signature}
+							expiration={expiration}
+						></Footer>
+					</View>
 				</View>
 
 				{data.sections.map((section, sectionId) => {
@@ -511,7 +522,7 @@ export function Pdf({
 									<View style={[{ marginTop: 10 }]} wrap={false}>
 										<View>
 											<View style={styles.tableHeading}>
-												<Text style={{ fontSize: 8, width: 25 }}>N.</Text>
+												<Text style={{ fontSize: 8, width: 40 }}>N.</Text>
 												<Text
 													style={[
 														styles[`col_title`],
@@ -524,7 +535,7 @@ export function Pdf({
 												<Text
 													style={[
 														styles[`col_total_delivery_price`],
-														{ width: 120 },
+														{ width: 150 },
 														styles.headerUnit,
 													]}
 												>
@@ -533,7 +544,7 @@ export function Pdf({
 												<Text
 													style={[
 														styles[`col_total_delivery_price`],
-														{ width: 120 },
+														{ width: 150 },
 														styles.headerUnit,
 													]}
 												>
@@ -542,7 +553,7 @@ export function Pdf({
 												<Text
 													style={[
 														styles[`col_total_delivery_price`],
-														{ width: 120 },
+														{ width: 150 },
 														styles.headerUnit,
 													]}
 												>
@@ -554,12 +565,12 @@ export function Pdf({
 													<View style={styles.tableRow}>
 														<Text
 															style={[
-																{ fontSize: 8, width: 25 },
+																{ fontSize: 8, width: 40 },
 																styles.tableUnit,
 																styles.tableUnitFirst,
 															]}
 														>
-															{itemId}
+															{itemId + 1}
 														</Text>
 														<Text
 															style={[
@@ -573,7 +584,7 @@ export function Pdf({
 														<Text
 															style={[
 																styles[`col_total_delivery_price`],
-																{ width: 120 },
+																{ width: 150 },
 																styles.tableUnit,
 															]}
 														>
@@ -585,7 +596,7 @@ export function Pdf({
 														<Text
 															style={[
 																styles[`col_total_delivery_price`],
-																{ width: 120 },
+																{ width: 150 },
 																styles.tableUnit,
 															]}
 														>
@@ -597,7 +608,7 @@ export function Pdf({
 														<Text
 															style={[
 																styles[`col_total_delivery_price`],
-																{ width: 120 },
+																{ width: 150 },
 																styles.tableUnit,
 															]}
 														>
@@ -624,7 +635,7 @@ export function Pdf({
 											<View>
 												{block.items.length > 0 && (
 													<View style={styles.tableHeading}>
-														<Text style={{ fontSize: 8, width: 25 }}>N.</Text>
+														<Text style={{ fontSize: 8, width: 40 }}>N.</Text>
 														{data.headers.map((header, i) => {
 															if (layout.displayColumns.includes(header)) {
 																return (
@@ -647,7 +658,7 @@ export function Pdf({
 															<View style={styles.tableRow}>
 																<Text
 																	style={[
-																		{ fontSize: 8, width: 25 },
+																		{ fontSize: 8, width: 40 },
 																		styles.tableUnit,
 																		styles.tableUnitFirst,
 																	]}
@@ -728,7 +739,7 @@ export function Pdf({
 										</Text>
 										<View>
 											<View style={styles.tableHeading}>
-												<Text style={{ fontSize: 8, width: 25 }}>N.</Text>
+												<Text style={{ fontSize: 8, width: 40 }}>N.</Text>
 												<Text
 													style={[
 														styles[`col_title`],
@@ -741,7 +752,7 @@ export function Pdf({
 												<Text
 													style={[
 														styles[`col_total_delivery_price`],
-														{ width: 160 },
+														{ width: 180 },
 														styles.headerUnit,
 													]}
 												>
@@ -750,7 +761,7 @@ export function Pdf({
 												<Text
 													style={[
 														styles[`col_total_delivery_price`],
-														{ width: 160 },
+														{ width: 180 },
 														styles.headerUnit,
 													]}
 												>
@@ -759,7 +770,7 @@ export function Pdf({
 												<Text
 													style={[
 														styles[`col_total_delivery_price`],
-														{ width: 160 },
+														{ width: 180 },
 														styles.headerUnit,
 													]}
 												>
@@ -771,7 +782,7 @@ export function Pdf({
 													<View style={styles.tableRow}>
 														<Text
 															style={[
-																{ fontSize: 8, width: 25 },
+																{ fontSize: 8, width: 40 },
 																styles.tableUnit,
 																styles.tableUnitFirst,
 															]}
@@ -790,7 +801,7 @@ export function Pdf({
 														<Text
 															style={[
 																styles[`col_total_delivery_price`],
-																{ width: 160 },
+																{ width: 180 },
 																styles.tableUnit,
 															]}
 														>
@@ -802,7 +813,7 @@ export function Pdf({
 														<Text
 															style={[
 																styles[`col_total_delivery_price`],
-																{ width: 160 },
+																{ width: 180 },
 																styles.tableUnit,
 															]}
 														>
@@ -814,7 +825,7 @@ export function Pdf({
 														<Text
 															style={[
 																styles[`col_total_delivery_price`],
-																{ width: 160 },
+																{ width: 180 },
 																styles.tableUnit,
 															]}
 														>
@@ -837,12 +848,6 @@ export function Pdf({
 						</View>
 					</View>
 				)}
-
-				<Footer
-					name={data.supplyer.company_name}
-					signature={signature}
-					expiration={expiration}
-				></Footer>
 
 				<View style={styles.footer} fixed>
 					<Text style={styles.footerText}>{data.supplyer.company_name}</Text>
@@ -871,7 +876,7 @@ function Footer({ signature, expiration, name }) {
 			flexDirection: "row",
 			justifyContent: "space-between",
 			alignItems: "center",
-			marginTop: "50px",
+			marginTop: "",
 		},
 		section: {
 			marginHorizontal: 40,
@@ -897,7 +902,7 @@ function Footer({ signature, expiration, name }) {
 		},
 	});
 	return (
-		<View style={[styles.section, { position: "absolute", bottom: 60 }]}>
+		<View>
 			<View style={styles.wrap}>
 				<View style={styles.info}>
 					<View style={{ marginBottom: 10 }}>
@@ -938,8 +943,12 @@ function Footer({ signature, expiration, name }) {
 					<Text style={{ fontSize: 8, marginRight: 4 }}>
 						Vytvorené pomocou aplikácie
 					</Text>
-					{/* <Image style={{ width: 50 }} src={"./logo.png"}></Image> */}
-					<Text>LOGO</Text>
+					<Image
+						style={{ width: 50 }}
+						src={
+							"https://firebasestorage.googleapis.com/v0/b/cenova-ponuka.appspot.com/o/logo.png?alt=media&token=7feca9b6-0f78-4883-b98c-ea07f8109686"
+						}
+					></Image>
 				</View>
 				<Text style={{ fontSize: 8, marginTop: 4 }}>nacento.online</Text>
 			</View>

@@ -251,22 +251,15 @@ export default function CenovaPonuka() {
 								<div className='w-full h-[1px] bg-black'></div>
 							</div>
 
-							{/* <AnimatePresence>
+							<AnimatePresence>
 								{download && (
-									<Modal
-										title='Stiahnuť ponuku'
+									<GeneratePDF
 										close={() => {
 											setdownload(false);
 										}}
-									>
-										<DownloadLink
-											close={() => {
-												setdownload(false);
-											}}
-										/>
-									</Modal>
+									></GeneratePDF>
 								)}
-							</AnimatePresence> */}
+							</AnimatePresence>
 
 							<div>
 								{winReady &&
