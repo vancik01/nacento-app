@@ -19,16 +19,16 @@ export default function ScreenLayout() {
 	return (
 		<>
 			<div>
-				<div className="grid" style={{ gridTemplateColumns: "auto 1fr" }}>
+				<div className='grid' style={{ gridTemplateColumns: "auto 1fr" }}>
 					<div
-						className="w-fit relative h-screen transition-all"
+						className='w-fit relative h-screen transition-all'
 						style={{ width: displaySidebar ? 300 : 0 }}
 					>
-						<AnimatePresence mode="wait" initial={false}>
+						<AnimatePresence mode='wait' initial={false}>
 							{displaySidebar && (
 								<motion.div
 									key={"sidebar"}
-									className="fixed z-50"
+									className='fixed z-50'
 									initial={{ x: -300, width: 0 }}
 									animate={{ x: 0, width: 300 }}
 									exit={{ x: -300, width: 0 }}
@@ -45,9 +45,9 @@ export default function ScreenLayout() {
 									onClick={() => {
 										setdisplaySidebar(!displaySidebar);
 									}}
-									className="fixed bottom-28 p-3 left-0 z-10 bg-white shadow-lg"
+									className='fixed bottom-28 p-3 left-0 z-10 bg-white shadow-lg'
 								>
-									<div className="w-6 ">
+									<div className='w-6 '>
 										<OpenSidebar></OpenSidebar>
 									</div>
 								</motion.button>
@@ -64,7 +64,7 @@ export default function ScreenLayout() {
 										animate={{ opacity: 1 }}
 										exit={{ opacity: 0 }}
 										transition={{ duration: 0.1 }}
-										className="fixed inset-0 bg-black bg-opacity-60 z-[200] flex justify-center items-center"
+										className='fixed inset-0 bg-black bg-opacity-60 z-[200] flex justify-center items-center'
 									>
 										<TemplateGallery></TemplateGallery>
 									</motion.div>

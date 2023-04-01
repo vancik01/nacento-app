@@ -2,7 +2,7 @@
   "hosting": [
     {
       "public": "out",
-      "cleanUrls":true,
+      "cleanUrls": true,
       "target": "deploy",
       "ignore": [
         "firebase.json",
@@ -12,7 +12,7 @@
     },
     {
       "public": "out",
-      "cleanUrls":true,
+      "cleanUrls": true,
       "target": "nacento-app",
       "ignore": [
         "firebase.json",
@@ -20,5 +20,8 @@
         "**/node_modules/**"
       ]
     }
-  ]
+  ],
+  "storage": {
+    "rules": "storage.rules"
+  }
 }

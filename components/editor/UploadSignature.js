@@ -15,7 +15,6 @@ export default function UploadSignature() {
 		} else {
 			setsignature(null);
 		}
-		console.log(selectedFile);
 	}, [selectedFile]);
 
 	return (
