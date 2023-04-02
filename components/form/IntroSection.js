@@ -8,24 +8,24 @@ function IntroSection({title, text, ix, type}) {
 
   var img, file_name, pass
 
-  if (localStorage.getItem("IMGS") !== null)
-    img = JSON.parse(window.localStorage.getItem("IMGS"))[ix]
+  if (sessionStorage.getItem("IMGS") !== null)
+    img = JSON.parse(window.sessionStorage.getItem("IMGS"))[ix]
   else{
-    window.localStorage.setItem("IMGS", JSON.stringify(["", "", ""]))
+    window.sessionStorage.setItem("IMGS", JSON.stringify(["", "", ""]))
     img = ""
   } 
 
-  if (localStorage.getItem("FILE_NAMES") !== null)
-    file_name = JSON.parse(window.localStorage.getItem("FILE_NAMES"))[ix]
+  if (sessionStorage.getItem("FILE_NAMES") !== null)
+    file_name = JSON.parse(window.sessionStorage.getItem("FILE_NAMES"))[ix]
   else{
-    window.localStorage.setItem("FILE_NAMES", JSON.stringify([null, null, null]))
+    window.sessionStorage.setItem("FILE_NAMES", JSON.stringify([null, null, null]))
     file_name = null
   }
 
-  if (localStorage.getItem("PASSED") !== null)
-    pass = JSON.parse(window.localStorage.getItem("FILE_NAMES"))[ix]
+  if (sessionStorage.getItem("PASSED") !== null)
+    pass = JSON.parse(window.sessionStorage.getItem("FILE_NAMES"))[ix]
   else{
-    window.localStorage.setItem("PASSED", JSON.stringify([false, false, false]))
+    window.sessionStorage.setItem("PASSED", JSON.stringify([false, false, false]))
     pass = false
   }
 
@@ -37,23 +37,23 @@ function IntroSection({title, text, ix, type}) {
 
 
   useEffect(() => {
-    var imgs = JSON.parse(window.localStorage.getItem("IMGS"))
+    var imgs = JSON.parse(window.sessionStorage.getItem("IMGS"))
     imgs[ix] = predictionImage
-    window.localStorage.setItem("IMGS", JSON.stringify(imgs))
+    window.sessionStorage.setItem("IMGS", JSON.stringify(imgs))
     
   }, [predictionImage])
 
   useEffect(() => {
-    let file_names = JSON.parse(window.localStorage.getItem("FILE_NAMES"))
+    let file_names = JSON.parse(window.sessionStorage.getItem("FILE_NAMES"))
     file_names[ix] = fileName
-    window.localStorage.setItem("FILE_NAMES", JSON.stringify(file_names))
+    window.sessionStorage.setItem("FILE_NAMES", JSON.stringify(file_names))
 
   }, [fileName])
 
   useEffect(() => {
-    let file_names = JSON.parse(window.localStorage.getItem("PASSED"))
+    let file_names = JSON.parse(window.sessionStorage.getItem("PASSED"))
     file_names[ix] = passed
-    window.localStorage.setItem("PASSED", JSON.stringify(file_names))
+    window.sessionStorage.setItem("PASSED", JSON.stringify(file_names))
 
   }, [passed])
   

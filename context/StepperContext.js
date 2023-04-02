@@ -72,7 +72,9 @@ const EDATA = {
 
   },
   "admin" : {
-    "revizia" : ["0"],
+    "pripojka" : ["0"],
+    "elektroinstalacia" : ["0"],
+    "bleskozvod" : ["0"],
     "projekty" : ["0"],
     "schema" : ["0"],
     "skutok" : ["0"],
@@ -87,14 +89,14 @@ export function UseStepperContext({ children }) {
   var hrubedata 
   var elektrodata
 
-  if (localStorage.getItem("HRUBE_DATA") !== null)
-    hrubedata = JSON.parse(window.localStorage.getItem("HRUBE_DATA"))
+  if (sessionStorage.getItem("HRUBE_DATA") !== null)
+    hrubedata = JSON.parse(window.sessionStorage.getItem("HRUBE_DATA"))
   
   else hrubedata = HSDATA
 
 
-  if (localStorage.getItem("ELEKTRO_DATA") !== null)
-    elektrodata = JSON.parse(window.localStorage.getItem("ELEKTRO_DATA"))
+  if (sessionStorage.getItem("ELEKTRO_DATA") !== null)
+    elektrodata = JSON.parse(window.sessionStorage.getItem("ELEKTRO_DATA"))
   
   elektrodata = EDATA
 
@@ -103,11 +105,11 @@ export function UseStepperContext({ children }) {
   const [hsdata, sethsdata] = useState(hrubedata);
 
   useEffect(() => {
-    window.localStorage.setItem("ELEKTRO_DATA", JSON.stringify(edata))
+    window.sessionStorage.setItem("ELEKTRO_DATA", JSON.stringify(edata))
   }, [edata])
 
   useEffect(() => {
-    window.localStorage.setItem("HRUBE_DATA", JSON.stringify(hsdata))
+    window.sessionStorage.setItem("HRUBE_DATA", JSON.stringify(hsdata))
   }, [hsdata])
   
 

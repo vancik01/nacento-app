@@ -23,8 +23,8 @@ export default function Dashboard() {
 	const router = useRouter();
 
 	var work_type;
-	if (localStorage.getItem("WORK_TYPE") !== null) {
-		work_type = window.localStorage.getItem("WORK_TYPE");
+	if (sessionStorage.getItem("WORK_TYPE") !== null) {
+		work_type = window.sessionStorage.getItem("WORK_TYPE");
 	} else work_type = -1;
 
 	const [workTypes, SetWorkTypes] = useState(work_type);
@@ -33,12 +33,12 @@ export default function Dashboard() {
 
 	function hadndleWorkChange(ix) {
 		if (workTypes == ix) {
-			window.localStorage.setItem("WORK_TYPE", -1);
+			window.sessionStorage.setItem("WORK_TYPE", -1);
 			SetWorkTypes(-1);
 			return;
 		}
 
-		window.localStorage.setItem("WORK_TYPE", ix);
+		window.sessionStorage.setItem("WORK_TYPE", ix);
 		SetWorkTypes(ix);
 	}
 
