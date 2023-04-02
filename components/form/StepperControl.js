@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import ArrowDown from "../../public/SVG/ArrowDown";
 import { useStepper } from "../../context/StepperContext";
 import { useApi } from "../../context/ApiContext";
@@ -6,6 +7,9 @@ export default function StepperControl({ handleClick, currentStep, steps, typ })
   const { color, redire } = useStepper()
   const { DataToPriceOffer } = useApi()
 
+  const scrollRef = useRef(null)
+
+  const executeScroll = () => scrollRef.current.scrollIntoView() 
 
   const colors = {
     "red": 'bg-rose-600',
@@ -29,9 +33,10 @@ export default function StepperControl({ handleClick, currentStep, steps, typ })
 
       </div> : <div className="py-2 px-4"></div> }
       
-      <div onClick={currentStep !== steps.length? () => handleClick("next") : () => DataToPriceOffer(typ)} 
+
+      <div onClick={currentStep !== steps.length? () => handleClick("next") : () => DataToPriceOffer(typ)}  ref={scrollRef}  
       className={`flex gap-3 items-center cursor-pointer ${colors[color]} py-3 px-4 hover:opacity-80 trans`}>
-        <button className="font-medium text-white">
+        <button onClick={executeScroll} className="font-medium text-white">
           {currentStep === steps.length ? "Vytvoriť cenovú ponuku" : "Ďalej"}
         </button>
 

@@ -64,11 +64,9 @@ const EDATA = {
       "klimatizacia" : ["0"],
   },
   "bleskozvod" : {
-    "strecha" : ["0"],
+    "strecha" : "",
     "zvody" : "",
-    "vedenie" : ["0"],
-    "uzemnenie" : ["0"],
-    "tyce" : ""
+    "hreben" : ""
 
   },
   "admin" : {

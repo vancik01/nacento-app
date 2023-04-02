@@ -233,7 +233,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 			<div className={`flex align-middle items-center ${label.short}`}>
 				<Input
 					disableUnderline
-					inputProps={{ min: 1 }}
+					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
 					value={polozka.quantity.toString()}
