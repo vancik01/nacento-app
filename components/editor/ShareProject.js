@@ -4,13 +4,18 @@ import { AnimatePresence } from "framer-motion";
 import Copy from "./Copy";
 import { useActions } from "../../context/ActionsContext";
 import ButtonPrimary from "../buttons/ButtonPrimary";
+import { useData } from "../../context/AppWrap";
 
 export default function ShareProject({ close }) {
 	const { closeShare, generateLink } = useActions();
+	const { savePromise } = useData();
 
 	async function handleGenerate() {
-		const l = await generateLink();
-		setlink(l);
+		savePromise.then(async () => {
+			const l = await generateLink();
+			console.log(l);
+			setlink(l);
+		});
 	}
 
 	function copy() {

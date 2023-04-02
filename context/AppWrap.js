@@ -100,7 +100,6 @@ export function AppWrap({ children, dbData }) {
 	const savePromise = new Promise(async (resolve, reject) => {
 		const offerId = router.query.projectId;
 		const docRef = doc(firestore, `/offers/${offerId}`);
-
 		try {
 			await updateDoc(docRef, {
 				data: data,
