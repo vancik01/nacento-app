@@ -63,9 +63,11 @@ export function AppWrap({ children, dbData }) {
 	const [dataDB, setdataDB] = useState(dbData);
 	const [signature, setsignature] = useState();
 	const [expiration, setexpiration] = useState(
-		dbData.expiration? moment(dbData.expiration).valueOf() : moment().add(14, "days")
+		dbData.expiration
+			? moment(dbData.expiration).valueOf()
+			: moment().add(14, "days")
 	);
-	var today  = new Date()
+	var today = new Date();
 	const [subHeading, setsubHeading] = useState(
 		dbData.subHeading ? dbData.subHeading : "#" + today.toLocaleDateString("sk")
 	);
@@ -481,6 +483,7 @@ export function AppWrap({ children, dbData }) {
 
 			setbulkEdit(true);
 			data.value = parseFloat(data.value).toFixed(2);
+			console.log(pageX, pageY, e.pageX, e.pageY);
 			setbulkEditData({ ...data, x: pageX, y: pageY });
 		}
 	}
@@ -706,9 +709,9 @@ function DoesNotExist() {
 		router.push("/dashboard");
 	}
 	return (
-		<div className="h-screen flex justify-center items-center flex-col">
-			<div className="text-2xl">Cenová ponuka sa nenašla</div>
-			<ButtonPrimary onClick={handleSelect} className="mt-10" color="#006f85">
+		<div className='h-screen flex justify-center items-center flex-col'>
+			<div className='text-2xl'>Cenová ponuka sa nenašla</div>
+			<ButtonPrimary onClick={handleSelect} className='mt-10' color='#006f85'>
 				Zoznam projektov
 			</ButtonPrimary>
 		</div>
