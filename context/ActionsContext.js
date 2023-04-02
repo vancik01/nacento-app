@@ -59,7 +59,7 @@ export default function ActionsContext({ children }) {
 		const add = await addDoc(colRef, data);
 		setloading(false);
 
-		return `http://localhost:3000/view/${add.id}`;
+		return `https://${window.location.hostname}/view/${add.id}`;
 	}
 
 	function openShare() {

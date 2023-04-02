@@ -37,13 +37,15 @@ export default function ShareProject({ close }) {
 					<h1 className='text-center text-primary'>Zdielať projekt</h1>
 					<p className='text-center'>Zdielajte Vašu ponuku online!</p>
 				</div>
-				<div>
-					<ButtonPrimary onClick={handleGenerate}>
-						Generovať odkaz
-					</ButtonPrimary>
-				</div>
-				{link != "" && (
+				{!link && (
 					<div>
+						<ButtonPrimary onClick={handleGenerate}>
+							Generovať odkaz
+						</ButtonPrimary>
+					</div>
+				)}
+				{link != "" && (
+					<div className=''>
 						<div className='text-sm  text-center mb-2'>Váš odkaz:</div>
 						<div className='flex justify-center text-sm rounded-md shadow-hardShadow'>
 							<div className='p-2 max-w-[250px] text-ellipsis overflow-hidden text-xs'>
@@ -56,6 +58,17 @@ export default function ShareProject({ close }) {
 								<Copy />
 							</button>
 						</div>
+
+						<div className='flex justify-center items-center'>
+							<a
+								target='_blank'
+								className='text-xs text-center py-2 mx-auto w-full text-blue-500'
+								href={link}
+							>
+								Zobraziť na webe
+							</a>
+						</div>
+
 						<div className='text-xs text-gray-400 text-center mt-2'>
 							Odkaz platný len do...
 						</div>
