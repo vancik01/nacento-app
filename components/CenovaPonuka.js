@@ -54,7 +54,7 @@ export default function CenovaPonuka() {
 
 	return (
 		<>
-			<div className='pt-10 pb-32 relative'>
+			<div className='pt-10 pb-32'>
 				{<BulkEdit blockTitle={bulkEditData.title} />}
 
 				<div className='flex items-start justify-start w-full px-8 overflow-x-auto pb-20'>
@@ -174,8 +174,8 @@ export default function CenovaPonuka() {
 														openBulkEdit(
 															{
 																blockId: -1,
-																value: total.total,
-																valueId: "total",
+																value: total.total * 1.2,
+																valueId: "total_vat",
 																mode: "whole",
 															},
 															e
@@ -204,7 +204,7 @@ export default function CenovaPonuka() {
 															{
 																blockId: -1,
 																value: total.total * 1.2,
-																valueId: "total_vat",
+																valueId: "total",
 																mode: "whole",
 															},
 															e
@@ -218,7 +218,7 @@ export default function CenovaPonuka() {
 										</div>
 
 										<div className='mt-2 font-medium text-xl'>
-											{numberWithCommas(total.total.toFixed(2))} €{" "}
+											{numberWithCommas(total.total.toFixed(2))} €
 											<span className='text-[10px]'>bez DPH</span>
 										</div>
 									</div>

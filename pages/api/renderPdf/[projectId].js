@@ -22,16 +22,16 @@ export default async function test(req, res) {
 	try {
 		result = await ReactPDF.renderToStream(
 			<Pdf
-				data={dbData.data}
-				title={dbData.name}
+				data={dbData?.data}
+				title={dbData?.name}
 				logo={dbData?.images?.logo}
-				layout={dbData.layout}
-				totals={dbData.totals}
-				isHorizontal={dbData.layout.isHorizontal}
+				layout={dbData?.layout}
+				totals={dbData?.totals}
+				isHorizontal={dbData?.layout?.isHorizontal}
 				signature={dbData?.images?.signature}
-				expiration={dbData.expiration}
-				subHeading={dbData.subHeading}
-				description={dbData.description}
+				expiration={dbData?.expiration}
+				subHeading={dbData?.subHeading}
+				description={dbData?.description}
 			/>
 		);
 	} catch (error) {

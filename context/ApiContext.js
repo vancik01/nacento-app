@@ -13,8 +13,8 @@ const UseApiContext = createContext();
 export function ApiContext({ children }) {
 	const [images, setimages] = useState([]);
 	const [pdf, setPdf] = useState("");
-    const [dataloading, setdataloading] = useState(false);
-    const { hsdata, sethsdata, edata } = useStepper()
+	const [dataloading, setdataloading] = useState(false);
+	const { hsdata, sethsdata, edata } = useStepper();
 
 	const { user } = useAuth();
 	const router = useRouter();
@@ -34,15 +34,15 @@ export function ApiContext({ children }) {
 			name = "Elektroinštalácie Rodinného Domu"
         }
 
-        // fetch(`http://127.0.0.1:8000/api/data_offer_${api_route}`, {
-        fetch(`https://api.nacento.online/api/data_offer_${api_route}`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-        }).then((response) => {
-            if (response.ok) {
-                response.json().then((CP) => {
-                    setdataloading(true);
+		// fetch(`http://127.0.0.1:8000/api/data_offer_${api_route}`, {
+		fetch(`https://api.nacento.online/api/data_offer_${api_route}`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(data),
+		}).then((response) => {
+			if (response.ok) {
+				response.json().then((CP) => {
+					setdataloading(true);
 
                     const collectionRef = doc(collection(firestore, "/offers"));
                     //customBuild variable empty template

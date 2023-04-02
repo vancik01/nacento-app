@@ -63,9 +63,11 @@ export function AppWrap({ children, dbData }) {
 	const [dataDB, setdataDB] = useState(dbData);
 	const [signature, setsignature] = useState();
 	const [expiration, setexpiration] = useState(
-		dbData.expiration? moment(dbData.expiration).valueOf() : moment().add(14, "days")
+		dbData.expiration
+			? moment(dbData.expiration).valueOf()
+			: moment().add(14, "days")
 	);
-	var today  = new Date()
+	var today = new Date();
 	const [subHeading, setsubHeading] = useState(
 		dbData.subHeading ? dbData.subHeading : "#" + today.toLocaleDateString("sk")
 	);
@@ -88,36 +90,74 @@ export function AppWrap({ children, dbData }) {
 	const router = useRouter();
 
 	function handleSave(show) {
-		const offerId = router.query.projectId;
 		setsaving(true);
+		savePromise.then((val) => {
+			console.log(val);
+			toast("Dáta sa uložili", { autoClose: 3000, type: "success" });
+			setsaving(false);
+		});
+	}
+
+	const savePromise = new Promise(async (resolve, reject) => {
+		const offerId = router.query.projectId;
 		const docRef = doc(firestore, `/offers/${offerId}`);
 
-		updateDoc(docRef, {
-			data: data,
-			name: name,
-			totals: total,
-			description: description ? description : "",
-			layout: getLayout(),
-			lastModified: moment().valueOf(),
-			expiration: expiration ? moment(expiration).valueOf() : null,
-			subHeading: subHeading ? subHeading : "",
-			images: {
-				logo: logo ? logo : "",
-				signature: signature ? signature : "",
-			},
-		})
-			.then((snap) => {
-				//setdata(snap.data().data);
-				if (show)
-					toast("Dáta sa uložili", { autoClose: 3000, type: "success" });
-				setsaving(false);
-			})
-			.catch((err) => {
-				console.log(err);
-				toast("Vyskytla sa chyba pri ukladaní", { type: "error" });
-				setsaving(true);
+		try {
+			await updateDoc(docRef, {
+				data: data,
+				name: name,
+				totals: total,
+				description: description ? description : "",
+				layout: getLayout(),
+				lastModified: moment().valueOf(),
+				expiration: expiration ? moment(expiration).valueOf() : null,
+				subHeading: subHeading ? subHeading : "",
+				images: {
+					logo: logo ? logo : "",
+					signature: signature ? signature : "",
+				},
 			});
-	}
+		} catch (error) {
+			console.log(error);
+			toast("Vyskytla sa chyba pri ukladaní", { type: "error" });
+
+			reject(error);
+		}
+
+		resolve("Wocap");
+	});
+
+	// async function handleSave(show) {
+	// 	const offerId = router.query.projectId;
+	// 	setsaving(true);
+	// 	const docRef = doc(firestore, `/offers/${offerId}`);
+
+	// 	updateDoc(docRef, {
+	// 		data: data,
+	// 		name: name,
+	// 		totals: total,
+	// 		description: description ? description : "",
+	// 		layout: getLayout(),
+	// 		lastModified: moment().valueOf(),
+	// 		expiration: expiration ? moment(expiration).valueOf() : null,
+	// 		subHeading: subHeading ? subHeading : "",
+	// 		images: {
+	// 			logo: logo ? logo : "",
+	// 			signature: signature ? signature : "",
+	// 		},
+	// 	})
+	// 		.then((snap) => {
+	// 			//setdata(snap.data().data);
+	// 			if (show)
+	// 				toast("Dáta sa uložili", { autoClose: 3000, type: "success" });
+	// 			setsaving(false);
+	// 		})
+	// 		.catch((err) => {
+	// 			console.log(err);
+	// 			toast("Vyskytla sa chyba pri ukladaní", { type: "error" });
+	// 			setsaving(true);
+	// 		});
+	// }
 
 	function calculateTotals() {
 		var t = {
@@ -481,6 +521,7 @@ export function AppWrap({ children, dbData }) {
 
 			setbulkEdit(true);
 			data.value = parseFloat(data.value).toFixed(2);
+			console.log(pageX, pageY, e.pageX, e.pageY);
 			setbulkEditData({ ...data, x: pageX, y: pageY });
 		}
 	}
@@ -650,6 +691,7 @@ export function AppWrap({ children, dbData }) {
 		setdisplaySidebar,
 
 		handleSave,
+		savePromise,
 
 		saving,
 		setsaving,
@@ -706,9 +748,9 @@ function DoesNotExist() {
 		router.push("/dashboard");
 	}
 	return (
-		<div className="h-screen flex justify-center items-center flex-col">
-			<div className="text-2xl">Cenová ponuka sa nenašla</div>
-			<ButtonPrimary onClick={handleSelect} className="mt-10" color="#006f85">
+		<div className='h-screen flex justify-center items-center flex-col'>
+			<div className='text-2xl'>Cenová ponuka sa nenašla</div>
+			<ButtonPrimary onClick={handleSelect} className='mt-10' color='#006f85'>
 				Zoznam projektov
 			</ButtonPrimary>
 		</div>

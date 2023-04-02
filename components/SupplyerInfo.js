@@ -8,7 +8,7 @@ import EditPen from "../public/SVG/EditPen";
 import ButtonPrimary from "./buttons/ButtonPrimary";
 import ButtonSecondary from "./buttons/ButtonSecondary";
 
-export default function SupplyerInfo({scale}) {
+export default function SupplyerInfo({ scale }) {
 	const { data, changeSupplyerData } = useData();
 	const { userData } = useAuth();
 	const [editing, setediting] = useState(false);
@@ -28,19 +28,23 @@ export default function SupplyerInfo({scale}) {
 	if (!editing) {
 		return (
 			<div>
-				<div className="relative w-fit">
-					<div className={`${scale && "text-xl"} mb-2 text-gray-300 capitalize`}>DODÁVATEĽ:</div>
+				<div className='relative w-fit'>
+					<div
+						className={`${scale && "text-xl"} mb-2 text-gray-300 capitalize`}
+					>
+						DODÁVATEĽ:
+					</div>
 					<button
 						onClick={() => {
 							setediting(true);
 						}}
-						className="absolute top-0 -right-5 w-3"
+						className='absolute top-0 -right-5 w-3'
 					>
 						<EditPen></EditPen>
 					</button>
 				</div>
 
-				<div className={`${scale? "text-lg" : "text-sm"} flex flex-col gap-1`}>
+				<div className={`${scale ? "text-lg" : "text-sm"} flex flex-col gap-1`}>
 					{supplyer.company_name && <div>{supplyer.company_name}</div>}
 					{data.supplyer.ico && <div>IČO: {data.supplyer.ico}</div>}
 					{data.supplyer.dic && <div>DIČ: {data.supplyer.dic}</div>}
@@ -53,67 +57,63 @@ export default function SupplyerInfo({scale}) {
 	} else {
 		return (
 			<div>
-				<div className={`${scale && "text-xl"} mb-2 text-gray-300 capitalize`}>DODÁVATEĽ:</div>
-				<div className="flex flex-col gap-1 text-sm">
+				<div className={`${scale && "text-xl"} mb-2 text-gray-300 capitalize`}>
+					DODÁVATEĽ:
+				</div>
+				<div className='flex flex-col gap-1 text-sm'>
 					<input
-						className={`${scale? "text-lg" : "text-sm"} w-[80%]`}
+						className={`${scale ? "text-lg" : "text-sm"} w-[80%] outline-none`}
 						onChange={handleChange}
-						name="company_name"
-						variant="standard"
-						placeholder="Názov Spoločnosti"
+						name='company_name'
+						variant='standard'
+						placeholder='Názov Spoločnosti'
 						value={supplyer.company_name}
-						className="outline-none "
 					></input>
 					<input
-						className={`${scale? "text-lg" : "text-sm"} w-[80%]`}
+						className={`${scale ? "text-lg" : "text-sm"} w-[80%]outline-none `}
 						onChange={handleChange}
-						name="ico"
-						variant="standard"
-						placeholder="IČO"
+						name='ico'
+						variant='standard'
+						placeholder='IČO'
 						value={supplyer.ico}
-						className="outline-none "
 					></input>
 					<input
-						className={`${scale? "text-lg" : "text-sm"} w-[80%]`}
+						className={`${scale ? "text-lg" : "text-sm"} w-[80%] outline-none `}
 						onChange={handleChange}
-						name="dic"
-						variant="standard"
-						placeholder="DIČ"
+						name='dic'
+						variant='standard'
+						placeholder='DIČ'
 						value={supplyer.dic}
-						className="outline-none "
 					></input>
 					<input
-						className={`${scale? "text-lg" : "text-sm"} w-[80%]`}
+						className={`${scale ? "text-lg" : "text-sm"} w-[80%] outline-none `}
 						onChange={handleChange}
-						name="phone"
-						variant="standard"
-						placeholder="Telefónne číslo"
+						name='phone'
+						variant='standard'
+						placeholder='Telefónne číslo'
 						value={supplyer.phone}
-						className="outline-none "
 					></input>
 					<input
-						className={`${scale? "text-lg" : "text-sm"} w-[80%]`}
+						className={`${scale ? "text-lg" : "text-sm"} w-[80%] outline-none `}
 						onChange={handleChange}
-						name="email"
-						variant="standard"
-						placeholder="Email"
+						name='email'
+						variant='standard'
+						placeholder='Email'
 						value={supplyer.email}
-						className="outline-none "
 					></input>
 					<input
-						className={`${scale? "text-lg" : "text-sm"} w-[80%]`}
+						className={`${scale ? "text-lg" : "text-sm"} w-[80%] outline-none `}
 						onChange={handleChange}
-						name="web"
-						variant="standard"
-						placeholder="Web"
+						name='web'
+						variant='standard'
+						placeholder='Web'
 						value={supplyer.web}
-						className="outline-none "
 					></input>
 				</div>
 				<ButtonSecondary
 					icon={<Save></Save>}
 					iconBefore
-					className="mt-4"
+					className='mt-4'
 					onClick={handleSave}
 				>
 					Uložiť
