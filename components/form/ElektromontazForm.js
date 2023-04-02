@@ -29,7 +29,7 @@ function ElektromontazForm({ theme_color }) {
     "Elektroinštalačné práce",
     "Bleskozvod",
     "Predprípravy",
-    "Administratíva",
+    // "Administratíva",
   ];
 
   const displayStep = (step) => {
@@ -42,8 +42,8 @@ function ElektromontazForm({ theme_color }) {
         return <Bleskozvod/>;
       case 4:
         return <Predpripravy/>;
-      case 5:
-        return <Administrativa/>;
+      // case 5:
+      //   return <Administrativa/>;
       default:
     }
   };
@@ -54,6 +54,7 @@ function ElektromontazForm({ theme_color }) {
     direction === "next" ? newStep++ : newStep--;
     // check if steps are within bounds
     newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
+
   };
 
   return (

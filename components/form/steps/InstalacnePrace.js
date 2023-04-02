@@ -30,8 +30,8 @@ export default function InstalacnePrace() {
             <Divider title="priemerná vzdialenosť vývodu od RD"
             component={<NumberInput path={["e", "instalacie", "dialkavyvod"]} unit={"m"} sup={"2"} />} />
 
-            <Divider title="trojfázový vývod zásuvka 400V" subtitle="(varná doska)"
-            component={<SingleChoice path={["e", "instalacie", "zasuvka"]} labels={["áno", "nie"]}/>} />
+            {/* <Divider title="trojfázový vývod zásuvka 400V" subtitle="(varná doska)"
+            component={<SingleChoice path={["e", "instalacie", "zasuvka"]} labels={["áno", "nie"]}/>} /> */}
 
 
 
