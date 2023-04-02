@@ -5,16 +5,12 @@ import {
 	getDocs,
 	orderBy,
 	query,
-	updateDoc,
 	where,
 } from "firebase/firestore";
 import ButtonIcon from "../buttons/ButtonIcon";
 import { motion } from "framer-motion";
-
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import Layout from "../../components/Layout";
 import FullPageLoading from "../../components/loading/FullPageLoading";
 import { LoggedIn } from "../../components/LoggedIn";
 import { firestore } from "../../lib/firebase";
@@ -103,12 +99,12 @@ export default function ProjectList({ clicked }) {
 		<>
 			<FullPageLoading loading={loading}></FullPageLoading>
 
-			<div className="min-h-screen">
-				<div className="flex justify-center items-center h-full">
+			<div className='min-h-screen'>
+				<div className='flex justify-center items-center h-full'>
 					{
-						<div className="w-full">
+						<div className='w-full'>
 							{!sceletonLoading ? (
-								<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 mt-10 gap-4">
+								<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 mt-10 gap-4'>
 									{data?.map((project, i) => {
 										return (
 											<Project
@@ -170,22 +166,22 @@ function Project({
 					: "outline-blue-500 outline-2"
 			}  rounded-sm transition duration-100 ease-in-out`}
 		>
-			<div className="bg-gray-50 rounded-sm p-4 min-h-[250px] flex justify-between flex-col">
-				<div className="">
-					<div className="flex justify-between items-center">
-						<div className="text-lg font-medium text-start">Cenová Ponuka</div>
-						<div className="relative">
+			<div className='bg-gray-50 rounded-sm p-4 min-h-[250px] flex justify-between flex-col'>
+				<div className=''>
+					<div className='flex justify-between items-center'>
+						<div className='text-lg font-medium text-start'>Cenová Ponuka</div>
+						<div className='relative'>
 							<ButtonIcon
 								icon={<TrashBin />}
-								tooltip="Zmazať ponuku"
+								tooltip='Zmazať ponuku'
 								onClick={(e) => {
 									settoggleDelete(!toggleDelete);
 									e.stopPropagation();
 								}}
-								id="del"
+								id='del'
 							></ButtonIcon>
 
-							<AnimatePresence mode="wait">
+							<AnimatePresence mode='wait'>
 								{toggleDelete && (
 									<motion.div
 										onClick={(e) => e.stopPropagation()}
@@ -194,14 +190,14 @@ function Project({
 										exit={{ opacity: 0, y: 10 }}
 										animate={{ opacity: 1, y: 0 }}
 										transition={{ duration: 0.2 }}
-										className="absolute left-0 mt-1 bg-white shadow-hardShadow min-w-[200px] rounded-md px-3 py-3"
+										className='absolute left-0 mt-1 bg-white shadow-hardShadow min-w-[200px] rounded-md px-3 py-3'
 									>
-										<div className="text-lg">Naozaj zmazať?</div>
+										<div className='text-lg'>Naozaj zmazať?</div>
 										<ButtonPrimary
 											color={"red"}
 											icon={<TrashBin color={"white"} />}
 											iconBefore
-											className="mt-4"
+											className='mt-4'
 											onClick={handleClick}
 										>
 											Potvrdiť zmazanie
@@ -215,10 +211,10 @@ function Project({
 					<div>
 						{project.data.customer.name && (
 							<>
-								<div className="text-left font-regular text-sm text-black mt-2">
+								<div className='text-left font-regular text-sm text-black mt-2'>
 									Objednávateľ:
 								</div>
-								<div className="text-left font-light text-sm text-gray-500 mt-1">
+								<div className='text-left font-light text-sm text-gray-500 mt-1'>
 									{project.data.customer.name}
 								</div>
 							</>
@@ -226,10 +222,10 @@ function Project({
 
 						{project.expiration && (
 							<>
-								<div className="text-left font-regular text-sm text-black mt-3">
+								<div className='text-left font-regular text-sm text-black mt-3'>
 									Platná do:
 								</div>
-								<div className="text-left font-light text-sm text-gray-500 mt-1">
+								<div className='text-left font-light text-sm text-gray-500 mt-1'>
 									{moment(project.expiration).format("DD.MM. YYYY")} (končí o{" "}
 									{moment(project.expiration).diff(moment(), "days") + 1} dní)
 								</div>
@@ -237,30 +233,30 @@ function Project({
 						)}
 					</div>
 
-					<div className="text-left font-regular text-sm text-black mt-4">
+					<div className='text-left font-regular text-sm text-black mt-4'>
 						Cena:
 					</div>
-					<div className="text-left font-light text-sm text-gray-500 mt-1">
+					<div className='text-left font-light text-sm text-gray-500 mt-1'>
 						{project.totals
 							? numberWithCommas(round(parseFloat(project?.totals?.total), 2))
 							: "00.0"}
-						€<span className="text-[10px]"> vrátane DPH</span>
+						€<span className='text-[10px]'> vrátane DPH</span>
 					</div>
 				</div>
 
-				<div className="flex justify-between items-center mt-2">
-					<div className="text-xs">
+				<div className='flex justify-between items-center mt-2'>
+					<div className='text-xs'>
 						<span>Upravené: </span> {getLastModified(project?.lastModified)}
 					</div>
 				</div>
 			</div>
 
-			<div className="bg-white px-2 py-3 flex items-center">
+			<div className='bg-white px-2 py-3 flex items-center'>
 				<div>
 					{/* <InteractiveOffer color="#1400FF"></InteractiveOffer> */}
 					<IconHome color={project?.layout?.primaryColor}></IconHome>
 				</div>
-				<div className="text-sm ml-2 overflow-hidden w-[80%]">
+				<div className='text-sm ml-2 overflow-hidden w-[80%]'>
 					{project.name}
 				</div>
 			</div>
@@ -270,14 +266,14 @@ function Project({
 
 function Skeleton() {
 	return (
-		<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 w-full mt-10 gap-4">
+		<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 w-full mt-10 gap-4'>
 			{Array(12)
 				.fill("")
 				.map((name, ix) => {
 					return (
 						<div
 							key={`sk${ix}`}
-							className="w-full h-[240px] bg-gray-100 skeleton"
+							className='w-full h-[240px] bg-gray-100 skeleton'
 						></div>
 					);
 				})}

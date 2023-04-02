@@ -97,7 +97,7 @@ export const DownloadLink = ({ close }) => {
 							data={data}
 							title={name}
 							logo={logo}
-							isHorizontal={layout.isHorizontal}
+							isHorizontal={layout?.isHorizontal}
 							layout={layout}
 							totals={total}
 							expiration={expiration}
@@ -141,6 +141,21 @@ export function Pdf({
 	subHeading,
 	description,
 }) {
+	if (!layout) {
+		layout = {
+			displayColumns: [
+				"title",
+				"unit",
+				"quantity",
+				"total_delivery_price",
+				"total_construction_price",
+				"total",
+			],
+			primaryColor: "#63A695",
+			isHorizontal: false,
+			variant: "pro",
+		};
+	}
 	const variant = getVariantConfig(layout.variant);
 	const styles = StyleSheet.create({
 		page: {
@@ -357,11 +372,11 @@ export function Pdf({
 	return (
 		<Document title={title}>
 			<Page
-				orientation={isHorizontal && "landscape"}
+				orientation={isHorizontal ? "landscape" : "portrait"}
 				size='A4'
 				style={styles.page}
 			>
-				<View style={{ height: "100%", position: "relative" }}>
+				<View>
 					<View
 						style={{
 							height: 60,
@@ -471,14 +486,6 @@ export function Pdf({
 							</Text>
 						)}
 						<View style={styles.line}></View>
-					</View>
-
-					<View style={[styles.section, { position: "absolute", bottom: 40 }]}>
-						<Footer
-							name={data.supplyer.company_name}
-							signature={signature}
-							expiration={expiration}
-						></Footer>
 					</View>
 				</View>
 
@@ -728,7 +735,7 @@ export function Pdf({
 				})}
 
 				{variant.summary && (
-					<View style={styles.section} break>
+					<View style={styles.section}>
 						<Text>Zhrnutie:</Text>
 						<View>
 							{data.sections.map((section, i) => {
@@ -848,6 +855,14 @@ export function Pdf({
 						</View>
 					</View>
 				)}
+
+				<View style={[styles.section, { position: "absolute", bottom: 80 }]}>
+					<Footer
+						name={data.supplyer.company_name}
+						signature={signature}
+						expiration={expiration}
+					></Footer>
+				</View>
 
 				<View style={styles.footer} fixed>
 					<Text style={styles.footerText}>{data.supplyer.company_name}</Text>

@@ -46,6 +46,7 @@ export default function Sidebar() {
 		saving,
 		triggerTemplate,
 		name,
+		savePromise,
 	} = useData();
 
 	const router = useRouter();
