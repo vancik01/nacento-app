@@ -45,6 +45,7 @@ export default function Sidebar() {
 		saving,
 		triggerTemplate,
 		name,
+		savePromise,
 	} = useData();
 
 	const router = useRouter();
@@ -87,34 +88,34 @@ export default function Sidebar() {
 		},
 	});
 
-	function getServerPdf() {
-		setdownload(true);
-		const projectId = router.query.projectId;
-		fetch(
-			`/api/renderPdf/${projectId}`
-			//`http://127.0.0.1:5001/cenova-ponuka/us-central1/renderPdf?offerId=${projectId}`
-		)
-			.then((response) => {
-				return response.blob();
-			})
-			.then((blob) => {
-				// create a temporary <a> element to download the blob
-				const url = URL.createObjectURL(blob);
-				const a = document.createElement("a");
-				a.href = url;
-				a.download = `${name}.pdf`; // replace "your_filename" with your desired filename
-				a.click();
+	async function getServerPdf() {
+		await savePromise.then(() => {
+			setdownload(true);
+			const projectId = router.query.projectId;
 
-				// cleanup: remove the temporary URL created by URL.createObjectURL()
-				setTimeout(() => {
-					URL.revokeObjectURL(url);
-				}, 0);
-				setdownload(false);
-			})
-			.catch((error) => {
-				console.error("Error fetching PDF:", error);
-				setdownload(false);
-			});
+			fetch(`/api/renderPdf/${projectId}`)
+				.then((response) => {
+					return response.blob();
+				})
+				.then((blob) => {
+					// create a temporary <a> element to download the blob
+					const url = URL.createObjectURL(blob);
+					const a = document.createElement("a");
+					a.href = url;
+					a.download = `${name}.pdf`; // replace "your_filename" with your desired filename
+					a.click();
+
+					// cleanup: remove the temporary URL created by URL.createObjectURL()
+					setTimeout(() => {
+						URL.revokeObjectURL(url);
+					}, 0);
+					setdownload(false);
+				})
+				.catch((error) => {
+					console.error("Error fetching PDF:", error);
+					setdownload(false);
+				});
+		});
 	}
 
 	return (
