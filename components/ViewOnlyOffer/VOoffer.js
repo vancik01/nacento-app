@@ -72,7 +72,7 @@ export default function VOoffer() {
 										<div className="relative w-fit text-sm">
 											<div>
 												Cena Dodávky:{" "}
-												{numberWithCommas(totals.total_delivery_price)} €
+												{numberWithCommas(totals.total_delivery_price.toFixed(2))} €
 											</div>
 										</div>
 
@@ -82,8 +82,9 @@ export default function VOoffer() {
 										></div>
 										<div className="relative w-fit">
 											<div>
-												Spolu: {numberWithCommas(totals.total)} €{" "}
-												<span className="text-[10px]">bez DPH</span>
+											
+												Spolu: {numberWithCommas((totals.total * 1.2).toFixed(2))} €{" "}
+												<span className="text-[10px]">vrátane DPH</span>
 											</div>
 										</div>
 
@@ -99,8 +100,8 @@ export default function VOoffer() {
 										</div>
 
 										<div className="mt-2 font-medium text-xl">
-											{numberWithCommas((totals.total * 1.2).toFixed(2))} €{" "}
-											<span className="text-[10px]">vrátane DPH</span>
+										{numberWithCommas(totals.total)} €{" "}
+											<span className="text-[10px]">bez DPH</span>
 										</div>
 									</div>
 								</div>
