@@ -929,7 +929,8 @@ function Footer({ signature, expiration, name }) {
 					justifyContent: "center",
 					alignItems: "center",
 					marginTop: 10,
-				}}>
+				}}
+			>
 				<View
 					style={{
 						display: "flex",

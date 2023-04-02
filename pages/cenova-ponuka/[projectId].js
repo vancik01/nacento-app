@@ -8,6 +8,7 @@ import LayoutContext from "../../context/LayoutContext";
 import ScreenLayout from "../../components/ScreenLayout";
 import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "../../lib/firebase";
+import ActionsContext from "../../context/ActionsContext";
 
 export default function Home({ dbData }) {
 	const theme = createTheme({
@@ -24,7 +25,9 @@ export default function Home({ dbData }) {
 			</Head>
 			<LayoutContext layout={dbData?.layout} headers={dbData.data.headers}>
 				<AppWrap dbData={dbData}>
-					<ScreenLayout />
+					<ActionsContext>
+						<ScreenLayout />
+					</ActionsContext>
 				</AppWrap>
 			</LayoutContext>
 		</ThemeProvider>
