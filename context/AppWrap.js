@@ -88,18 +88,10 @@ export function AppWrap({ children, dbData }) {
 	const [initialTotal, setinitialTotal] = useState(total);
 	const router = useRouter();
 
-	function handleSave(show) {
+	async function handleSave(show) {
+		const projectId = router.query.projectId;
+		const docRef = doc(firestore, `/offers/${projectId}`);
 		setsaving(true);
-		savePromise.then((val) => {
-			console.log(val);
-			toast("Dáta sa uložili", { autoClose: 3000, type: "success" });
-			setsaving(false);
-		});
-	}
-
-	const savePromise = new Promise(async (resolve, reject) => {
-		const offerId = router.query.projectId;
-		const docRef = doc(firestore, `/offers/${offerId}`);
 		try {
 			await updateDoc(docRef, {
 				data: data,
@@ -115,15 +107,45 @@ export function AppWrap({ children, dbData }) {
 					signature: signature ? signature : "",
 				},
 			});
+			if (show) toast("Dáta sa uložili", { type: "success" });
+			setsaving(false);
 		} catch (error) {
 			console.log(error);
 			toast("Vyskytla sa chyba pri ukladaní", { type: "error" });
-
-			reject(error);
+			setsaving(false);
 		}
+	}
 
-		resolve("Wocap");
-	});
+	function awaitHandleSave() {
+		const projectId = router.query.projectId;
+		return new Promise(async (resolve, reject) => {
+			console.log(projectId);
+			const docRef = doc(firestore, `/offers/${projectId}`);
+			try {
+				await updateDoc(docRef, {
+					data: data,
+					name: name,
+					totals: total,
+					description: description ? description : "",
+					layout: getLayout(),
+					lastModified: moment().valueOf(),
+					expiration: expiration ? moment(expiration).valueOf() : null,
+					subHeading: subHeading ? subHeading : "",
+					images: {
+						logo: logo ? logo : "",
+						signature: signature ? signature : "",
+					},
+				});
+			} catch (error) {
+				console.log(error);
+				toast("Vyskytla sa chyba pri ukladaní", { type: "error" });
+
+				reject(error);
+			}
+
+			resolve("Wocap");
+		});
+	}
 
 	// async function handleSave(show) {
 	// 	const offerId = router.query.projectId;
@@ -576,7 +598,7 @@ export function AppWrap({ children, dbData }) {
 			service_type: "",
 			item_id: "",
 			title: "Nová položka",
-			unit: "",
+			unit: "m",
 			quantity: 1,
 			unit_delivery_price: 0.0,
 			unit_construction_price: 0.0,
@@ -686,7 +708,7 @@ export function AppWrap({ children, dbData }) {
 		setdisplaySidebar,
 
 		handleSave,
-		savePromise,
+		awaitHandleSave,
 
 		saving,
 		setsaving,

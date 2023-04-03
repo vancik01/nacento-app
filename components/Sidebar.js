@@ -43,6 +43,7 @@ export default function Sidebar() {
 		setdownload,
 		setdisplaySidebar,
 		handleSave,
+		awaitHandleSave,
 		saving,
 		triggerTemplate,
 		name,

@@ -735,7 +735,7 @@ export function Pdf({
 				})}
 
 				{variant.summary && (
-					<View style={styles.section}>
+					<View style={styles.section} break>
 						<Text>Zhrnutie:</Text>
 						<View>
 							{data.sections.map((section, i) => {
@@ -756,6 +756,7 @@ export function Pdf({
 												>
 													Práce
 												</Text>
+
 												<Text
 													style={[
 														styles[`col_total_delivery_price`],
@@ -765,6 +766,7 @@ export function Pdf({
 												>
 													Cena montáže
 												</Text>
+
 												<Text
 													style={[
 														styles[`col_total_delivery_price`],
@@ -774,6 +776,7 @@ export function Pdf({
 												>
 													Cena dodávky
 												</Text>
+
 												<Text
 													style={[
 														styles[`col_total_delivery_price`],

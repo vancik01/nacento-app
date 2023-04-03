@@ -15,10 +15,10 @@ export default function ActionsContext({ children }) {
 	const [share, setshare] = useState(false);
 	const [loading, setloading] = useState(false);
 	const router = useRouter();
-	const { name, savePromise } = useData();
+	const { name, awaitHandleSave } = useData();
 
 	async function getServerPdf() {
-		savePromise.then(() => {
+		awaitHandleSave().then(() => {
 			setdownload(true);
 			const projectId = router.query.projectId;
 
