@@ -11,6 +11,9 @@ import SelectProjectToolbar from "./editor/SelectProjectToolbar";
 import ButtonSecondary from "./buttons/ButtonSecondary";
 import ArrowBack from "../public/SVG/buttons/ArrowBack";
 import { useData } from "../context/AppWrap";
+import ButtonPrimary from "./buttons/ButtonPrimary";
+import Share from "../public/SVG/buttons/Share";
+import { useActions } from "../context/ActionsContext";
 
 export default function EditorHeader() {
 	const router = useRouter();
@@ -38,5 +41,6 @@ export default function EditorHeader() {
 				</div>
 				<UserInfoHeader />
 			</div>
+		</div>
 	);
 }

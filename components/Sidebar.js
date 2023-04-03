@@ -32,6 +32,7 @@ import ButtonSecondary from "./buttons/ButtonSecondary";
 import { httpsCallable } from "firebase/functions";
 import { functions } from "../lib/firebase";
 import { useRouter } from "next/router";
+import { useActions } from "../context/ActionsContext";
 
 export default function Sidebar() {
 	const {
@@ -42,6 +43,7 @@ export default function Sidebar() {
 		setdownload,
 		setdisplaySidebar,
 		handleSave,
+		awaitHandleSave,
 		saving,
 		triggerTemplate,
 		name,
@@ -61,6 +63,9 @@ export default function Sidebar() {
 		variant,
 		saveLayoutTemplate,
 	} = useLayout();
+
+	const { getServerPdf } = useActions();
+
 	const [opened, setopened] = useState("");
 	const [toggleTemplateName, settoggleTemplateName] = useState(true);
 	const [loadingPDF, setloadingPDF] = useState(false);
@@ -87,36 +92,6 @@ export default function Sidebar() {
 			},
 		},
 	});
-
-	async function getServerPdf() {
-		await savePromise.then(() => {
-			setdownload(true);
-			const projectId = router.query.projectId;
-
-			fetch(`/api/renderPdf/${projectId}`)
-				.then((response) => {
-					return response.blob();
-				})
-				.then((blob) => {
-					// create a temporary <a> element to download the blob
-					const url = URL.createObjectURL(blob);
-					const a = document.createElement("a");
-					a.href = url;
-					a.download = `${name}.pdf`; // replace "your_filename" with your desired filename
-					a.click();
-
-					// cleanup: remove the temporary URL created by URL.createObjectURL()
-					setTimeout(() => {
-						URL.revokeObjectURL(url);
-					}, 0);
-					setdownload(false);
-				})
-				.catch((error) => {
-					console.error("Error fetching PDF:", error);
-					setdownload(false);
-				});
-		});
-	}
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -370,16 +345,6 @@ export default function Sidebar() {
 									Uložiť zmeny
 								</ButtonPrimary>
 
-								{/* <ButtonPrimary
-									scale={0.98}
-									className='w-full text-sm'
-									onClick={() => {
-										setdownload(true);
-									}}
-									color='#63A695'
-								>
-									Stiahnuť ponuku
-								</ButtonPrimary> */}
 								<div className=''>
 									<ButtonSecondary onClick={getServerPdf} className='w-full'>
 										Stiahnuť ponuku

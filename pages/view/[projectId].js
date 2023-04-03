@@ -16,17 +16,17 @@ export default function View({ dbData }) {
 	const offerId = router.query.offerId;
 	return (
 		<Layout>
-			<nav className="h-32 flex items-center">
-				<div className="flex justify-between items-center w-full">
-					<div className="w-32">
+			<nav className='h-32 flex items-center'>
+				<div className='flex justify-between items-center w-full'>
+					<div className='w-32'>
 						<Logo></Logo>
 					</div>
-					<div className="flex items-center gap-8">
+					<div className='flex items-center gap-8'>
 						<div>
 							<ButtonPrimary
-								href="/dashboard"
+								href='/dashboard'
 								//iconBefore
-								color="#64A695"
+								color='#64A695'
 								//icon={<ArrowBack color={"white"}></ArrowBack>}
 							>
 								Vyskúšaj na 14 zadarmo
@@ -49,7 +49,7 @@ export default function View({ dbData }) {
 export async function getServerSideProps(context) {
 	const projectId = context.query.projectId;
 
-	const docRef = doc(firestore, `/offers/${projectId}`);
+	const docRef = doc(firestore, `/shareView/${projectId}`);
 	const snap = await getDoc(docRef);
 	if (snap.exists()) {
 		return {

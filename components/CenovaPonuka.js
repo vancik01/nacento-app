@@ -251,16 +251,6 @@ export default function CenovaPonuka() {
 								<div className='w-full h-[1px] bg-black'></div>
 							</div>
 
-							<AnimatePresence>
-								{download && (
-									<GeneratePDF
-										close={() => {
-											setdownload(false);
-										}}
-									></GeneratePDF>
-								)}
-							</AnimatePresence>
-
 							<div>
 								{winReady &&
 									data.sections.map((section, i) => {
