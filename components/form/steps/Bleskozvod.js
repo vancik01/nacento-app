@@ -15,7 +15,7 @@ export default function Bleskozvod() {
 
   return (
     <>
-        <IntroText title={"bleskozvod"}/>
+        <IntroText title={"bleskozvod"} comment={"najvyššia presnosť pri selovej streche"}/>
 
         <FormLayout>
 {/* 

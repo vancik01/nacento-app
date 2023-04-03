@@ -25,7 +25,6 @@ export default function EditorHeader() {
 								handleSave(false)
 								router.replace('/dashboard')
 							}}
-							// href="/dashboard"
 							iconBefore
 							icon={<ArrowBack color={"black"}></ArrowBack>}
 						>

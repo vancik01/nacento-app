@@ -93,7 +93,7 @@ export function AppWrap({ children, dbData }) {
 		setsaving(true);
 		savePromise.then((val) => {
 			console.log(val);
-			toast("Dáta sa uložili", { autoClose: 3000, type: "success" });
+			if(show) toast("Dáta sa uložili", { autoClose: 3000, type: "success" });
 			setsaving(false);
 		});
 	}

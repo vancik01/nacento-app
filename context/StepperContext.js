@@ -80,6 +80,21 @@ const EDATA = {
   }
 }
 
+const VYKUROVANIE_DATA = {
+  "vykurovanie" : {
+    "zdroj" : ["0"],
+    "tv_krb" : ["0"],
+    "solar" : ["0"],
+    "podlahove" : ["0", "", ["0"]],
+    "radiatory" : "",
+    "lezata_kanalizacia" : ["0"],
+    "voda_vyvody" : "",
+    "voda_vzdialenost" : "",
+    "kanalizacia_vyvody" : "",
+    "kanalizacia_vzdialenost" : "",
+    "komin" : ["0"]
+  }
+}
 
 export function UseStepperContext({ children }) {
   const [color, setColor] = useState("red");
@@ -101,6 +116,9 @@ export function UseStepperContext({ children }) {
 
   const [edata, setedata] = useState(elektrodata);
   const [hsdata, sethsdata] = useState(hrubedata);
+  const [vdata, setvdata] = useState(VYKUROVANIE_DATA);
+
+
 
   useEffect(() => {
     window.sessionStorage.setItem("ELEKTRO_DATA", JSON.stringify(edata))
@@ -115,6 +133,8 @@ export function UseStepperContext({ children }) {
     var data = {}
     if(path[0] == "e") data = edata
     if(path[0] == "h") data = hsdata
+    if(path[0] == "v") data = vdata
+
 
 		let newData = {...data}
 
@@ -123,6 +143,8 @@ export function UseStepperContext({ children }) {
     
     if(path[0] == "e") setedata(newData);
     if(path[0] == "h") sethsdata(newData);
+    if(path[0] == "v") setvdata(newData);
+
   }
 
 
@@ -133,6 +155,7 @@ export function UseStepperContext({ children }) {
 
     hsdata, sethsdata,
     edata, setedata,
+    vdata, setvdata,
 
     ChangeValue,
   }
