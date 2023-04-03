@@ -14,17 +14,20 @@ import { useData } from "../context/AppWrap";
 
 export default function EditorHeader() {
 	const router = useRouter();
-	const {handleSave} = useData()
+	const {handleSave, savePromise} = useData()
+
+	function saveOffer(){
+		savePromise.then(() => {
+			router.push('/dashboard')
+		})	
+	}
 
 	return (
 			<div className="flex justify-between items-center w-full px-10 pt-10 pb-5">
 				<div className="flex items-center gap-8">
 					<div>
 						<ButtonSecondary
-							onClick={() => {
-								handleSave(false)
-								router.replace('/dashboard')
-							}}
+							onClick={saveOffer}
 							iconBefore
 							icon={<ArrowBack color={"black"}></ArrowBack>}
 						>

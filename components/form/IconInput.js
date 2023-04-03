@@ -2,7 +2,9 @@ import React from 'react'
 import {useStepper} from "../../context/StepperContext"
 
 function IconInput({ label, add, img, path}) {
-    const { ChangeValue, hsdata, edata, setedata, sethsdata, color } = useStepper()
+    const { ChangeValue, hsdata, edata, setedata, sethsdata,
+            vdata, setvdata,
+        color } = useStepper()
 
     const colors={
         "red" : ["text-rose-600", "border-rose-600", "input-red"],
@@ -22,6 +24,7 @@ function IconInput({ label, add, img, path}) {
 
         if (path[0] == "e" ) setedata(newData)
         if (path[0] == "h" ) sethsdata(newData)
+        if (path[0] == "v" ) setvdata(newData)
    }
 
    function handeSub(path){
@@ -36,11 +39,13 @@ function IconInput({ label, add, img, path}) {
 
     if (path[0] == "e" ) setedata(newData)
     if (path[0] == "h" ) sethsdata(newData)
+    if (path[0] == "v" ) setvdata(newData)
    }
 
     var data = {}
     if(path[0] == "e") data = edata
     if(path[0] == "h") data = hsdata
+    if(path[0] == "v") data = vdata
     var value = data[path[1]][path[2]]
 
   return (

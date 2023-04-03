@@ -85,7 +85,7 @@ const VYKUROVANIE_DATA = {
     "zdroj" : ["0"],
     "tv_krb" : ["0"],
     "solar" : ["0"],
-    "podlahove" : ["0", "", ["0"]],
+    "podlahove" : ["0", "", "0"],
     "radiatory" : "",
     "lezata_kanalizacia" : ["0"],
     "voda_vyvody" : "",

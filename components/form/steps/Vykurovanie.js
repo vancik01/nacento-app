@@ -8,17 +8,13 @@ import Divider from "../Divider"
 import SingleChoice from "../SingleChoice";
 
 export default function Vykurovanie() {
-  const { hsdata, sethsdata, color, setColor, ChangeHsValue } = useStepper();
+  const { vdata, sethsdata, color, setColor, ChangeHsValue } = useStepper();
 
   return (
     <>
         <IntroText title={"vykurovanie"} comment="bez zariaďovacích predmetov"/>
 
         <FormLayout>
-
-          {/* <Divider title={"Obsah strechy"}
-          component={<NumberInput path={["h", "strecha", "plocha"]} unit={"m"} sup={"2"} />}
-          /> */}
 
             <Divider title={"Zdroj tepla"}
             component={ <SingleChoice path={["v", "vykurovanie", "zdroj"]} labels={["Plynový kotol", "Peletky", "TČ vzduch/voda", "TČ zem/voda"]}/>} />
@@ -34,12 +30,16 @@ export default function Vykurovanie() {
             <Divider title={"Podlahové kúrenie"}
             component={ <SingleChoice path={["v", "vykurovanie", "podlahove"]} labels={["nie", "áno"]}/>} />
 
+            {vdata["vykurovanie"]["podlahove"][0] == "1" && 
+            <>
+              <Divider title={"Podlažná plocha"}
+              component={ <NumberInput path={["v", "vykurovanie", "podlahove", 1]} unit={"m"} sup={"2"} />} />
+              
+              <Divider title={"Podkladový polystyrén"}
+              component={ <SingleChoice path={["v", "vykurovanie", "podlahove", 2]} labels={["dodá majiteľ", "dodám ja"]}/>} />
+            </>
+            }
 
-            <Divider title={"Podlažná plocha"}
-            component={ <NumberInput path={["v", "vykurovanie", "podlahove", 0]} unit={"m"} sup={"2"} />} />
-
-            <Divider title={"Podkladový polystyrén"}
-            component={ <SingleChoice path={["v", "vykurovanie", "podlahove", 1]} labels={["dodá majiteľ", "dodám ja"]}/>} />
             
 
             <Divider title={"Počet radiátorov"}
