@@ -20,17 +20,19 @@ export function ApiContext({ children }) {
 	const router = useRouter();
 
 	function DataToPriceOffer(type) {
-		var api_route, data;
+		var api_route, data, name;
 
 		if (type == "HS") {
 			api_route = "hruba_stavba/";
 			data = { ...hsdata };
+			name = "Hrubá stavba"
 		}
 
-		if (type == "EL") {
-			api_route = "elektro/";
-			data = { ...edata };
-		}
+        if(type=="EL"){
+            api_route = "elektro/"
+            data = {...edata}
+			name = "Elektroinštalácie Rodinného Domu"
+        }
 
 		// fetch(`http://127.0.0.1:8000/api/data_offer_${api_route}`, {
 		fetch(`https://api.nacento.online/api/data_offer_${api_route}`, {
@@ -42,22 +44,22 @@ export function ApiContext({ children }) {
 				response.json().then((CP) => {
 					setdataloading(true);
 
-					const collectionRef = doc(collection(firestore, "/offers"));
-					//customBuild variable empty template
-					setDoc(collectionRef, {
-						id: collectionRef.id,
-						data: CP,
-						name: "Nová cenová ponuka",
-						created: moment().valueOf(),
-						userId: user != null ? user.uid : "none",
-						totals: {
-							total_delivery_price: 0,
-							total_construction_price: 0,
-							total: 0,
-						},
-					})
-						.then((response) => {
-							router.push(`/cenova-ponuka/${collectionRef.id}`);
+                    const collectionRef = doc(collection(firestore, "/offers"));
+                    //customBuild variable empty template
+                    setDoc(collectionRef, {
+                        id: collectionRef.id,
+                        data: CP,
+                        name: name,
+                        created: moment().valueOf(),
+                        userId: user != null ? user.uid : "none",
+                        total: {
+                            total_delivery_price: 0,
+                            total_construction_price: 0,
+                            total: 0,
+                        },
+                    })
+                        .then((response) => {
+                            router.push(`/cenova-ponuka/${collectionRef.id}`);
 
 							setloading(false);
 						})
