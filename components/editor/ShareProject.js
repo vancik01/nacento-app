@@ -8,10 +8,10 @@ import { useData } from "../../context/AppWrap";
 
 export default function ShareProject({ close }) {
 	const { closeShare, generateLink } = useActions();
-	const { awaitHandleChange } = useData();
+	const { awaitHandleSave } = useData();
 
 	async function handleGenerate() {
-		awaitHandleChange().then(async () => {
+		awaitHandleSave().then(async () => {
 			const l = await generateLink();
 			console.log(l);
 			setlink(l);
