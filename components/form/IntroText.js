@@ -2,7 +2,7 @@ import React, {useState, useRef, useEffect } from 'react'
 import { useStepper } from '../../context/StepperContext'
 
 
-function IntroText({title, info}) {
+function IntroText({title, info, comment}) {
 
 
   const colors={
@@ -33,6 +33,8 @@ function IntroText({title, info}) {
                 })} 
             </div>
         </div>}
+
+        {comment && <div className='w-full text-left pb-5 text-sm ml-20 text-gray-400'>*{comment}</div>}
         
 
         <hr className="w-[94%] bg-slate-800 h-[1px]" ></hr>
