@@ -36,26 +36,26 @@ function IntroSection({title, text, ix, type}) {
   const [predictionImage, setImage] = useState(img)
 
 
-  useEffect(() => {
-    var imgs = JSON.parse(window.sessionStorage.getItem("IMGS"))
-    imgs[ix] = predictionImage
-    window.sessionStorage.setItem("IMGS", JSON.stringify(imgs))
+  // useEffect(() => {
+  //   var imgs = JSON.parse(window.sessionStorage.getItem("IMGS"))
+  //   imgs[ix] = predictionImage
+  //   window.sessionStorage.setItem("IMGS", JSON.stringify(imgs))
     
-  }, [predictionImage])
+  // }, [predictionImage])
 
-  useEffect(() => {
-    let file_names = JSON.parse(window.sessionStorage.getItem("FILE_NAMES"))
-    file_names[ix] = fileName
-    window.sessionStorage.setItem("FILE_NAMES", JSON.stringify(file_names))
+  // useEffect(() => {
+  //   let file_names = JSON.parse(window.sessionStorage.getItem("FILE_NAMES"))
+  //   file_names[ix] = fileName
+  //   window.sessionStorage.setItem("FILE_NAMES", JSON.stringify(file_names))
 
-  }, [fileName])
+  // }, [fileName])
 
-  useEffect(() => {
-    let file_names = JSON.parse(window.sessionStorage.getItem("PASSED"))
-    file_names[ix] = passed
-    window.sessionStorage.setItem("PASSED", JSON.stringify(file_names))
+  // useEffect(() => {
+  //   let file_names = JSON.parse(window.sessionStorage.getItem("PASSED"))
+  //   file_names[ix] = passed
+  //   window.sessionStorage.setItem("PASSED", JSON.stringify(file_names))
 
-  }, [passed])
+  // }, [passed])
   
 
   const { handleFileChange,

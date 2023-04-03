@@ -15,6 +15,9 @@ import { ApiContext } from "../../context/ApiContext";
 import HSForm from "../../components/form/HrubaStavbaForm";
 import ElektromontazForm from "../../components/form/ElektromontazForm";
 
+import VykurovanieForm from "../../components/form/VykurovanieForm";
+
+
 import HS from "./icons/HS";
 import Elektro from "./icons/Elektro";
 import Vykurovanie from "./icons/Vykurovanie";
@@ -122,9 +125,7 @@ export default function Dashboard() {
 
 							{workTypes == 1 && <ElektromontazForm theme_color={"blue"} />}
 
-							{workTypes == 2 && (
-								<div className="text-center pt-10">Pripravujeme...</div>
-							)}
+							{workTypes == 2 && <VykurovanieForm theme_color={"green"} />}
 						</ApiContext>
 					</UseStepperContext>
 				</div>
