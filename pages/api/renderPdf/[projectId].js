@@ -39,7 +39,7 @@ export default async function test(req, res) {
 	}
 
 	res.setHeader("Content-Type", "application/pdf");
-	res.setHeader("Content-Disposition", `attachment; filename=${dbData.name}`);
+	res.setHeader("Content-Disposition", `attachment`);
 
 	// Streaming our resulting pdf back to the user
 	result.pipe(res);
