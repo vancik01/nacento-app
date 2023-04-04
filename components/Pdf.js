@@ -358,14 +358,14 @@ export function Pdf({
 
 		sectionWrap: {
 			border: "1px solid #e5e7eb",
-			padding: 24,
+			padding: 16,
 		},
 
 		sectionHeading: {
 			fontSize: 14,
 			fontWeight: 400,
 			textAlign: "center",
-			marginBottom: 20,
+			marginBottom: 10,
 		},
 	});
 
