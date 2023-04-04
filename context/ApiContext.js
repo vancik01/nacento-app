@@ -14,7 +14,7 @@ export function ApiContext({ children }) {
 	const [images, setimages] = useState([]);
 	const [pdf, setPdf] = useState("");
 	const [dataloading, setdataloading] = useState(false);
-	const { hsdata, sethsdata, edata } = useStepper();
+	const { hsdata, sethsdata, edata, vdata } = useStepper();
 
 	const { user } = useAuth();
 	const router = useRouter();
@@ -32,6 +32,12 @@ export function ApiContext({ children }) {
             api_route = "elektro/"
             data = {...edata}
 			name = "Elektroinštalácie Rodinného Domu"
+        }
+
+		if(type=="VY"){
+            api_route = "vykurovanie/"
+            data = {...vdata}
+			name = "Vykurovanie Rodinného Domu"
         }
 
 		// fetch(`http://127.0.0.1:8000/api/data_offer_${api_route}`, {

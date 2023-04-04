@@ -3,7 +3,7 @@ import { useStepper } from '../../context/StepperContext';
 
 
 function NumberInput({ id, unit, sup, decimal, path }) {
-    const { color, hsdata, edata, ChangeValue } = useStepper()
+    const { color, hsdata, edata, vdata, setvdata, ChangeValue } = useStepper()
 
     const colors = {
         "red" : "input-red",
@@ -14,6 +14,7 @@ function NumberInput({ id, unit, sup, decimal, path }) {
     var data = {}
     if(path[0] == "e") data = edata
     if(path[0] == "h") data = hsdata
+    if(path[0] == "v") data = vdata
 
     var value
     if(path.length == 4)  value = data[path[1]][path[2]][path[3]]

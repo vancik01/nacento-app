@@ -76,7 +76,8 @@ const Stepper = ({ steps, currentStep, setCurrentStep }) => {
   const stepsDisplay = newStep.map((step, index) => {
     return (
 
-      <>   
+      <React.Fragment key={`stepper${index}`}> 
+
           <div onClick={() => setCurrentStep(index+1)} key={`title${index}`}
             className={`text-sm font-medium cursor-pointer ${
               step.highlighted ? colors[color] : "text-gray-400"
@@ -97,7 +98,7 @@ const Stepper = ({ steps, currentStep, setCurrentStep }) => {
             
           </div> }
 
-      </>
+      </React.Fragment>
     );
   });
 
