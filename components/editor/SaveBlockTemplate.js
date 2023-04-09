@@ -67,7 +67,7 @@ export default function SaveBlockTemplate({ block }) {
 				}}
 				icon={<Copy />}
 			>
-				Uložiť template
+				Uložiť blok
 			</ButtonIcon>
 			<AnimatePresence>
 				{display && (
@@ -97,7 +97,7 @@ export default function SaveBlockTemplate({ block }) {
 								iconAfter
 								loading={loading}
 							>
-								Uložiť template
+								Uložiť blok
 							</ButtonPrimary>
 							<ButtonSecondary onClick={close} className="">
 								Zrušiť

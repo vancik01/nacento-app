@@ -347,7 +347,7 @@ export default function Sidebar() {
 
 								<div className=''>
 									<ButtonSecondary onClick={getServerPdf} className='w-full'>
-										Stiahnuť ponuku
+										Stiahnuť ponuku v PDF
 									</ButtonSecondary>
 									{loadingPDF && <div>Loading, hang on...</div>}
 								</div>
