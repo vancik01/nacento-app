@@ -129,7 +129,7 @@ export default function Block({
 									>
 										<div className="relative w-fit">
 											<div>
-												Cena montáže celkom:
+												Cena montáže celkom:{" "}
 												{parseFloat(
 													block.info["total_construction_price"]
 												).toFixed(2)}{" "}

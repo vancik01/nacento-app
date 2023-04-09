@@ -26,7 +26,7 @@ export default function Bleskozvod() {
             component={ <NumberInput path={["e", "bleskozvod", "strecha"]} unit={"m"} sup={"2"} decimal={true} />} />
 
             <Divider title={"Dĺžka hrebeňa"}
-            component={ <NumberInput path={["e", "bleskozvod", "hreben"]} unit={"ks"} />} />
+            component={ <NumberInput path={["e", "bleskozvod", "hreben"]} unit={"m"} />} />
 
             <Divider title={"Počet zvodov"}
             component={ <NumberInput path={["e", "bleskozvod", "zvody"]} unit={"ks"} />} />

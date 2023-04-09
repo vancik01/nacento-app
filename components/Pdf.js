@@ -920,7 +920,7 @@ function Footer({ signature, expiration, name }) {
 		},
 	});
 	return (
-		<View>
+		<View break>
 			<View style={styles.wrap}>
 				<View style={styles.info}>
 					<View style={{ marginBottom: 10 }}>
