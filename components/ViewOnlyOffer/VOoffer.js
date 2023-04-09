@@ -17,7 +17,7 @@ export default function VOoffer() {
 	return (
 		<>
 			<div className='pt-10 pb-32'>
-				<div className='flex items-start justify-start w-full px-8 overflow-x-auto pb-20'>
+				<div className='flex items-start justify-start px-8 overflow-x-auto pb-20 mx-auto w-fit'>
 					<A4>
 						<div
 							className='h-20'

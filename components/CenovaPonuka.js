@@ -70,7 +70,7 @@ export default function CenovaPonuka() {
 									<SubHeading></SubHeading>
 								</div>
 
-								<div className='flex justify-between items-center relative'>
+								<div className='flex justify-between items-center relative w-fit h-fit'>
 									<UploadImage
 										placeholder='Nahrať logo'
 										width={200}
@@ -79,6 +79,7 @@ export default function CenovaPonuka() {
 										onUpload={(url) => {
 											setlogo(url);
 										}}
+										imageId='logo'
 									></UploadImage>
 								</div>
 							</div>

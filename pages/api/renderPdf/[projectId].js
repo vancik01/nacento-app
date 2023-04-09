@@ -1,10 +1,7 @@
 import ReactPDF from "@react-pdf/renderer";
 import { doc, getDoc } from "firebase/firestore";
-import { useRouter } from "next/router";
 import { Pdf } from "../../../components/Pdf";
-import { useAuth } from "../../../context/AuthContext";
 import { firestore } from "../../../lib/firebase";
-import { getTitle } from "../../../lib/helpers";
 
 export default async function test(req, res) {
 	const { projectId } = req.query;
@@ -40,7 +37,6 @@ export default async function test(req, res) {
 
 	res.setHeader("Content-Type", "application/pdf");
 	res.setHeader("Content-Disposition", `attachment`);
-
 	// Streaming our resulting pdf back to the user
 	result.pipe(res);
 }

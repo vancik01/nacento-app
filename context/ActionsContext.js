@@ -21,8 +21,12 @@ export default function ActionsContext({ children }) {
 		awaitHandleSave().then(() => {
 			setdownload(true);
 			const projectId = router.query.projectId;
-
-			fetch(`/api/renderPdf/${projectId}`)
+			//https://api2.nacento.online/renderPdf
+			fetch(`https://api2.nacento.online/renderPdf`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ projectId }),
+			})
 				.then((response) => {
 					return response.blob();
 				})

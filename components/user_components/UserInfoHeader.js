@@ -35,20 +35,24 @@ export default function UserInfoHeader({ color, is_smaller }) {
 					onHoverEnd={() => {
 						sethover(false);
 					}}
-					className="relative z-50"
+					onClick={() => {
+						sethover(!hover);
+					}}
+					className='relative z-50'
 				>
-					<button className="flex cursor-default justify-center items-center gap-4">
+					<button className='flex cursor-default justify-center items-center gap-4'>
 						<div
-							className={`${is_smaller ? "h-7" : "h-8"
-								} flex items-center gap-2 pr-3`}
+							className={`${
+								is_smaller ? "h-7" : "h-8"
+							} flex items-center gap-2 pr-3`}
 						>
 							<img
 								src={user.photoURL ? user.photoURL : "/static/default-user.png"}
-								className="h-full aspect-square rounded-full"
-								alt=""
+								className='h-full aspect-square rounded-full'
+								alt=''
 							/>
 							<div
-								className="transition-all"
+								className='transition-all'
 								style={{ rotate: hover ? "180deg" : "0deg" }}
 							>
 								<ArrowDown color={color} scale={0.75}></ArrowDown>
@@ -69,12 +73,12 @@ export default function UserInfoHeader({ color, is_smaller }) {
 						</div> */}
 					</button>
 
-					<AnimatePresence mode="wait">
+					<AnimatePresence mode='wait'>
 						{/* {console.log(toolbar)} */}
 						{hover && (
 							<motion.div
-								key="user-toolbar"
-								className="relative"
+								key='user-toolbar'
+								className='relative'
 								initial={{ opacity: 0, y: 10 }}
 								exit={{ opacity: 0, y: 10 }}
 								animate={{ opacity: 1, y: 0 }}
@@ -86,7 +90,7 @@ export default function UserInfoHeader({ color, is_smaller }) {
 					</AnimatePresence>
 				</motion.div>
 			) : (
-				<div>{<Link href="/login">Prihláste sa</Link>}</div>
+				<div>{<Link href='/login'>Prihláste sa</Link>}</div>
 			)}
 		</div>
 	);

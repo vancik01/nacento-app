@@ -22,18 +22,18 @@ import { motion } from "framer-motion";
 
 export default function CreateToolbar() {
 	return (
-		<div className="flex flex-col sm:flex-row sm:items-center justify-start gap-2 sm:gap-8">
+		<div className='flex flex-col sm:flex-row sm:items-center justify-start gap-2 sm:gap-8'>
 			<AddEmpty
-				text="Prázdna cenová ponuka"
-				subtext="Začnite od nuly"
-				color="#73A496"
+				text='Prázdna cenová ponuka'
+				subtext='Začnite od nuly'
+				color='#73A496'
 			></AddEmpty>
 			<AddButton
-				text="Rýchla cenová ponuka"
-				subtext="Zadajte len parametre stavby"
-				color="#1400FF"
+				text='Rýchla cenová ponuka'
+				subtext='Zadajte len parametre stavby'
+				color='#1400FF'
 			></AddButton>
-			<AddFromFile color="#1400FF"></AddFromFile>
+			{/* <AddFromFile color="#1400FF"></AddFromFile> */}
 		</div>
 	);
 }
@@ -46,18 +46,18 @@ function AddButton({ text, subtext, color, onClick }) {
 			onClick={() => {
 				router.push(`/dashboard/interactive/`);
 			}}
-			className="py-3 px-3 cursor-default border rounded-md flex items-center justify-between sm:justify-center gap-2 text-start trans hover:bg-gray-100 transition-all"
+			className='py-3 px-3 cursor-default border rounded-md flex items-center justify-between sm:justify-center gap-2 text-start trans hover:bg-gray-100 transition-all'
 		>
 			{/* <IconHome color={color}></IconHome> */}
 			{/* <InteractiveOffer color={color}></InteractiveOffer> */}
 			<InteractiveOffer color={color}></InteractiveOffer>
 
 			<div>
-				<div className="text-xs md:text-sm font-regular">{text}</div>
-				<div className="text-xs font-light text-gray-400">{subtext}</div>
+				<div className='text-xs md:text-sm font-regular'>{text}</div>
+				<div className='text-xs font-light text-gray-400'>{subtext}</div>
 			</div>
 
-			<div className="ml-8">
+			<div className='ml-8'>
 				<Plus></Plus>
 			</div>
 		</button>
@@ -109,32 +109,32 @@ function AddFromFile({ text, color, onClick }) {
 	}
 
 	return (
-		<div className="hidden lg:block">
+		<div className='hidden lg:block'>
 			<label
-				htmlFor="fileInput"
+				htmlFor='fileInput'
 				onClick={onClick}
-				className="py-3 px-3 border rounded-md flex items-center border-dashed justify-center gap-2 text-start trans hover:bg-gray-100 transition-all"
+				className='py-3 px-3 border rounded-md flex items-center border-dashed justify-center gap-2 text-start trans hover:bg-gray-100 transition-all'
 			>
 				<JsonOffer color={color}></JsonOffer>
 				<div>
-					<div className="text-sm font-regular">Nahrať zo súboru</div>
-					<div className="text-xs font-light text-gray-400">
+					<div className='text-sm font-regular'>Nahrať zo súboru</div>
+					<div className='text-xs font-light text-gray-400'>
 						{!file ? ".json" : file.name}
 					</div>
 				</div>
 
-				<div className="ml-8">
+				<div className='ml-8'>
 					<Plus></Plus>
 				</div>
 			</label>
 			<input
 				onChange={loadFile}
-				type="file"
-				id="fileInput"
-				className="hidden"
+				type='file'
+				id='fileInput'
+				className='hidden'
 			/>
 			{file && (
-				<ButtonPrimary onClick={createFromFile} className="mt-4 absolute">
+				<ButtonPrimary onClick={createFromFile} className='mt-4 absolute'>
 					Vytvoriť ponuku
 				</ButtonPrimary>
 			)}
@@ -187,23 +187,23 @@ function AddEmpty({ text, subtext, color }) {
 	}
 
 	return (
-		<div className="">
+		<div className=''>
 			<FullPageLoading loading={loading}></FullPageLoading>
 			<button
 				onClick={() => {
 					//setdisplay(true);
 					createEmpty();
 				}}
-				className="w-full py-3 px-3 cursor-default border rounded-md flex items-center justify-between sm:justify-center gap-2 text-start trans hover:bg-gray-100 transition-all"
+				className='w-full py-3 px-3 cursor-default border rounded-md flex items-center justify-between sm:justify-center gap-2 text-start trans hover:bg-gray-100 transition-all'
 			>
 				{/* <IconHome color={color}></IconHome> */}
 				<AddOffer color={color}></AddOffer>
 				<div>
-					<div className="text-xs md:text-sm font-regular">{text}</div>
-					<div className="text-xs font-light text-gray-400">{subtext}</div>
+					<div className='text-xs md:text-sm font-regular'>{text}</div>
+					<div className='text-xs font-light text-gray-400'>{subtext}</div>
 				</div>
 
-				<div className="ml-8">
+				<div className='ml-8'>
 					<Plus></Plus>
 				</div>
 			</button>
@@ -214,28 +214,28 @@ function AddEmpty({ text, subtext, color }) {
 						exit={{ opacity: 0, y: 1 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.1 }}
-						key="create-empty-modal"
-						className="absolute shadow-hardShadow z-30 mt-2 p-3 bg-white min-w-[300px] rounded-sm"
+						key='create-empty-modal'
+						className='absolute shadow-hardShadow z-30 mt-2 p-3 bg-white min-w-[300px] rounded-sm'
 					>
 						<input
 							onChange={(e) => {
 								settitle(e.target.value);
 							}}
-							className="p-2 bg-gray-100"
+							className='p-2 bg-gray-100'
 							autoFocus
-							placeholder="Zadajte názov..."
+							placeholder='Zadajte názov...'
 						></input>
-						{error && <div className="text-sm text-red-500 mt-1">{error}</div>}
-						<div className="flex items-center gap-2 mt-4">
+						{error && <div className='text-sm text-red-500 mt-1'>{error}</div>}
+						<div className='flex items-center gap-2 mt-4'>
 							<ButtonPrimary
 								onClick={createEmpty}
-								className=""
+								className=''
 								icon={<Next></Next>}
 								iconAfter
 							>
 								Vytvoriť ponuku
 							</ButtonPrimary>
-							<ButtonSecondary onClick={close} className="">
+							<ButtonSecondary onClick={close} className=''>
 								Zrušiť
 							</ButtonSecondary>
 						</div>

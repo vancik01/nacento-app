@@ -53,14 +53,14 @@ export function AppWrap({ children, dbData }) {
 	const [displayTotals, setdisplayTotals] = useState(true);
 	const [reorderingBlocks, setreorderingBlocks] = useState(false);
 	const [selectedFile, setselectedFile] = useState(null);
-	const [logo, setlogo] = useState(dbData.logo);
+	const [logo, setlogo] = useState("");
 	const [displaySidebar, setdisplaySidebar] = useState(true);
 	const [saving, setsaving] = useState(false);
 	const [showUI, setshowUI] = useState(false);
 	const [description, setdescription] = useState(dbData.description);
 	const [templateTrigger, settemplateTrigger] = useState(null);
 	const [dataDB, setdataDB] = useState(dbData);
-	const [signature, setsignature] = useState();
+	const [signature, setsignature] = useState("");
 	const [expiration, setexpiration] = useState(
 		dbData.expiration
 			? moment(dbData.expiration).valueOf()
@@ -235,13 +235,16 @@ export function AppWrap({ children, dbData }) {
 			setdata(newData);
 			setshowUI(true);
 
-			console.log(dbData.images);
 			if (dbData?.images?.logo) {
 				setlogo(dbData.images.logo);
+			} else if (userData?.images?.logo) {
+				setlogo(userData.images.logo);
 			}
 
 			if (dbData?.images?.signature) {
 				setsignature(dbData.images.signature);
+			} else if (userData?.images?.signature) {
+				setsignature(userData.images.signature);
 			}
 		}
 	}, [loading]);

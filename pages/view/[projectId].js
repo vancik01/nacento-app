@@ -8,14 +8,13 @@ import VOoffer from "../../components/ViewOnlyOffer/VOoffer";
 import LayoutContext from "../../context/LayoutContext";
 import ViewOnlyContext from "../../context/ViewOnlyContext";
 import { firestore } from "../../lib/firebase";
-import ArrowBack from "../../public/SVG/buttons/ArrowBack";
 import Logo from "../../public/SVG/Logo";
 
 export default function View({ dbData }) {
 	const router = useRouter();
 	const offerId = router.query.offerId;
 	return (
-		<Layout>
+		<div className='w-fit px-8 mx-auto'>
 			<nav className='h-32 flex items-center'>
 				<div className='flex justify-between items-center w-full'>
 					<div className='w-32'>
@@ -42,7 +41,7 @@ export default function View({ dbData }) {
 					</ViewOnlyContext>
 				</LayoutContext>
 			</div>
-		</Layout>
+		</div>
 	);
 }
 
