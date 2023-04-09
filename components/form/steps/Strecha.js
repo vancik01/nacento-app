@@ -15,7 +15,7 @@ export default function Strecha() {
 
         <FormLayout>
 
-          <Divider title={"Obsah strechy"}
+          <Divider title={"Plocha strechy"}
           component={<NumberInput path={["h", "strecha", "plocha"]} unit={"m"} sup={"2"} />}
         />
     

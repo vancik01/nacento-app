@@ -79,7 +79,7 @@ export default function OfferFooter() {
 							setsignature(url);
 						}}
 						defaultPreview={signature}
-						placeholder="Nahrať podpis"
+						placeholder="Nahrať pečiatku a podpis"
 						height={160}
 						width={250}
 					/>
