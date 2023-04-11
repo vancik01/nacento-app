@@ -17,15 +17,15 @@ export default function AccountToolbar() {
 	const { logOut, userData, user } = useAuth();
 
 	return (
-	
+
 		<div className="pt-3 absolute top-0 right-0 w-max">
 			<div className="shadow-hardShadow inline-block bg-white rounded-sm">
 				<div className="pt-1 pb-1 flex flex-col items-start">
 
-					<MenuItem profile={true} href={""} className={"cursor-default"} 
-					icon={<img src={user.photoURL ? user.photoURL : "/static/default-user.png"}
-								className="w-[24px] aspect-square rounded-full"
-								alt="" />}> 
+					<MenuItem profile={true} href={""} className={"cursor-default"}
+						icon={<img src={user.photoURL ? user.photoURL : "/static/default-user.png"}
+							className="w-[24px] aspect-square rounded-full"
+							alt="" />}>
 						{userData.email}
 					</MenuItem>
 
@@ -33,11 +33,11 @@ export default function AccountToolbar() {
 						Môj účet
 					</MenuItem>
 
-					<MenuItem icon={<OfferIcon/>} href={"/nastavenie-uctu/vzory"}>Nastavenia ponuky</MenuItem>
+					<MenuItem icon={<OfferIcon />} href={"/nastavenie-uctu/vzory"}>Nastavenia ponuky</MenuItem>
 
-					<hr className="w-full pb-1 mt-1"/>
+					<hr className="w-full pb-1 mt-1" />
 
-					<MenuItem icon={<LogoutIcon/>} onClick={handleLogout} className="text-red-500">
+					<MenuItem icon={<LogoutIcon />} onClick={handleLogout} className="text-red-500">
 						Odhlásiť
 					</MenuItem>
 				</div>
@@ -49,9 +49,9 @@ export default function AccountToolbar() {
 function MenuItem({ href, className, onClick, children, icon, profile }) {
 	const router = useRouter();
 	return (
-		<div onClick={onClick? onClick: () => {router.push(href);}}
-		 className={`pl-3 w-full py-[6px] ${!profile && "hover:bg-blue-400"} pr-4 flex items-center gap-3 text-sm ${className && className}`}>
-		
+		<div onClick={onClick ? onClick : () => { router.push(href); }}
+			className={`pl-3 w-full py-[6px] ${!profile && "hover:bg-blue-400"} pr-4 flex items-center gap-3 text-sm ${className && className}`}>
+
 			<div className={`${!profile && "ml-[3px]"}`}>{icon}</div>
 
 			<button className={`cursor-default ${!profile && "ml-[3px]"}`}>

@@ -99,7 +99,7 @@ export default function Sidebar() {
 				<div className='relative w-fit'>
 					<div className='py-10 px-6  shadow-lg bg-white h-screen overflow-y-scroll bg-scrol-gray-50'>
 						<div className='flex flex-col min-h-full'>
-							<div className='min-w-28 w-28'>
+							<div className='min-w-28 w-28 cursor-pointer' onClick={() => router.push("/dashboard/")}>
 								<Logo></Logo>
 							</div>
 							<div className='mt-10'>
@@ -153,6 +153,63 @@ export default function Sidebar() {
 														></Paper>
 													</div>
 												</button>
+											</div>
+										</div>
+									</AccordionDetails>
+								</Accordion>
+
+								<Accordion expanded={opened === "variant"}>
+									<AccordionSummary
+										expandIcon={<ArrowDown />}
+										onClick={() => {
+											handleSetOpen("variant");
+										}}
+									>
+										<div className='flex items-center gap-2'>
+											<div className='w-4'>
+												<VariantIcon color={"#63A695"} />
+											</div>
+											<div>Variant</div>
+										</div>
+									</AccordionSummary>
+
+									<AccordionDetails>
+										<div className='mb-4 font-medium'>
+											Variant cenovej ponuky
+										</div>
+										<div className='flex justify-center items-center flex-col gap-2'>
+											<ButtonPrimary
+												className='text-sm w-full'
+												onClick={() => {
+													changeVariant("basic");
+												}}
+												color={variant.id !== "basic" ? "#d5d5d5" : "#63A695"}
+											>
+												Jednoduchá
+											</ButtonPrimary>
+											<ButtonPrimary
+												onClick={() => {
+													changeVariant("normal");
+												}}
+												className='text-sm w-full'
+												color={variant.id !== "normal" ? "#d5d5d5" : "#63A695"}
+											>
+												Štandardná
+											</ButtonPrimary>
+
+											<div className='relative w-full'>
+												<ButtonPrimary
+													onClick={() => {
+														changeVariant("pro");
+													}}
+													className='text-sm w-full'
+													color={variant.id !== "pro" ? "#d5d5d5" : "#63A695"}
+												>
+													Profesionálna
+												</ButtonPrimary>
+												{/* <div className="absolute -top-2 -right-2">
+													<Pro></Pro>
+												</div> */}
 											</div>
 										</div>
 									</AccordionDetails>
@@ -242,62 +299,7 @@ export default function Sidebar() {
 									</AccordionDetails>
 								</Accordion>
 
-								<Accordion expanded={opened === "variant"}>
-									<AccordionSummary
-										expandIcon={<ArrowDown />}
-										onClick={() => {
-											handleSetOpen("variant");
-										}}
-									>
-										<div className='flex items-center gap-2'>
-											<div className='w-4'>
-												<VariantIcon color={"#63A695"} />
-											</div>
-											<div>Variant</div>
-										</div>
-									</AccordionSummary>
-
-									<AccordionDetails>
-										<div className='mb-4 font-medium'>
-											Variant cenovej ponuky
-										</div>
-										<div className='flex justify-center items-center flex-col gap-2'>
-											<ButtonPrimary
-												className='text-sm w-full'
-												onClick={() => {
-													changeVariant("basic");
-												}}
-												color={variant.id !== "basic" ? "#d5d5d5" : "#63A695"}
-											>
-												Jednoduchá
-											</ButtonPrimary>
-											<ButtonPrimary
-												onClick={() => {
-													changeVariant("normal");
-												}}
-												className='text-sm w-full'
-												color={variant.id !== "normal" ? "#d5d5d5" : "#63A695"}
-											>
-												Štandardná
-											</ButtonPrimary>
-
-											<div className='relative w-full'>
-												<ButtonPrimary
-													onClick={() => {
-														changeVariant("pro");
-													}}
-													className='text-sm w-full'
-													color={variant.id !== "pro" ? "#d5d5d5" : "#63A695"}
-												>
-													Profesionálna
-												</ButtonPrimary>
-												{/* <div className="absolute -top-2 -right-2">
-													<Pro></Pro>
-												</div> */}
-											</div>
-										</div>
-									</AccordionDetails>
-								</Accordion>
+								
 								<Accordion expanded={opened === "template"}>
 									<AccordionSummary
 										expandIcon={<ArrowDown />}
