@@ -4,6 +4,7 @@ import { numberWithCommas } from "../lib/helpers";
 import EditPen from "../public/SVG/EditPen";
 import Layout from "./Layout";
 import PriceChangeIndicator from "./PriceChangeIndicator";
+import ButtonSecondary from "./buttons/ButtonSecondary";
 
 export default function BottomBar() {
 	const { total, initialTotal, openBulkEdit, bulkEdit, toggleTotals } =
@@ -33,7 +34,7 @@ export default function BottomBar() {
 	}, [total]);
 
 	return (
-		<div className="bottom-bar bg-white h-16 z-30">
+		<div className="bottom-bar bg-white relative h-16 z-30">
 				<div className="flex h-full flex-row justify-center items-center w-full gap-20">
 					<div className="relative w-fit" id="bulk-edit">
 						<PriceChangeIndicator val={changeMontaz} />
@@ -58,7 +59,47 @@ export default function BottomBar() {
 							<span className="text-[10px]">bez DPH</span>
 						</div>
 					</div>
+
+					<div className="absolute right-1">
+						<ScrollToTop/>
+					</div>
+
 				</div>
+
+				
+
 		</div>
 	);
 }
+
+
+
+const ScrollToTop = () => {
+    const [showTopBtn, setShowTopBtn] = useState(false);
+    useEffect(() => {
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 400) {
+                setShowTopBtn(true);
+            } else {
+                setShowTopBtn(false);
+            }
+        });
+    }, []);
+    const goToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    };
+    return (
+		<>
+            {showTopBtn && (
+                <ButtonSecondary
+                    onClick={goToTop}
+                >
+					Späť hore
+				</ButtonSecondary >
+            )}
+		</>
+    );
+};

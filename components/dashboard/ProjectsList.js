@@ -10,6 +10,7 @@ import {
 import ButtonIcon from "../buttons/ButtonIcon";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 import React, { useEffect, useState } from "react";
 import FullPageLoading from "../../components/loading/FullPageLoading";
 import { LoggedIn } from "../../components/LoggedIn";
@@ -28,13 +29,17 @@ import IconHome from "../../public/SVG/dashboard/IconHome";
 import Offer from "../../public/SVG/dashboard/EmptyOffer";
 import AddOffer from "../../public/SVG/dashboard/AddOffer";
 import InteractiveOffer from "../../public/SVG/dashboard/InteractiveOffer";
+import Download from "../../public/SVG/Download";
+import GeneratePDF from "../editor/GeneratePDF";
 
+import { useActions } from "../../context/ActionsContext";
 import { getLastModified, numberWithCommas } from "../../lib/helpers";
 import { round } from "lodash";
 
 export default function ProjectList({ clicked }) {
 	const router = useRouter();
 	const [loading, setloading] = useState(false);
+	const [download, setdownload] = useState(false);
 	const [sceletonLoading, setsceletonLoading] = useState(true);
 
 	const [data, setdata] = useState(null);
@@ -53,7 +58,7 @@ export default function ProjectList({ clicked }) {
 		setdata(newData);
 
 		deleteDoc(docRef)
-			.then((res) => {})
+			.then((res) => { })
 			.catch((err) => {
 				setloading(false);
 				console.log(err);
@@ -98,6 +103,11 @@ export default function ProjectList({ clicked }) {
 	return (
 		<>
 			<FullPageLoading loading={loading}></FullPageLoading>
+			{download && (
+				<GeneratePDF
+					close={() => setloading(false)}
+				></GeneratePDF>
+			)}
 
 			<div className='min-h-screen'>
 				<div className='flex justify-center items-center h-full'>
@@ -115,6 +125,7 @@ export default function ProjectList({ clicked }) {
 												handleSelectId={handleSelectId}
 												setselect={setselected}
 												select={selected}
+												setloading={setdownload}
 											/>
 										);
 									})}
@@ -137,15 +148,51 @@ function Project({
 	handleSelectId,
 	setselect,
 	select,
+	setloading
 }) {
+
 	function handleClick() {
 		handleDelete(project.id);
 		settoggleDelete(false);
 	}
+
+	async function getServerPdf(projectId, name) {
+		setloading(true);
+		fetch(`https://api2.nacento.online/renderPdf`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ projectId }),
+		})
+			.then((response) => {
+				return response.blob();
+			})
+			.then((blob) => {
+				// create a temporary <a> element to download the blob
+				const url = URL.createObjectURL(blob);
+				const a = document.createElement("a");
+				a.href = url;
+				a.download = `${name}.pdf`;
+				a.click();
+
+				// cleanup: remove the temporary URL created by URL.createObjectURL()
+				setTimeout(() => {
+					URL.revokeObjectURL(url);
+				}, 0);
+				setloading(false);
+			})
+			.catch((error) => {
+				toast("Nastala chyba. Skúste znovu neskôr prosím", { type: "error", autoClose: 5000 });
+				setloading(false);
+			});
+	}
+
 	const [toggleDelete, settoggleDelete] = useState(false);
 	const [selected, setselected] = useState(true);
+	const [hovered, sethovered] = useState(false);
 
 	const styles = [""];
+
+	console.log(project)
 
 	return (
 		<div
@@ -159,17 +206,26 @@ function Project({
 				}
 				e.stopPropagation();
 			}}
-			//w-[18vw] h-[16vw]
-			className={`shadow-md project-div outline ${
-				!select[ix]
-					? "outline-gray-300 outline-0 hover:outline-1"
-					: "outline-blue-500 outline-2"
-			}  rounded-sm transition duration-100 ease-in-out`}
+
+			onMouseEnter={() => sethovered(true)}
+			onMouseLeave={() => sethovered(false)}
+
+			className={`shadow-md project-div outline ${!select[ix]
+				? "outline-gray-300 outline-0 hover:outline-1"
+				: "outline-blue-500 outline-2"
+				}  rounded-sm transition duration-100 ease-in-out`}
 		>
-			<div className='bg-gray-50 rounded-sm p-4 min-h-[250px] flex justify-between flex-col'>
-				<div className=''>
-					<div className='flex justify-between items-center'>
-						<div className='text-lg font-medium text-start'>Cenová Ponuka</div>
+			<div className='bg-gray-50 min-h-[250px] flex justify-between flex-col relative'>
+
+				<div className="w-full h-[18px] absolute opacity-95" style={{ backgroundColor: project?.layout?.primaryColor, borderRadius: "2px 2px 0px 0px" }}></div>
+
+				<div className="px-4 py-1">
+
+					<div className='flex justify-between items-center mt-6'>
+						<div className='text-lg font-medium text-start'>
+							{project.data.customer.name ? "Cenová ponuka" : "Cenová ponuka"}
+						</div>
+
 						<div className='relative'>
 							<ButtonIcon
 								icon={<TrashBin />}
@@ -226,8 +282,11 @@ function Project({
 									Platná do:
 								</div>
 								<div className='text-left font-light text-sm text-gray-500 mt-1'>
-									{moment(project.expiration).format("DD.MM. YYYY")} (končí o{" "}
-									{moment(project.expiration).diff(moment(), "days") + 1} dní)
+									{moment(project.expiration).format("DD.MM. YYYY")} {" "}
+									<span style={{fontSize: "10px"}}>
+									{moment(project.expiration).diff(moment(), "days") + 1 > 0? 
+									`(končí o ${moment(project.expiration).diff(moment(), "days") + 1} dní)` : "(platnosť vypršala)"}
+									</span>
 								</div>
 							</>
 						)}
@@ -242,23 +301,41 @@ function Project({
 							: "00.0"}
 						€<span className='text-[10px]'> vrátane DPH</span>
 					</div>
+
 				</div>
 
-				<div className='flex justify-between items-center mt-2'>
-					<div className='text-xs'>
-						<span>Upravené: </span> {getLastModified(project?.lastModified)}
-					</div>
-				</div>
 			</div>
 
-			<div className='bg-white px-2 py-3 flex items-center'>
+			<div className='bg-white px-2 py-3 relative w-full flex items-center'>
 				<div>
 					{/* <InteractiveOffer color="#1400FF"></InteractiveOffer> */}
 					<IconHome color={project?.layout?.primaryColor}></IconHome>
 				</div>
-				<div className='text-sm ml-2 overflow-hidden w-[80%]'>
-					{project.name}
+
+				<div className="flex flex-col justify-center ml-2 w-[80%] max-h-[34px]">
+					<div className='text-sm overflow-hidden'>
+						{project.name}
+					</div>
+
+					<div className="text-gray-400" style={{ fontSize: "10px" }}>
+						Upravená {getLastModified(project?.lastModified)}
+					</div>
 				</div>
+
+				{hovered &&
+					<div className="absolte right-0 ml-1">
+						<ButtonIcon
+							icon={<Download color={"gray"} />}
+							tooltip='Stiahnuť ako PDF'
+							onClick={(e) => {
+								e.stopPropagation();
+								getServerPdf(project.id, project.name)
+							}}
+							id='download'
+						></ButtonIcon>
+					</div>
+				}
+
 			</div>
 		</div>
 	);

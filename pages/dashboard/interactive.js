@@ -55,7 +55,10 @@ export default function Dashboard() {
 				{/* <Layout className="h-[55px]"> */}
 				<div className="flex items-center justify-between px-4 h-[47px]">
 					<div className="flex gap-4 text-white items-center">
-						<HomeSVG />
+
+						<button onClick={() => router.push("/dashboard/")}>
+							<HomeSVG />
+						</button>
 
 						<div style={{ letterSpacing: "-0.2px" }}>
 							<div style={{ fontSize: "14px" }}> {userData.name} </div>
@@ -78,13 +81,13 @@ export default function Dashboard() {
 				<TeamsList></TeamsList>
 
 				<div className="mb-16 mt-16 lg:mx-16">
-						<ButtonSecondary
-							href="/dashboard"
-							iconBefore
-							icon={<ArrowBack color={"black"}></ArrowBack>}
-						>
-							Zoznam ponúk
-						</ButtonSecondary>
+					<ButtonSecondary
+						href="/dashboard"
+						iconBefore
+						icon={<ArrowBack color={"black"}></ArrowBack>}
+					>
+						Zoznam ponúk
+					</ButtonSecondary>
 
 
 					<div className="flex items-center gap-12 mt-8 pb-6">
@@ -156,11 +159,9 @@ function SimpleButton({ color, active, title, onClick, icon }) {
 	return (
 		<button
 			onClick={onClick}
-			className={`py-2 pr-4 pl-3 trans ${
-				active ? colors[color][1] : colors[color][2]
-			} ${
-				colors[color][0]
-			} border rounded-md flex items-center justify-center gap-2 text-start `}
+			className={`py-2 pr-4 pl-3 trans ${active ? colors[color][1] : colors[color][2]
+				} ${colors[color][0]
+				} border rounded-md flex items-center justify-center gap-2 text-start `}
 		>
 			<div className="flex items-center gap-2 justify-around">
 				{icon && icon}
