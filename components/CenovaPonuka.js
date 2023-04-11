@@ -102,126 +102,132 @@ export default function CenovaPonuka() {
 										CENA:
 									</div>
 
-									<div className={`${isHorizontal ? "text-lg" : "text-sm"} `}>
-										<div className={`relative w-fit`}>
-											<div>
-												Cena Montáže:{" "}
-												{numberWithCommas(
-													total.total_construction_price.toFixed(2)
-												)}{" "}
-												€
-											</div>
-											{!bulkEdit && (
-												<button
-													onClick={(e) => {
-														openBulkEdit(
-															{
-																blockId: -1,
-																value: total.total_construction_price,
-																valueId: "total_construction_price",
-																mode: "whole",
-															},
-															e
-														);
-													}}
-													className='absolute top-0 -right-3 w-2'
-												>
-													<EditPen></EditPen>
-												</button>
-											)}
-										</div>
+									<div
+										className={`${
+											isHorizontal ? "text-lg" : "text-sm"
+										} max-w-[220px]`}
+									>
+										<button
+											onClick={(e) => {
+												openBulkEdit(
+													{
+														blockId: -1,
+														value: total.total_construction_price,
+														valueId: "total_construction_price",
+														mode: "whole",
+													},
+													e
+												);
+											}}
+										>
+											<div className={`relative w-fit`}>
+												<div>
+													Cena Montáže:{" "}
+													{numberWithCommas(
+														total.total_construction_price.toFixed(2)
+													)}{" "}
+													€
+												</div>
 
-										<div className='relative w-fit'>
-											<div>
-												Cena Dodávky:{" "}
-												{numberWithCommas(
-													total.total_delivery_price.toFixed(2)
-												)}{" "}
-												€
-											</div>
-											{!bulkEdit && (
-												<button
-													onClick={(e) => {
-														openBulkEdit(
-															{
-																blockId: -1,
-																value: total.total_delivery_price,
-																valueId: "total_delivery_price",
-																mode: "whole",
-															},
-															e
-														);
-													}}
-													className='absolute top-0 -right-3 w-2'
-												>
+												<div className='absolute top-0 -right-3 w-2'>
 													<EditPen></EditPen>
-												</button>
-											)}
-										</div>
+												</div>
+											</div>
+										</button>
+
+										<button
+											onClick={(e) => {
+												openBulkEdit(
+													{
+														blockId: -1,
+														value: total.total_delivery_price,
+														valueId: "total_delivery_price",
+														mode: "whole",
+													},
+													e
+												);
+											}}
+											className='w-fit'
+										>
+											<div className='relative w-fit'>
+												<div>
+													Cena Dodávky:{" "}
+													{numberWithCommas(
+														total.total_delivery_price.toFixed(2)
+													)}{" "}
+													€
+												</div>
+
+												<div className='absolute top-0 -right-3 w-2'>
+													<EditPen></EditPen>
+												</div>
+											</div>
+										</button>
 
 										<div
 											className='w-full h-[1px] my-2'
 											style={{ backgroundColor: primaryColor, opacity: 0.7 }}
 										></div>
-										<div className='relative w-fit'>
-											<div>
-												Spolu:{" "}
-												{numberWithCommas((total.total * 1.2).toFixed(2))} €{" "}
-												<span className='text-[10px]'>s DPH</span>
-											</div>
-											{!bulkEdit && (
-												<button
-													onClick={(e) => {
-														openBulkEdit(
-															{
-																blockId: -1,
-																value: total.total * 1.2,
-																valueId: "total_vat",
-																mode: "whole",
-															},
-															e
-														);
-													}}
-													className='absolute top-0 -right-3 w-2'
-												>
+
+										<button
+											onClick={(e) => {
+												openBulkEdit(
+													{
+														blockId: -1,
+														value: total.total * 1.2,
+														valueId: "total_vat",
+														mode: "whole",
+													},
+													e
+												);
+											}}
+											className='w-fit'
+										>
+											<div className='relative w-fit'>
+												<div>
+													Spolu:{" "}
+													{numberWithCommas((total.total * 1.2).toFixed(2))} €{" "}
+													<span className='text-[10px]'>s DPH</span>
+												</div>
+
+												<div className='absolute top-0 -right-3 w-2'>
 													<EditPen></EditPen>
-												</button>
-											)}
-										</div>
+												</div>
+											</div>
+										</button>
 
 										<div>
 											DPH 20%:{" "}
 											{numberWithCommas((total.total * 0.2).toFixed(2))} €
 										</div>
 
-										<div className='relative w-fit'>
-											<div className='mt-2 font-medium text-xl'>
-												Cena spolu:
-											</div>
-											{!bulkEdit && (
-												<button
-													onClick={(e) => {
-														openBulkEdit(
-															{
-																blockId: -1,
-																value: total.total * 1.2,
-																valueId: "total",
-																mode: "whole",
-															},
-															e
-														);
-													}}
-													className='absolute top-0 -right-3 w-2'
-												>
-													<EditPen></EditPen>
-												</button>
-											)}
-										</div>
+										<button
+											onClick={(e) => {
+												openBulkEdit(
+													{
+														blockId: -1,
+														value: total.total,
+														valueId: "total",
+														mode: "whole",
+													},
+													e
+												);
+											}}
+										>
+											<div className='relative w-fit'>
+												<div className='mt-2 font-medium text-xl text-left'>
+													Cena spolu:
+												</div>
+												<div className='mt-2 font-medium text-xl'>
+													{numberWithCommas(total.total.toFixed(2))} €
+													<span className='text-[10px]'>bez DPH</span>
+												</div>
 
-										<div className='mt-2 font-medium text-xl'>
-											{numberWithCommas(total.total.toFixed(2))} €
-											<span className='text-[10px]'>bez DPH</span>
-										</div>
+												<div className='absolute top-0 -right-3 w-2'>
+													<EditPen></EditPen>
+												</div>
+											</div>
+										</button>
 									</div>
 								</div>
 							</div>

@@ -21,15 +21,14 @@ export default function Slide3() {
 	}, []);
 
 	return (
-		<div className="w-full">
-			<h1 className="text-4xl text-center mb-10">Zadajte Vaše údaje</h1>
-			<p className="text-center text-gray-400">
+		<div className='w-full'>
+			<h1 className='text-4xl text-center mb-10'>Zadajte Vaše údaje</h1>
+			<p className='text-center text-gray-400'>
 				Tieto informácie používame na predvypĺnanie cenových ponúk...
 			</p>
-			<div className="max-w-lg mx-auto flex justify-center mt-10">
+			<div className='max-w-lg mx-auto flex justify-center mt-10'>
 				<SupplyerTemplate
 					account={userObject.account}
-					email={userObject.email}
 					supplyer={userObject.supplyer}
 					handleChange={(e) => {
 						handleChange(e);
