@@ -12,9 +12,6 @@ export default function Slide4() {
 
 	setallowNext(true);
 
-	const [logo, setlogo] = useState();
-	const [signature, setsignature] = useState();
-
 	function uploadLogo(url) {
 		var newData = { ...userObject };
 		newData.images.logo = url;
