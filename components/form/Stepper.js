@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useStepper } from "../../context/StepperContext";
+import Measure from "./icons/Measure";
 
 const Stepper = ({ steps, currentStep, setCurrentStep }) => {
   const [newStep, setNewStep] = useState([]);
@@ -7,9 +8,9 @@ const Stepper = ({ steps, currentStep, setCurrentStep }) => {
   const { color } = useStepper()
 
   const colors = {
-    "red" : 'text-rose-600 font-bold',
-    "green" : 'text-emerald-600',
-    "blue" : 'text-blue-700',
+    "red" : ['text-rose-600 font-bold',"hover:border-rose-600 hover:text-rose-600"],
+    "green" : ['text-emerald-600', "hover:border-emerald-600 hover:text-emerald-600"],
+    "blue" : ['text-blue-700', "hover:border-blue-700 hover:text-blue-700"]
   }
 
   const updateStep = (stepNumber, steps) => {
@@ -102,6 +103,12 @@ const Stepper = ({ steps, currentStep, setCurrentStep }) => {
     );
   });
 
+  function handleClick(){
+    window.open('https://api2.nacento.online', '_blank', 'noreferrer');
+  }
+
+  const [hover, sethover] = useState(false)
+
   return (
     <>
       <div className="flex justify-start gap-8 items-center">
@@ -113,6 +120,15 @@ const Stepper = ({ steps, currentStep, setCurrentStep }) => {
 
       <div className="text-2xl font-semibold mt-3 text-left">
           {steps[currentStep-1]}
+      </div>
+
+      <div onClick={handleClick} className={"shadow-sm text-sm flex justify-around items-center cursor-pointer gap-1 border bg-white absolute right-8 top-20 border-slate-300 trans font-medium rounded-sm text-gray-500 px-3 py-2 " + colors[color][1]}
+      onMouseEnter={() => sethover(true)}
+      onMouseLeave={() => sethover(false)}>
+            
+            <Measure color={hover? color: "black"}/>
+
+            <div>Vymeraj z projektu</div>
       </div>
      
     </>
