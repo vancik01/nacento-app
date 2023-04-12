@@ -49,7 +49,7 @@ export default function Dashboard() {
 			<div className="xl:grid" onClick={() => setclicked(!clicked)} style={{ gridTemplateColumns: "240px 1fr" }}>
 				<TeamsList></TeamsList>
 
-				<div className="mb-16 mt-8 mx-16">
+				<div className="mb-16 mt-8 mx-8 md:mx-16">
 					<CreateToolbar></CreateToolbar>
 					<ProjectList clicked={clicked}></ProjectList>
 				</div>
