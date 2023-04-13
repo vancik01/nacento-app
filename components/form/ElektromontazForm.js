@@ -58,7 +58,7 @@ function ElektromontazForm({ theme_color }) {
   };
 
   return (
-    <div className="bg-gray-100 p-8 shadow-xl md:w-full">
+    <div className="bg-gray-100 p-8 shadow-xl md:w-full relative">
       {/* Stepper */}
       <div className="">
         <Stepper steps={steps} currentStep={currentStep} setCurrentStep={setCurrentStep} />

@@ -10,6 +10,7 @@ export default function ButtonIcon({ icon, children, onClick, tooltip, id }) {
 		<>
 			{tooltip && (
 				<Tooltip
+				    className="z-10"
 					id={`tooltip`}
 					anchorSelect={`#button-icon-${id}`}
 					place="bottom"

@@ -11,10 +11,13 @@ import Logo from "../../public/SVG/Logo";
 import HomeSVG from "../../components/HomeSVG"
 import { useAuth } from "../../context/AuthContext"
 
+import { useRouter } from "next/router";
 
 export default function Dashboard() {
 	const { userData } = useAuth()
 	const [clicked, setclicked] = useState(false)
+	const router = useRouter();
+
 
 	return (
 		<div>
@@ -28,7 +31,7 @@ export default function Dashboard() {
 				<div className="flex items-center justify-between px-4 h-[47px]">
 
 					<div className="flex gap-4 text-white items-center">
-						<HomeSVG />
+						<HomeSVG/>
 
 						<div style={{ letterSpacing: "-0.2px" }}>
 							<div style={{ fontSize: "14px" }}> {userData.name} </div>
@@ -46,7 +49,7 @@ export default function Dashboard() {
 			<div className="xl:grid" onClick={() => setclicked(!clicked)} style={{ gridTemplateColumns: "240px 1fr" }}>
 				<TeamsList></TeamsList>
 
-				<div className="mb-16 mt-8 mx-16">
+				<div className="mb-16 mt-8 mx-8 md:mx-16">
 					<CreateToolbar></CreateToolbar>
 					<ProjectList clicked={clicked}></ProjectList>
 				</div>

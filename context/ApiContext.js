@@ -58,7 +58,7 @@ export function ApiContext({ children }) {
                         name: name,
                         created: moment().valueOf(),
                         userId: user != null ? user.uid : "none",
-                        total: {
+                        totals: {
                             total_delivery_price: 0,
                             total_construction_price: 0,
                             total: 0,
