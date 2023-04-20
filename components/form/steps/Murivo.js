@@ -26,7 +26,7 @@ export default function Murivo() {
   const { hsdata, sethsdata, color, setColor, ChangeHsValue } = useStepper();
 
   return (
-    <>
+    <div className="bg-white pb-10">
         <IntroSection title={"murovacie práce"} ix={1}  text={"pôdorysu 1. NP"} type={"MP"}/>
 
         <FormLayout>
@@ -52,7 +52,7 @@ export default function Murivo() {
 
         </FormLayout>
     
-    </>
+    </div>
   );
 }
 
@@ -72,7 +72,7 @@ function TehlaItems(){
 function YtongItems(){
   return(
     <div className="grid icon-grid">
-        <IconInput path={["h", "murivo", "Y450"]} label={"Šírka 400mm"} img={<img src={y450.src} alt="y450"/>} add={10} decimal/>
+        <IconInput path={["h", "murivo", "Y400"]} label={"Šírka 400mm"} img={<img src={y450.src} alt="y450"/>} add={10} decimal/>
         <IconInput path={["h", "murivo", "Y375"]} label={"Šírka 375mm"} img={<img src={y375.src} alt="y375"/>} add={10} decimal/>
         <IconInput path={["h", "murivo", "Y300"]} label={"Šírka 300mm"} img={<img src={y300.src} alt="y300"/>} add={10} decimal/>
         <IconInput path={["h", "murivo", "Y250"]} label={"Šírka 250mm"} img={<img src={y250.src} alt="y250"/>} add={10} decimal/>

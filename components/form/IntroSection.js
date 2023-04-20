@@ -76,7 +76,7 @@ function IntroSection({title, text, ix, type}) {
   
 
   return (
-    <div className='flex flex-col items-center gap-0 justify-between'>
+    <div className='flex flex-col items-center gap-0 justify-between pt-6'>
         <div className="text-lg inline-block pb-12 relative">
           Vypíšte prosím údaje manuálne alebo vložte <u>PDF {text}</u> a údaje sa vypočítajú automaticky
           <div className="text-sm absolute bottom-7 text-gray-400 text-left">
@@ -126,8 +126,8 @@ function IntroSection({title, text, ix, type}) {
                 </div>
               </>}
         
-
-        <hr className="w-[94%] bg-slate-800 h-[1px]" ></hr>
+  
+              <hr className="w-[94%] h-[1px]" />
     </div>
   )
 }

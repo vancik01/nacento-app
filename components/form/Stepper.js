@@ -80,9 +80,8 @@ const Stepper = ({ steps, currentStep, setCurrentStep }) => {
       <React.Fragment key={`stepper${index}`}> 
 
           <div onClick={() => setCurrentStep(index+1)} key={`title${index}`}
-            className={`text-sm font-medium cursor-pointer ${
-              step.highlighted ? colors[color] : "text-gray-400"
-            }`}>
+            className={`text-sm font-medium cursor-pointer ` +  
+             (step.highlighted ? colors[color][0] : "text-gray-400") }>
 
             {`0${index+1} ` + step.description}
           </div>

@@ -66,7 +66,7 @@ function IconInput({ label, add, img, path, decimal}) {
 
             <input id='form-input' onChange={(e) => ChangeValue(e, path)} className={`w-[200px] ${colors[color][2]} ${value !== "" && parseInt(value)>0 && colors[color][1]} trans text-center py-2 mt-[-1px]`} 
             placeholder='0' min={1} type={"number"} value={value} step={decimal?  .01 : 1}
-            style={{outline: "none", }}
+            style={{outline: "none", }} onWheel={(e) => e.target.blur()}
             />
 
             <button onClick={() => handeAdd(path)} className={`${colors[color][0]} text-3xl absolute top-[6px] right-[15px] font-light hover:text-black trans`}> + </button>

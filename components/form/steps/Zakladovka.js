@@ -19,10 +19,12 @@ import Dt40 from "../icons/DT/dt40.jpg"
 export default function Zakladovka() {
 
   return (
-    <>
+    <div className={"bg-white pb-10"}>
     
+
     <IntroSection title={"základovú dosku"} ix={0} text={"pôdorysu základov"} type={"ZD"}/>
-   
+
+
     <FormLayout>
 
       <Divider title={"Objem výkopových pásov"} 
@@ -34,11 +36,11 @@ export default function Zakladovka() {
       <Divider title={"Počty debniacich tvárnic:"} subtitle={"(na jednu radu)"}
         component={
           <div className="grid icon-grid">
-            <IconInput path={["h", "doska", "dt15"]} label={"Šírka 150mm"} add={100} img={<img src={Dt15.src} alt="dt15"/>}/>
-            <IconInput path={["h", "doska", "dt20"]} label={"Šírka 200mm"} add={100} img={<img src={Dt20.src} alt="dt20"/>}/>
-            <IconInput path={["h", "doska", "dt25"]} label={"Šírka 250mm"} add={100} img={<img src={Dt25.src} alt="dt25"/>}/>
-            <IconInput path={["h", "doska", "dt30"]} label={"Šírka 300mm"} add={100} img={<img src={Dt30.src} alt="dt30"/>}/>
-            <IconInput path={["h", "doska", "dt40"]} label={"Šírka 400mm"} add={100} img={<img src={Dt40.src} alt="dt40"/>}/>
+              <IconInput path={["h", "doska", "dt40"]} label={"Šírka 400mm"} add={100} img={<img src={Dt40.src} alt="dt40"/>}/>
+              <IconInput path={["h", "doska", "dt30"]} label={"Šírka 300mm"} add={100} img={<img src={Dt30.src} alt="dt30"/>}/>
+              <IconInput path={["h", "doska", "dt25"]} label={"Šírka 250mm"} add={100} img={<img src={Dt25.src} alt="dt25"/>}/>
+              <IconInput path={["h", "doska", "dt20"]} label={"Šírka 200mm"} add={100} img={<img src={Dt20.src} alt="dt20"/>}/>
+              <IconInput path={["h", "doska", "dt15"]} label={"Šírka 150mm"} add={100} img={<img src={Dt15.src} alt="dt15"/>}/>
           </div>
         }
         textTop={true}
@@ -60,6 +62,6 @@ export default function Zakladovka() {
 
 
     </FormLayout>
-    </>
+    </div>
   );
 }

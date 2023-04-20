@@ -13,7 +13,7 @@ export default function TeamsList() {
 	const router = useRouter();
 
 	return (
-		<div className="hidden xl:h-full xl:border-r-[1px] xl:py-4 xl:block">
+		<div className="hidden min-h-[100vh] xl:h-full xl:border-r-[1px] xl:py-4 xl:block">
 			{/* <div className="bg-primary bg-opacity-10 m-4 p-2 rounded-md">
 				<div className="flex items-center justify-start gap-2">
 					<span className="text-lg font-medium">Získajte </span>
@@ -26,26 +26,31 @@ export default function TeamsList() {
 					Zistiť viac
 				</ButtonPrimary>
 			</div> */}
-			<div>
-				<h2 className="px-4 mt-1 text-lg">Tímy</h2>
 
-				<div className="pl-4">
-					<ProjectItem />
-				</div>
-			</div>
+			<div className="sticky top-4">
 
-			{router.asPath === "/dashboard/" && (
-				<div>
-					<h2 className="px-4 mt-8 text-lg">Rýchle nacenenie</h2>
+				<div className="sticky">
+					<h2 className="px-4 mt-1 text-lg">Tímy</h2>
 
-					<div className="flex flex-col pl-4">
-						{/* #e11d48 */}
-						<WorkItem text={"Hrubá stavba"} ix={0} />
-						<WorkItem text={"Elektroinštalácie"} ix={1} />
-						<WorkItem text={"Vykurovanie"} ix={2} />
+					<div className="pl-4">
+						<ProjectItem />
 					</div>
 				</div>
-			)}
+
+				{router.asPath === "/dashboard/" && (
+					<div>
+						<h2 className="px-4 mt-8 text-lg">Rýchle nacenenie</h2>
+
+						<div className="flex flex-col pl-4">
+							{/* #e11d48 */}
+							<WorkItem text={"Hrubá stavba"} ix={0} />
+							<WorkItem text={"Elektroinštalácie"} ix={1} />
+							<WorkItem text={"Vykurovanie"} ix={2} />
+						</div>
+					</div>
+				)}
+
+			</div>	
 		</div>
 	);
 }
