@@ -13,7 +13,7 @@ export default function TeamsList() {
 	const router = useRouter();
 
 	return (
-		<div className="hidden xl:h-screen xl:border-r-[1px] xl:py-4 xl:block">
+		<div className="hidden xl:h-full xl:border-r-[1px] xl:py-4 xl:block">
 			{/* <div className="bg-primary bg-opacity-10 m-4 p-2 rounded-md">
 				<div className="flex items-center justify-start gap-2">
 					<span className="text-lg font-medium">Získajte </span>

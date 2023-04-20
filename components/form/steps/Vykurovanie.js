@@ -19,6 +19,21 @@ export default function Vykurovanie() {
             <Divider title={"Zdroj tepla"}
             component={ <SingleChoice path={["v", "vykurovanie", "zdroj"]} labels={["Plynový kotol", "Peletky", "TČ vzduch/voda", "TČ zem/voda"]}/>} />
 
+            {(vdata["vykurovanie"]["zdroj"][0] == "0" || vdata["vykurovanie"]["zdroj"][0] == "1") && 
+              <Divider title={"Odvod spalín"}
+              component={ <SingleChoice path={["v", "vykurovanie", "zdroj", 1]} labels={["komín nový", "úprava existujúceho"]}/>} />
+            }
+
+            {vdata["vykurovanie"]["zdroj"][0] == "2" && 
+              <Divider title={"Vonkajšia stavebná pripravenosť"}
+              component={ <SingleChoice path={["v", "vykurovanie", "zdroj", 2]} labels={["majiteľ", "ja"]}/>} />
+            }
+
+           {vdata["vykurovanie"]["zdroj"][0] == "3" && 
+              <Divider title={"Náklady na zdroj tepla"}
+              component={ <SingleChoice path={["v", "vykurovanie", "zdroj", 3]} labels={["vrty", "zemný kolektor"]}/>} />
+            }
+
             <Divider title={"Teplovodný krb"}
             component={ <SingleChoice path={["v", "vykurovanie", "tv_krb"]} labels={["nie", "áno"]}/>} />
 
@@ -40,11 +55,19 @@ export default function Vykurovanie() {
             </>
             }
 
+
+            <Divider title={"Radiátorové kúrenie"}
+            component={ <SingleChoice path={["v", "vykurovanie", "radiatory", 0]} labels={["nie", "áno"]}/>} />
             
-
+            {vdata["vykurovanie"]["radiatory"][0] == "1" &&
+            <>
             <Divider title={"Počet radiátorov"}
-            component={ <NumberInput path={["v", "vykurovanie", "radiatory"]} unit={"ks"} />} />
-
+            component={ <NumberInput path={["v", "vykurovanie", "radiatory", 1]} unit={"ks"} />} />
+            
+            <Divider title={"Rozvod"}
+            component={ <SingleChoice path={["v", "vykurovanie", "radiatory", 2]} labels={["medený", "hlinníkový"]}/>} />
+            </> 
+            }
 
             <Divider title={"Ležatá kanalizácia"}
             component={ <SingleChoice path={["v", "vykurovanie", "lezata_kanalizacia"]} labels={["zhotovená", "nezhotovená"]}/>} />
@@ -62,12 +85,12 @@ export default function Vykurovanie() {
             <Divider title={"Vnútorná kanalizácia - počet vývodov"}
             component={ <NumberInput path={["v", "vykurovanie", "kanalizacia_vyvody"]} unit={"ks"} />} />
             
-            <Divider title={"Priemerná vzdialenosť ku kanalizácii"}
-            component={ <NumberInput path={["v", "vykurovanie", "kanalizacia_vzidalenost"]} unit={"m"} />} />
+            {/* <Divider title={"Priemerná vzdialenosť ku kanalizácii"}
+            component={ <NumberInput path={["v", "vykurovanie", "kanalizacia_vzidalenost"]} unit={"m"} />} /> */}
             
 
-            <Divider title={"Komín"}
-            component={ <SingleChoice path={["v", "vykurovanie", "komin"]} labels={["murovaný", "montovaný"]}/>} />
+            {/* <Divider title={"Komín"}
+            component={ <SingleChoice path={["v", "vykurovanie", "komin"]} labels={["murovaný", "montovaný"]}/>} /> */}
             
           
 

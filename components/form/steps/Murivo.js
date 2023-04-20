@@ -59,11 +59,11 @@ export default function Murivo() {
 function TehlaItems(){
   return(
     <div className="grid icon-grid">
-        <IconInput path={["h", "murivo", "t45"]} label={"Šírka 450mm"} img={<img src={tehla45.src} alt="tehla45"/>} add={100} decimal/>
-        <IconInput path={["h", "murivo", "t30"]} label={"Šírka 300mm"} img={<img src={tehla30.src} alt="tehla30"/>} add={100} decimal/>
-        <IconInput path={["h", "murivo", "t25"]} label={"Šírka 250mm"} img={<img src={tehla25.src} alt="tehla25"/>} add={100} decimal/>
-        <IconInput path={["h", "murivo", "t15"]} label={"Šírka 150mm"} img={<img src={tehla15.src} alt="tehla15"/>} add={100} decimal/>
-        <IconInput path={["h", "murivo", "t10"]} label={"Šírka 100mm"} img={<img src={tehla10.src} alt="tehla10"/>} add={100} decimal/>
+        <IconInput path={["h", "murivo", "t45"]} label={"Šírka 450mm"} img={<img src={tehla45.src} alt="tehla45"/>} add={10} decimal/>
+        <IconInput path={["h", "murivo", "t30"]} label={"Šírka 300mm"} img={<img src={tehla30.src} alt="tehla30"/>} add={10} decimal/>
+        <IconInput path={["h", "murivo", "t25"]} label={"Šírka 250mm"} img={<img src={tehla25.src} alt="tehla25"/>} add={10} decimal/>
+        <IconInput path={["h", "murivo", "t15"]} label={"Šírka 150mm"} img={<img src={tehla15.src} alt="tehla15"/>} add={10} decimal/>
+        <IconInput path={["h", "murivo", "t10"]} label={"Šírka 100mm"} img={<img src={tehla10.src} alt="tehla10"/>} add={10} decimal/>
     </div>
   )
 }
@@ -72,12 +72,12 @@ function TehlaItems(){
 function YtongItems(){
   return(
     <div className="grid icon-grid">
-        <IconInput path={["h", "murivo", "Y450"]} label={"Šírka 400mm"} img={<img src={y450.src} alt="y450"/>} add={100} decimal/>
-        <IconInput path={["h", "murivo", "Y375"]} label={"Šírka 375mm"} img={<img src={y375.src} alt="y375"/>} add={100} decimal/>
-        <IconInput path={["h", "murivo", "Y300"]} label={"Šírka 300mm"} img={<img src={y300.src} alt="y300"/>} add={100} decimal/>
-        <IconInput path={["h", "murivo", "Y250"]} label={"Šírka 250mm"} img={<img src={y250.src} alt="y250"/>} add={100} decimal/>
-        <IconInput path={["h", "murivo", "Y150"]} label={"Šírka 150mm"} img={<img src={y150.src} alt="y150"/>} add={100} decimal/>
-        <IconInput path={["h", "murivo", "Y100"]} label={"Šírka 100mm"} img={<img src={y100.src} alt="y100"/>} add={100} decimal/>
+        <IconInput path={["h", "murivo", "Y450"]} label={"Šírka 400mm"} img={<img src={y450.src} alt="y450"/>} add={10} decimal/>
+        <IconInput path={["h", "murivo", "Y375"]} label={"Šírka 375mm"} img={<img src={y375.src} alt="y375"/>} add={10} decimal/>
+        <IconInput path={["h", "murivo", "Y300"]} label={"Šírka 300mm"} img={<img src={y300.src} alt="y300"/>} add={10} decimal/>
+        <IconInput path={["h", "murivo", "Y250"]} label={"Šírka 250mm"} img={<img src={y250.src} alt="y250"/>} add={10} decimal/>
+        <IconInput path={["h", "murivo", "Y150"]} label={"Šírka 150mm"} img={<img src={y150.src} alt="y150"/>} add={10} decimal/>
+        <IconInput path={["h", "murivo", "Y100"]} label={"Šírka 100mm"} img={<img src={y100.src} alt="y100"/>} add={10} decimal/>
 
     </div>
   )

@@ -246,7 +246,7 @@ function Project({
 										exit={{ opacity: 0, y: 10 }}
 										animate={{ opacity: 1, y: 0 }}
 										transition={{ duration: 0.2 }}
-										className='absolute left-0 mt-1 bg-white shadow-hardShadow min-w-[200px] rounded-md px-3 py-3'
+										className='absolute left-0 mt-1 bg-white shadow-hardShadow min-w-[200px] z-20 rounded-md px-3 py-3'
 									>
 										<div className='text-lg'>Naozaj zmazať?</div>
 										<ButtonPrimary

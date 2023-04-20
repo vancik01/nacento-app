@@ -33,7 +33,7 @@ export default function AccountToolbar() {
 						Môj účet
 					</MenuItem>
 
-					<MenuItem icon={<OfferIcon />} href={"/nastavenie-uctu/vzory"}>Nastavenia ponuky</MenuItem>
+					{/* <MenuItem icon={<OfferIcon />} href={"/nastavenie-uctu/vzory"}>Nastavenia ponuky</MenuItem> */}
 
 					<hr className="w-full pb-1 mt-1" />
 

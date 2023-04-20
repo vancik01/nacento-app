@@ -53,7 +53,7 @@ function IconInput({ label, add, img, path, decimal}) {
 
         <div className={`w-[200px] ${value !== "" && parseInt(value)>0? colors[color][1]: ""} border rounded-sm p-3 flex gap-0 flex-col items-center justify-center`}>
             
-            { img && <div className='w-[120px] h-[120px]' style={{aspectRatio: "2/1"}}>
+            { img && <div className='w-[120px] h-[120px] flex items-center'>
                 {img}
             </div> }
             <div className='text-base mt-4'>{label}</div>

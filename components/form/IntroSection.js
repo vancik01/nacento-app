@@ -89,7 +89,7 @@ function IntroSection({title, text, ix, type}) {
                Vložiť PDF {text}
             </div>
 
-        <div className="pb-4 w-[200%] relative">
+        <div className="pb-4 w-[100%] relative">
         
 
             {fileName && !passed && <div className='bg-white shadow-lg text-lg absolute bottom-2 px-6 py-4 left-[50%] rounded border' style={{transform: "translateX(-50%)"}}>
@@ -108,7 +108,7 @@ function IntroSection({title, text, ix, type}) {
                 <img src={x.src} onClick={() => {deletePdf(setFileName, setPdf, setPassed)}} className="w-4 cursor-pointer"
                     />
               </div>: 
-              <div style={{clear: "both"}} className="h-8 w[1]"></div>}
+              <div style={{clear: "both"}} className="h-8 w-1"></div>}
       
         </div>
         
