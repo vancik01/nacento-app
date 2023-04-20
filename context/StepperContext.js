@@ -9,7 +9,9 @@ const HSDATA = {
     "rady" : ["0"],
     "plocha" : "",
     "obvod" : "",
+    "dt15" : "",
     "dt20" : "",
+    "dt25" : "",
     "dt30" : "",
     "dt40" : "",
   },
@@ -22,6 +24,12 @@ const HSDATA = {
     "t25": "",
     "t30": "",
     "t45": "",
+    "Y100": "",
+    "Y150": "",
+    "Y250": "",
+    "Y300": "",
+    "Y375": "",
+    "Y400": "",
   },
 
   "strecha" : {
@@ -82,11 +90,11 @@ const EDATA = {
 
 const VYKUROVANIE_DATA = {
   "vykurovanie" : {
-    "zdroj" : ["0"],
+    "zdroj" : ["0", "0", "0", "0"],
     "tv_krb" : ["0"],
     "solar" : ["0"],
     "podlahove" : ["0", "", "0"],
-    "radiatory" : "",
+    "radiatory" : ["0", "", "0"],
     "lezata_kanalizacia" : ["0"],
     "voda_vyvody" : "",
     "voda_vzdialenost" : "",

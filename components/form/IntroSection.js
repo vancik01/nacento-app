@@ -76,7 +76,7 @@ function IntroSection({title, text, ix, type}) {
   
 
   return (
-    <div className='flex flex-col items-center gap-0 justify-between'>
+    <div className='flex flex-col items-center gap-0 justify-between pt-6'>
         <div className="text-lg inline-block pb-12 relative">
           Vypíšte prosím údaje manuálne alebo vložte <u>PDF {text}</u> a údaje sa vypočítajú automaticky
           <div className="text-sm absolute bottom-7 text-gray-400 text-left">
@@ -89,7 +89,7 @@ function IntroSection({title, text, ix, type}) {
                Vložiť PDF {text}
             </div>
 
-        <div className="pb-4 w-[200%] relative">
+        <div className="pb-4 w-[100%] relative">
         
 
             {fileName && !passed && <div className='bg-white shadow-lg text-lg absolute bottom-2 px-6 py-4 left-[50%] rounded border' style={{transform: "translateX(-50%)"}}>
@@ -108,7 +108,7 @@ function IntroSection({title, text, ix, type}) {
                 <img src={x.src} onClick={() => {deletePdf(setFileName, setPdf, setPassed)}} className="w-4 cursor-pointer"
                     />
               </div>: 
-              <div style={{clear: "both"}} className="h-8 w[1]"></div>}
+              <div style={{clear: "both"}} className="h-8 w-1"></div>}
       
         </div>
         
@@ -126,8 +126,8 @@ function IntroSection({title, text, ix, type}) {
                 </div>
               </>}
         
-
-        <hr className="w-[94%] bg-slate-800 h-[1px]" ></hr>
+  
+              <hr className="w-[94%] h-[1px]" />
     </div>
   )
 }

@@ -7,11 +7,26 @@ import Divider from "../Divider";
 import SingleChoice from "../SingleChoice";
 import IconInput from "../IconInput";
 
+import tehla45 from "../icons/tehly/family-44.jpg"
+import tehla30 from "../icons/tehly/family-30.jpg"
+import tehla25 from "../icons/tehly/family-25.jpg"
+import tehla15 from "../icons/tehly/heluz-14.jpg"
+import tehla10 from "../icons/tehly/heluz-115.jpg"
+
+import y100 from "../icons/YTONG/Y100.jpg"
+import y150 from "../icons/YTONG/Y150.jpg"
+import y250 from "../icons/YTONG/Y250.jpg"
+import y300 from "../icons/YTONG/Y300.jpg"
+import y375 from "../icons/YTONG/Y375.jpg"
+import y450 from "../icons/YTONG/Y450.jpg"
+
+
+
 export default function Murivo() {
   const { hsdata, sethsdata, color, setColor, ChangeHsValue } = useStepper();
 
   return (
-    <>
+    <div className="bg-white pb-10">
         <IntroSection title={"murovacie práce"} ix={1}  text={"pôdorysu 1. NP"} type={"MP"}/>
 
         <FormLayout>
@@ -21,11 +36,11 @@ export default function Murivo() {
 
 
           {hsdata["murivo"]["material"][0] === "" || hsdata["murivo"]["material"][0] !== "1" ? 
-            <Divider title={"Počty tehál"} subtitle={"(na jedno poschodie)"}
+            <Divider title={<span>Objemy tehál v m<sup>3</sup></span>} subtitle={"(na jedno poschodie)"}
             component={<TehlaItems/>}
             textTop={true}/> 
             
-            : <Divider title={"Počty Ytongu"} subtitle={"(na jedno poschodie)"}
+            : <Divider title={<span>Objemy YTONGU v m<sup>3</sup></span>} subtitle={"(na jedno poschodie)"}
             component={<YtongItems/>}
             textTop={true}/> 
           }
@@ -37,18 +52,18 @@ export default function Murivo() {
 
         </FormLayout>
     
-    </>
+    </div>
   );
 }
 
 function TehlaItems(){
   return(
     <div className="grid icon-grid">
-        <IconInput path={["h", "murivo", "t10"]} label={"50x10x25"} add={100} />
-        <IconInput path={["h", "murivo", "t15"]} label={"50x15x25"} add={100} />
-        <IconInput path={["h", "murivo", "t25"]} label={"50x25x25"} add={100} />
-        <IconInput path={["h", "murivo", "t30"]} label={"50x30x25"} add={100} />
-        <IconInput path={["h", "murivo", "t45"]} label={"50x45x25"} add={100} />
+        <IconInput path={["h", "murivo", "t45"]} label={"Šírka 450mm"} img={<img src={tehla45.src} alt="tehla45"/>} add={10} decimal/>
+        <IconInput path={["h", "murivo", "t30"]} label={"Šírka 300mm"} img={<img src={tehla30.src} alt="tehla30"/>} add={10} decimal/>
+        <IconInput path={["h", "murivo", "t25"]} label={"Šírka 250mm"} img={<img src={tehla25.src} alt="tehla25"/>} add={10} decimal/>
+        <IconInput path={["h", "murivo", "t15"]} label={"Šírka 150mm"} img={<img src={tehla15.src} alt="tehla15"/>} add={10} decimal/>
+        <IconInput path={["h", "murivo", "t10"]} label={"Šírka 100mm"} img={<img src={tehla10.src} alt="tehla10"/>} add={10} decimal/>
     </div>
   )
 }
@@ -57,12 +72,13 @@ function TehlaItems(){
 function YtongItems(){
   return(
     <div className="grid icon-grid">
-        <IconInput path={["h", "murivo", "t10"]} label={"60x10x25"} add={100} />
-        <IconInput path={["h", "murivo", "t15"]} label={"60x15x25"} add={100} />
-        <IconInput path={["h", "murivo", "t25"]} label={"60x25x25"} add={100} />
-        <IconInput path={["h", "murivo", "t30"]} label={"60x30x25"} add={100} />
-        <IconInput path={["h", "murivo", "t45"]} label={"60x45x25"} add={100} />
-     
+        <IconInput path={["h", "murivo", "Y400"]} label={"Šírka 400mm"} img={<img src={y450.src} alt="y450"/>} add={10} decimal/>
+        <IconInput path={["h", "murivo", "Y375"]} label={"Šírka 375mm"} img={<img src={y375.src} alt="y375"/>} add={10} decimal/>
+        <IconInput path={["h", "murivo", "Y300"]} label={"Šírka 300mm"} img={<img src={y300.src} alt="y300"/>} add={10} decimal/>
+        <IconInput path={["h", "murivo", "Y250"]} label={"Šírka 250mm"} img={<img src={y250.src} alt="y250"/>} add={10} decimal/>
+        <IconInput path={["h", "murivo", "Y150"]} label={"Šírka 150mm"} img={<img src={y150.src} alt="y150"/>} add={10} decimal/>
+        <IconInput path={["h", "murivo", "Y100"]} label={"Šírka 100mm"} img={<img src={y100.src} alt="y100"/>} add={10} decimal/>
+
     </div>
   )
 }

@@ -40,7 +40,7 @@ export default function PripojkaNN() {
 
 
             <Divider title={"Kábel z RE do RD"}
-            component={ <SingleChoice path={["e", "pripojka", "k-re-rd"]} labels={["AYKY4x25", "AYKY4x16", "CYKY4x10", "CYKY4x16"]}/>} />
+            component={ <SingleChoice path={["e", "pripojka", "k-re-rd"]} labels={["AYKY4x25", "AYKY4x16", "CYKY5x10", "CYKY5x16"]}/>} />
 
             <Divider title={"Vzdialenosť RE do RD"}
             component={ <NumberInput path={["e", "pripojka", "re-rd"]} unit={"m"} />} />

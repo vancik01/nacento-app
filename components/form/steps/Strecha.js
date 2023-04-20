@@ -10,7 +10,7 @@ export default function Strecha() {
   const { hsdata, sethsdata, color, setColor, ChangeHsValue } = useStepper();
 
   return (
-    <>
+    <div className="bg-white pb-10">
         <IntroSection title={"strechu"} ix={2}  text={"pôdorys strechy"} type={"ST"}/>
 
         <FormLayout>
@@ -22,7 +22,7 @@ export default function Strecha() {
 
         </FormLayout>
     
-    </>
+    </div>
   );
 }
 

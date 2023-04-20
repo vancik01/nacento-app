@@ -1,7 +1,7 @@
 import React from 'react'
 import {useStepper} from "../../context/StepperContext"
 
-function IconInput({ label, add, img, path}) {
+function IconInput({ label, add, img, path, decimal}) {
     const { ChangeValue, hsdata, edata, setedata, sethsdata,
             vdata, setvdata,
         color } = useStepper()
@@ -51,9 +51,12 @@ function IconInput({ label, add, img, path}) {
   return (
     <div className='w-[200px] shadow-sm'>
 
-        <div className={`w-[200px] ${value !== "" && parseInt(value)>0? colors[color][1]: ""} border rounded-sm p-3 pb-6 flex gap-0 flex-col items-center justify-center`}>
-            { img }
-        <div className='text-base'>{label}</div>
+        <div className={`w-[200px] ${value !== "" && parseInt(value)>0? colors[color][1]: ""} border rounded-sm p-3 flex gap-0 flex-col items-center justify-center`}>
+            
+            { img && <div className='w-[120px] h-[120px] flex items-center'>
+                {img}
+            </div> }
+            <div className='text-base mt-4'>{label}</div>
         
         </div>
 
@@ -62,8 +65,8 @@ function IconInput({ label, add, img, path}) {
             <button onClick={() => handeSub(path)} className={`${colors[color][0]} text-4xl absolute top-[3px] left-[15px] font-light hover:text-black trans`}> - </button>
 
             <input id='form-input' onChange={(e) => ChangeValue(e, path)} className={`w-[200px] ${colors[color][2]} ${value !== "" && parseInt(value)>0 && colors[color][1]} trans text-center py-2 mt-[-1px]`} 
-            placeholder='0' min={1} type={"number"} value={value}
-            style={{outline: "none", }}
+            placeholder='0' min={1} type={"number"} value={value} step={decimal?  .01 : 1}
+            style={{outline: "none", }} onWheel={(e) => e.target.blur()}
             />
 
             <button onClick={() => handeAdd(path)} className={`${colors[color][0]} text-3xl absolute top-[6px] right-[15px] font-light hover:text-black trans`}> + </button>
