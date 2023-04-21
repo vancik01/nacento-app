@@ -224,7 +224,9 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 					<option value="m3"> m&sup3; </option>
 					<option value="diel">diel</option>
 					<option value="ks">ks</option>
-					<option value="sub">súb.</option>
+					<option value="súb.">súb.</option>
+					<option value="ton">ton</option>
+
 				</select>
 			</div>
 		);

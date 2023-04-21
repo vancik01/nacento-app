@@ -22,6 +22,8 @@ import HS from "./icons/HS";
 import Elektro from "./icons/Elektro";
 import Vykurovanie from "./icons/Vykurovanie";
 
+import TestForm from "../../components/form/TestForm";
+
 export default function Dashboard() {
 	const router = useRouter();
 
@@ -124,7 +126,8 @@ export default function Dashboard() {
 
 					<UseStepperContext>
 						<ApiContext>
-							{workTypes == 0 && <HSForm theme_color={"red"} />}
+							{/* {workTypes == 0 && <HSForm theme_color={"red"} />} */}
+							{workTypes == 0 && <TestForm theme_color={"red"}/>}
 
 							{workTypes == 1 && <ElektromontazForm theme_color={"blue"} />}
 
