@@ -284,6 +284,17 @@ option {
   aspect-ratio: 2 / 1;
 }
 
+#search-form:focus{
+  outline:none;
+}
+
+#search-form::-webkit-search-decoration,
+#search-form::-webkit-search-cancel-button,
+#search-form::-webkit-search-results-button,
+#search-form::-webkit-search-results-decoration {
+  -webkit-appearance:none;
+}
+
 
 /* Chrome, Safari, Edge, Opera */
 #form-input::-webkit-outer-spin-button,

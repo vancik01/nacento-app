@@ -36,14 +36,11 @@ import { useActions } from "../../context/ActionsContext";
 import { getLastModified, numberWithCommas } from "../../lib/helpers";
 import { round } from "lodash";
 
-export default function ProjectList({ clicked }) {
+export default function ProjectList({selected, setselected, data, handleDelete, clicked }) {
 	const router = useRouter();
 	const [loading, setloading] = useState(false);
 	const [download, setdownload] = useState(false);
 	const [sceletonLoading, setsceletonLoading] = useState(true);
-
-	const [data, setdata] = useState(null);
-	const [selected, setselected] = useState(null);
 
 	const { user } = useAuth();
 	function handleSelectId(id) {
@@ -51,54 +48,6 @@ export default function ProjectList({ clicked }) {
 		router.push(`/cenova-ponuka/${id}`);
 	}
 
-	function handleDelete(id) {
-		const docRef = doc(firestore, `/offers/${id}`);
-		var newData = [...data];
-		newData = newData.filter((offer) => offer.id != id);
-		setdata(newData);
-
-		deleteDoc(docRef)
-			.then((res) => { })
-			.catch((err) => {
-				setloading(false);
-				console.log(err);
-			});
-	}
-
-	useEffect(() => {
-		if (user) {
-			var newData = [];
-			var newSelected = [];
-			const collectionRef = collection(firestore, "/offers");
-			const q = query(
-				collectionRef,
-				//orderBy("created", "desc"),
-				orderBy("lastModified", "desc"),
-				where("userId", "==", user.uid)
-			);
-			//const query = query(collectionRef,);
-			getDocs(q).then((docs) => {
-				if (!docs.empty) {
-					docs.docs.map((doc) => {
-						newData.push(doc.data());
-						newSelected.push(false);
-					});
-					setdata(newData);
-					setselected(newSelected);
-				}
-
-				setsceletonLoading(false);
-			});
-		}
-	}, [user]);
-
-	useEffect(() => {
-		if (selected) {
-			var newSelected = [];
-			for (let i = 0; i < selected.length; i++) newSelected.push(false);
-			setselected(newSelected);
-		}
-	}, [clicked]);
 
 	return (
 		<>
@@ -191,8 +140,6 @@ function Project({
 	const [hovered, sethovered] = useState(false);
 
 	const styles = [""];
-
-	console.log(project)
 
 	return (
 		<div
