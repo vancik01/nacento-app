@@ -24,9 +24,9 @@ export default function Logo({ color }) {
 				/>
 			</g>
 			<defs>
-				<clipPath id="clip0_120_2">
+				{/* <clipPath id="clip0_120_2"> */}
 					<rect width="229" height="87" fill="white" />
-				</clipPath>
+				{/* </clipPath> */}
 			</defs>
 		</svg>
 	);

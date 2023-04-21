@@ -56,7 +56,7 @@ export default function Dashboard() {
 			<div style={{ backgroundColor: "#2C2C2C" }} className={"drop-shadow	"}>
 				{/* <Layout className="h-[55px]"> */}
 				<div className="flex items-center justify-between px-4 h-[47px]">
-					<div className="flex gap-4 text-white items-center">
+					<div className="flex gap-2 text-white items-center">
 
 						<button onClick={() => router.push("/dashboard/")}>
 							<HomeSVG />

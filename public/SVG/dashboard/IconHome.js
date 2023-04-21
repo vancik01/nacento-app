@@ -1,11 +1,11 @@
 import React from "react";
 
-export default function IconHome({ color }) {
+export default function IconHome({ color, smaller }) {
 	if (!color) color = "#1400FF";
 	return (
 		<svg
-			width="25"
-			height="25"
+			width={(smaller? 20 : 25)}
+			height={(smaller? 20 : 25)}
 			viewBox="0 0 25 25"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"

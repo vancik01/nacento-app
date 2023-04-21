@@ -78,7 +78,7 @@ export default function UserInfoHeader({ color, is_smaller }) {
 						{hover && (
 							<motion.div
 								key='user-toolbar'
-								className='relative z-50'
+								className='absolute right-0'
 								initial={{ opacity: 0, y: 10 }}
 								exit={{ opacity: 0, y: 10 }}
 								animate={{ opacity: 1, y: 0 }}
