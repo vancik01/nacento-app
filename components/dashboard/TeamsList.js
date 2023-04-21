@@ -88,7 +88,7 @@ function ProjectItem({ selected, team }) {
 				}`}
 			>
 				<div className="h-3 aspect-square bg-blue-500"></div>
-				<div className="text-sm">{userData.name.replace(/ .*/, "")} tím</div>
+				<div className="text-sm overflow-hidden">{userData.name.replace(/ .*/, "")} tím</div>
 			</div>
 
 			<div className="ml-7 text-xs cursor-pointer"> + pozvať člena</div>

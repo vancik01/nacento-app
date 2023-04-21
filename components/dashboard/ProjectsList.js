@@ -35,62 +35,21 @@ import GeneratePDF from "../editor/GeneratePDF";
 import { useActions } from "../../context/ActionsContext";
 import { getLastModified, numberWithCommas } from "../../lib/helpers";
 import { round } from "lodash";
+import ArrowDown from "../../public/SVG/ArrowDown";
 
 export default function ProjectList({ clicked }) {
 	const router = useRouter();
 	const [loading, setloading] = useState(false);
 	const [download, setdownload] = useState(false);
-	const [sceletonLoading, setsceletonLoading] = useState(true);
 
-	const [data, setdata] = useState(null);
-	const [selected, setselected] = useState(null);
+	const [sort, setsort] = useState(false);
 
-	const { user } = useAuth();
+	const { user, data, sceletonLoading, selected, setselected } = useAuth();
+
 	function handleSelectId(id) {
 		setloading(true);
 		router.push(`/cenova-ponuka/${id}`);
 	}
-
-	function handleDelete(id) {
-		const docRef = doc(firestore, `/offers/${id}`);
-		var newData = [...data];
-		newData = newData.filter((offer) => offer.id != id);
-		setdata(newData);
-
-		deleteDoc(docRef)
-			.then((res) => { })
-			.catch((err) => {
-				setloading(false);
-				console.log(err);
-			});
-	}
-
-	useEffect(() => {
-		if (user) {
-			var newData = [];
-			var newSelected = [];
-			const collectionRef = collection(firestore, "/offers");
-			const q = query(
-				collectionRef,
-				//orderBy("created", "desc"),
-				orderBy("lastModified", "desc"),
-				where("userId", "==", user.uid)
-			);
-			//const query = query(collectionRef,);
-			getDocs(q).then((docs) => {
-				if (!docs.empty) {
-					docs.docs.map((doc) => {
-						newData.push(doc.data());
-						newSelected.push(false);
-					});
-					setdata(newData);
-					setselected(newSelected);
-				}
-
-				setsceletonLoading(false);
-			});
-		}
-	}, [user]);
 
 	useEffect(() => {
 		if (selected) {
@@ -112,19 +71,43 @@ export default function ProjectList({ clicked }) {
 			<div className='min-h-screen'>
 				<div className='flex justify-center items-center h-full'>
 					{
-						<div className='w-full'>
+						<div className='w-full mt-8'>
+							
+							<div className="relative text-sm z-10">
+
+								<div className="flex cursor-default">
+									<span className="text-gray-400 text-sm">Zoradiť:</span>
+									<div className="flex items-center gap-1" onClick={() => setsort(!sort)}>
+										<span className="text-black ml-3">Posledná úprava</span>
+										<ArrowDown scale={0.7}/>
+									</div>
+								</div>
+
+								{/* {sort && 
+									<div className="absolute left-16 px-6 py-2 top-6 flex text-white flex-col h-fit" style={{backgroundColor: "#444444"}}>
+											<div>Posledná úprava</div>	
+											<div>Dátum vytvorenia</div>
+											<div>Celková cena</div>	
+									</div>
+								} */}
+
+							
+							</div>
+
+
+
 							{!sceletonLoading ? (
-								<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 mt-10 gap-4'>
+								<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 mt-6 gap-4'>
 									{data?.map((project, i) => {
 										return (
 											<Project
 												project={project}
 												ix={i}
 												key={i}
-												handleDelete={handleDelete}
+												// handleDelete={handleDelete}
 												handleSelectId={handleSelectId}
-												setselect={setselected}
-												select={selected}
+												// setselect={setselected}
+												// select={selected}
 												setloading={setdownload}
 											/>
 										);
@@ -144,12 +127,11 @@ export default function ProjectList({ clicked }) {
 function Project({
 	project,
 	ix,
-	handleDelete,
 	handleSelectId,
-	setselect,
-	select,
 	setloading
 }) {
+
+	const {selected, setselected, handleDelete } = useAuth();
 
 	function handleClick() {
 		handleDelete(project.id);
@@ -187,22 +169,19 @@ function Project({
 	}
 
 	const [toggleDelete, settoggleDelete] = useState(false);
-	const [selected, setselected] = useState(true);
 	const [hovered, sethovered] = useState(false);
 
 	const styles = [""];
 
-	console.log(project)
-
 	return (
 		<div
 			onClick={(e) => {
-				if (select[ix]) handleSelectId(project.id);
+				if (selected[ix]) handleSelectId(project.id);
 				else {
-					var newSelected = [];
-					for (let i = 0; i < select.length; i++) newSelected.push(false);
-					newSelected[ix] = true;
-					setselect(newSelected);
+					var newselecteded = [];
+					for (let i = 0; i < selected.length; i++) newselecteded.push(false);
+					newselecteded[ix] = true;
+					setselected(newselecteded);
 				}
 				e.stopPropagation();
 			}}
@@ -210,7 +189,7 @@ function Project({
 			onMouseEnter={() => sethovered(true)}
 			onMouseLeave={() => sethovered(false)}
 
-			className={`shadow-md project-div outline ${!select[ix]
+			className={`shadow-md cursor-default project-div outline ${!selected[ix]
 				? "outline-gray-300 outline-0 hover:outline-1"
 				: "outline-blue-500 outline-2"
 				}  rounded-sm transition duration-100 ease-in-out`}
@@ -227,15 +206,17 @@ function Project({
 						</div>
 
 						<div className='relative'>
-							<ButtonIcon
-								icon={<TrashBin />}
-								tooltip='Zmazať ponuku'
-								onClick={(e) => {
-									settoggleDelete(!toggleDelete);
-									e.stopPropagation();
-								}}
-								id='del'
-							></ButtonIcon>
+							
+								<ButtonIcon
+									icon={<TrashBin/>}
+									tooltip='Zmazať ponuku'
+									onClick={(e) => {
+										settoggleDelete(!toggleDelete);
+										e.stopPropagation();
+									}}
+									id='del'
+								></ButtonIcon>
+							
 
 							<AnimatePresence mode='wait'>
 								{toggleDelete && (
