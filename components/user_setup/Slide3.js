@@ -30,6 +30,7 @@ export default function Slide3() {
 				<SupplyerTemplate
 					account={userObject.account}
 					supplyer={userObject.supplyer}
+					userObject={userObject}
 					handleChange={(e) => {
 						handleChange(e);
 					}}
