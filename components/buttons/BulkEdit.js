@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import Close from "../../public/SVG/Close";
 
 import { AnimatePresence } from "framer-motion";
+import { round } from "lodash";
 
 export default function BulkEdit() {
 	const {
@@ -36,7 +37,7 @@ export default function BulkEdit() {
 		var newData = { ...changedData };
 		newData.value = parseFloat(newData.value) + parseFloat(val);
 		if (newData.value < 0) newData.value = 0;
-		newData.value = parseFloat(newData.value);
+		newData.value = round(parseFloat(newData.value), 2);
 		setchangedData(newData);
 	}
 
@@ -65,10 +66,8 @@ export default function BulkEdit() {
 		};
 	}, [handleUserKeyPress]);
 
-	const ref = useRef(null);
-
 	return (
-		<AnimatePresence mode="sync">
+		<AnimatePresence mode='sync'>
 			{bulkEdit && (
 				<motion.div
 					initial={{ opacity: 0, y: 10 }}
@@ -76,33 +75,33 @@ export default function BulkEdit() {
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.2, ease: "easeInOut" }}
 					key={`bulk-edit`}
-					className="absolute w-[400px] shadow-bulk bg-white z-50 p-6 rounded-sm"
+					className='absolute w-[400px] shadow-bulk bg-white z-50 p-6 rounded-sm'
 					style={{ left: bulkEditData.x, top: bulkEditData.y }}
 				>
-					<div className="relative">
-						<div className="text-xl mb-1">Upraviť cenu </div>
-						<div className="mb-4 text-sm">
-							{getTitle(bulkEditData.valueId, "sk").long} - {bulkEditData.mode}
+					<div className='relative'>
+						<div className='text-xl mb-1'>Upraviť cenu </div>
+						<div className='mb-4 text-sm'>
+							{getTitle(bulkEditData.valueId, "sk").long}
 						</div>
 
-						<button onClick={closeBulkEdit} className="absolute right-2 top-2">
+						<button onClick={closeBulkEdit} className='absolute right-2 top-2'>
 							<Close></Close>
 						</button>
 
 						<Input
-							type="number"
+							type='number'
 							style={{ fontSize: 14 }}
-							endAdornment="€"
+							endAdornment='€'
 							onChange={handleChange}
 							value={parseFloat(changedData.value)}
 							autoFocus
 						></Input>
-						<div className="flex justify-between mt-2">
+						<div className='flex justify-between mt-2'>
 							<ButtonTag
 								onClick={() => {
 									changeBy(-1000);
 								}}
-								color="#FE6D6C"
+								color='#FE6D6C'
 							>
 								- 1000€
 							</ButtonTag>
@@ -110,7 +109,7 @@ export default function BulkEdit() {
 								onClick={() => {
 									changeBy(-500);
 								}}
-								color="#E57B6D"
+								color='#E57B6D'
 							>
 								- 500€
 							</ButtonTag>
@@ -118,7 +117,7 @@ export default function BulkEdit() {
 								onClick={() => {
 									changeBy(-100);
 								}}
-								color="#C0906E"
+								color='#C0906E'
 							>
 								- 100€
 							</ButtonTag>
@@ -127,7 +126,7 @@ export default function BulkEdit() {
 								onClick={() => {
 									changeBy(100);
 								}}
-								color="#9EA470"
+								color='#9EA470'
 							>
 								+ 100€
 							</ButtonTag>
@@ -135,7 +134,7 @@ export default function BulkEdit() {
 								onClick={() => {
 									changeBy(500);
 								}}
-								color="#7BB971"
+								color='#7BB971'
 							>
 								+ 500€
 							</ButtonTag>
@@ -143,19 +142,19 @@ export default function BulkEdit() {
 								onClick={() => {
 									changeBy(1000);
 								}}
-								color="#3ADE73"
+								color='#3ADE73'
 							>
 								+ 1000€
 							</ButtonTag>
 						</div>
 
 						{bulkEditData.value != 0 && (
-							<div className="flex justify-between mt-2 mb-4">
+							<div className='flex justify-between mt-2 mb-4'>
 								<ButtonTag
 									onClick={() => {
 										changeBy(-(bulkEditData.value * 0.1));
 									}}
-									color="#FE6D6C"
+									color='#FE6D6C'
 								>
 									- 10 %
 								</ButtonTag>
@@ -163,7 +162,7 @@ export default function BulkEdit() {
 									onClick={() => {
 										changeBy(-(bulkEditData.value * 0.05));
 									}}
-									color="#E57B6D"
+									color='#E57B6D'
 								>
 									- 5 %
 								</ButtonTag>
@@ -171,7 +170,7 @@ export default function BulkEdit() {
 									onClick={() => {
 										changeBy(-(bulkEditData.value * 0.03));
 									}}
-									color="#C0906E"
+									color='#C0906E'
 								>
 									- 3 %
 								</ButtonTag>
@@ -179,7 +178,7 @@ export default function BulkEdit() {
 									onClick={() => {
 										changeBy(bulkEditData.value * 0.03);
 									}}
-									color="#9EA470"
+									color='#9EA470'
 								>
 									+ 3%
 								</ButtonTag>
@@ -187,7 +186,7 @@ export default function BulkEdit() {
 									onClick={() => {
 										changeBy(bulkEditData.value * 0.05);
 									}}
-									color="#7BB971"
+									color='#7BB971'
 								>
 									+ 5%
 								</ButtonTag>
@@ -195,19 +194,19 @@ export default function BulkEdit() {
 									onClick={() => {
 										changeBy(bulkEditData.value * 0.1);
 									}}
-									color="#3ADE73"
+									color='#3ADE73'
 								>
 									+ 10%
 								</ButtonTag>
 							</div>
 						)}
 						{bulkEditData.value == 0 && (
-							<div className="flex justify-between mt-2 mb-4">
+							<div className='flex justify-between mt-2 mb-4'>
 								<ButtonTag
 									onClick={() => {
 										changeBy(-10);
 									}}
-									color="#FE6D6C"
+									color='#FE6D6C'
 								>
 									- 10 %
 								</ButtonTag>
@@ -215,7 +214,7 @@ export default function BulkEdit() {
 									onClick={() => {
 										changeBy(-5);
 									}}
-									color="#E57B6D"
+									color='#E57B6D'
 								>
 									- 5 %
 								</ButtonTag>
@@ -223,7 +222,7 @@ export default function BulkEdit() {
 									onClick={() => {
 										changeBy(-3);
 									}}
-									color="#C0906E"
+									color='#C0906E'
 								>
 									- 3 %
 								</ButtonTag>
@@ -231,7 +230,7 @@ export default function BulkEdit() {
 									onClick={() => {
 										changeBy(3);
 									}}
-									color="#9EA470"
+									color='#9EA470'
 								>
 									+ 3%
 								</ButtonTag>
@@ -239,7 +238,7 @@ export default function BulkEdit() {
 									onClick={() => {
 										changeBy(5);
 									}}
-									color="#7BB971"
+									color='#7BB971'
 								>
 									+ 5%
 								</ButtonTag>
@@ -247,7 +246,7 @@ export default function BulkEdit() {
 									onClick={() => {
 										changeBy(10);
 									}}
-									color="#3ADE73"
+									color='#3ADE73'
 								>
 									+ 10%
 								</ButtonTag>
@@ -267,7 +266,7 @@ export default function BulkEdit() {
 										bulkEditData.value) *
 									100
 								).toFixed(2)}
-								endAdorment=" %"
+								endAdorment=' %'
 							></PriceChangeIndicator>
 						)}
 						{bulkEditData.value == 0 && (
@@ -275,10 +274,10 @@ export default function BulkEdit() {
 								val={parseFloat(changedData.value - bulkEditData.value).toFixed(
 									2
 								)}
-								endAdorment=" %"
+								endAdorment=' %'
 							></PriceChangeIndicator>
 						)}
-						<ButtonPrimary className="mt-4" onClick={handleSave}>
+						<ButtonPrimary className='mt-4' onClick={handleSave}>
 							Uložiť
 						</ButtonPrimary>
 					</div>

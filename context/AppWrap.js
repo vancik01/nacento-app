@@ -222,7 +222,9 @@ export function AppWrap({ children, dbData }) {
 			var newData = { ...data };
 			newData.supplyer.company_name = userData?.name;
 			newData.supplyer.dic = userData.supplyer.dic ? userData.supplyer.dic : "";
-			newData.supplyer.email = userData.email ? userData.email : "";
+			newData.supplyer.email = userData.supplyer.email
+				? userData.supplyer.email
+				: "";
 			newData.supplyer.ico = userData.supplyer.ico
 				? userData?.supplyer.ico
 				: "";
@@ -544,7 +546,6 @@ export function AppWrap({ children, dbData }) {
 
 			setbulkEdit(true);
 			data.value = parseFloat(data.value).toFixed(2);
-			console.log(pageX, pageY, e.pageX, e.pageY);
 			setbulkEditData({ ...data, x: pageX, y: pageY });
 		}
 	}

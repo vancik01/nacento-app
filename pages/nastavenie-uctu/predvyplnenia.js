@@ -90,8 +90,9 @@ export default function predvyplnenia() {
 
 					<div className='mt-4'>
 						<SupplyerTemplate
+							userObject={user}
 							account={userData.account}
-							email={userData.email}
+							email={userData.supplyer.email}
 							supplyer={supplyer}
 							handleChange={(e) => {
 								handleChange(e);
