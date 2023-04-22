@@ -105,14 +105,12 @@ export default function Dashboard() {
 			<div className="xl:grid" onClick={() => setclicked(!clicked)} style={{ gridTemplateColumns: "240px 1fr" }}>
 				<TeamsList></TeamsList>
 
-				<div className="mb-16 mt-8 mx-8 md:mx-16 relative">
+				<div className="mb-16 mt-8 mx-8 md:mx-16">
 					<CreateToolbar></CreateToolbar>
 					<ProjectList clicked={clicked}></ProjectList>
 
 					{isFocused && <FilteredList filtered={filtered}/>}
-
 					{/* { userhover && <AccountToolbar />} */}
-						
 							
 
 				</div>
@@ -137,7 +135,7 @@ function SearchBar({hover, setIsFocused, setQ, q}){
 					placeholder="Hľadať podľa názvu, objednávateľa..."
 					value={q}
 					onChange={(e) => setQ(e.target.value)}
-					autocomplete="off"
+					autoComplete="off"
 				/>
 			</label>
 	
@@ -160,7 +158,7 @@ function FilteredList({filtered}){
 	return(
 		<>
 		<FullPageLoading loading={loading}></FullPageLoading>
-		<div className="absolute flex flex-col top-[-32px] left-[-38px] cursor-default shadow-xl border rounded py-2 w-[350px] overflow-x-hidden text-black bg-white overflow-y-auto max-h-[400px] z-30 text-lg"
+		<div className="absolute flex flex-col top-[50px] left-[268px] cursor-default shadow-xl border rounded py-2 w-[350px] overflow-x-hidden text-black bg-white overflow-y-auto max-h-[400px] z-30 text-lg"
 		 id="filtered-list">
 		{filtered.length? filtered?.map((project, i) => {
 

@@ -21,7 +21,7 @@ export default function SupplyerTemplate({
 					label="Telefónne číslo"
 					value={supplyer?.phone}
 				></TextField>
-				<TextField
+				{/* <TextField
 					onChange={handleChange}
 					type="email"
 					name="email"
@@ -29,7 +29,7 @@ export default function SupplyerTemplate({
 					label="Email"
 					value={email}
 					disabled
-				></TextField>
+				></TextField> */}
 				<TextField
 					type="url"
 					onChange={handleChange}

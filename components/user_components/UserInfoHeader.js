@@ -38,7 +38,7 @@ export default function UserInfoHeader({ color, is_smaller }) {
 					onClick={() => {
 						sethover(!hover);
 					}}
-					className='relative z-50'
+					className='relative z-10'
 				>
 					<button className='flex cursor-default justify-center items-center gap-4'>
 						<div

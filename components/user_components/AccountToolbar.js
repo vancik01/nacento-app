@@ -18,7 +18,7 @@ export default function AccountToolbar() {
 
 	return (
 
-		<div className="pt-3  top-0 right-0 w-max">
+		<div className="pt-3 top-0 right-0 w-max">
 			<div className="shadow-hardShadow inline-block bg-white rounded-sm">
 				<div className="pt-1 pb-1 flex flex-col items-start">
 

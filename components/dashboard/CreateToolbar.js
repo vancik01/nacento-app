@@ -22,7 +22,7 @@ import { motion } from "framer-motion";
 
 export default function CreateToolbar() {
 	return (
-		<div className='flex flex-col sm:flex-row sm:items-center justify-start gap-2 sm:gap-8'>
+		<div className='flex flex-col w-fit sm:flex-row gap-2 sm:gap-8 overflow-y-auto'>
 			<AddEmpty
 				text='Prázdna cenová ponuka'
 				subtext='Začnite od nuly'

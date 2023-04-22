@@ -75,7 +75,7 @@ export default function AuthContext({ children }) {
 					const collectionRef = collection(firestore, "/offers");
 					const q = query(
 						collectionRef,
-						//orderBy("created", "desc"),
+						// orderBy("created", "desc"),
 						orderBy("lastModified", "desc"),
 						where("userId", "==", user.uid)
 					);
@@ -95,6 +95,7 @@ export default function AuthContext({ children }) {
 			}
 		}
 	}, [user, loading, router]);
+
 
 	function handleDelete(id) {
 		const docRef = doc(firestore, `/offers/${id}`);
@@ -137,10 +138,11 @@ export default function AuthContext({ children }) {
 		loading,
 		userData,
 		data,
+		setdata,
 		sceletonLoading,
 		selected,
 		setselected,
-		handleDelete
+		handleDelete,
 	};
 
 	return (

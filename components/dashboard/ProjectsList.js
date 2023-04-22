@@ -36,15 +36,30 @@ import { useActions } from "../../context/ActionsContext";
 import { getLastModified, numberWithCommas } from "../../lib/helpers";
 import { round } from "lodash";
 import ArrowDown from "../../public/SVG/ArrowDown";
+import CheckMark from "./icons/CheckMark";
 
 export default function ProjectList({ clicked }) {
 	const router = useRouter();
 	const [loading, setloading] = useState(false);
 	const [download, setdownload] = useState(false);
-
+	
 	const [sort, setsort] = useState(false);
 
-	const { user, data, sceletonLoading, selected, setselected } = useAuth();
+	const [sortmethod, setsortmethod] = useState(0);
+	const [sortsubmethod, setsortsubmethod] = useState(0);
+
+
+	const [isHovered, setIsHovered] = useState(null)
+	const [isSubHovered, setIsSubHovered] = useState(null)
+	
+	const { user, data, sceletonLoading, selected, setselected, setdata } = useAuth();
+
+	const [sortby, setsortby] = useState([
+		{method: ["lastModified"], label: "Posledná úprava", submethods: ["Najskoršia prvá", "Najneskoršia prvá" ]},
+		{method: ["created"], label: "Dátum vytvorenia", submethods: ["Najnovšia prvá", "Najstaršia prvá"]},
+		{method: ["totals","total"], label: "Celková cena", submethods: ["Od najvyššej", "Od najnižšej"]}
+	])
+	
 
 	function handleSelectId(id) {
 		setloading(true);
@@ -59,6 +74,63 @@ export default function ProjectList({ clicked }) {
 		}
 	}, [clicked]);
 
+
+	function dynamicSort(prop) {
+		var sortOrder = -1;
+		if(prop[0][0] === "-") {
+			sortOrder = 1;
+
+			if(prop.length == 1) prop = [prop[0].substr(1)]
+			else prop = [prop[0].substr(1), prop[1]]
+		}
+		return function (a,b) {
+			if(prop.length == 1) var result = (a[prop[0]] < b[prop[0]]) ? -1 : (a[prop[0]] > b[prop[0]]) ? 1 : 0;
+			else var result = (a[prop[0]][prop[1]] < b[prop[0]][prop[1]]) ? -1 : (a[prop[0]][prop[1]] > b[prop[0]][prop[1]]) ? 1 : 0;
+			return result * sortOrder;
+		}
+	}
+
+	function handlesortchange(ix){
+		setsortmethod(ix)
+		setsort(false)
+
+		const new_data = [...data]
+		new_data.sort(dynamicSort(sortby[ix].method));
+
+		setdata(new_data)
+	}
+	
+
+	function handlesubsortchange(ix){
+		setsortsubmethod(ix)
+
+		var new_sortby = [...sortby]
+
+		if(ix == 1 && new_sortby[sortmethod].method[0][0] !== "-")
+			for(let i=0; i<new_sortby.length; i++)
+				new_sortby[i].method[0] =  `-${new_sortby[i].method[0]}`
+			
+
+
+		if(ix == 0 && new_sortby[sortmethod].method[0][0] === "-")
+			for(let i=0; i<new_sortby.length; i++)
+			new_sortby[i].method[0] = new_sortby[i].method[0].substr(1)
+			
+			
+
+		setsortby(new_sortby)
+		// console.log(sortby)
+
+		setsort(false)
+
+		const new_data = [...data]
+		new_data.sort(dynamicSort(sortby[sortmethod].method));
+
+		setdata(new_data)
+	}
+
+
+
 	return (
 		<>
 			<FullPageLoading loading={loading}></FullPageLoading>
@@ -67,7 +139,7 @@ export default function ProjectList({ clicked }) {
 					close={() => setloading(false)}
 				></GeneratePDF>
 			)}
-
+			{!loading && 
 			<div className='min-h-screen'>
 				<div className='flex justify-center items-center h-full'>
 					{
@@ -76,20 +148,53 @@ export default function ProjectList({ clicked }) {
 							<div className="relative text-sm z-10">
 
 								<div className="flex cursor-default">
-									<span className="text-gray-400 text-sm">Zoradiť:</span>
-									<div className="flex items-center gap-1" onClick={() => setsort(!sort)}>
-										<span className="text-black ml-3">Posledná úprava</span>
+									<span className="text-gray-400 text-sm dont-copy">Zoradiť:</span>
+									<div className="flex items-center gap-1" onClick={() => {setsort(!sort); setIsHovered(null); setIsSubHovered(null)}}>
+										<span className="text-black ml-3"> {sortby[sortmethod].label} </span>
 										<ArrowDown scale={0.7}/>
 									</div>
 								</div>
 
-								{/* {sort && 
-									<div className="absolute left-16 px-6 py-2 top-6 flex text-white flex-col h-fit" style={{backgroundColor: "#444444"}}>
-											<div>Posledná úprava</div>	
-											<div>Dátum vytvorenia</div>
-											<div>Celková cena</div>	
+								{sort && 
+									<div>
+						
+										<div className={"absolute left-16 py-2 top-6 flex text-white cursor-default flex-col bg-gray-900 h-fit"} style={{backgroundColor: "#222222"}}>
+												<span className="opacity-40 text-center mr-5 py-1">Zoradiť podľa</span>
+												{sortby.map((method, i) => {
+													return(
+														<div id={`${i}`} key={`sortmethod${i}`} className={"flex items-center gap-3 pr-7 py-1 pl-3 " + (isHovered === `${i}` && "bg-blue-500")} onClick={() => handlesortchange(i)}
+														onMouseEnter={(e) => setIsHovered(e.target.id)} onMouseLeave={() => setIsHovered(null)}> 
+
+															{sortmethod === i ? <CheckMark color={"white"}/> : <div className="w-[14px] h-[14px]"></div>}
+
+															{method.label} 
+														</div>
+													)
+												})}
+
+												<hr className="w-full h-[1px] my-3 bg-white opacity-20 border-0"></hr>
+												
+												<span className="opacity-40 text-left pb-1" style={{marginLeft: "38px"}}>Poradie</span>
+
+												<div className={"flex items-center gap-3 pr-7 py-1 pl-3 " + (isSubHovered === 0 && "bg-blue-500")} onClick={() => handlesubsortchange(0)}
+														onMouseEnter={() => setIsSubHovered(0)} onMouseLeave={() => setIsSubHovered(null)}> 
+
+														{sortsubmethod === 0 ? <CheckMark color={"white"}/> : <div className="w-[14px] h-[14px]"></div>}
+
+														{sortby[sortmethod].submethods[0]}
+												</div>
+
+												<div className={"flex items-center gap-3 pr-7 py-1 pl-3 " + (isSubHovered === 1 && "bg-blue-500")} onClick={() => handlesubsortchange(1)}
+												onMouseEnter={() => setIsSubHovered(1)} onMouseLeave={() => setIsSubHovered(null)}> 
+
+													{sortsubmethod === 1 ? <CheckMark color={"white"}/> : <div className="w-[14px] h-[14px]"></div>}
+
+													{sortby[sortmethod].submethods[1]}
+												</div>
+										</div>
+
 									</div>
-								} */}
+								}
 
 							
 							</div>
@@ -120,6 +225,7 @@ export default function ProjectList({ clicked }) {
 					}
 				</div>
 			</div>
+			}
 		</>
 	);
 }

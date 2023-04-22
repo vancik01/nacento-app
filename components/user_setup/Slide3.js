@@ -29,8 +29,8 @@ export default function Slide3() {
 			<div className="max-w-lg mx-auto flex justify-center mt-10">
 				<SupplyerTemplate
 					account={userObject.account}
-					email={userObject.email}
 					supplyer={userObject.supplyer}
+					userObject={userObject}
 					handleChange={(e) => {
 						handleChange(e);
 					}}

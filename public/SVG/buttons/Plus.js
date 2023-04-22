@@ -12,14 +12,14 @@ export default function Plus() {
 			<path
 				d="M6 1L6 11"
 				stroke="white"
-				stroke-width="1.4"
+				strokeWidth="1.4"
 				strokeLinecap="round"
 				strokeLinejoin="round"
 			/>
 			<path
 				d="M1 6H11"
 				stroke="white"
-				stroke-width="1.4"
+				strokeWidth="1.4"
 				strokeLinecap="round"
 				strokeLinejoin="round"
 			/>
