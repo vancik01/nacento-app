@@ -295,9 +295,9 @@ function Project({
 			onMouseEnter={() => sethovered(true)}
 			onMouseLeave={() => sethovered(false)}
 
-			className={`shadow-md cursor-default project-div outline ${!selected[ix]
-				? "outline-gray-300 outline-0 hover:outline-1"
-				: "outline-blue-500 outline-2"
+			className={`shadow-md cursor-default outline ${!selected[ix]
+				? "outline-gray-200 outline-1 hover:outline-gray-400"
+				: "outline-2 outline-blue-500"
 				}  rounded-sm transition duration-100 ease-in-out`}
 		>
 			<div className='bg-gray-50 min-h-[250px] flex justify-between flex-col relative'>
