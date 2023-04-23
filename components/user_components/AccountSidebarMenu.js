@@ -13,7 +13,7 @@ export default function AccountSidebarMenu() {
 	const { user, userData } = useAuth();
 	const router = useRouter();
 	return (
-		<div className="min-w-[350px] bg-gray-50 h-screen py-10 px-10">
+		<div className="min-w-[350px] bg-gray-50 min-h-[100vh] py-10 px-10">
 			<div className="h-full flex flex-col items-center justify-between">
 				<div className="w-full">
 					<div className="min-h-[100px]">
@@ -36,33 +36,32 @@ export default function AccountSidebarMenu() {
 						</div>
 					</div>
 
-					<div className="flex flex-col gap-8  mt-6 max-w-[250px] mx-auto mb-6">
+					<div className="flex flex-col gap-4  mt-6 max-w-[250px] mx-auto mb-6">
 						<MenuItem
 							icon={<Settings />}
 							text="Môj účet"
 							link="/nastavenie-uctu/"
 						></MenuItem>
-						<MenuItem
+						{/* <MenuItem
 							icon={<Prefill />}
 							text="Predvyplnenia"
 							link="/nastavenie-uctu/predvyplnenia"
-						></MenuItem>
+						></MenuItem> */}
 						<MenuItem
 							icon={<Prefill />}
 							text="Vzory"
 							link="/nastavenie-uctu/vzory"
 						></MenuItem>
-						<MenuItem
+						{/* <MenuItem
 							icon={<Plus></Plus>}
 							text="Predplatné"
 							link="#"
 						></MenuItem>
-						<MenuItem icon={<Plus></Plus>} text="Item 1" link="#"></MenuItem>
+						<MenuItem icon={<Plus></Plus>} text="Item 1" link="#"></MenuItem> */}
 					</div>
 					<Logout></Logout>
-				</div>
 
-				<div className="flex items-center justify-center gap-2 ">
+					<div className="flex items-center mt-10 justify-center gap-2 ">
 					<ButtonPrimary
 						href="/dashboard"
 						iconBefore
@@ -73,6 +72,9 @@ export default function AccountSidebarMenu() {
 						Späť na nástenku
 					</ButtonPrimary>
 				</div>
+				</div>
+
+				
 			</div>
 		</div>
 	);

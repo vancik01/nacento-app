@@ -30,6 +30,7 @@ export default function Slide2() {
 			<div className="max-w-lg mx-auto flex justify-center">
 				<EditName
 					name={userObject?.name}
+					label={"Vaše meno"}
 					account={userObject.account}
 					handleSave={(e) => {
 						handleChange(e);

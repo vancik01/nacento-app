@@ -220,7 +220,7 @@ export function AppWrap({ children, dbData }) {
 			dataInit();
 			loadTotals();
 			var newData = { ...data };
-			newData.supplyer.company_name = userData?.name;
+			newData.supplyer.company_name = userData.supplyer.company_name ? userData.supplyer.company_name : "";
 			newData.supplyer.dic = userData.supplyer.dic ? userData.supplyer.dic : "";
 			newData.supplyer.email = userData.supplyer.email
 				? userData.supplyer.email

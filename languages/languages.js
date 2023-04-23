@@ -5,7 +5,7 @@ export const lang = {
 			short: "kcn",
 		},
 		item_id: {
-			long: "ID pokožky",
+			long: "ID položky",
 			short: "id",
 		},
 		title: {

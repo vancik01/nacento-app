@@ -85,7 +85,7 @@ export default function Dashboard() {
 
 						<div className="hidden md:block">
 
-							<div className="w-fit flex text-sm items-center rounded-md ml-10 pt-[8px] pb-[8px] pr-8"
+							<div className="w-fit flex text-sm items-center rounded-md ml-10 pt-[10px] pb-[9px] pr-8"
 							onMouseEnter={() => sethover(true)} style={{backgroundColor: (hover? "#505050" : "#444444")}}
 							onMouseLeave={() => sethover(false)}>
 
