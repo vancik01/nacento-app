@@ -103,7 +103,7 @@ const Stepper = ({ steps, currentStep, setCurrentStep }) => {
   });
 
   function handleClick(){
-    window.open('https://api2.nacento.online', '_blank', 'noreferrer');
+    window.open('https://api2.nacento.online/viewer', '_blank', 'noreferrer');
   }
 
   const [hover, sethover] = useState(false)
