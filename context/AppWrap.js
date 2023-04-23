@@ -253,87 +253,64 @@ export function AppWrap({ children, dbData }) {
 
 	function dataInit() {
 		// inizializacia dat
-
 		var newData = { ...data };
 		var t = {
-			total_delivery_price: 0,
-			total_construction_price: 0,
-			total: 0,
+		  total_delivery_price: 0,
+		  total_construction_price: 0,
+		  total: 0,
 		};
-
-		newData.sections.map((section) => {
-			section.blocks.map((block) => {
-				t.total_delivery_price += parseFloat(
-					block.info["total_delivery_price"]
-				);
-				t.total_construction_price += parseFloat(
-					block.info["total_construction_price"]
-				);
+		
+		newData.sections.map((section, k) => {
+		  var section_total = 0,
+			section_total_delivery_price = 0,
+			section_total_construction_price = 0;
+		
+		  section.blocks.map((block, i) => {
+			t.total_delivery_price += parseFloat(block.info["total_delivery_price"]);
+			t.total_construction_price += parseFloat(block.info["total_construction_price"]);
+		
+			newData.sections[k].blocks[i].info.total =
+			  block.info["total_construction_price"] + block.info["total_delivery_price"];
+			section_total_construction_price += block.info["total_construction_price"];
+			section_total_delivery_price += block.info["total_delivery_price"];
+			section_total += newData.sections[k].blocks[i].info.total;
+		
+			block.items.map((item, j) => {
+			  newData.sections[k].blocks[i].items[j].total =
+				parseFloat(newData.sections[k].blocks[i].items[j].total_construction_price) +
+				parseFloat(newData.sections[k].blocks[i].items[j].total_delivery_price);
+		
+			  newData.sections[k].blocks[i].items[j].total_construction_price = parseFloat(
+				newData.sections[k].blocks[i].items[j].total_construction_price
+			  ).toFixed(2);
+			  newData.sections[k].blocks[i].items[j].total_delivery_price = parseFloat(
+				newData.sections[k].blocks[i].items[j].total_delivery_price
+			  ).toFixed(2);
+			  newData.sections[k].blocks[i].items[j].unit_construction_price = parseFloat(
+				newData.sections[k].blocks[i].items[j].unit_construction_price
+			  ).toFixed(2);
+			  newData.sections[k].blocks[i].items[j].unit_delivery_price = parseFloat(
+				newData.sections[k].blocks[i].items[j].unit_delivery_price
+			  ).toFixed(2);
+			  newData.sections[k].blocks[i].items[j].total = parseFloat(
+				newData.sections[k].blocks[i].items[j].total
+			  ).toFixed(2);
 			});
+		  });
+		
+		  newData.sections[k].info.total = parseFloat(section_total).toFixed(2);
+		  newData.sections[k].info.total_construction_price = parseFloat(
+			section_total_construction_price
+		  ).toFixed(2);
+		  newData.sections[k].info.total_delivery_price = parseFloat(
+			section_total_delivery_price
+		  ).toFixed(2);
 		});
-
+		
 		t.total = t.total_delivery_price + t.total_construction_price;
 		setinitialTotal(t);
 		settotal(t);
-
-		var section_total = 0,
-			section_total_delivery_price = 0,
-			section_total_construction_price = 0;
-		newData.sections.map((section, k) => {
-			var section_total = 0,
-				section_total_delivery_price = 0,
-				section_total_construction_price = 0;
-			section.blocks.map((block, i) => {
-				newData.sections[k].blocks[i].info.total =
-					block.info["total_construction_price"] +
-					block.info["total_delivery_price"];
-				section_total_construction_price +=
-					block.info["total_construction_price"];
-				section_total_delivery_price += block.info["total_delivery_price"];
-				section_total += newData.sections[k].blocks[i].info.total;
-
-				block.items.map((item, j) => {
-					// if (item.quantity == 0) item.quantity = 1;
-					newData.sections[k].blocks[i].items[j].total =
-						parseFloat(
-							newData.sections[k].blocks[i].items[j].total_construction_price
-						) +
-						parseFloat(
-							newData.sections[k].blocks[i].items[j].total_delivery_price
-						);
-					//2 desatinn
-					newData.sections[k].blocks[i].items[j].total_construction_price =
-						parseFloat(
-							newData.sections[k].blocks[i].items[j].total_construction_price
-						).toFixed(2);
-					newData.sections[k].blocks[i].items[j].total_delivery_price =
-						parseFloat(
-							newData.sections[k].blocks[i].items[j].total_delivery_price
-						).toFixed(2);
-
-					newData.sections[k].blocks[i].items[j].unit_construction_price =
-						parseFloat(
-							newData.sections[k].blocks[i].items[j].unit_construction_price
-						).toFixed(2);
-
-					newData.sections[k].blocks[i].items[j].unit_delivery_price =
-						parseFloat(
-							newData.sections[k].blocks[i].items[j].unit_delivery_price
-						).toFixed(2);
-					newData.sections[k].blocks[i].items[j].total = parseFloat(
-						newData.sections[k].blocks[i].items[j].total
-					).toFixed(2);
-				});
-			});
-
-			newData.sections[k].info.total = parseFloat(section_total).toFixed(2);
-			newData.sections[k].info.total_construction_price = parseFloat(
-				section_total_construction_price
-			).toFixed(2);
-			newData.sections[k].info.total_delivery_price = parseFloat(
-				section_total_delivery_price
-			).toFixed(2);
-		});
+		
 		setdata(newData);
 	}
 

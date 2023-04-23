@@ -26,7 +26,6 @@ import UploadImage from "./editor/UploadImage";
 import GeneratePDF from "./editor/GeneratePDF";
 
 export default function CenovaPonuka() {
-	const [winReady, setwinReady] = useState(false);
 	const [scrollPosition, setScrollPosition] = useState(0);
 	const [editingTitle, seteditingTitle] = useState(false);
 	//const [reorderingBlocks, setreorderingBlocks] = useState(false)
@@ -48,9 +47,6 @@ export default function CenovaPonuka() {
 
 	const { primaryColor, isHorizontal } = useLayout();
 
-	useEffect(() => {
-		setwinReady(true);
-	});
 
 	return (
 		<>
@@ -95,17 +91,15 @@ export default function CenovaPonuka() {
 
 								<div>
 									<div
-										className={`${
-											isHorizontal && "text-lg"
-										} mb-1 text-gray-300 capitalize`}
+										className={`${isHorizontal && "text-lg"
+											} mb-1 text-gray-300 capitalize`}
 									>
 										CENA:
 									</div>
 
 									<div
-										className={`${
-											isHorizontal ? "text-lg" : "text-sm"
-										} max-w-[220px]`}
+										className={`${isHorizontal ? "text-lg" : "text-sm"
+											} max-w-[220px]`}
 									>
 										<button
 											onClick={(e) => {
@@ -259,7 +253,7 @@ export default function CenovaPonuka() {
 							</div>
 
 							<div>
-								{winReady &&
+								{
 									data.sections.map((section, i) => {
 										return (
 											<div key={`section-${i}`}>
@@ -281,11 +275,9 @@ export default function CenovaPonuka() {
 				</div>
 			</div>
 
-			{winReady && (
-				<div className='sticky bottom-0 z-10 transition-all'>
-					<AnimatePresence> {<BottomBar></BottomBar>}</AnimatePresence>
-				</div>
-			)}
+			<div className='sticky bottom-0 z-10 transition-all'>
+				<AnimatePresence> {<BottomBar></BottomBar>}</AnimatePresence>
+			</div>
 		</>
 	);
 }
