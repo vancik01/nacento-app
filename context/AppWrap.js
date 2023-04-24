@@ -28,12 +28,14 @@ import { forEach } from "lodash";
 import { useAuth } from "./AuthContext";
 import LayoutContext, { useLayout } from "./LayoutContext";
 import ScreenLayout from "../components/ScreenLayout";
+import { getValue } from "./ValuesContext";
 
 const DataContext = React.createContext();
 
 export function AppWrap({ children, dbData }) {
+	const [data, setData] = getValue((store) => store);
+
 	//console.log(props, "SSR data");
-	const [data, setdata] = useState(dbData.data);
 	const [headers, setheaders] = useState(dbData.data.headers);
 	const [errorLoading, seterrorLoading] = useState(false);
 	const [loading, setloading] = useState(false);
@@ -147,38 +149,6 @@ export function AppWrap({ children, dbData }) {
 		});
 	}
 
-	// async function handleSave(show) {
-	// 	const offerId = router.query.projectId;
-	// 	setsaving(true);
-	// 	const docRef = doc(firestore, `/offers/${offerId}`);
-
-	// 	updateDoc(docRef, {
-	// 		data: data,
-	// 		name: name,
-	// 		totals: total,
-	// 		description: description ? description : "",
-	// 		layout: getLayout(),
-	// 		lastModified: moment().valueOf(),
-	// 		expiration: expiration ? moment(expiration).valueOf() : null,
-	// 		subHeading: subHeading ? subHeading : "",
-	// 		images: {
-	// 			logo: logo ? logo : "",
-	// 			signature: signature ? signature : "",
-	// 		},
-	// 	})
-	// 		.then((snap) => {
-	// 			//setdata(snap.data().data);
-	// 			if (show)
-	// 				toast("Dáta sa uložili", { autoClose: 3000, type: "success" });
-	// 			setsaving(false);
-	// 		})
-	// 		.catch((err) => {
-	// 			console.log(err);
-	// 			toast("Vyskytla sa chyba pri ukladaní", { type: "error" });
-	// 			setsaving(true);
-	// 		});
-	// }
-
 	function calculateTotals() {
 		var t = {
 			total_delivery_price: 0,
@@ -234,7 +204,7 @@ export function AppWrap({ children, dbData }) {
 			newData.supplyer.web = userData.supplyer.web
 				? userData?.supplyer.web
 				: "";
-			setdata(newData);
+			//setdata(newData);
 			setshowUI(true);
 
 			if (dbData?.images?.logo) {
@@ -334,23 +304,25 @@ export function AppWrap({ children, dbData }) {
 				section_total_delivery_price
 			).toFixed(2);
 		});
-		setdata(newData);
+		//setdata(newData);
 	}
 
-	function changeValue(obj) {
-		var newData = { ...data };
+	function changeValue(cordinates, value) {
+		const { fieldId, itemId, blockId, sectionId } = cordinates;
+		//console.table(fieldId, rowId, blockId, sectionId)
 
 		updateTableRow(
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId],
-			obj.valueId,
-			obj.value
+			data.sections[sectionId].blocks[blockId].items[itemId],
+			fieldId,
+			value
 		);
 
-		updateBlockTotals(newData.sections[obj.sectionId].blocks[obj.blockId]);
+		updateBlockTotals(data.sections[sectionId].blocks[blockId]);
+		updateSectionTotals(data.sections[sectionId]);
 
-		updateSectionTotals(newData.sections[obj.sectionId]);
+		console.log(data.sections[sectionId].blocks[blockId].info.total);
 
-		setdata(newData);
+		setData((store) => (store = data));
 	}
 
 	function deleteRow(obj) {
@@ -361,7 +333,7 @@ export function AppWrap({ children, dbData }) {
 		updateBlockTotals(newData.sections[obj.sectionId].blocks[obj.blockId]);
 		updateSectionTotals(newData.sections[obj.sectionId]);
 
-		setdata(newData);
+		//setdata(newData);
 	}
 
 	function deleteBlock(sectionId, blockId) {
@@ -370,14 +342,13 @@ export function AppWrap({ children, dbData }) {
 		const [removed] = newData.sections[sectionId].blocks.splice(blockId, 1);
 
 		updateSectionTotals(newData.sections[sectionId]);
-		setdata(newData);
+		setData((store) => (store = newData));
 	}
 
 	function deleteSection(sectionId) {
 		var newData = { ...data };
 
 		const [removed] = newData.sections.splice(sectionId, 1);
-		setdata(newData);
 	}
 
 	const reorder = (list, startIndex, endIndex) => {
@@ -402,7 +373,7 @@ export function AppWrap({ children, dbData }) {
 		);
 		newData.sections[sectionId].blocks[blockId].items = items;
 
-		setdata(newData);
+		//setdata(newData);
 	}
 
 	function reorderBlocks(e, sectionId) {
@@ -418,7 +389,7 @@ export function AppWrap({ children, dbData }) {
 			e.destination.index
 		);
 		newData.sections[sectionId].blocks = items;
-		setdata(newData);
+		//setdata(newData);
 	}
 
 	function addBlockFull(section, block) {
@@ -430,7 +401,7 @@ export function AppWrap({ children, dbData }) {
 		for (var i = 0; i < newData.sections.lenght; i++) {
 			if (newData.sections[i].info.title === section.info.title) {
 				newData.sections[i].blocks.push({ ...block });
-				setdata(newData);
+				//setdata(newData);
 				return;
 			}
 		}
@@ -440,11 +411,11 @@ export function AppWrap({ children, dbData }) {
 			if (sec.info.title == section.info.title) {
 				newData.sections[i].blocks.push({ ...block });
 				exists = true;
-				setdata(newData);
+				//setdata(newData);
 			}
 		});
 		newData.sections.push({ ...section });
-		setdata(newData);
+		//setdata(newData);
 		// if (!exists) {
 
 		// 	setTimeout(() => {
@@ -456,7 +427,7 @@ export function AppWrap({ children, dbData }) {
 	}
 
 	function addBlock(sectionId, blockId, template) {
-		let newData = { ...data };
+		let newData = data;
 
 		var lengthBeforeInsert = newData.sections[sectionId].blocks.length;
 		let newBlock;
@@ -495,7 +466,7 @@ export function AppWrap({ children, dbData }) {
 		}
 		updateSectionTotals(newData.sections[sectionId]);
 
-		setdata({ ...newData });
+		setData((store) => (store = newData));
 	}
 
 	function getTitle(titleId, language) {
@@ -506,19 +477,19 @@ export function AppWrap({ children, dbData }) {
 		var newData = { ...data };
 		newData.supplyer = supplyerData;
 
-		setdata(newData);
+		//setdata(newData);
 	}
 	function changeCustomerData(customerData) {
 		var newData = { ...data };
 		newData.customer = customerData;
-		setdata(newData);
+		//setdata(newData);
 	}
 
 	function editBlockTitle(newTitle, sectionId, blockId) {
 		var newData = { ...data };
 		newData.sections[sectionId].blocks[blockId].info.title = newTitle;
 
-		setdata(newData);
+		//setdata(newData);
 	}
 
 	function openBulkEdit(data, e) {
@@ -588,7 +559,7 @@ export function AppWrap({ children, dbData }) {
 				total
 			);
 		}
-		setdata(newData);
+		//setdata(newData);
 		closeBulkEdit();
 	}
 
@@ -597,8 +568,7 @@ export function AppWrap({ children, dbData }) {
 	}
 
 	function addTableRow(blockId, sectionId) {
-		var newData = { ...data };
-		newData.sections[sectionId].blocks[blockId].items.push({
+		data.sections[sectionId].blocks[blockId].items.push({
 			service_type: "",
 			item_id: "",
 			title: "Nová položka",
@@ -611,29 +581,28 @@ export function AppWrap({ children, dbData }) {
 			total: 0.0,
 		});
 
-		if (newData.sections[sectionId].blocks[blockId].items.length === 1) {
+		if (data.sections[sectionId].blocks[blockId].items.length === 1) {
 			updateTableRow(
-				newData.sections[sectionId].blocks[blockId].items[0],
+				data.sections[sectionId].blocks[blockId].items[0],
 				"total_construction_price",
 				parseFloat(
-					newData.sections[sectionId].blocks[blockId].info
-						.total_construction_price
+					data.sections[sectionId].blocks[blockId].info.total_construction_price
 				)
 			);
 			updateTableRow(
-				newData.sections[sectionId].blocks[blockId].items[0],
+				data.sections[sectionId].blocks[blockId].items[0],
 				"total_delivery_price",
 				parseFloat(
-					newData.sections[sectionId].blocks[blockId].info.total_delivery_price
+					data.sections[sectionId].blocks[blockId].info.total_delivery_price
 				)
 			);
 		}
 
-		setdata(newData);
+		//setdata(newData);
 	}
 
 	function addSection() {
-		var newData = { ...data };
+		var newData = data;
 		newData.sections.push({
 			info: {
 				title: "Nová sekcia",
@@ -644,13 +613,14 @@ export function AppWrap({ children, dbData }) {
 			blocks: [],
 		});
 
-		setdata(newData);
-		addBlock(newData.sections.length - 1, 0);
-		setTimeout(() => {
-			document
-				.getElementById("last-section")
-				.scrollIntoView({ behavior: "smooth" });
-		}, 100);
+		//addBlock(data.sections.length - 1, 0);
+		console.log(newData.sections.length);
+		setData((store) => (store = newData));
+		// setTimeout(() => {
+		// 	document
+		// 		.getElementById("last-section")
+		// 		.scrollIntoView({ behavior: "smooth" });
+		// }, 100);
 	}
 
 	function changeSectionTitle(sectionId, newTitle) {
@@ -669,7 +639,7 @@ export function AppWrap({ children, dbData }) {
 	}
 
 	const value = {
-		data,
+		//data,
 		headers,
 		total,
 		initialTotal,

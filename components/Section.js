@@ -12,176 +12,58 @@ import AddBlock from "./editor/AddBlock";
 import AddSection from "./editor/AddSection";
 import EditText from "./editor/EditText";
 import SectionSummary from "./editor/SectionSummary";
+import { AutoSizer, List } from "react-virtualized";
+import { getValue } from "../context/ValuesContext";
+import { round } from "lodash";
 
-export default function Section({ section, sectionId, isLast }) {
+export default function Section({ sectionId, isLast }) {
 	const {
 		headers,
 		reorderingBlocks,
 		data,
-		bulkEdit,
 		openBulkEdit,
 		changeSectionTitle,
 		deleteSection,
 	} = useData();
-	const { primaryColor, variant } = useLayout();
-	const [editingTitle, seteditingTitle] = useState(false);
-	const [sectionTitle, setSectionTitle] = useState(section.info.title);
+	const { variant } = useLayout();
 
-	function handleEditTitle() {
-		seteditingTitle(false);
-		changeSectionTitle(sectionId, sectionTitle);
-	}
-
-	var total = {
-		total: parseFloat(data.sections[sectionId].info.total),
-		total_construction_price: parseFloat(
-			data.sections[sectionId].info.total_construction_price
-		),
-		total_delivery_price: parseFloat(
-			data.sections[sectionId].info.total_delivery_price
-		),
-	};
+	const [section] = getValue((data) => data.sections[sectionId]);
 
 	return (
 		<div
 			key={`section-${sectionId}`}
-			className="pb-16 relative"
+			className='pb-16 relative'
 			id={isLast ? "last-section" : ""}
 		>
-			<div className="p-8 border-2">
-				<EditText
-					initialValue={section.info.title}
-					onSave={(value) => {
-						changeSectionTitle(sectionId, value);
-					}}
-				/>
+			<SectionTotals sectionId={sectionId}></SectionTotals>
 
-				<div className="mb-1 text-gray-300 capitalize">CENA:</div>
-
-				<div className="text-sm flex flex-row items-center justify-between">
-					<div className="relative w-fit text-sm">
-						<button
-							onClick={(e) => {
-								openBulkEdit(
-									{
-										sectionId: sectionId,
-										blockId: -1,
-										value: total.total_construction_price,
-										valueId: "total_construction_price",
-										mode: "section",
-									},
-									e
-								);
-							}}
-						>
-							<div className="relative">
-								<div className="text-left">
-									Cena Montáže: <br />
-									{numberWithCommas(
-										total.total_construction_price.toFixed(2)
-									)}{" "}
-									€
-								</div>
-								<div className="absolute top-0 -right-3 w-2">
-									<EditPen></EditPen>
-								</div>
-							</div>
-						</button>
-					</div>
-
-					<div className="relative w-fit text-sm">
-						<button
-							onClick={(e) => {
-								openBulkEdit(
-									{
-										sectionId: sectionId,
-										blockId: -1,
-										value: total.total_delivery_price,
-										valueId: "total_delivery_price",
-										mode: "section",
-									},
-									e
-								);
-							}}
-						>
-							<div className="relative">
-								<div className="text-start">
-									Cena Dodávky: <br />
-									{numberWithCommas(total.total_delivery_price.toFixed(2))} €
-								</div>
-								<div className="absolute top-0 -right-3 w-2">
-									<EditPen></EditPen>
-								</div>
-							</div>
-						</button>
-					</div>
-
-					<div className="relative w-fit text-sm">
-						<button
-							onClick={(e) => {
-								openBulkEdit(
-									{
-										sectionId: sectionId,
-										blockId: -1,
-										value: total.total,
-										valueId: "total",
-										mode: "section",
-									},
-									e
-								);
-							}}
-						>
-							<div className="relative">
-								<div className="text-left">
-									Spolu: <br />
-									{numberWithCommas(total.total.toFixed(2))} €{" "}
-									<span className="text-[10px]">bez DPH</span>
-								</div>
-								<div className="absolute top-0 -right-3 w-2">
-									<EditPen></EditPen>
-								</div>
-							</div>
-						</button>
-					</div>
-				</div>
-
-				{variant.sectionSummary && (
-					<SectionSummary
-						sectionsLength={data.sections.length}
-						sectionId={sectionId}
-						blocks={section.blocks}
-					/>
-				)}
-			</div>
 			{!reorderingBlocks &&
 				variant.blocks &&
 				section.blocks.map((block, j) => {
 					return (
 						<div key={`this-is-block-${j}-in-section-${sectionId}`}>
-							<div>
-								<Block
-									sectionId={sectionId}
-									key={j}
-									block={block}
-									headers={headers}
-									blockId={j}
-									collapsed={reorderingBlocks}
-								/>
-							</div>
+							<Block
+								sectionId={sectionId}
+								headers={headers}
+								blockId={j}
+								collapsed={reorderingBlocks}
+							/>
 						</div>
 					);
 				})}
+
 			{section.blocks.length == 0 && (
 				<AddBlock sectionId={sectionId}></AddBlock>
 			)}
+
 			{reorderingBlocks && (
 				<ReorderingBlocks section={section} sectionId={sectionId} />
 			)}
-			<div className="absolute right-4 top-2 flex items-center gap-4 w-fit mt-2">
+			<div className='absolute right-4 top-2 flex items-center gap-4 w-fit mt-2'>
 				<ButtonIcon
 					id={"0"}
-					icon={<TrashBin color="#9ca3af" />}
-					tooltip="Zmazať sekciu"
+					icon={<TrashBin color='#9ca3af' />}
+					tooltip='Zmazať sekciu'
 					onClick={() => {
 						deleteSection(sectionId);
 					}}
@@ -227,6 +109,123 @@ function ReorderingBlocks({ section, sectionId }) {
 				)}
 			</Droppable>
 		</DragDropContext>
+	);
+}
+
+function SectionTotals({ sectionId }) {
+	const [total] = getValue((data) => data.sections[sectionId].info.total);
+	const [total_delivery_price] = getValue(
+		(data) => data.sections[sectionId].info.total_delivery_price
+	);
+	const [total_construction_price] = getValue(
+		(data) => data.sections[sectionId].info.total_construction_price
+	);
+
+	const [title] = getValue((data) => data.sections[sectionId].info.title);
+
+	return (
+		<div className='p-8 border-2'>
+			<EditText
+				initialValue={title}
+				onSave={(value) => {
+					changeSectionTitle(sectionId, value);
+				}}
+			/>
+
+			<div className='mb-1 text-gray-300 capitalize'>CENA:</div>
+
+			<div className='text-sm flex flex-row items-center justify-between'>
+				<div className='relative w-fit text-sm'>
+					<button
+						onClick={(e) => {
+							openBulkEdit(
+								{
+									sectionId: sectionId,
+									blockId: -1,
+									value: total_construction_price,
+									valueId: "total_construction_price",
+									mode: "section",
+								},
+								e
+							);
+						}}
+					>
+						<div className='relative'>
+							<div className='text-left'>
+								Cena Montáže: <br />
+								{numberWithCommas(round(total_construction_price, 2))} €
+							</div>
+							<div className='absolute top-0 -right-3 w-2'>
+								<EditPen></EditPen>
+							</div>
+						</div>
+					</button>
+				</div>
+
+				<div className='relative w-fit text-sm'>
+					<button
+						onClick={(e) => {
+							openBulkEdit(
+								{
+									sectionId: sectionId,
+									blockId: -1,
+									value: total_delivery_price,
+									valueId: "total_delivery_price",
+									mode: "section",
+								},
+								e
+							);
+						}}
+					>
+						<div className='relative'>
+							<div className='text-start'>
+								Cena Dodávky: <br />
+								{numberWithCommas(round(total_delivery_price, 2))} €
+							</div>
+							<div className='absolute top-0 -right-3 w-2'>
+								<EditPen></EditPen>
+							</div>
+						</div>
+					</button>
+				</div>
+
+				<div className='relative w-fit text-sm'>
+					<button
+						onClick={(e) => {
+							openBulkEdit(
+								{
+									sectionId: sectionId,
+									blockId: -1,
+									value: total,
+									valueId: "total",
+									mode: "section",
+								},
+								e
+							);
+						}}
+					>
+						<div className='relative'>
+							<div className='text-left'>
+								Spolu: <br />
+								{numberWithCommas(round(total, 2))} €{" "}
+								<span className='text-[10px]'>bez DPH</span>
+							</div>
+							<div className='absolute top-0 -right-3 w-2'>
+								<EditPen></EditPen>
+							</div>
+						</div>
+					</button>
+				</div>
+			</div>
+
+			{/* {variant.sectionSummary && (
+				<SectionSummary
+					sectionsLength={data.sections.length}
+					sectionId={sectionId}
+					blocks={section.blocks}
+				/>
+			)} */}
+		</div>
 	);
 }
 

@@ -9,6 +9,7 @@ import ScreenLayout from "../../components/ScreenLayout";
 import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "../../lib/firebase";
 import ActionsContext from "../../context/ActionsContext";
+import ValuesContext from "../../context/ValuesContext";
 
 export default function Home({ dbData }) {
 	const theme = createTheme({
@@ -24,11 +25,13 @@ export default function Home({ dbData }) {
 				<title>Cenová ponuka</title>
 			</Head>
 			<LayoutContext layout={dbData?.layout} headers={dbData.data.headers}>
-				<AppWrap dbData={dbData}>
-					<ActionsContext>
-						<ScreenLayout />
-					</ActionsContext>
-				</AppWrap>
+				<ValuesContext dbData={dbData}>
+					<AppWrap dbData={dbData}>
+						<ActionsContext>
+							<ScreenLayout />
+						</ActionsContext>
+					</AppWrap>
+				</ValuesContext>
 			</LayoutContext>
 		</ThemeProvider>
 	);

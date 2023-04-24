@@ -24,22 +24,16 @@ import OfferFooter from "./editor/OfferFooter";
 import SubHeading from "./editor/SubHeading";
 import UploadImage from "./editor/UploadImage";
 import GeneratePDF from "./editor/GeneratePDF";
+import { getValue, useValues } from "../context/ValuesContext";
 
 export default function CenovaPonuka() {
 	const [winReady, setwinReady] = useState(false);
-	const [scrollPosition, setScrollPosition] = useState(0);
-	const [editingTitle, seteditingTitle] = useState(false);
-	//const [reorderingBlocks, setreorderingBlocks] = useState(false)
 	const {
-		data,
 		total,
 		name,
 		setname,
-		bulkEdit,
 		bulkEditData,
 		openBulkEdit,
-		download,
-		setdownload,
 		logo,
 		setlogo,
 		description,
@@ -48,6 +42,7 @@ export default function CenovaPonuka() {
 
 	const { primaryColor, isHorizontal } = useLayout();
 
+	const [sections] = getValue((store) => store.sections);
 	useEffect(() => {
 		setwinReady(true);
 	});
@@ -260,11 +255,11 @@ export default function CenovaPonuka() {
 
 							<div>
 								{winReady &&
-									data.sections.map((section, i) => {
+									sections.map((section, i) => {
 										return (
 											<div key={`section-${i}`}>
 												<Section
-													isLast={i === data.sections.length - 1}
+													isLast={i === sections.length - 1}
 													section={section}
 													sectionId={i}
 												></Section>

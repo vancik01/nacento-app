@@ -15,6 +15,7 @@ import Save from "../public/SVG/Save";
 import _ from "lodash";
 import "react-tooltip/dist/react-tooltip.css";
 import ButtonIcon from "./buttons/ButtonIcon";
+import { getValue } from "../context/ValuesContext";
 
 export default function Table({ items, headers, blockId, sectionId }) {
 	const { reorderRows, getTitle } = useData();
@@ -24,15 +25,15 @@ export default function Table({ items, headers, blockId, sectionId }) {
 		<>
 			{
 				<div key={blockId}>
-					<div style={{ backgroundColor: primaryColor }} className="text-white">
+					<div style={{ backgroundColor: primaryColor }} className='text-white'>
 						<div
-							className="table_row heading select-none"
+							className='table_row heading select-none'
 							style={{ gridTemplateColumns: tableRowTemplate }}
 						>
-							<div className="font-medium py-1 px-2">N.</div>
-							{headers.map((item, i) => {
-								var heading = getTitle(item, "sk");
-								if (displayColumns.includes(item)) {
+							<div className='font-medium py-1 px-2'>N.</div>
+							{headers.map((fieldId, i) => {
+								var heading = getTitle(fieldId, "sk");
+								if (displayColumns.includes(fieldId)) {
 									return (
 										<div key={`table-header-${i}`}>
 											<div
@@ -40,9 +41,9 @@ export default function Table({ items, headers, blockId, sectionId }) {
 												style={{ color: "white" }}
 											>
 												<Tooltip
-													id="tooltip"
+													id='tooltip'
 													anchorSelect={`#col-${i}`}
-													place="top"
+													place='top'
 													content={heading.long}
 													delayHide={3}
 												/>
@@ -67,7 +68,7 @@ export default function Table({ items, headers, blockId, sectionId }) {
 								<div
 									{...provided.droppableProps}
 									ref={provided.innerRef}
-									className="table_wrap"
+									className='table_wrap'
 								>
 									{items?.map((polozka, i) => {
 										return (
@@ -95,10 +96,9 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 	const { getTitle, headers, deleteRow } = useData();
 	const { displayColumns, tableRowTemplate, primaryColor } = useLayout();
 	const [didChange, setdidChange] = useState(false);
-	const [item, setitem] = useState(polozka);
 
 	return (
-		<div className="relative">
+		<div className='relative'>
 			<Draggable
 				key={`${sectionId}-${blockId}${i}`}
 				draggableId={`item-${blockId}-${i}`}
@@ -108,7 +108,7 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 					<div
 						{...provided.draggableProps}
 						ref={provided.innerRef}
-						className=""
+						className=''
 					>
 						<div
 							className={`table_row content ${
@@ -129,13 +129,13 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 									return (
 										<div
 											key={`value-${sectionId}-${blockId}-${item}-${item}`}
-											className="h-full flex items-center justify-start py-1 px-2 table_unit"
+											className='h-full flex items-center justify-start py-1 px-2 table_unit'
 										>
 											<TableUnit
 												sectionId={sectionId}
 												itemId={i}
 												blockId={blockId}
-												item={item}
+												fieldId={item}
 												polozka={polozka}
 												label={label}
 											/>
@@ -145,7 +145,7 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 							})}
 
 							{
-								<div className="flex justify-end items-center select-none absolute -right-14">
+								<div className='flex justify-end items-center select-none absolute -right-14'>
 									<ButtonIcon
 										icon={<TrashBin />}
 										onClick={() => {
@@ -164,7 +164,7 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 			</Draggable>
 
 			{didChange && (
-				<button className="absolute -left-8 top-0 bottom-0 flex items-center z-30">
+				<button className='absolute -left-8 top-0 bottom-0 flex items-center z-30'>
 					<Save color={primaryColor}></Save>
 				</button>
 			)}
@@ -172,138 +172,137 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 	);
 }
 
-function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
+export function TableUnit({ fieldId, blockId, itemId, sectionId }) {
 	const { changeValue } = useData();
 
+	const [value, setValue] = getValue(
+		(data) => data.sections[sectionId].blocks[blockId].items[itemId][fieldId]
+	);
+	//console.log(value)
+
 	function update(e) {
-		changeValue({
-			blockId: blockId,
-			itemId: itemId,
-			valueId: item,
-			value: e.target.value,
-			sectionId: sectionId,
-		});
+		changeValue(
+			{ fieldId: fieldId, itemId: itemId, blockId, sectionId: 0 },
+			e.target.value
+		);
 	}
 
-	if (item === "service_type") {
+	if (fieldId === "service_type") {
 		return (
-			<div className={`flex align-middle items-center ${label.short}`}>
-				{polozka.service_type}
+			<div className={`flex align-middle items-center`}>
+				{value.service_type}
 			</div>
 		);
-	} else if (item === "item_id") {
+	} else if (fieldId === "item_id") {
 		return (
-			<div className={`flex align-middle items-center ${label.short}`}>
-				{polozka.item_id}
-			</div>
+			<div className={`flex align-middle items-center`}>{value.item_id}</div>
 		);
-	} else if (item === "title") {
+	} else if (fieldId === "title") {
 		return (
-			<div className={`flex align-middle items-center w-full ${label.short}`}>
+			<div className={`flex align-middle items-center w-full`}>
 				<TextareaAutosize
-					spellCheck="false"
-					className="w-full bg-transparent focus-visible:outline-none h-fit overflow-visible"
-					value={polozka.title}
-					name={item}
+					spellCheck='false'
+					className='w-full bg-transparent focus-visible:outline-none h-fit overflow-visible'
+					value={value}
+					name={fieldId}
 					style={{ resize: "none" }}
 					onChange={update}
 				/>
 			</div>
 		);
-	} else if (item === "unit") {
+	} else if (fieldId === "unit") {
 		return (
-			<div className={`flex align-middle items-center w-full ${label.short}`}>
+			<div className={`flex align-middle items-center w-full`}>
 				<select
-					defaultValue={polozka.unit}
-					name={item}
-					className="w-full bg-transparent"
+					defaultValue={value}
+					name={fieldId}
+					className='w-full bg-transparent'
 					onChange={update}
 				>
-					<option value="m">m</option>
-					<option value="m2">m&sup2;</option>
-					<option value="m3"> m&sup3; </option>
-					<option value="diel">diel</option>
-					<option value="ks">ks</option>
-					<option value="sub">súb.</option>
+					<option value='m'>m</option>
+					<option value='m2'>m&sup2;</option>
+					<option value='m3'> m&sup3; </option>
+					<option value='diel'>diel</option>
+					<option value='ks'>ks</option>
+					<option value='sub'>súb.</option>
 				</select>
 			</div>
 		);
-	} else if (item === "quantity") {
+	} else if (fieldId === "quantity") {
 		return (
-			<div className={`flex align-middle items-center ${label.short}`}>
+			<div className={`flex align-middle items-center`}>
 				<Input
 					disableUnderline
 					inputProps={{ min: 0 }}
-					type="number"
+					type='number'
 					onChange={update}
-					value={polozka.quantity.toString()}
+					value={value}
 				/>
 			</div>
 		);
-	} else if (item === "unit_delivery_price") {
+	} else if (fieldId === "unit_delivery_price") {
 		return (
-			<div className={`flex align-middle items-center ${label.short}`}>
+			<div className={`flex align-middle items-center`}>
 				<Input
 					disableUnderline
 					inputProps={{ min: 0 }}
-					type="number"
+					type='number'
 					onChange={update}
-					value={polozka.unit_delivery_price.toString()}
-					endAdornment="€"
+					value={value}
+					endAdornment='€'
 				/>
 			</div>
 		);
-	} else if (item === "unit_construction_price") {
+	} else if (fieldId === "unit_construction_price") {
 		return (
-			<div className={`flex align-middle items-center ${label.short}`}>
+			<div className={`flex align-middle items-center`}>
 				<Input
 					disableUnderline
 					inputProps={{ min: 0 }}
-					type="number"
+					type='number'
 					onChange={update}
-					value={polozka.unit_construction_price.toString()}
-					endAdornment="€"
+					value={value}
+					endAdornment='€'
 				/>
 			</div>
 		);
-	} else if (item === "total_delivery_price") {
+	} else if (fieldId === "total_delivery_price") {
 		return (
-			<div className={`flex justify-center items-center ${label.short}`}>
+			<div className={`flex justify-center items-center`}>
 				<Input
 					disableUnderline
 					inputProps={{ min: 0 }}
-					type="number"
+					type='number'
 					onChange={update}
-					value={polozka.total_delivery_price.toString()}
-					endAdornment="€"
+					value={value}
+					endAdornment='€'
 				/>
 			</div>
 		);
-	} else if (item === "total_construction_price") {
+	} else if (fieldId === "total_construction_price") {
 		return (
-			<div className={`flex align-middle items-center ${label.short}`}>
+			<div className={`flex align-middle items-center`}>
 				<Input
 					disableUnderline
 					inputProps={{ min: 0 }}
-					type="number"
+					type='number'
 					onChange={update}
-					value={polozka.total_construction_price.toString()}
-					endAdornment="€"
+					value={value}
+					endAdornment='€'
 				/>
 			</div>
 		);
-	} else if (item === "total") {
+	} else if (fieldId === "total") {
 		return (
-			<div className={`flex text-[11px] align-middle items-center ${label.short}`}>
+			<div className={`flex text-[11px] align-middle items-center`}>
 				<Input
 					disableUnderline
 					inputProps={{ min: 0 }}
-					type="number"
+					type='number'
 					onChange={update}
-					value={polozka.total.toString()}
-					endAdornment="€"
+					value={value}
+					endAdornment='€'
 				/>
-
 			</div>
 		);
 	}
