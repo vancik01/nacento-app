@@ -14,9 +14,9 @@ export default function SupplyerTemplate({
 	results
 }) {
 
-	if (!supplyer?.email) {
-		supplyer.email = userObject.email;
-	}
+	// if (!supplyer?.email) {
+	// 	supplyer.email = userObject.email;
+	// }
 
 
 	return (
@@ -96,7 +96,7 @@ export default function SupplyerTemplate({
 								<div className="flex flex-col mt-[-15px] mb-2 outline outline-1 outline-gray-300 rounded-sm max-h-[250px] overflow-y-auto">
 									{results.map((result, i) => {
 										return(
-										<>
+										<React.Fragment key={`result${i}`}>
 										<div onClick={() => handleCompanySet(result)} className="flex relative cursor-pointer flex-col p-3 hover:bg-gray-200">
 											<span className="text-base font-medium">{result.name}</span>
 											{result.ico && <span className="text-sm text-gray-400">IČO: {result.ico}</span>}
@@ -106,7 +106,7 @@ export default function SupplyerTemplate({
 										</div>
 										<hr className="w-full p-0"></hr>
 
-										</>
+										</React.Fragment>
 										)
 									})}
 								</div> : ""

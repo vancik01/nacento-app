@@ -104,7 +104,7 @@ export default function Block({
 										<div className="text-xs" style={{ color: primaryColor }}>
 											{block.items.length === 0
 												? "Pridať tabuľku"
-												: "Pridať riadok"}
+												: "Pridať položku"}
 										</div>
 									</button>
 								)}

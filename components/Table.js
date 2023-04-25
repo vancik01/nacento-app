@@ -71,13 +71,25 @@ export default function Table({ items, headers, blockId, sectionId }) {
 								>
 									{items?.map((polozka, i) => {
 										return (
-											<TableRow
-												blockId={blockId}
-												i={i}
-												polozka={polozka}
-												rowsCount={items.length}
-												sectionId={sectionId}
-											></TableRow>
+											<>
+												{typeof(polozka.item_id) == "string" && polozka.item_id.indexOf('.') > -1 ? 
+													<TableRow
+														blockId={blockId}
+														i={i}
+														polozka={polozka}
+														rowsCount={items.length}
+														sectionId={sectionId}
+													></TableRow> :
+
+													<TableRow
+														blockId={blockId}
+														i={i}
+														polozka={polozka}
+														rowsCount={items.length}
+														sectionId={sectionId}
+													></TableRow>
+												}
+											</>
 										);
 									})}
 									{provided.placeholder}

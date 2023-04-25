@@ -600,10 +600,10 @@ export function AppWrap({ children, dbData }) {
 		var newData = { ...data };
 		newData.sections[sectionId].blocks[blockId].items.push({
 			service_type: "",
-			item_id: "",
+			item_id: "U000000",
 			title: "Nová položka",
 			unit: "m",
-			quantity: 1,
+			quantity: 0,
 			unit_delivery_price: 0.0,
 			unit_construction_price: 0.0,
 			total_delivery_price: 0.0,
