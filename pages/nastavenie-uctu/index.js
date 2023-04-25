@@ -43,7 +43,7 @@ export default function index() {
 
 	const fetchResults = async (value) => {
 		try {
-		  const response = await axios.get(`http://api2.nacento.online/search?q=${value}`);
+		  const response = await axios.get(`https://api2.nacento.online/search?q=${value}`);
 		  	setResults(response.data);
 		} catch (error) {
 		  console.error(error);
