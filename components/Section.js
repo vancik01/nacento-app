@@ -12,7 +12,7 @@ import AddBlock from "./editor/AddBlock";
 import AddSection from "./editor/AddSection";
 import EditText from "./editor/EditText";
 import SectionSummary from "./editor/SectionSummary";
-import { AutoSizer, List } from "react-virtualized";
+// import { AutoSizer, List } from "react-virtualized";
 import { getValue } from "../context/ValuesContext";
 import { round } from "lodash";
 

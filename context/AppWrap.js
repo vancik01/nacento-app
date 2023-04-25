@@ -614,7 +614,6 @@ export function AppWrap({ children, dbData }) {
 		});
 
 		//addBlock(data.sections.length - 1, 0);
-		console.log(newData.sections.length);
 		setData((store) => (store = newData));
 		// setTimeout(() => {
 		// 	document

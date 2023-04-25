@@ -25,7 +25,7 @@ function useValues(dbData) {
 		...dbData.data,
 	});
 
-	console.log(data);
+	// console.log(data);
 
 	const subscribers = useRef(new Set());
 
