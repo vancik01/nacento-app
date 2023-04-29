@@ -20,11 +20,12 @@ import { getValue } from "../context/ValuesContext";
 export default function Table({ items, headers, blockId, sectionId }) {
 	const { reorderRows, getTitle } = useData();
 	const { displayColumns, tableRowTemplate, primaryColor } = useLayout();
+	const [didUpdate, setDidUpdate] = useState(0)
 
 	return (
 		<>
 			{
-				<div key={blockId}>
+				<div key={blockId} id={didUpdate}>
 					<div style={{ backgroundColor: primaryColor }} className='text-white'>
 						<div
 							className='table_row heading select-none'
@@ -78,6 +79,7 @@ export default function Table({ items, headers, blockId, sectionId }) {
 												polozka={polozka}
 												rowsCount={items.length}
 												sectionId={sectionId}
+												setDidUpdate={setDidUpdate}
 											></TableRow>
 										);
 									})}
@@ -92,7 +94,7 @@ export default function Table({ items, headers, blockId, sectionId }) {
 	);
 }
 
-function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
+function TableRow({ polozka, blockId, i, rowsCount, sectionId, setDidUpdate }) {
 	const { getTitle, headers, deleteRow } = useData();
 	const { displayColumns, tableRowTemplate, primaryColor } = useLayout();
 	const [didChange, setdidChange] = useState(false);
@@ -111,9 +113,8 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 						className=''
 					>
 						<div
-							className={`table_row content ${
-								snapshot.isDragging ? "dragging" : ""
-							}${i === rowsCount - 1 ? "last" : ""}`}
+							className={`table_row content ${snapshot.isDragging ? "dragging" : ""
+								}${i === rowsCount - 1 ? "last" : ""}`}
 							style={{ gridTemplateColumns: tableRowTemplate }}
 						>
 							<div
@@ -123,6 +124,7 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 							</div>
 
 							{headers.map((item) => {
+
 								var label = getTitle(item, "sk");
 
 								if (displayColumns.includes(item)) {
@@ -138,6 +140,7 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 												fieldId={item}
 												polozka={polozka}
 												label={label}
+												
 											/>
 										</div>
 									);
@@ -150,6 +153,7 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 										icon={<TrashBin />}
 										onClick={() => {
 											deleteRow({ sectionId, blockId, itemId: i });
+											setDidUpdate(`${sectionId}-${blockId}${i}`)
 										}}
 									></ButtonIcon>
 
@@ -176,9 +180,11 @@ export function TableUnit({ fieldId, blockId, itemId, sectionId }) {
 	const { changeValue } = useData();
 
 	const [value, setValue] = getValue(
-		(data) => data.sections[sectionId].blocks[blockId].items[itemId][fieldId]
+		(data) => data?.sections?.[sectionId]?.blocks?.[blockId]?.items?.[itemId]?.[fieldId]
 	);
-	//console.log(value)
+	if (value == undefined) {
+		return (<></>)
+	}
 
 	function update(e) {
 		changeValue(

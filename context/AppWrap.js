@@ -326,14 +326,17 @@ export function AppWrap({ children, dbData }) {
 	}
 
 	function deleteRow(obj) {
-		var newData = { ...data };
-		var newPolozky = newData.sections[obj.sectionId].blocks[obj.blockId].items;
-
-		newPolozky.splice(obj.itemId, 1);
-		updateBlockTotals(newData.sections[obj.sectionId].blocks[obj.blockId]);
-		updateSectionTotals(newData.sections[obj.sectionId]);
+		let newData = { ...data };
+		
+		// var newPolozky = newData.sections[obj.sectionId].blocks[obj.blockId].items;
+		newData.sections[obj.sectionId].blocks[obj.blockId].items.splice(obj.itemId, 1);
+		newData.sections[obj.sectionId].blocks[obj.blockId] = updateBlockTotals(newData.sections[obj.sectionId].blocks[obj.blockId]);
+		newData.sections[obj.sectionId] = updateSectionTotals(newData.sections[obj.sectionId]);
 
 		//setdata(newData);
+		setData((store) => (store = newData));
+
+
 	}
 
 	function deleteBlock(sectionId, blockId) {
@@ -349,6 +352,7 @@ export function AppWrap({ children, dbData }) {
 		var newData = { ...data };
 
 		const [removed] = newData.sections.splice(sectionId, 1);
+		setData((store) => (store = removed));
 	}
 
 	const reorder = (list, startIndex, endIndex) => {
@@ -415,6 +419,8 @@ export function AppWrap({ children, dbData }) {
 			}
 		});
 		newData.sections.push({ ...section });
+		setData((store) => (store = newData));
+
 		//setdata(newData);
 		// if (!exists) {
 
@@ -428,6 +434,9 @@ export function AppWrap({ children, dbData }) {
 
 	function addBlock(sectionId, blockId, template) {
 		let newData = data;
+
+		
+		// var newPolozky = newData.sections[obj.sectionId].blocks[obj.blockId].items;
 
 		var lengthBeforeInsert = newData.sections[sectionId].blocks.length;
 		let newBlock;
@@ -446,7 +455,7 @@ export function AppWrap({ children, dbData }) {
 			newBlock = template;
 		}
 
-		newData.sections[sectionId].blocks.splice(blockId + 1, 0, newBlock);
+		newData.sections[sectionId].blocks = newData.sections[sectionId].blocks.splice(blockId + 1, 0, newBlock);
 
 		if (lengthBeforeInsert === 0) {
 			newBlock.info.total = parseFloat(newData.sections[sectionId].info.total);
@@ -457,11 +466,12 @@ export function AppWrap({ children, dbData }) {
 				newData.sections[sectionId].info.total_delivery_price
 			);
 		}
+		console.log(blockId, sectionId)
 		if (!template) {
 			if (lengthBeforeInsert == 0) {
-				addTableRow(blockId, sectionId);
+				addTableRow(newData,blockId, sectionId);
 			} else {
-				addTableRow(blockId + 1, sectionId);
+				addTableRow(newData,blockId + 1, sectionId);
 			}
 		}
 		updateSectionTotals(newData.sections[sectionId]);
@@ -567,8 +577,11 @@ export function AppWrap({ children, dbData }) {
 		setdisplayTotals(!displayTotals);
 	}
 
-	function addTableRow(blockId, sectionId) {
-		data.sections[sectionId].blocks[blockId].items.push({
+	function addTableRow(newData,blockId, sectionId) {
+		// newData.sections[obj.sectionId].blocks[obj.blockId].items.splice(obj.itemId, 1);
+
+		console.log(newData.sections[sectionId])
+		newData.sections[sectionId].blocks.push({
 			service_type: "",
 			item_id: "",
 			title: "Nová položka",
@@ -581,22 +594,23 @@ export function AppWrap({ children, dbData }) {
 			total: 0.0,
 		});
 
-		if (data.sections[sectionId].blocks[blockId].items.length === 1) {
-			updateTableRow(
-				data.sections[sectionId].blocks[blockId].items[0],
-				"total_construction_price",
-				parseFloat(
-					data.sections[sectionId].blocks[blockId].info.total_construction_price
-				)
-			);
-			updateTableRow(
-				data.sections[sectionId].blocks[blockId].items[0],
-				"total_delivery_price",
-				parseFloat(
-					data.sections[sectionId].blocks[blockId].info.total_delivery_price
-				)
-			);
-		}
+		// if (newData.sections[sectionId].blocks.length === 1) {
+		// 	updateTableRow(
+		// 		data.sections[sectionId].blocks[blockId].items[0],
+		// 		"total_construction_price",
+		// 		parseFloat(
+		// 			data.sections[sectionId].blocks[blockId].info.total_construction_price
+		// 		)
+		// 	);
+		// 	updateTableRow(
+		// 		data.sections[sectionId].blocks[blockId].items[0],
+		// 		"total_delivery_price",
+		// 		parseFloat(
+		// 			data.sections[sectionId].blocks[blockId].info.total_delivery_price
+		// 		)
+		// 	);
+		// }
+
 
 		//setdata(newData);
 	}

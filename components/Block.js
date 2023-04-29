@@ -30,7 +30,6 @@ export default function Block({
 	const { primaryColor } = useLayout();
 
 	const [block] = getValue((data) => data.sections[sectionId].blocks[blockId]);
-
 	return (
 		<>
 			{block != null && (

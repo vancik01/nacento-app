@@ -113,13 +113,14 @@ function ReorderingBlocks({ section, sectionId }) {
 }
 
 function SectionTotals({ sectionId }) {
-	const [total] = getValue((data) => data.sections[sectionId].info.total);
+	const [total] = getValue((data) => data.sections[sectionId].info.total)
 	const [total_delivery_price] = getValue(
 		(data) => data.sections[sectionId].info.total_delivery_price
 	);
 	const [total_construction_price] = getValue(
 		(data) => data.sections[sectionId].info.total_construction_price
 	);
+
 
 	const [title] = getValue((data) => data.sections[sectionId].info.title);
 
@@ -153,7 +154,7 @@ function SectionTotals({ sectionId }) {
 						<div className='relative'>
 							<div className='text-left'>
 								Cena Montáže: <br />
-								{numberWithCommas(round(total_construction_price, 2))} €
+								{numberWithCommas(total_construction_price)} €
 							</div>
 							<div className='absolute top-0 -right-3 w-2'>
 								<EditPen></EditPen>
@@ -180,7 +181,7 @@ function SectionTotals({ sectionId }) {
 						<div className='relative'>
 							<div className='text-start'>
 								Cena Dodávky: <br />
-								{numberWithCommas(round(total_delivery_price, 2))} €
+								{numberWithCommas(total_delivery_price)} €
 							</div>
 							<div className='absolute top-0 -right-3 w-2'>
 								<EditPen></EditPen>
@@ -207,7 +208,7 @@ function SectionTotals({ sectionId }) {
 						<div className='relative'>
 							<div className='text-left'>
 								Spolu: <br />
-								{numberWithCommas(round(total, 2))} €{" "}
+								{numberWithCommas(total)} €{" "}
 								<span className='text-[10px]'>bez DPH</span>
 							</div>
 							<div className='absolute top-0 -right-3 w-2'>
