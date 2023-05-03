@@ -30,7 +30,7 @@ export default function Dashboard() {
 	var work_type;
 	if (sessionStorage.getItem("WORK_TYPE") !== null) {
 		work_type = window.sessionStorage.getItem("WORK_TYPE");
-	} else work_type = -1;
+	} else work_type = 0;
 
 	const [workTypes, SetWorkTypes] = useState(work_type);
 	const [loading, setloading] = useState(false);

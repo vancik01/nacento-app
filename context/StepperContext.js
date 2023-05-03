@@ -34,6 +34,11 @@ const HSDATA = {
 
   "strecha" : {
     "plocha" : "",
+    "typ": ["0"],
+    "krytina": ["0", "0", "0"],
+    "okna" : "",
+    "kominy" : "",
+    "krov" : ["0"]
   }
 }
 
@@ -114,7 +119,7 @@ export function UseStepperContext({ children }) {
     hrubedata = JSON.parse(window.sessionStorage.getItem("HRUBE_DATA"))
   
   else hrubedata = HSDATA
-
+  // hrubedata = HSDATA
 
   if (sessionStorage.getItem("ELEKTRO_DATA") !== null)
     elektrodata = JSON.parse(window.sessionStorage.getItem("ELEKTRO_DATA"))
