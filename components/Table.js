@@ -20,6 +20,9 @@ export default function Table({ items, headers, blockId, sectionId }) {
 	const { reorderRows, getTitle } = useData();
 	const { displayColumns, tableRowTemplate, primaryColor } = useLayout();
 
+	var variation = []
+	var item_id = ''
+
 	return (
 		<>
 			{
@@ -70,9 +73,15 @@ export default function Table({ items, headers, blockId, sectionId }) {
 									className="table_wrap"
 								>
 									{items?.map((polozka, i) => {
+
+										if(polozka.item_id.includes('.')){
+											item_id = polozka.item_id.substring(0,7)
+											console.log(item_id)
+										}
+
 										return (
 											<>
-												{typeof(polozka.item_id) == "string" && polozka.item_id.indexOf('.') > -1 ? 
+												{typeof(polozka.item_id) == "string" && polozka.item_id.includes('.') ? 
 													<TableRow
 														blockId={blockId}
 														i={i}
