@@ -9,7 +9,7 @@ import SingleChoice from "../SingleChoice";
 
 export default function Strecha() {
   const { hsdata, sethsdata, color, setColor, ChangeHsValue } = useStepper();
-  console.log(hsdata)
+  
   return (
     <div className="bg-white pb-10">
         <IntroSection title={"strechu"} ix={2}  text={"pôdorys strechy"} type={"ST"}/>

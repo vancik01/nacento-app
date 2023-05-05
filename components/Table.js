@@ -15,13 +15,32 @@ import Save from "../public/SVG/Save";
 import _ from "lodash";
 import "react-tooltip/dist/react-tooltip.css";
 import ButtonIcon from "./buttons/ButtonIcon";
+import ArrowDown from "../public/SVG/ArrowDown";
 
 export default function Table({ items, headers, blockId, sectionId }) {
-	const { reorderRows, getTitle } = useData();
+	const { data, reorderRows, getTitle } = useData();
 	const { displayColumns, tableRowTemplate, primaryColor } = useLayout();
 
-	var variation = []
-	var item_id = ''
+	var variations = []
+	var main_variation = {}
+	var main_item_id = ''
+
+	function get_variations(items, ix){
+		let item_id = items[ix].item_id.substring(0,7)
+
+		let variations = [] 
+
+		for(let i=0; i<items.length; i++){
+			if(i != ix && items[i].item_id.substring(0,7) == item_id){
+				variations.push(items[i])
+			}
+		}
+
+		return variations
+
+	}
+
+	var sub = 0
 
 	return (
 		<>
@@ -74,25 +93,36 @@ export default function Table({ items, headers, blockId, sectionId }) {
 								>
 									{items?.map((polozka, i) => {
 
-										if(polozka.item_id.includes('.')){
-											item_id = polozka.item_id.substring(0,7)
-											console.log(item_id)
+										if(typeof(polozka.item_id) == "string" && polozka.item_id.includes('.')){
+											if(polozka.quantity !== 0) 
+												variations = get_variations(items, i)
+
+											else{
+												variations = []
+												sub++
+											} 
 										}
 
 										return (
 											<>
-												{typeof(polozka.item_id) == "string" && polozka.item_id.includes('.') ? 
-													<TableRow
-														blockId={blockId}
-														i={i}
-														polozka={polozka}
-														rowsCount={items.length}
-														sectionId={sectionId}
-													></TableRow> :
+												{typeof(polozka.item_id) == "string" && polozka.item_id.includes('.')?
+													<> 
+														{variations.length ? 
+															<TableRow
+																blockId={blockId}
+																i={i-sub}
+																polozka={polozka}
+																rowsCount={items.length}
+																sectionId={sectionId}
+																variations={variations}
+															></TableRow>
+														: <></>
+
+													}</> :
 
 													<TableRow
 														blockId={blockId}
-														i={i}
+														i={i-sub}
 														polozka={polozka}
 														rowsCount={items.length}
 														sectionId={sectionId}
@@ -112,7 +142,7 @@ export default function Table({ items, headers, blockId, sectionId }) {
 	);
 }
 
-function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
+function TableRow({ polozka, blockId, i, rowsCount, sectionId, variations }) {
 	const { getTitle, headers, deleteRow } = useData();
 	const { displayColumns, tableRowTemplate, primaryColor } = useLayout();
 	const [didChange, setdidChange] = useState(false);
@@ -159,6 +189,8 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 												item={item}
 												polozka={polozka}
 												label={label}
+												variations={variations}
+												index={i}
 											/>
 										</div>
 									);
@@ -193,8 +225,28 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId }) {
 	);
 }
 
-function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
-	const { changeValue } = useData();
+function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variations, index }) {
+	const { changeValue, data } = useData();
+	const [showvariant, setshowvariant] = useState(false)
+
+	const {isHorizontal} = useLayout();
+	const [var_item, setvar_item] = useState(polozka)
+	const [variacie, setvariacie] = useState(variations)
+
+	console.log(data)
+
+	function change_items(variant, polozka, ix){
+		setvar_item(variant)
+
+		let variations = [...variacie]
+		variations.splice(ix, 1)
+		variations.push(polozka)
+
+		setvariacie(variations)
+
+		setshowvariant(false)
+	}
+
 
 	function update(e) {
 		changeValue({
@@ -209,33 +261,64 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 	if (item === "service_type") {
 		return (
 			<div className={`flex align-middle items-center ${label.short}`}>
-				{polozka.service_type}
+				{var_item.service_type}
 			</div>
 		);
 	} else if (item === "item_id") {
 		return (
 			<div className={`flex align-middle items-center ${label.short}`}>
-				{polozka.item_id}
+				{var_item.item_id}
 			</div>
 		);
 	} else if (item === "title") {
 		return (
+			<>
+			{variacie? 
+				<div className={`flex  relative align-middle items-center w-full ${label.short}`} style={{zIndex: 100-index}}>
+					<TextareaAutosize
+						spellCheck="false"
+						className="w-full bg-transparent focus-visible:outline-none h-fit overflow-visible"
+						value={var_item.title}
+						name={item}
+						style={{ resize: "none" }}
+						onChange={update}
+					/>
+					<div className="p-1 cursor-pointer" onClick={(e) => {setshowvariant(!showvariant)}}>
+						<ArrowDown scale={0.9}/>
+					</div>
+
+					{showvariant && 
+					<div className={`absolute flex flex-col py-2 cursor-default shadow-xl border rounded bg-white right-[-10px] ` + (isHorizontal? "w-[103%] top-[106%]" : "w-[106%] top-[106%]")}>
+						{variacie.map((variant, ix) => {
+							
+							return(
+								<div key={`variant${index}-${ix}`} onClick={() => change_items(variant, var_item, ix)} className="hover:bg-blue-300 px-2 py-2">
+									<StringDiff stringA={var_item.title} stringB={variant.title} />
+								</div>
+							)
+						})}
+					</div>}
+				</div>
+
+				
+			:
 			<div className={`flex align-middle items-center w-full ${label.short}`}>
 				<TextareaAutosize
 					spellCheck="false"
 					className="w-full bg-transparent focus-visible:outline-none h-fit overflow-visible"
-					value={polozka.title}
+					value={var_item.title}
 					name={item}
 					style={{ resize: "none" }}
 					onChange={update}
 				/>
-			</div>
+			</div>}
+			</>
 		);
 	} else if (item === "unit") {
 		return (
 			<div className={`flex align-middle items-center w-full ${label.short}`}>
 				<select
-					defaultValue={polozka.unit}
+					defaultValue={var_item.unit}
 					name={item}
 					className="w-full bg-transparent"
 					onChange={update}
@@ -259,7 +342,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.quantity.toString()}
+					value={var_item.quantity.toString()}
 				/>
 			</div>
 		);
@@ -271,7 +354,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.unit_delivery_price.toString()}
+					value={var_item.unit_delivery_price.toString()}
 					endAdornment="€"
 				/>
 			</div>
@@ -284,7 +367,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.unit_construction_price.toString()}
+					value={var_item.unit_construction_price.toString()}
 					endAdornment="€"
 				/>
 			</div>
@@ -297,7 +380,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.total_delivery_price.toString()}
+					value={var_item.total_delivery_price.toString()}
 					endAdornment="€"
 				/>
 			</div>
@@ -310,7 +393,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.total_construction_price.toString()}
+					value={var_item.total_construction_price.toString()}
 					endAdornment="€"
 				/>
 			</div>
@@ -323,7 +406,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.total.toString()}
+					value={var_item.total.toString()}
 					endAdornment="€"
 				/>
 
@@ -331,3 +414,34 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId }) {
 		);
 	}
 }
+
+const StringDiff = ({ stringA, stringB }) => {
+
+	const compareWords = (strA, strB) => {
+		const wordsA = strA.split(' ');
+		const wordsB = strB.split(' ');
+	  
+		const maxLength = Math.max(wordsA.length, wordsB.length);
+		let result = '';
+	  
+		for (let i = 0; i < maxLength; i++) {
+		  if (wordsA[i] !== wordsB[i]) {
+			result += `<span class="font-bold">${wordsB[i] || ''}</span> `;
+		  } else {
+			result += `${wordsB[i] || ''} `;
+		  }
+		}
+	  
+		return result.trim();
+	  };
+  
+	return (
+	  <div
+		className=""
+		dangerouslySetInnerHTML={{
+		__html: compareWords(stringA, stringB),
+		}}
+	/>
+	);
+  };
+  

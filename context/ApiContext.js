@@ -25,7 +25,7 @@ export function ApiContext({ children }) {
 		if (type == "HS") {
 			api_route = "hruba_stavba/";
 			data = { ...hsdata };
-			name = "Hrubá stavba"
+			name = "Hrubá Stavba Rodinného Domu"
 		}
 
         if(type=="EL"){
