@@ -31,7 +31,7 @@ export default function Table({ items, headers, blockId, sectionId }) {
 		let variations = [] 
 
 		for(let i=0; i<items.length; i++){
-			if(i != ix && items[i].item_id.substring(0,7) == item_id){
+			if(typeof(items[i].item_id) == "string" &&  i != ix && items[i].item_id.substring(0,7) == item_id){
 				variations.push(items[i])
 			}
 		}
@@ -105,8 +105,16 @@ export default function Table({ items, headers, blockId, sectionId }) {
 
 										return (
 											<>
-												{typeof(polozka.item_id) == "string" && polozka.item_id.includes('.')?
+												{typeof(polozka.item_id) == "string" && polozka.item_id.includes('.') && polozka.item_id.indexOf(".") == 7 ?
 													<> 
+
+													{/* <TableRow
+														blockId={blockId}
+														i={i-sub}
+														polozka={polozka}
+														rowsCount={items.length}
+														sectionId={sectionId}
+													></TableRow> */}
 														{variations.length ? 
 															<TableRow
 																blockId={blockId}
@@ -118,7 +126,8 @@ export default function Table({ items, headers, blockId, sectionId }) {
 															></TableRow>
 														: <></>
 
-													}</> :
+													}
+													</> :
 
 													<TableRow
 														blockId={blockId}
@@ -147,6 +156,8 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId, variations }) {
 	const { displayColumns, tableRowTemplate, primaryColor } = useLayout();
 	const [didChange, setdidChange] = useState(false);
 	const [item, setitem] = useState(polozka);
+
+	if(variations && variations.length) console.log(variations)
 
 	return (
 		<div className="relative">
@@ -233,8 +244,6 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 	const [var_item, setvar_item] = useState(polozka)
 	const [variacie, setvariacie] = useState(variations)
 
-	console.log(data)
-
 	function change_items(variant, polozka, ix){
 		setvar_item(variant)
 
@@ -288,7 +297,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 					</div>
 
 					{showvariant && 
-					<div className={`absolute flex flex-col py-2 cursor-default shadow-xl border rounded bg-white right-[-10px] ` + (isHorizontal? "w-[103%] top-[106%]" : "w-[106%] top-[106%]")}>
+					<div className={`absolute flex flex-col py-1 cursor-default shadow-xl border rounded-sm bg-white right-[-10px] ` + (isHorizontal? "w-[103%] top-[106%]" : "w-[106%] top-[106%]")}>
 						{variacie.map((variant, ix) => {
 							
 							return(
