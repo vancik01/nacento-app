@@ -1,6 +1,4 @@
 import { Input } from "@mui/material";
-import { useDragControls } from "framer-motion";
-import { Reorder } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { Tooltip } from "react-tooltip";
@@ -8,8 +6,6 @@ import { useData } from "../context/AppWrap";
 import { useLayout } from "../context/LayoutContext";
 import TrashBin from "../public/SVG/editor/TrashBin";
 import DragableIcon from "../public/SVG/Dragable";
-import Dragable from "../public/SVG/Dragable";
-import { motion } from "framer-motion";
 import { TextareaAutosize } from "@mui/material";
 import Save from "../public/SVG/Save";
 import _ from "lodash";
@@ -17,30 +13,22 @@ import "react-tooltip/dist/react-tooltip.css";
 import ButtonIcon from "./buttons/ButtonIcon";
 import ArrowDown from "../public/SVG/ArrowDown";
 
-export default function Table({ items, headers, blockId, sectionId }) {
-	const { data, reorderRows, getTitle } = useData();
+export default function Table({ items, variations, headers, blockId, sectionId }) {
+	const { reorderRows, getTitle } = useData();
 	const { displayColumns, tableRowTemplate, primaryColor } = useLayout();
 
-	var variations = []
-	var main_variation = {}
-	var main_item_id = ''
+	function get_variations(item_id) {
+		if (typeof (item_id) !== "string") return []
+		if (!item_id.includes('.')) return []
+		if (item_id.indexOf(".") !== 7) return []
 
-	function get_variations(items, ix){
-		let item_id = items[ix].item_id.substring(0,7)
-
-		let variations = [] 
-
-		for(let i=0; i<items.length; i++){
-			if(typeof(items[i].item_id) == "string" &&  i != ix && items[i].item_id.substring(0,7) == item_id){
-				variations.push(items[i])
-			}
+		for(let i=0; i<variations.length; i++){
+			if (variations[i].item.item_id === item_id) return variations[i].alternatives
 		}
 
-		return variations
 
+		return []
 	}
-
-	var sub = 0
 
 	return (
 		<>
@@ -93,45 +81,25 @@ export default function Table({ items, headers, blockId, sectionId }) {
 								>
 									{items?.map((polozka, i) => {
 
-										if(typeof(polozka.item_id) == "string" && polozka.item_id.includes('.')){
-											if(polozka.quantity !== 0) 
-												variations = get_variations(items, i)
-
-											else{
-												variations = []
-												sub++
-											} 
-										}
+										let alternatives = get_variations(polozka.item_id)
 
 										return (
 											<>
-												{typeof(polozka.item_id) == "string" && polozka.item_id.includes('.') && polozka.item_id.indexOf(".") == 7 ?
-													<> 
-
-													{/* <TableRow
-														blockId={blockId}
-														i={i-sub}
-														polozka={polozka}
-														rowsCount={items.length}
-														sectionId={sectionId}
-													></TableRow> */}
-														{variations.length ? 
-															<TableRow
-																blockId={blockId}
-																i={i-sub}
-																polozka={polozka}
-																rowsCount={items.length}
-																sectionId={sectionId}
-																variations={variations}
-															></TableRow>
-														: <></>
-
-													}
-													</> :
+												{alternatives.length ?
 
 													<TableRow
 														blockId={blockId}
-														i={i-sub}
+														i={i}
+														polozka={polozka}
+														rowsCount={items.length}
+														sectionId={sectionId}
+														variations={alternatives}
+													></TableRow>
+													:
+
+													<TableRow
+														blockId={blockId}
+														i={i}
 														polozka={polozka}
 														rowsCount={items.length}
 														sectionId={sectionId}
@@ -157,8 +125,6 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId, variations }) {
 	const [didChange, setdidChange] = useState(false);
 	const [item, setitem] = useState(polozka);
 
-	if(variations && variations.length) console.log(variations)
-
 	return (
 		<div className="relative">
 			<Draggable
@@ -173,9 +139,8 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId, variations }) {
 						className=""
 					>
 						<div
-							className={`table_row content ${
-								snapshot.isDragging ? "dragging" : ""
-							}${i === rowsCount - 1 ? "last" : ""}`}
+							className={`table_row content ${snapshot.isDragging ? "dragging" : ""
+								}${i === rowsCount - 1 ? "last" : ""}`}
 							style={{ gridTemplateColumns: tableRowTemplate }}
 						>
 							<div
@@ -240,11 +205,11 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 	const { changeValue, data } = useData();
 	const [showvariant, setshowvariant] = useState(false)
 
-	const {isHorizontal} = useLayout();
+	const { isHorizontal } = useLayout();
 	const [var_item, setvar_item] = useState(polozka)
 	const [variacie, setvariacie] = useState(variations)
 
-	function change_items(variant, polozka, ix){
+	function change_items(variant, polozka, ix) {
 		setvar_item(variant)
 
 		let variations = [...variacie]
@@ -282,45 +247,45 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 	} else if (item === "title") {
 		return (
 			<>
-			{variacie? 
-				<div className={`flex  relative align-middle items-center w-full ${label.short}`} style={{zIndex: 100-index}}>
-					<TextareaAutosize
-						spellCheck="false"
-						className="w-full bg-transparent focus-visible:outline-none h-fit overflow-visible"
-						value={var_item.title}
-						name={item}
-						style={{ resize: "none" }}
-						onChange={update}
-					/>
-					<div className="p-1 cursor-pointer" onClick={(e) => {setshowvariant(!showvariant)}}>
-						<ArrowDown scale={0.9}/>
+				{variacie?.length ?
+					<div className={`flex  relative align-middle items-center w-full ${label.short}`} style={{ zIndex: 100 - index }}>
+						<TextareaAutosize
+							spellCheck="false"
+							className="w-full bg-transparent focus-visible:outline-none h-fit overflow-visible"
+							value={var_item.title}
+							name={item}
+							style={{ resize: "none" }}
+							onChange={update}
+						/>
+						<div className="p-1 cursor-pointer" onClick={(e) => { setshowvariant(!showvariant) }}>
+							<ArrowDown scale={0.9} />
+						</div>
+
+						{showvariant &&
+							<div className={`absolute flex flex-col py-1 cursor-default shadow-xl border rounded-sm bg-white right-[-10px] ` + (isHorizontal ? "w-[103%] top-[106%]" : "w-[106%] top-[106%]")}>
+								{variacie.map((variant, ix) => {
+
+									return (
+										<div key={`variant${index}-${ix}`} onClick={() => change_items(variant, var_item, ix)} className="hover:bg-blue-300 px-2 py-2">
+											<StringDiff stringA={var_item.title} stringB={variant.title} />
+										</div>
+									)
+								})}
+							</div>}
 					</div>
 
-					{showvariant && 
-					<div className={`absolute flex flex-col py-1 cursor-default shadow-xl border rounded-sm bg-white right-[-10px] ` + (isHorizontal? "w-[103%] top-[106%]" : "w-[106%] top-[106%]")}>
-						{variacie.map((variant, ix) => {
-							
-							return(
-								<div key={`variant${index}-${ix}`} onClick={() => change_items(variant, var_item, ix)} className="hover:bg-blue-300 px-2 py-2">
-									<StringDiff stringA={var_item.title} stringB={variant.title} />
-								</div>
-							)
-						})}
-					</div>}
-				</div>
 
-				
-			:
-			<div className={`flex align-middle items-center w-full ${label.short}`}>
-				<TextareaAutosize
-					spellCheck="false"
-					className="w-full bg-transparent focus-visible:outline-none h-fit overflow-visible"
-					value={var_item.title}
-					name={item}
-					style={{ resize: "none" }}
-					onChange={update}
-				/>
-			</div>}
+					:
+					<div className={`flex align-middle items-center w-full ${label.short}`}>
+						<TextareaAutosize
+							spellCheck="false"
+							className="w-full bg-transparent focus-visible:outline-none h-fit overflow-visible"
+							value={var_item.title}
+							name={item}
+							style={{ resize: "none" }}
+							onChange={update}
+						/>
+					</div>}
 			</>
 		);
 	} else if (item === "unit") {
@@ -429,28 +394,28 @@ const StringDiff = ({ stringA, stringB }) => {
 	const compareWords = (strA, strB) => {
 		const wordsA = strA.split(' ');
 		const wordsB = strB.split(' ');
-	  
+
 		const maxLength = Math.max(wordsA.length, wordsB.length);
 		let result = '';
-	  
+
 		for (let i = 0; i < maxLength; i++) {
-		  if (wordsA[i] !== wordsB[i]) {
-			result += `<span class="font-bold">${wordsB[i] || ''}</span> `;
-		  } else {
-			result += `${wordsB[i] || ''} `;
-		  }
+			if (wordsA[i] !== wordsB[i]) {
+				result += `<span class="font-bold">${wordsB[i] || ''}</span> `;
+			} else {
+				result += `${wordsB[i] || ''} `;
+			}
 		}
-	  
+
 		return result.trim();
-	  };
-  
+	};
+
 	return (
-	  <div
-		className=""
-		dangerouslySetInnerHTML={{
-		__html: compareWords(stringA, stringB),
-		}}
-	/>
+		<div
+			className=""
+			dangerouslySetInnerHTML={{
+				__html: compareWords(stringA, stringB),
+			}}
+		/>
 	);
-  };
-  
+};
+

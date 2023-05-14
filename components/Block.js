@@ -85,6 +85,7 @@ export default function Block({
 								sectionId={sectionId}
 								blockId={blockId}
 								items={block.items}
+								variations={block.variations}
 								headers={headers}
 							/>
 						)}
