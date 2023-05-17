@@ -738,6 +738,10 @@ export function AppWrap({ children, dbData }) {
 		expiration,
 		setexpiration,
 
+		updateBlockTotals,
+		updateSectionTotals,
+		setdata,
+
 		subHeading,
 		setsubHeading,
 	};

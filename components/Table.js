@@ -18,6 +18,7 @@ export default function Table({ items, variations, headers, blockId, sectionId }
 	const { displayColumns, tableRowTemplate, primaryColor } = useLayout();
 
 	function get_variations(item_id) {
+		if (!variations) return []
 		if (typeof (item_id) !== "string") return []
 		if (!item_id.includes('.')) return []
 		if (item_id.indexOf(".") !== 7) return []
@@ -80,32 +81,15 @@ export default function Table({ items, variations, headers, blockId, sectionId }
 									className="table_wrap"
 								>
 									{items?.map((polozka, i) => {
-
-										let alternatives = get_variations(polozka.item_id)
-
 										return (
-											<>
-												{alternatives.length ?
-
-													<TableRow
-														blockId={blockId}
-														i={i}
-														polozka={polozka}
-														rowsCount={items.length}
-														sectionId={sectionId}
-														variations={alternatives}
-													></TableRow>
-													:
-
-													<TableRow
-														blockId={blockId}
-														i={i}
-														polozka={polozka}
-														rowsCount={items.length}
-														sectionId={sectionId}
-													></TableRow>
-												}
-											</>
+											<TableRow
+												blockId={blockId}
+												i={i}
+												polozka={polozka}
+												rowsCount={items.length}
+												sectionId={sectionId}
+												variations={get_variations(polozka.item_id)}
+											></TableRow>			
 										);
 									})}
 									{provided.placeholder}
@@ -202,23 +186,52 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId, variations }) {
 }
 
 function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variations, index }) {
-	const { changeValue, data } = useData();
+	const { changeValue, data,updateBlockTotals,updateSectionTotals, setdata } = useData();
 	const [showvariant, setshowvariant] = useState(false)
-
 	const { isHorizontal } = useLayout();
-	const [var_item, setvar_item] = useState(polozka)
-	const [variacie, setvariacie] = useState(variations)
+
+	function variationIndex(item){
+		return parseInt(item.item_id.substring(8, item.item_id.length))
+	}
 
 	function change_items(variant, polozka, ix) {
-		setvar_item(variant)
-
-		let variations = [...variacie]
-		variations.splice(ix, 1)
-		variations.push(polozka)
-
-		setvariacie(variations)
-
 		setshowvariant(false)
+
+		var newData = { ...data };
+
+		newData.sections[sectionId].blocks[blockId].items.splice(itemId, 1);
+
+		variant.quantity = polozka.quantity
+		variant.total_construction_price = Math.round((variant.unit_construction_price * variant.quantity) * 100) /100
+		variant.total_delivery_price = Math.round((variant.unit_delivery_price * variant.quantity) * 100) /100
+		variant.total = Math.round((variant.total_construction_price + variant.total_delivery_price) * 100) /100
+
+		newData.sections[sectionId].blocks[blockId].items.splice(itemId, 0, variant)
+
+		let variant_ix = 0
+		for(let i=0; i<newData.sections[sectionId].blocks[blockId].variations.length; i++){
+			if(newData.sections[sectionId].blocks[blockId].variations[i].item.item_id == polozka.item_id){
+				newData.sections[sectionId].blocks[blockId].variations[i].item = variant
+				variant_ix = i
+				break
+			}
+		}
+
+
+		//remove the chosen variations from the list & add the previous to the list
+		for(let i=0; i<newData.sections[sectionId].blocks[blockId].variations[variant_ix].alternatives.length; i++){
+			if(newData.sections[sectionId].blocks[blockId].variations[variant_ix].alternatives[i].item_id == variant.item_id){
+				newData.sections[sectionId].blocks[blockId].variations[variant_ix].alternatives.splice(i, 1);
+				newData.sections[sectionId].blocks[blockId].variations[variant_ix].alternatives.splice(i, 0, polozka);
+				break
+			}
+				
+		}
+
+		updateBlockTotals(newData.sections[sectionId].blocks[blockId]);
+		updateSectionTotals(newData.sections[sectionId]);
+
+		setdata(newData);
 	}
 
 
@@ -235,24 +248,24 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 	if (item === "service_type") {
 		return (
 			<div className={`flex align-middle items-center ${label.short}`}>
-				{var_item.service_type}
+				{polozka.service_type}
 			</div>
 		);
 	} else if (item === "item_id") {
 		return (
 			<div className={`flex align-middle items-center ${label.short}`}>
-				{var_item.item_id}
+				{polozka.item_id}
 			</div>
 		);
 	} else if (item === "title") {
 		return (
 			<>
-				{variacie?.length ?
+				{variations?.length ?
 					<div className={`flex  relative align-middle items-center w-full ${label.short}`} style={{ zIndex: 100 - index }}>
 						<TextareaAutosize
 							spellCheck="false"
 							className="w-full bg-transparent focus-visible:outline-none h-fit overflow-visible"
-							value={var_item.title}
+							value={polozka.title}
 							name={item}
 							style={{ resize: "none" }}
 							onChange={update}
@@ -263,11 +276,11 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 
 						{showvariant &&
 							<div className={`absolute flex flex-col py-1 cursor-default shadow-xl border rounded-sm bg-white right-[-10px] ` + (isHorizontal ? "w-[103%] top-[106%]" : "w-[106%] top-[106%]")}>
-								{variacie.map((variant, ix) => {
+								{variations.map((variant, ix) => {
 
 									return (
-										<div key={`variant${index}-${ix}`} onClick={() => change_items(variant, var_item, ix)} className="hover:bg-blue-300 px-2 py-2">
-											<StringDiff stringA={var_item.title} stringB={variant.title} />
+										<div key={`variant${index}-${ix}`} onClick={() => change_items(variant, polozka, ix)} className="hover:bg-blue-300 px-2 py-2">
+											<StringDiff stringA={polozka.title} stringB={variant.title} />
 										</div>
 									)
 								})}
@@ -280,7 +293,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 						<TextareaAutosize
 							spellCheck="false"
 							className="w-full bg-transparent focus-visible:outline-none h-fit overflow-visible"
-							value={var_item.title}
+							value={polozka.title}
 							name={item}
 							style={{ resize: "none" }}
 							onChange={update}
@@ -292,7 +305,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 		return (
 			<div className={`flex align-middle items-center w-full ${label.short}`}>
 				<select
-					defaultValue={var_item.unit}
+					defaultValue={polozka.unit}
 					name={item}
 					className="w-full bg-transparent"
 					onChange={update}
@@ -316,7 +329,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={var_item.quantity.toString()}
+					value={polozka.quantity.toString()}
 				/>
 			</div>
 		);
@@ -328,7 +341,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={var_item.unit_delivery_price.toString()}
+					value={polozka.unit_delivery_price.toString()}
 					endAdornment="€"
 				/>
 			</div>
@@ -341,7 +354,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={var_item.unit_construction_price.toString()}
+					value={polozka.unit_construction_price.toString()}
 					endAdornment="€"
 				/>
 			</div>
@@ -354,7 +367,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={var_item.total_delivery_price.toString()}
+					value={polozka.total_delivery_price.toString()}
 					endAdornment="€"
 				/>
 			</div>
@@ -367,7 +380,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={var_item.total_construction_price.toString()}
+					value={polozka.total_construction_price.toString()}
 					endAdornment="€"
 				/>
 			</div>
@@ -380,7 +393,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={var_item.total.toString()}
+					value={polozka.total.toString()}
 					endAdornment="€"
 				/>
 
