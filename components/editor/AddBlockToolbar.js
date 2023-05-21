@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useData } from "../../context/AppWrap";
-import PlusCircle from "../../public/SVG/editor/PlusCircle";
+import PlusCircle from "../../public/assets/editor/PlusCircle";
 import ButtonIcon from "../buttons/ButtonIcon";
 import { motion } from "framer-motion";
-import Copy from "../../public/SVG/buttons/Copy";
+import Copy from "../../public/assets/buttons/Copy";
 import { AnimatePresence } from "framer-motion";
-import { useTemplate } from "../template_gallery/TemplateContext";
 
 export default function AddBlockToolbar({ blockId, sectionId }) {
 	const [toolbar, settoolbar] = useState(false);

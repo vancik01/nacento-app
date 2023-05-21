@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useLayout } from "../../context/LayoutContext";
 import { useViewOnly } from "../../context/ViewOnlyContext";
 import { numberWithCommas } from "../../lib/helpers";
 
-import TrashBin from "../../public/SVG/editor/TrashBin";
-import EditPen from "../../public/SVG/EditPen";
-import ButtonIcon from "../buttons/ButtonIcon";
 import VOblock from "./VOblock";
 import VOsectionSummary from "./VOsectionSummary";
 

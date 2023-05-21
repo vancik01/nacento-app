@@ -3,11 +3,9 @@ import React from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useData } from "../../context/AppWrap";
 import { useLayout } from "../../context/LayoutContext";
-import AddRow from "../../public/SVG/AddRow";
-import TrashBin from "../../public/SVG/editor/TrashBin";
-import DragableIcon from "../../public/SVG/Dragable";
-import AddSection from "./AddSection";
-import TestElement from "./TestElement";
+import AddRow from "../../public/assets/editor/AddRow";
+import TrashBin from "../../public/assets/editor/TrashBin";
+import DragableIcon from "../../public/assets/editor/Dragable";
 
 export default function SectionSummary({ blocks, sectionId, sectionsLength }) {
 	const { primaryColor } = useLayout();

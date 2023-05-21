@@ -1,11 +1,11 @@
-import { Button, Input } from "@mui/material";
+import { Input } from "@mui/material";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useData } from "../../context/AppWrap";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 import ButtonTag from "./ButtonTag";
-import PriceChangeIndicator from "../PriceChangeIndicator";
+import PriceChangeIndicator from "../editor/PriceChangeIndicator";
 import { motion } from "framer-motion";
-import Close from "../../public/SVG/Close";
+import Close from "../../public/assets/general/Close";
 
 import { AnimatePresence } from "framer-motion";
 import { round } from "lodash";

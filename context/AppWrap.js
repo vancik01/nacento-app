@@ -1,9 +1,7 @@
-import { AnimatePresence } from "framer-motion";
 import React, {
 	useCallback,
 	useContext,
 	useEffect,
-	useRef,
 	useState,
 } from "react";
 import { lang } from "../languages/languages";
@@ -22,12 +20,11 @@ import {
 	updateSectionTotals,
 	updateTableRow,
 } from "../lib/valueChangeFunctions";
-import AddRow from "../public/SVG/AddRow";
+
 import CenovaPonukaSkeleton from "../components/skeletons/CenovaPonukaSkeleton";
-import { forEach } from "lodash";
 import { useAuth } from "./AuthContext";
-import LayoutContext, { useLayout } from "./LayoutContext";
-import ScreenLayout from "../components/ScreenLayout";
+import { useLayout } from "./LayoutContext";
+
 
 const DataContext = React.createContext();
 
@@ -456,6 +453,9 @@ export function AppWrap({ children, dbData }) {
 	}
 
 	function addBlock(sectionId, blockId, template) {
+		if(template && !data.sections.length){
+			addSection()
+		}
 		let newData = { ...data };
 
 		var lengthBeforeInsert = newData.sections[sectionId].blocks.length;
@@ -475,6 +475,7 @@ export function AppWrap({ children, dbData }) {
 			newBlock = template;
 		}
 
+		
 		newData.sections[sectionId].blocks.splice(blockId + 1, 0, newBlock);
 
 		if (lengthBeforeInsert === 0) {

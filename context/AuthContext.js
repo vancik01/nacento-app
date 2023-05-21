@@ -14,8 +14,13 @@ import {
 	orderBy,
 	query,
 	where,
+	updateDoc,
 } from "firebase/firestore";
 
+import firebase from 'firebase/app';
+import 'firebase/auth';
+
+import { toast } from "react-toastify";
 import React, { useContext, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -28,11 +33,14 @@ import { GoogleAuthProvider } from "firebase/auth";
 import { useRouter } from "next/router";
 
 import FullPageLoading from "../components/loading/FullPageLoading";
+
+
 export default function AuthContext({ children }) {
 	const [user, loading, error] = useAuthState(auth);
 	const [display, setdisplay] = useState(false);
 	const [userData, setuserData] = useState(null);
 	const [data, setdata] = useState([]);
+	const [employees, setEmployees] = useState([]);
 	const [sceletonLoading, setsceletonLoading] = useState(true);
 	const [selected, setselected] = useState([]);
 
@@ -72,8 +80,8 @@ export default function AuthContext({ children }) {
 
 					var newData = [];
 					var newSelected = [];
-					const collectionRef = collection(firestore, "/offers");
-					const q = query(
+					var collectionRef = collection(firestore, "/offers");
+					var q = query(
 						collectionRef,
 						// orderBy("created", "desc"),
 						orderBy("lastModified", "desc"),
@@ -82,7 +90,7 @@ export default function AuthContext({ children }) {
 					//const query = query(collectionRef,);
 					getDocs(q).then((docs) => {
 						if (!docs.empty) {
-							docs.docs.map((doc) => {
+							docs.docs.map((doc) => {								
 								newData.push(doc.data());
 								newSelected.push(false);
 							});
@@ -91,6 +99,23 @@ export default function AuthContext({ children }) {
 						}
 
 						setsceletonLoading(false);
+					});
+
+					var Employees = [];
+					var collectionRef = collection(firestore, "/employees");
+					var q = query(
+						collectionRef,
+						where("userId", "==", user.uid)
+					);
+					//const query = query(collectionRef,);
+					getDocs(q).then((docs) => {
+						if (!docs.empty) {
+							docs.docs.map((doc) => {
+								console.log(doc.data())
+								Employees.push(doc.data());
+							});
+							setEmployees(Employees);
+						}
 					});
 			}
 		}
@@ -111,6 +136,10 @@ export default function AuthContext({ children }) {
 			});
 	}
 
+	function updateEmployee(newEmployee){
+		const docRef = doc(firestore, `/employees/${newEmployee.id}`);
+		updateDoc(docRef, newEmployee)
+	}
 	
 	function signInWithGoogle() {
 		const provider = new GoogleAuthProvider();
@@ -143,6 +172,9 @@ export default function AuthContext({ children }) {
 		selected,
 		setselected,
 		handleDelete,
+		employees,
+		setEmployees,
+		updateEmployee
 	};
 
 	return (

@@ -1,15 +1,11 @@
-import { useEffect } from "react";
-import { useStepperContext } from "../../../context/StepperContext";
 import { useStepper } from "../../../context/StepperContext";
 import IntroText from "../IntroText";
 import Divider from "../Divider"
 import FormLayout from "../FormLayout";
 
 import NumberInput from "../NumberInput";
-import SingleChoice from "../SingleChoice";
 import IconInput from "../IconInput"
-import Bed from "../icons/Bed";
-import AnoNie from "../AnoNie";
+import Bed from "../../../public/assets/form/Bed";
 
 export default function InstalacnePrace() {
   const { hsdata, sethsdata, color, setColor, ChangeHsValue } = useStepper();

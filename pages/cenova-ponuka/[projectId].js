@@ -5,7 +5,7 @@ import Head from "next/head";
 import React from "react";
 import { AppWrap } from "../../context/AppWrap";
 import LayoutContext from "../../context/LayoutContext";
-import ScreenLayout from "../../components/ScreenLayout";
+import ScreenLayout from "../../components/editor/ScreenLayout";
 import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "../../lib/firebase";
 import ActionsContext from "../../context/ActionsContext";

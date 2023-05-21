@@ -2,21 +2,19 @@ import { collection, doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { customBuild } from "../../data";
+import { customBuild } from "../../lib/data";
 import { firestore } from "../../lib/firebase";
 
-import IconHome from "../../public/SVG/dashboard/IconHome";
-import AddOffer from "../../public/SVG/dashboard/AddOffer";
-import InteractiveOffer from "../../public/SVG/dashboard/InteractiveOffer";
-import JsonOffer from "../../public/SVG/dashboard/JsonOffer";
+import AddOffer from "../../public/assets/dashboard/AddOffer";
+import InteractiveOffer from "../../public/assets/dashboard/InteractiveOffer";
+import JsonOffer from "../../public/assets/dashboard/JsonOffer";
 import FullPageLoading from "../loading/FullPageLoading";
 
-import Plus from "../../public/SVG/dashboard/Plus";
+import Plus from "../../public/assets/dashboard/Plus";
 import moment from "moment/moment";
-import { useData } from "../../context/AppWrap";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 import ButtonSecondary from "../buttons/ButtonSecondary";
-import Next from "../../public/SVG/user_setup/Next";
+import Next from "../../public/assets/user_setup/Next";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 

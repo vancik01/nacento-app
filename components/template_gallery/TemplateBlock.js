@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ArrowDown from "../../public/SVG/ArrowDown";
+import ArrowDown from "../../public/assets/general/ArrowDown";
 import { useTemplate } from "./TemplateContext";
 
 export default function TemplateBlock({ template }) {

@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { useStepperContext } from "../../../context/StepperContext";
 import { useStepper } from "../../../context/StepperContext";
 import IntroSection from "../IntroSection";
 import FormLayout from "../FormLayout";
@@ -7,18 +5,20 @@ import Divider from "../Divider";
 import SingleChoice from "../SingleChoice";
 import IconInput from "../IconInput";
 
-import tehla45 from "../icons/tehly/family-44.jpg"
-import tehla30 from "../icons/tehly/family-30.jpg"
-import tehla25 from "../icons/tehly/family-25.jpg"
-import tehla15 from "../icons/tehly/heluz-14.jpg"
-import tehla10 from "../icons/tehly/heluz-115.jpg"
 
-import y100 from "../icons/YTONG/Y100.jpg"
-import y150 from "../icons/YTONG/Y150.jpg"
-import y250 from "../icons/YTONG/Y250.jpg"
-import y300 from "../icons/YTONG/Y300.jpg"
-import y375 from "../icons/YTONG/Y375.jpg"
-import y450 from "../icons/YTONG/Y450.jpg"
+
+import tehla45 from "../../../public/assets/form/tehly/family-44.jpg"
+import tehla30 from "../../../public/assets/form/tehly/family-30.jpg"
+import tehla25 from "../../../public/assets/form/tehly/family-25.jpg"
+import tehla15 from "../../../public/assets/form/tehly/heluz-14.jpg"
+import tehla10 from "../../../public/assets/form/tehly/heluz-115.jpg"
+
+import y100 from "../../../public/assets/form/YTONG/Y100.jpg"
+import y150 from "../../../public/assets/form/YTONG/Y150.jpg"
+import y250 from "../../../public/assets/form/YTONG/Y250.jpg"
+import y300 from "../../../public/assets/form/YTONG/Y300.jpg"
+import y375 from "../../../public/assets/form/YTONG/Y375.jpg"
+import y450 from "../../../public/assets/form/YTONG/Y450.jpg"
 
 
 

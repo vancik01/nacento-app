@@ -9,11 +9,11 @@ import IconInput from "../IconInput";
 // import Dt30 from "../icons/Dt30"
 // import Dt40 from "../icons/Dt40"
 
-import Dt15 from "../icons/DT/dt15.jpg"
-import Dt20 from "../icons/DT/dt20.jpg"
-import Dt25 from "../icons/DT/dt25.jpg"
-import Dt30 from "../icons/DT/dt30.jpg"
-import Dt40 from "../icons/DT/dt40.jpg"
+import Dt15 from "../../../public/assets/form/DT/dt15.jpg"
+import Dt20 from "../../../public/assets/form/DT/dt20.jpg"
+import Dt25 from "../../../public/assets/form/DT/dt25.jpg"
+import Dt30 from "../../../public/assets/form/DT/dt30.jpg"
+import Dt40 from "../../../public/assets/form/DT/dt40.jpg"
 
 
 export default function Zakladovka() {

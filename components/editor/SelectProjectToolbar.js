@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import ArrowDown from "../../public/SVG/ArrowDown";
-import AllProjects from "../../public/SVG/editor/AllProjects";
-import AddNewProject from "../../public/SVG/editor/AddNewProject";
-import RecentClock from "../../public/SVG/editor/RecentClock";
+import ArrowDown from "../../public/assets/general/ArrowDown";
+import AllProjects from "../../public/assets/editor/AllProjects";
+import AddNewProject from "../../public/assets/editor/AddNewProject";
+import RecentClock from "../../public/assets/editor/RecentClock";
 import { useData } from "../../context/AppWrap";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";

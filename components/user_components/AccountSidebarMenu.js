@@ -1,12 +1,11 @@
 import React from "react";
 import { useAuth } from "../../context/AuthContext";
 import Link from "next/link";
-import Settings from "../../public/SVG/account/Settings";
-import Prefill from "../../public/SVG/account/Prefill";
-import Plus from "../../public/SVG/buttons/Plus";
+import Settings from "../../public/assets/account/Settings";
+import Prefill from "../../public/assets/account/Prefill";
 import Logout from "./Logout";
 import ButtonPrimary from "../buttons/ButtonPrimary";
-import ArrowBack from "../../public/SVG/buttons/ArrowBack";
+import ArrowBack from "../../public/assets/buttons/ArrowBack";
 import { useRouter } from "next/router";
 
 export default function AccountSidebarMenu() {

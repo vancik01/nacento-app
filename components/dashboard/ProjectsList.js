@@ -1,42 +1,24 @@
-import {
-	collection,
-	deleteDoc,
-	doc,
-	getDocs,
-	orderBy,
-	query,
-	where,
-} from "firebase/firestore";
 import ButtonIcon from "../buttons/ButtonIcon";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import React, { useEffect, useState } from "react";
 import FullPageLoading from "../../components/loading/FullPageLoading";
-import { LoggedIn } from "../../components/LoggedIn";
-import { firestore } from "../../lib/firebase";
-import Logo from "../../public/SVG/Logo";
-import PaintBrush from "/public/SVG/PaintBrush";
 
 import moment from "moment/moment";
-import Edit from "../../public/SVG/Edit";
-import UserInfoHeader from "../../components/user_components/UserInfoHeader";
+
 import { useAuth } from "../../context/AuthContext";
-import TrashBin from "../../public/SVG/editor/TrashBin";
+import TrashBin from "../../public/assets/editor/TrashBin";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 import { AnimatePresence } from "framer-motion";
-import IconHome from "../../public/SVG/dashboard/IconHome";
-import Offer from "../../public/SVG/dashboard/EmptyOffer";
-import AddOffer from "../../public/SVG/dashboard/AddOffer";
-import InteractiveOffer from "../../public/SVG/dashboard/InteractiveOffer";
-import Download from "../../public/SVG/Download";
+import IconHome from "../../public/assets/dashboard/IconHome";
+import Download from "../../public/assets/general/Download";
 import GeneratePDF from "../editor/GeneratePDF";
 
-import { useActions } from "../../context/ActionsContext";
 import { getLastModified, numberWithCommas } from "../../lib/helpers";
 import { round } from "lodash";
-import ArrowDown from "../../public/SVG/ArrowDown";
-import CheckMark from "./icons/CheckMark";
+import ArrowDown from "../../public/assets/general/ArrowDown";
+import CheckMark from "../../public/assets/general/CheckMark";
 
 export default function ProjectList({ clicked }) {
 	const router = useRouter();

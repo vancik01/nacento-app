@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 import { motion } from "framer-motion";
 import ButtonSecondary from "../buttons/ButtonSecondary";
-import Next from "../../public/SVG/user_setup/Next";
-import { useData } from "../../context/AppWrap";
+import Next from "../../public/assets/user_setup/Next";
 import { useAuth } from "../../context/AuthContext";
 import { useLayout } from "../../context/LayoutContext";
 

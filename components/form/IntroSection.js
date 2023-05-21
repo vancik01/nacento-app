@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect } from 'react'
 import { useStepper } from '../../context/StepperContext'
 import { useApi } from '../../context/ApiContext';
-import x from "../../public/static/x.svg";
+import x from "../../public/assets/form/x.svg";
 
 function IntroSection({title, text, ix, type}) {
   const { color } = useStepper() 

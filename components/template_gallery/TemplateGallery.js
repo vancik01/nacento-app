@@ -1,11 +1,6 @@
-import { Checkbox } from "@mui/material";
 import React from "react";
-import { useData } from "../../context/AppWrap";
-import ArrowDown from "../../public/SVG/ArrowDown";
-import ArrowBack from "../../public/SVG/buttons/ArrowBack";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 import ButtonSecondary from "../buttons/ButtonSecondary";
-import TemplateBlock from "./TemplateBlock";
 import { useTemplate } from "./TemplateContext";
 import { motion } from "framer-motion";
 import TemplateItem from "./TemplateItem";

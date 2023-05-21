@@ -1,19 +1,18 @@
-import { ThemeProvider } from "@emotion/react";
 import { TextField } from "@mui/material";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import ButtonLoading from "../components/buttons/ButtonLoading";
-import Layout from "../components/Layout";
+import Layout from "../components/editor/Layout";
 import FullPageLoading from "../components/loading/FullPageLoading";
-import { LoggedIn } from "../components/LoggedIn";
+import { LoggedIn } from "../components/user_components/LoggedIn";
 
 import { useAuth } from "../context/AuthContext";
-import IconGoogle from "../public/SVG/IconGoogle";
+import IconGoogle from "../public/assets/general/IconGoogle";
 import moment from "moment/moment";
 
-import Logo from "../public/SVG/Logo";
+import Logo from "../public/assets/editor/Logo";
 import { firestore } from "../lib/firebase";
 
 export default function Login() {
@@ -32,7 +31,7 @@ export default function Login() {
 		loginWithEmailAndPassword(email, pass)
 			.then((user) => {
 				router.push("/dashboard");
-				console.log(user);
+				//console.log(user);
 			})
 			.catch((err) => {
 				setuserloading(false);

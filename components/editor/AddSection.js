@@ -1,6 +1,6 @@
 import React from "react";
 import { useData } from "../../context/AppWrap";
-import Plus from "../../public/SVG/buttons/Plus";
+import Plus from "../../public/assets/buttons/Plus";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 
 export default function AddSection({ sectionId }) {

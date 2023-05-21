@@ -2,12 +2,12 @@ import Head from "next/head";
 import React, { useState } from "react";
 import TeamsList from "../../components/dashboard/TeamsList";
 import UserInfoHeader from "../../components/user_components/UserInfoHeader";
-import HomeSVG from "../../components/HomeSVG";
+import HomeSVG from "../../public/assets/general/HomeSVG";
 import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/router";
 
 import ButtonSecondary from "../../components/buttons/ButtonSecondary";
-import ArrowBack from "../../public/SVG/buttons/ArrowBack";
+import ArrowBack from "../../public/assets/buttons/ArrowBack";
 
 import { UseStepperContext } from "../../context/StepperContext";
 import { ApiContext } from "../../context/ApiContext";
@@ -18,9 +18,9 @@ import ElektromontazForm from "../../components/form/ElektromontazForm";
 import VykurovanieForm from "../../components/form/VykurovanieForm";
 
 
-import HS from "./icons/HS";
-import Elektro from "./icons/Elektro";
-import Vykurovanie from "./icons/Vykurovanie";
+import HS from "../../public/assets/dashboard/HS";
+import Elektro from "../../public/assets/dashboard/Elektro";
+import Vykurovanie from "../../public/assets/dashboard/Vykurovanie";
 
 import TestForm from "../../components/form/TestForm";
 

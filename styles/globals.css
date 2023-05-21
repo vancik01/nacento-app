@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-calendars/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-dropdowns/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-inputs/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-lists/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-navigations/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-popups/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-react-schedule/styles/material.css";
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
@@ -47,7 +59,7 @@ p{
 }
 
 
-table {
+/* table {
     border-collapse: collapse;
     width: 100%;
     border: 1px solid white;
@@ -74,7 +86,7 @@ td, th{
 }
 td {
     @apply h-[100px];
-}
+} */
 
 /*spinner*/
 
@@ -252,6 +264,7 @@ option {
       background-position: 0% 50%
     }
   }
+
 
 #file-hidden {
     display: none;

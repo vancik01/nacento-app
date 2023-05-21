@@ -2,13 +2,11 @@ import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import React from "react";
 import ButtonPrimary from "../../components/buttons/ButtonPrimary";
-import ButtonSecondary from "../../components/buttons/ButtonSecondary";
-import Layout from "../../components/Layout";
 import VOoffer from "../../components/ViewOnlyOffer/VOoffer";
 import LayoutContext from "../../context/LayoutContext";
 import ViewOnlyContext from "../../context/ViewOnlyContext";
 import { firestore } from "../../lib/firebase";
-import Logo from "../../public/SVG/Logo";
+import Logo from "../../public/assets/editor/Logo";
 
 export default function View({ dbData }) {
 	const router = useRouter();

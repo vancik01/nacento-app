@@ -1,13 +1,6 @@
 import React, {useState} from 'react';
 import {Tooltip} from "react-tooltip";
-import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
-import {useData} from "../../context/AppWrap";
 import {useLayout} from "../../context/LayoutContext";
-import ButtonIcon from "../buttons/ButtonIcon";
-import TrashBin from "../../public/SVG/editor/TrashBin";
-import DragableIcon from "../../public/SVG/Dragable";
-import Save from "../../public/SVG/Save";
-import {Input, TextareaAutosize} from "@mui/material";
 import {getTitle} from "../../lib/helpers";
 import {useViewOnly} from "../../context/ViewOnlyContext";
 

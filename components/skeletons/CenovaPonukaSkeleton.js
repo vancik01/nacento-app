@@ -1,5 +1,4 @@
 import React from "react";
-import A4 from "../A4";
 
 export default function CenovaPonukaSkeleton() {
 	return (
