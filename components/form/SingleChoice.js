@@ -1,7 +1,5 @@
-import { act } from '@react-three/fiber'
 import React, { useState }  from 'react'
 import { useStepper } from '../../context/StepperContext'
-import { appBarClasses } from '@mui/material'
 
 function SingleChoice({ id, labels, onClick, path, grid }) {
 

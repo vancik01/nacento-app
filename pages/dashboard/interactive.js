@@ -1,10 +1,8 @@
-import Head from "next/head";
 import React, { useState } from "react";
-import TeamsList from "../../components/dashboard/TeamsList";
-import UserInfoHeader from "../../components/user_components/UserInfoHeader";
-import HomeSVG from "../../public/assets/general/HomeSVG";
 import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/router";
+
+import DashboardLayout from "../../components/dashboard/DashboardLayout";
 
 import ButtonSecondary from "../../components/buttons/ButtonSecondary";
 import ArrowBack from "../../public/assets/buttons/ArrowBack";
@@ -14,7 +12,6 @@ import { ApiContext } from "../../context/ApiContext";
 
 import HSForm from "../../components/form/HrubaStavbaForm";
 import ElektromontazForm from "../../components/form/ElektromontazForm";
-
 import VykurovanieForm from "../../components/form/VykurovanieForm";
 
 
@@ -48,41 +45,8 @@ export default function Dashboard() {
 	}
 
 	return (
-		<div>
-			<Head>
-				<title>Dashboard</title>
-			</Head>
-			{/* <div style={{ backgroundColor: "#363636" }} className={"drop-shadow	"}> */}
-			<div style={{ backgroundColor: "#2C2C2C" }} className={"drop-shadow	"}>
-				{/* <Layout className="h-[55px]"> */}
-				<div className="flex items-center justify-between px-4 h-[47px]">
-					<div className="flex gap-2 text-white items-center">
+		<DashboardLayout>
 
-						<button onClick={() => router.push("/dashboard/")}>
-							<HomeSVG />
-						</button>
-
-						<div style={{ letterSpacing: "-0.2px" }}>
-							<div style={{ fontSize: "14px" }}> {userData.name} </div>
-							<div
-								className="opacity-50 mt-[-4px]"
-								style={{ fontSize: "10px" }}
-							>
-								{" "}
-								{userData.email}{" "}
-							</div>
-						</div>
-					</div>
-
-					<UserInfoHeader color="white" is_smaller={true} />
-				</div>
-				{/* </Layout> */}
-			</div>
-
-			<div className="xl:grid" style={{ gridTemplateColumns: "240px 1fr" }}>
-				<TeamsList></TeamsList>
-
-				<div className="mb-16 mt-16 lg:mx-16">
 					<ButtonSecondary
 						href="/dashboard"
 						iconBefore
@@ -134,9 +98,9 @@ export default function Dashboard() {
 							{workTypes == 2 && <VykurovanieForm theme_color={"green"} />}
 						</ApiContext>
 					</UseStepperContext>
-				</div>
-			</div>
-		</div>
+
+		</DashboardLayout>
+			
 	);
 }
 
