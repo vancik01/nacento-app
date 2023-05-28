@@ -16,6 +16,7 @@ export default function ButtonSecondary({
 	icon,
 	iconBefore,
 	iconAfter,
+	type
 }) {
 	const layout = useLayout();
 	const router = useRouter();
@@ -24,6 +25,7 @@ export default function ButtonSecondary({
 
 	return (
 		<motion.button
+			type={type}
 			whileHover={{
 				y: 0,
 

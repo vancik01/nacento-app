@@ -1,6 +1,6 @@
 import React from "react";
 import TemplateBlock from "./TemplateBlock";
-import { useTemplate } from "./TemplateContext";
+import { useTemplate } from "../../context/TemplateContext";
 
 export default function TemplateItem({ template }) {
 	const { tab } = useTemplate();

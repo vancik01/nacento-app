@@ -1,6 +1,6 @@
 import { collection, doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { customBuild } from "../../lib/data";
 import { firestore } from "../../lib/firebase";
@@ -17,18 +17,25 @@ import ButtonSecondary from "../buttons/ButtonSecondary";
 import Next from "../../public/assets/user_setup/Next";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
+import ExcelIcon from "../../public/assets/excelEditor/ExcelIcon";
+
+import ExcelEditor from "../excelEditor/ExcelEditor";
+import { SpreadsheetComponent } from "@syncfusion/ej2-react-spreadsheet";
+
+import { useExcel } from "../../context/ExcelContext";
+
 
 export default function CreateToolbar() {
 	return (
 		<div className='flex flex-col w-fit sm:flex-row gap-2 sm:gap-8 overflow-y-auto'>
 			<AddEmpty
-				text='Prázdna cenová ponuka'
+				text='Nová cenová ponuka'
 				subtext='Začnite od nuly'
 				color='#73A496'
 			></AddEmpty>
 			<AddButton
-				text='Rýchla cenová ponuka'
-				subtext='Zadajte len parametre stavby'
+				text='Z výkazu výmer v Exceli'
+				subtext='Vložte excel výkazu výmer'
 				color='#1400FF'
 			></AddButton>
 			{/* <AddFromFile color="#1400FF"></AddFromFile> */}
@@ -38,19 +45,64 @@ export default function CreateToolbar() {
 
 function AddButton({ text, subtext, color, onClick }) {
 	const router = useRouter();
+	const { user } = useAuth();
+	const inputRef = useRef(null);
+	const { file, setFile } = useExcel()
+
+	const [loading, setloading] = useState(false);
+
+	const handleClick = () => {
+		inputRef.current.click();
+	  };
+
+	const handleFileChange = async (e) => {
+		const file = e.target.files[0];
+		const fileBlob = new Blob([file], { type: file.type });// convert the excel file to blob
+		const newfile = new File([fileBlob], 'Sample.xlsx'); //convert the blob into file
+		setFile(newfile)
+
+		//--------------------------------------------//
+
+		const reader = new FileReader();
+		reader.onloadend = () => {
+			const base64Data = reader.result;
+
+			setloading(true);
+			const collectionRef = doc(collection(firestore, "/excels"));
+
+			setDoc(collectionRef, {
+				id: collectionRef.id,
+				name: "Nová Ponuka z Výkazu Výmer",
+				created: moment().valueOf(),
+				userId: user != null ? user.uid : "none",
+				lastModified: moment().valueOf(),
+				data : base64Data
+			})
+				.then((response) => {
+					router.push(`/z-vykazu-vymer/${collectionRef.id}`);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		  };
+
+		reader.readAsDataURL(fileBlob);
+	};
+
 
 	return (
-		<button
-			onClick={() => {
-				router.push(`/dashboard/interactive/`);
-			}}
-			className='py-3 px-3 cursor-default border rounded-md flex items-center justify-between sm:justify-center gap-2 text-start trans hover:bg-gray-100 transition-all'
-		>
-			{/* <IconHome color={color}></IconHome> */}
-			{/* <InteractiveOffer color={color}></InteractiveOffer> */}
-			<InteractiveOffer color={color}></InteractiveOffer>
+		<>
 
-			<div>
+		<input id="file-hidden"type="file" ref={inputRef} accept=".xlsx, .xls" onChange={handleFileChange}/>
+         
+		<button onClick={handleClick}
+			className='py-3 px-3 cursor-default border rounded-md flex items-center justify-between sm:justify-center gap-2 text-start trans hover:bg-gray-100 transition-all'>	
+			
+			<FullPageLoading loading={loading}></FullPageLoading>
+
+			<ExcelIcon/>
+			
+			<div className="ml-1">
 				<div className='text-xs md:text-sm font-regular'>{text}</div>
 				<div className='text-xs font-light text-gray-400'>{subtext}</div>
 			</div>
@@ -58,7 +110,9 @@ function AddButton({ text, subtext, color, onClick }) {
 			<div className='ml-8'>
 				<Plus></Plus>
 			</div>
+			
 		</button>
+	</>
 	);
 }
 function AddFromFile({ text, color, onClick }) {

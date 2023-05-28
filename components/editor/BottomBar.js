@@ -32,7 +32,7 @@ export default function BottomBar() {
 	}, [total]);
 
 	return (
-		<div className="bottom-bar bg-white relative h-16 z-30">
+		<div className="bottom-bar bg-white relative h-16">
 				<div className="flex h-full flex-row justify-center items-center w-full gap-20">
 					<div className="relative w-fit" id="bulk-edit">
 						<PriceChangeIndicator val={changeMontaz} />
@@ -63,8 +63,6 @@ export default function BottomBar() {
 					</div>
 
 				</div>
-
-				
 
 		</div>
 	);

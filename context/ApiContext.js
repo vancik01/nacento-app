@@ -7,6 +7,7 @@ import moment from "moment/moment";
 import { useAuth } from "../context/AuthContext";
 
 import { useStepper } from "./StepperContext";
+import { useData } from "./AppWrap";
 
 const UseApiContext = createContext();
 
@@ -15,6 +16,8 @@ export function ApiContext({ children }) {
 	const [pdf, setPdf] = useState("");
 	const [dataloading, setdataloading] = useState(false);
 	const { hsdata, sethsdata, edata, vdata } = useStepper();
+
+	const { data, setdata, calculateTotals, initialTotal, setinitialTotal, setname } = useData()  
 
 	const { user } = useAuth();
 	const router = useRouter();
@@ -72,6 +75,66 @@ export function ApiContext({ children }) {
 						.catch((err) => {
 							console.log(err);
 						});
+				});
+			}
+		});
+	}
+
+	function DataToSectionList(type){
+		var api_route, apidata, name;
+
+		if (type == "zakladovka" || type == 'murivo' || type=="strecha") {
+			api_route = "hruba_stavba/";
+			apidata = { ...hsdata };
+		}
+
+        if(type=="pripojka" || type=="instalacky" || type=="bleskozvod" || type=="predpripravy"){
+            api_route = "elektro/"
+            apidata = {...edata}
+        }
+
+		if(type=="vykurovanie"){
+            api_route = "vykurovanie/"
+            apidata = {...vdata}
+        }
+
+		apidata.type = type
+
+		// fetch(`http://127.0.0.1:8000/api/sectionList_${api_route}`, {
+		fetch(`https://api.nacento.online/api/sectionList_${api_route}`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(apidata),
+		}).then((response) => {
+			if (response.ok) {
+				response.json().then((sections) => {
+					setdataloading(true);
+
+					var newData = {...data}
+					
+					var dodavka = 0
+					var montaz = 0
+					
+
+					sections.forEach(section => {
+						dodavka += section.info.total_delivery_price
+						montaz += section.info.total_construction_price
+						newData.sections.push(section)
+
+					});
+
+					setname('Hrubá Stavba Rodinného Domu')
+
+					setdata(newData)
+					calculateTotals()
+
+					setinitialTotal({
+						total_delivery_price: initialTotal.total_delivery_price + dodavka,
+						total_construction_price:  initialTotal.total_construction_price + montaz,
+						total: initialTotal.total + dodavka + montaz,
+					})
+
+    
 				});
 			}
 		});
@@ -186,6 +249,7 @@ export function ApiContext({ children }) {
 		deletePdf,
 
 		dataloading,
+		DataToSectionList
 	};
 
 	return (

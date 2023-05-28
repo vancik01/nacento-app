@@ -4,14 +4,14 @@ import UserInfoHeader from "../user_components/UserInfoHeader";
 import SelectProjectToolbar from "./SelectProjectToolbar";
 import ButtonSecondary from "../buttons/ButtonSecondary";
 import ArrowBack from "../../public/assets/buttons/ArrowBack";
-import { useData } from "../../context/AppWrap";
+// import { useData } from "../../context/AppWrap";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 import Share from "../../public/assets/buttons/Share";
 import { useActions } from "../../context/ActionsContext";
 
 export default function EditorHeader() {
 	const router = useRouter();
-	const { handleSave } = useData();
+	// const { handleSave } = useData();
 	const { openShare } = useActions();
 
 	return (
@@ -20,7 +20,7 @@ export default function EditorHeader() {
 				<div>
 					<ButtonSecondary
 						onClick={() => {
-							handleSave(false);
+							// handleSave(false);
 							router.replace("/dashboard");
 						}}
 						// href="/dashboard"

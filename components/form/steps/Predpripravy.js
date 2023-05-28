@@ -8,12 +8,14 @@ import SingleChoice from "../SingleChoice";
 import NumberInput from "../NumberInput";
 import Divider from "../Divider"
 import AnoNie from "../AnoNie";
+import PageLayout from "../PageLayout";
 
 export default function Strecha() {
   const { edata, sethsdata, color, setColor, ChangeHsValue } = useStepper();
 
   return (
-    <>
+    <PageLayout type={'predpripravy'}>
+
         <IntroText title={"žiadne predprípravy"} />
 
         <FormLayout>
@@ -106,7 +108,7 @@ export default function Strecha() {
 
         </FormLayout>
     
-    </>
+    </PageLayout>
   );
 }
 

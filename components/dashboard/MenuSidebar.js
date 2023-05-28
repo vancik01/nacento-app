@@ -38,7 +38,7 @@ export default function MenuSidebar({scope}) {
 
 				
 				<MenuOption text={'Cenové Ponuky'} href={"dashboard"} icon={<OfferGrayIcon/>} active={scope === 'dashboard'}/>
-				<MenuOption text={'Plánovanie'} href={"planning"} icon={<PlanningIcon/>} active={scope === 'planning'}/>
+				{/* <MenuOption text={'Plánovanie'} href={"planning"} icon={<PlanningIcon/>} active={scope === 'planning'}/> */}
 				<MenuOption text={'Zamestantci'} href={"employees"} icon={<div className="h-3 aspect-square bg-blue-500"></div>} active={scope === 'employees'}/>
 			
 

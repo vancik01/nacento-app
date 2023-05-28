@@ -261,7 +261,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 		return (
 			<>
 				{variations?.length ?
-					<div className={`flex  relative align-middle items-center w-full ${label.short}`} style={{ zIndex: 100 - index }}>
+					<div className={`flex  relative align-middle items-center w-full`} style={{ zIndex: 100 - index }}>
 						<TextareaAutosize
 							spellCheck="false"
 							className="w-full bg-transparent focus-visible:outline-none h-fit overflow-visible"

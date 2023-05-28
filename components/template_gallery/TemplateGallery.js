@@ -1,7 +1,7 @@
 import React from "react";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 import ButtonSecondary from "../buttons/ButtonSecondary";
-import { useTemplate } from "./TemplateContext";
+import { useTemplate } from "../../context/TemplateContext";
 import { motion } from "framer-motion";
 import TemplateItem from "./TemplateItem";
 

@@ -4,7 +4,7 @@ import FormLayout from "../FormLayout";
 import Divider from "../Divider";
 import SingleChoice from "../SingleChoice";
 import IconInput from "../IconInput";
-
+import PageLayout from "../PageLayout";
 
 
 import tehla45 from "../../../public/assets/form/tehly/family-44.jpg"
@@ -26,7 +26,7 @@ export default function Murivo() {
   const { hsdata, sethsdata, color, setColor, ChangeHsValue } = useStepper();
 
   return (
-    <div className="bg-white pb-10">
+    <PageLayout type={'murivo'}>
         <IntroSection title={"murovacie práce"} ix={1}  text={"pôdorysu 1. NP"} type={"MP"}/>
 
         <FormLayout>
@@ -52,7 +52,7 @@ export default function Murivo() {
 
         </FormLayout>
     
-    </div>
+    </PageLayout>
   );
 }
 

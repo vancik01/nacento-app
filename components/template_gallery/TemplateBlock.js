@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ArrowDown from "../../public/assets/general/ArrowDown";
-import { useTemplate } from "./TemplateContext";
+import { useTemplate } from "../../context/TemplateContext";
 
 export default function TemplateBlock({ template }) {
 	const [extand, setextand] = useState(false);

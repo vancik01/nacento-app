@@ -13,6 +13,9 @@ import ActionsContext from "../../context/ActionsContext";
 import { UseStepperContext } from "../../context/StepperContext";
 import { ApiContext } from "../../context/ApiContext";
 
+
+import ExcelContext from "../../context/ExcelContext";
+
 export default function Home({ dbData }) {
 	const theme = createTheme({
 		typography: {
@@ -20,26 +23,69 @@ export default function Home({ dbData }) {
 			fontSize: 10,
 		},
 	});
-	
+
+
+    const data = {
+        id: "4343",
+        data: {
+            customer: {
+                name: "",
+            },
+            supplyer: {
+                company_name: "",
+                ico: "",
+                dic: "",
+                phone: "",
+                email: "",
+                web: "",
+            },
+            headers: [
+                "service_type",
+                "item_id",
+                "title",
+                "unit",
+                "quantity",
+                "unit_delivery_price",
+                "unit_construction_price",
+                "total_delivery_price",
+                "total_construction_price",
+                "total",
+            ],
+            sections: [],
+        },
+        name: "Nová cenová ponuka",
+        created:100,
+        userId: "none",
+        totals: {
+            total_delivery_price: 0,
+            total_construction_price: 0,
+            total: 0,
+        },
+        lastModified: 6546,
+    }
+
+
 	return (
 		<ThemeProvider theme={theme}>
 			<Head>
-				<title>Cenová ponuka</title>
+				<title>Excel Dokument</title>
 			</Head>
 
-			<LayoutContext layout={dbData?.layout} headers={dbData.data.headers}>
-				<AppWrap dbData={dbData}>
+            <LayoutContext headers={data.data.headers}>
+				<AppWrap dbData={data}>
 					<ActionsContext>
 						<UseStepperContext>
 							<ApiContext>
 
-								<ScreenLayout />
+								    <ScreenLayout excel/>
 
 							</ApiContext>
 						</UseStepperContext>
 					</ActionsContext>
 				</AppWrap>
 			</LayoutContext>
+            
+            
 
 		</ThemeProvider>
 	);
@@ -47,8 +93,9 @@ export default function Home({ dbData }) {
 
 export async function getServerSideProps(context) {
 	const projectId = context.query.projectId;
+    console.log(projectId)
 
-	const docRef = doc(firestore, `/offers/${projectId}`);
+	const docRef = doc(firestore, `/excels/${projectId}`);
 	const snap = await getDoc(docRef);
 	if (snap.exists()) {
 		return {

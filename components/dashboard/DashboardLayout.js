@@ -1,7 +1,6 @@
 import Head from "next/head";
 import React, { useRef, useState, useEffect } from "react";
-import CreateToolbar from "../../components/dashboard/CreateToolbar";
-import ProjectList from "../../components/dashboard/ProjectsList";
+
 import MenuSidebar from "./MenuSidebar";
 import UserInfoHeader from "../../components/user_components/UserInfoHeader";
 import HomeSVG from "../../public/assets/general/HomeSVG"
@@ -14,18 +13,15 @@ import FullPageLoading from "../../components/loading/FullPageLoading";
 
 
 export default function DashboardLayout(props) {
-	const { user, userData, data } = useAuth()
-	const [clicked, setclicked] = useState(false)
+	const { userData, data, user } = useAuth()
+
 	const [hover, sethover] = useState(false)
 
-	const [isFocused, setIsFocused] = useState(null);
 	const [q, setQ] = useState("");
+	const [isFocused, setIsFocused] = useState(null);
  
 	const [filtered, setfiltered] = useState(data);
 
-  function handleClick(){
-    if(props.scope === 'dashboard') setclicked(!clicked)
-  }
 
 	useEffect(() => {
 
@@ -56,13 +52,10 @@ export default function DashboardLayout(props) {
 			<Head>
 				<title>Naceňto</title>
 			</Head>
-			{/* <div style={{ backgroundColor: "#363636" }} className={"drop-shadow	"}> */}
 			<div style={{ backgroundColor: "#2C2C2C" }} className={"drop-shadow	"}>
 
-				{/* <Layout className="h-[55px]"> */}
 				<div className="flex items-center justify-between px-4 h-[47px]">
 
-					{/* <div className="flex gap-4 text-white items-center"> */}
 					<div className="flex">
 						<div className="flex items-center gap-2">
 							<HomeSVG/>
@@ -87,24 +80,22 @@ export default function DashboardLayout(props) {
 
 					</div>
 
-
 					<UserInfoHeader color="white" is_smaller={true}/> 
 				</div>
-				{/* </Layout> */}
+				
 			</div>
 
-			<div className="xl:grid" onClick={handleClick} style={{ gridTemplateColumns: "240px 1fr" }}>
+			<div className="xl:grid" style={{ gridTemplateColumns: "240px 1fr" }}>
 				<MenuSidebar scope={props.scope}></MenuSidebar>
 
 				<div className="mb-16 mt-8 mx-8 md:mx-16">
-          {props.children}
 
-          {props.scope === 'dashboard' && <div>
-              <CreateToolbar></CreateToolbar>
-              <ProjectList clicked={clicked}></ProjectList>
+          			{props.children}
 
-              {isFocused && <FilteredList filtered={filtered}/>} 
-            </div>}
+					{props.scope === 'dashboard' && <>
+						{isFocused && <FilteredList filtered={filtered}/>}
+					</>}
+
 				</div>
 
 			</div>

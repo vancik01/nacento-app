@@ -1,9 +1,9 @@
 import { getAuth } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
-import { useData } from "../../context/AppWrap";
-import { useAuth } from "../../context/AuthContext";
-import { firestore } from "../../lib/firebase";
+import { useData } from "./AppWrap";
+import { useAuth } from "./AuthContext";
+import { firestore } from "../lib/firebase";
 
 const Template = React.createContext();
 
@@ -13,7 +13,8 @@ export default function TemplateContext({ children }) {
 	const [insert, setinsert] = useState([]);
 	const { user } = useAuth();
 	const { addBlock, setopenTemplate, templateTrigger } = useData();
-	const [tab, settab] = useState("all");
+	const [tab, settab] = useState("zakladovka");
+	const [ workSelected, selectWork ] = useState('hruba_stavba')
 
 	//const [templateTrigger, settemplateTrigger] = useState(null);
 
@@ -25,7 +26,6 @@ export default function TemplateContext({ children }) {
 				setloading(false);
 			}
 		});
-		console.log(templateTrigger, "trigger");
 	}, []);
 
 	function closeTemplates() {
@@ -50,16 +50,16 @@ export default function TemplateContext({ children }) {
 	function handleInsert() {
 		insert?.map((temp, tempId) => {
 			if (temp.type === "block") {
-				console.log(temp, "temp");
+				// console.log(temp, "temp");
 				addBlock(temp.sectionId, temp.blockId, { ...temp.data });
 			}
 		});
 		closeTemplates();
 	}
 
-	useEffect(() => {
-		console.log(insert, "Insert");
-	}, [insert]);
+	// useEffect(() => {
+	// 	console.log(insert, "Insert");
+	// }, [insert]);
 
 	function selectTab(id) {
 		settab(id);
@@ -74,6 +74,9 @@ export default function TemplateContext({ children }) {
 		closeTemplates,
 		selectTab,
 		tab,
+		settab,
+
+		workSelected, selectWork
 	};
 
 	return (

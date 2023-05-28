@@ -57,7 +57,7 @@ export function AppWrap({ children, dbData }) {
 	const [description, setdescription] = useState(dbData.description);
 	const [templateTrigger, settemplateTrigger] = useState(null);
 	const [dataDB, setdataDB] = useState(dbData);
-	const [signature, setsignature] = useState("");
+	const [openFormulas , setOpenFormulas] = useState(false);
 	const [expiration, setexpiration] = useState(
 		dbData.expiration
 			? moment(dbData.expiration).valueOf()
@@ -67,7 +67,8 @@ export function AppWrap({ children, dbData }) {
 	const [subHeading, setsubHeading] = useState(
 		dbData.subHeading ? dbData.subHeading : "#" + today.toLocaleDateString("sk")
 	);
-
+	
+	const [ signature, setsignature ] = useState("");
 	const { userData, user } = useAuth();
 	const { getLayout } = useLayout();
 
@@ -673,7 +674,7 @@ export function AppWrap({ children, dbData }) {
 		data,
 		headers,
 		total,
-		initialTotal,
+		initialTotal, setinitialTotal,
 		changeValue,
 		deleteRow,
 		reorderRows,
@@ -719,6 +720,7 @@ export function AppWrap({ children, dbData }) {
 		setsaving,
 
 		addTableRow,
+		calculateTotals,
 
 		changeSectionTitle,
 		addSection,
@@ -734,7 +736,8 @@ export function AppWrap({ children, dbData }) {
 		triggerTemplate,
 		dataDB,
 
-		signature,
+		openFormulas,
+		setOpenFormulas,
 		setsignature,
 		expiration,
 		setexpiration,

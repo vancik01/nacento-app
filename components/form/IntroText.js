@@ -14,16 +14,16 @@ function IntroText({title, info, comment}) {
 
   return (
     <div className='flex flex-col items-center gap-0 justify-between'>
-        <div className="text-lg inline-block pb-12 relative">
-          Vypíšte prosím všetky údaje, ktoré poznáte. Čím viac toho vyplníte, tým presnejšia bude ponuka.
-          <div className="text-sm absolute bottom-7 text-gray-400 text-left">
+        <div className="text-base inline-block pb-6 mt-4 relative">
+          Vyplnte prosím čo najviac parametrov. Čím viac ich zadáte, tým <span className='font-semibold'>presnejšia</span> bude ponuka.
+          {/* <div className="text-sm absolute bottom-7 text-gray-400 text-left">
               (ak nechcete naceniť {title}, všetky políčka nechajte prázdne)
-          </div>
+          </div> */}
 
         </div>   
 
 
-        { info && <div className="text-base w-full text-gray-600 text-left py-3 ml-16">
+        { info && <div className="text-base text-gray-600 text-left py-3 w-3/4 mr-28">
             <div className='text-black'> Vysvetlivky: </div>
             <div className='ml-1'>
                 {info.map((text, ix) => {
@@ -34,7 +34,7 @@ function IntroText({title, info, comment}) {
             </div>
         </div>}
 
-        {comment && <div className='w-full text-left pb-5 text-sm ml-20 text-gray-400'>*{comment}</div>}
+        {comment && <div className='w-3/4 text-left pb-5 text-sm mr-28 text-gray-400'>*{comment}</div>}
         
 
         <hr className="w-[94%] bg-slate-800 h-[1px]" ></hr>

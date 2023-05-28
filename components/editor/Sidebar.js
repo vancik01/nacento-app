@@ -25,6 +25,7 @@ import ButtonSecondary from "../buttons/ButtonSecondary";
 
 import { useRouter } from "next/router";
 import { useActions } from "../../context/ActionsContext";
+import { useTemplate } from "../../context/TemplateContext";
 
 export default function Sidebar() {
 	const {
@@ -40,7 +41,10 @@ export default function Sidebar() {
 		triggerTemplate,
 		name,
 		savePromise,
+		setOpenFormulas,
 	} = useData();
+
+	const { settab } = useTemplate()
 
 	const router = useRouter();
 
@@ -324,6 +328,17 @@ export default function Sidebar() {
 									color='#63A695'
 								>
 									Výber z databázy prác
+								</ButtonPrimary>
+
+								<ButtonPrimary
+									scale={0.98}
+									className='w-full text-base mt-1'
+									onClick={() => {
+										setOpenFormulas(true)
+									}}
+									color='#63A695'
+								>
+									Vyplniť ponuku
 								</ButtonPrimary>
 							</div>
 
