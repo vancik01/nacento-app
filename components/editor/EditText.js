@@ -1,8 +1,6 @@
-import { Input } from "@mui/material";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import Save from "../../public/SVG/buttons/Save";
-import EditPen from "../../public/SVG/EditPen";
-import ButtonPrimary from "../buttons/ButtonPrimary";
+import React, { useCallback, useEffect, useState } from "react";
+import Save from "../../public/assets/buttons/Save";
+import EditPen from "../../public/assets/editor/EditPen";
 import ButtonSecondary from "../buttons/ButtonSecondary";
 
 export default function EditText({

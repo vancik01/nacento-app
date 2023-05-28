@@ -3,11 +3,8 @@ import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
 import ButtonPrimary from "../../components/buttons/ButtonPrimary";
 import FullPageLoading from "../../components/loading/FullPageLoading";
-import Prefill from "../../public/SVG/account/Prefill";
-import Logout from "../../components/user_components/Logout";
 import AccountSidebarSkeleton from "../../components/skeletons/AccountSidebarSkeleton";
 import { useRouter } from "next/router";
-import EditName from "../../components/user_components/EditName";
 import SupplyerTemplate from "../../components/user_components/SupplyerTemplate";
 import AccountSidebarMenu from "../../components/user_components/AccountSidebarMenu";
 import { doc, updateDoc } from "firebase/firestore";
@@ -29,7 +26,6 @@ export default function index() {
 		userData?.images?.signature ? userData.images.signature : ""
 	);
 
-	const [query, setQuery] = useState('');
 	const [results, setResults] = useState([]);
 	const [typingTimeout, setTypingTimeout] = useState(0);
 
@@ -90,7 +86,6 @@ export default function index() {
 				signature,
 			},
 		};
-
 		const docRef = doc(firestore, `/users/${user.uid}`);
 		updateDoc(docRef, newData).then(() => {
 			toast("Dáta sa uložili", { type: "success" });

@@ -3,7 +3,7 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { storage } from "../../lib/firebase";
-import Close from "../../public/SVG/Close";
+import Close from "../../public/assets/general/Close";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 import ButtonSecondary from "../buttons/ButtonSecondary";
 import SaveImageAsTemplate from "./SaveImageAsTemplate";

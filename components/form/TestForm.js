@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 
-import ArrowDown from '../../public/SVG/ArrowDown';
+import ArrowDown from '../../public/assets/general/ArrowDown';
 import FullPageLoading from '../loading/FullPageLoading';
 
 import Zakladovka from "./steps/Zakladovka";

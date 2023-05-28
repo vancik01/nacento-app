@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
 import { useAuth } from "../../context/AuthContext";
-import LogOut from "../../public/SVG/buttons/LogOut";
+import LogOut from "../../public/assets/buttons/LogOut";
 
 export default function Logout() {
 	const { logOut } = useAuth();

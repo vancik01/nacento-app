@@ -6,6 +6,7 @@ import Divider from "../Divider"
 import FormLayout from "../FormLayout";
 
 import SingleChoice from "../SingleChoice";
+import PageLayout from "../PageLayout";
 import NumberInput from "../NumberInput";
 import IconInput from "../IconInput"
 
@@ -14,7 +15,7 @@ export default function Bleskozvod() {
 
 
   return (
-    <>
+    <PageLayout type={'bleskozvod'}>
         <IntroText title={"bleskozvod"}/>
 
         <FormLayout>
@@ -46,7 +47,7 @@ export default function Bleskozvod() {
             
         </FormLayout>
     
-    </>
+    </PageLayout>
   );
 }
 

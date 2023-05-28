@@ -1,10 +1,6 @@
-import { TextField } from "@mui/material";
-import { Input } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useSetup } from "../../pages/user-setup";
-import Close from "../../public/SVG/Close";
-import Spolocnost from "../../public/SVG/user_setup/Spolocnost";
-import Zivnostnik from "../../public/SVG/user_setup/Zivnostnik";
+
 import UploadImage from "../editor/UploadImage";
 
 export default function Slide4() {

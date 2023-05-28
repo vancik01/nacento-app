@@ -1,12 +1,10 @@
 import { Link } from "@mui/material";
 import { AnimatePresence } from "framer-motion";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import ArrowDown from "../../public/SVG/ArrowDown";
+import ArrowDown from "../../public/assets/general/ArrowDown";
 import AccountToolbar from "./AccountToolbar";
 import { motion } from "framer-motion";
-import Pro from "../Pro";
 
 export default function UserInfoHeader({ color, is_smaller }) {
 	const [toolbar, settoolbar] = useState(false);

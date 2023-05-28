@@ -1,8 +1,5 @@
 import React from "react";
-import EditPen from "../../public/SVG/EditPen";
 import VOtable from "./VOtable";
-import {useData} from "../../context/AppWrap";
-import {useLayout} from "../../context/LayoutContext";
 
 export default function VOblock({block, headers, blockId, sectionId}) {
 

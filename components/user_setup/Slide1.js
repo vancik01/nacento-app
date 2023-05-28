@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSetup } from "../../pages/user-setup";
-import Spolocnost from "../../public/SVG/user_setup/Spolocnost";
-import Zivnostnik from "../../public/SVG/user_setup/Zivnostnik";
+import Spolocnost from "../../public/assets/user_setup/Spolocnost";
+import Zivnostnik from "../../public/assets/user_setup/Zivnostnik";
 
 export default function Slide1() {
 	const { userObject, setuserObject, setallowNext } = useSetup();

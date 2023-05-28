@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import ArrowDown from "../../public/SVG/ArrowDown";
+import ArrowDown from "../../public/assets/general/ArrowDown";
 import { useStepper } from "../../context/StepperContext";
 import { useApi } from "../../context/ApiContext";
 

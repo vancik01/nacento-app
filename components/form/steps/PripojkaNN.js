@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { useStepperContext } from "../../../context/StepperContext";
 import { useStepper } from "../../../context/StepperContext";
 import IntroText from "../IntroText";
 import Divider from "../Divider"
@@ -7,7 +5,7 @@ import FormLayout from "../FormLayout";
 
 import SingleChoice from "../SingleChoice";
 import NumberInput from "../NumberInput";
-import IconInput from "../IconInput"
+import PageLayout from "../PageLayout";
 
 export default function PripojkaNN() {
   const { hsdata, sethsdata, color, setColor, ChangeHsValue } = useStepper();
@@ -19,7 +17,7 @@ export default function PripojkaNN() {
   ]
 
   return (
-    <>
+    <PageLayout type={'pripojka'}>
         <IntroText title={"prípojku nízkeho napätia"} info={info}/>
 
         <FormLayout>
@@ -33,14 +31,14 @@ export default function PripojkaNN() {
             
             
             <Divider title={"Kábel z HDS do RE"}
-            component={ <SingleChoice path={["e", "pripojka", "k-hds-re"]} labels={["AYKY4x25", "AYKY4x16", "CYKY4x10", "CYKY4x16"]}/>} />
+            component={ <SingleChoice path={["e", "pripojka", "k-hds-re"]} grid labels={["AYKY4x25", "AYKY4x16", "CYKY4x10", "CYKY4x16"]}/>} />
 
             <Divider title={"Vzdialenosť HDS do RE"}
             component={ <NumberInput path={["e", "pripojka", "hds-re"]} unit={"m"} />} />
 
 
             <Divider title={"Kábel z RE do RD"}
-            component={ <SingleChoice path={["e", "pripojka", "k-re-rd"]} labels={["AYKY4x25", "AYKY4x16", "CYKY5x10", "CYKY5x16"]}/>} />
+            component={ <SingleChoice path={["e", "pripojka", "k-re-rd"]} grid labels={["AYKY4x25", "AYKY4x16", "CYKY5x10", "CYKY5x16"]}/>} />
 
             <Divider title={"Vzdialenosť RE do RD"}
             component={ <NumberInput path={["e", "pripojka", "re-rd"]} unit={"m"} />} />
@@ -61,7 +59,7 @@ export default function PripojkaNN() {
 
         </FormLayout>
     
-    </>
+    </PageLayout>
   );
 }
 

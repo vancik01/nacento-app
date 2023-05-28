@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useStepper } from "../../context/StepperContext";
-import Measure from "./icons/Measure";
+import Measure from "../../public/assets/form/Measure";
 
 const Stepper = ({ steps, currentStep, setCurrentStep }) => {
   const [newStep, setNewStep] = useState([]);

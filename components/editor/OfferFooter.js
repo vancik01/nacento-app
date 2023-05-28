@@ -1,12 +1,10 @@
-import { Input } from "@mui/material";
 import React from "react";
 import { useData } from "../../context/AppWrap";
 import { useAuth } from "../../context/AuthContext";
 import { useLayout } from "../../context/LayoutContext";
-import Logo from "../../public/SVG/Logo";
+import Logo from "../../public/assets/editor/Logo";
 import moment from "moment/moment";
 import ButtonSecondary from "../buttons/ButtonSecondary";
-import UploadSignature from "./UploadSignature";
 import UploadImage from "./UploadImage";
 
 export default function OfferFooter() {

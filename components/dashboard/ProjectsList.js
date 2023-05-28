@@ -1,42 +1,27 @@
-import {
-	collection,
-	deleteDoc,
-	doc,
-	getDocs,
-	orderBy,
-	query,
-	where,
-} from "firebase/firestore";
 import ButtonIcon from "../buttons/ButtonIcon";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import React, { useEffect, useState } from "react";
 import FullPageLoading from "../../components/loading/FullPageLoading";
-import { LoggedIn } from "../../components/LoggedIn";
-import { firestore } from "../../lib/firebase";
-import Logo from "../../public/SVG/Logo";
-import PaintBrush from "/public/SVG/PaintBrush";
 
 import moment from "moment/moment";
-import Edit from "../../public/SVG/Edit";
-import UserInfoHeader from "../../components/user_components/UserInfoHeader";
+
 import { useAuth } from "../../context/AuthContext";
-import TrashBin from "../../public/SVG/editor/TrashBin";
+import TrashBin from "../../public/assets/editor/TrashBin";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 import { AnimatePresence } from "framer-motion";
-import IconHome from "../../public/SVG/dashboard/IconHome";
-import Offer from "../../public/SVG/dashboard/EmptyOffer";
-import AddOffer from "../../public/SVG/dashboard/AddOffer";
-import InteractiveOffer from "../../public/SVG/dashboard/InteractiveOffer";
-import Download from "../../public/SVG/Download";
+import IconHome from "../../public/assets/dashboard/IconHome";
+import Download from "../../public/assets/general/Download";
 import GeneratePDF from "../editor/GeneratePDF";
 
-import { useActions } from "../../context/ActionsContext";
 import { getLastModified, numberWithCommas } from "../../lib/helpers";
 import { round } from "lodash";
-import ArrowDown from "../../public/SVG/ArrowDown";
-import CheckMark from "./icons/CheckMark";
+import ArrowDown from "../../public/assets/general/ArrowDown";
+import CheckMark from "../../public/assets/general/CheckMark";
+
+import { useExcel } from "../../context/ExcelContext";
+import ExcelIcon from "../../public/assets/excelEditor/ExcelIcon";
 
 export default function ProjectList({ clicked }) {
 	const router = useRouter();
@@ -44,6 +29,9 @@ export default function ProjectList({ clicked }) {
 	const [download, setdownload] = useState(false);
 	
 	const [sort, setsort] = useState(false);
+	const [showType, setShowType] = useState(false);
+
+	const [fileType, setFileType] = useState('quotes');
 
 	const [sortmethod, setsortmethod] = useState(0);
 	const [sortsubmethod, setsortsubmethod] = useState(0);
@@ -52,7 +40,9 @@ export default function ProjectList({ clicked }) {
 	const [isHovered, setIsHovered] = useState(null)
 	const [isSubHovered, setIsSubHovered] = useState(null)
 	
-	const { user, data, sceletonLoading, selected, setselected, setdata } = useAuth();
+	const { data, excelData, sceletonLoading, selected, setselected, setdata } = useAuth();
+
+	const { setFile } = useExcel()
 
 	const [sortby, setsortby] = useState([
 		{method: ["lastModified"], label: "Posledná úprava", submethods: ["Najskoršia prvá", "Najneskoršia prvá" ]},
@@ -64,6 +54,31 @@ export default function ProjectList({ clicked }) {
 	function handleSelectId(id) {
 		setloading(true);
 		router.push(`/cenova-ponuka/${id}`);
+	}
+
+	function base64ToBlob(base64, type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+		
+		const binaryString = window.atob(base64.split(';')[1].split(",")[1]);
+		const len = binaryString.length;
+		const bytes = new Uint8Array(len);
+	  
+		for (let i = 0; i < len; i++) {
+		  bytes[i] = binaryString.charCodeAt(i);
+		}
+	  
+		return new Blob([bytes], { type });
+	  }
+
+	function handleSelectExcelId(project) {
+		setloading(true);
+
+		const base64 = project.data
+		
+		const blob = base64ToBlob(base64);
+		const file = new File([blob], 'Sample.xlsx');
+		setFile(file);
+
+		router.push(`/z-vykazu-vymer/${project.id}`);
 	}
 
 	useEffect(() => {
@@ -100,7 +115,6 @@ export default function ProjectList({ clicked }) {
 		setdata(new_data)
 	}
 	
-
 	function handlesubsortchange(ix){
 		setsortsubmethod(ix)
 
@@ -121,15 +135,13 @@ export default function ProjectList({ clicked }) {
 		setsortby(new_sortby)
 		// console.log(sortby)
 
-		setsort(false)
+		setsort(fal0se)
 
 		const new_data = [...data]
 		new_data.sort(dynamicSort(sortby[sortmethod].method));
 
 		setdata(new_data)
 	}
-
-
 
 	return (
 		<>
@@ -146,19 +158,50 @@ export default function ProjectList({ clicked }) {
 						<div className='w-full mt-8'>
 							
 							<div className="relative text-sm z-10">
-
-								<div className="flex cursor-default">
-									<span className="text-gray-400 text-sm dont-copy">Zoradiť:</span>
-									<div className="flex items-center gap-1" onClick={() => {setsort(!sort); setIsHovered(null); setIsSubHovered(null)}}>
-										<span className="text-black ml-3"> {sortby[sortmethod].label} </span>
-										<ArrowDown scale={0.7}/>
+							
+								<div className="flex justify-between">
+									<div className="flex cursor-default">
+										<span className="text-gray-400 text-sm dont-copy">Zobraziť:</span>
+										<div className="flex items-center gap-1" onClick={() => {setShowType(!showType); setIsHovered(null); setIsSubHovered(null)}}>
+											<span className="text-black ml-3"> {fileType == 'quotes'? "Cenové ponuky": "Výkazy Výmer"} </span>
+											<ArrowDown scale={0.7}/>
+										</div>
 									</div>
+
+									
+									<div className="flex cursor-default">
+										<span className="text-gray-400 text-sm dont-copy">Zoradiť:</span>
+										<div className="flex items-center gap-1" onClick={() => {if(fileType !== 'quotes') return ;setsort(!sort); setIsHovered(null); setIsSubHovered(null)}}>
+											<span className="text-black ml-3"> {sortby[sortmethod].label} </span>
+											<ArrowDown scale={0.7}/>
+										</div>
+									</div>
+
 								</div>
+
+								{showType && 
+									<div>
+										<div className={"absolute left-16 py-2 top-6 flex text-white cursor-default flex-col bg-gray-900 h-fit"} style={{backgroundColor: "#222222"}}>
+												<span className="opacity-40 text-center mr-6 py-1">Typ súboru</span>
+
+														<div className={"flex items-center gap-3 pr-7 py-1 pl-3 hover:bg-blue-500"} onClick={() => {setFileType('quotes'); setShowType(false);}}> 
+															{fileType === 'quotes' ? <CheckMark color={"white"}/> : <div className="w-[14px] h-[14px]"></div>}
+															Cenové ponuky 
+														</div>
+
+														<div className={"flex items-center gap-3 pr-7 py-1 pl-3 hover:bg-blue-500"} onClick={() => {setFileType('excels'); setShowType(false);}}> 
+															{fileType === 'excels' ? <CheckMark color={"white"}/> : <div className="w-[14px] h-[14px]"></div>}
+															Výkazy Výmer
+														</div>
+										</div>
+									</div>
+								}
+
 
 								{sort && 
 									<div>
 						
-										<div className={"absolute left-16 py-2 top-6 flex text-white cursor-default flex-col bg-gray-900 h-fit"} style={{backgroundColor: "#222222"}}>
+										<div className={"absolute right-0 py-2 top-6 flex text-white cursor-default flex-col bg-gray-900 h-fit"} style={{backgroundColor: "#222222"}}>
 												<span className="opacity-40 text-center mr-5 py-1">Zoradiť podľa</span>
 												{sortby.map((method, i) => {
 													return(
@@ -203,20 +246,38 @@ export default function ProjectList({ clicked }) {
 
 							{!sceletonLoading ? (
 								<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 mt-6 gap-4'>
-									{data?.map((project, i) => {
+									
+									
+									{fileType == 'quotes' ? 
+									<>
+										{data?.map((project, i) => {
 										return (
 											<Project
 												project={project}
 												ix={i}
 												key={i}
-												// handleDelete={handleDelete}
 												handleSelectId={handleSelectId}
-												// setselect={setselected}
-												// select={selected}
 												setloading={setdownload}
 											/>
-										);
-									})}
+											);
+										})}
+									</>:
+									<>
+										{excelData?.map((project, i) => {
+										return (
+											<ExcelProject
+												project={project}
+												ix={i}
+												handleSelectId={handleSelectExcelId}
+												setloading={setdownload}
+											/>
+										)
+									})}		
+									</>}
+									
+									
+									
+									
 								</div>
 							) : (
 								<Skeleton></Skeleton>
@@ -230,14 +291,10 @@ export default function ProjectList({ clicked }) {
 	);
 }
 
-function Project({
-	project,
-	ix,
-	handleSelectId,
-	setloading
-}) {
-
+function Project({project, ix, handleSelectId, setloading}) {
 	const {selected, setselected, handleDelete } = useAuth();
+	const [toggleDelete, settoggleDelete] = useState(false);
+	const [hovered, sethovered] = useState(false);
 
 	function handleClick() {
 		handleDelete(project.id);
@@ -273,9 +330,6 @@ function Project({
 				setloading(false);
 			});
 	}
-
-	const [toggleDelete, settoggleDelete] = useState(false);
-	const [hovered, sethovered] = useState(false);
 
 	const styles = [""];
 
@@ -426,6 +480,107 @@ function Project({
 			</div>
 		</div>
 	);
+}
+
+
+function ExcelProject({ project, ix, handleSelectId, setloading }){
+	const {excelselected, setexcelselected, handleDeleteExcel } = useAuth();
+	const [toggleDelete, settoggleDelete] = useState(false);
+	const [hovered, sethovered] = useState(false);
+
+	function handleClick() {
+		handleDeleteExcel(project.id);
+		settoggleDelete(false);
+	}
+
+	return(<div
+			onClick={(e) => {
+				if (excelselected[ix]) handleSelectId(project);
+				else {
+					var newselecteded = [];
+					for (let i = 0; i < excelselected.length; i++) newselecteded.push(false);
+					newselecteded[ix] = true;
+					setexcelselected(newselecteded);
+				}
+				e.stopPropagation();
+			}}
+
+			onMouseEnter={() => sethovered(true)}
+			onMouseLeave={() => sethovered(false)}
+
+			className={`shadow-md cursor-default outline ${!excelselected[ix]
+				? "outline-gray-200 outline-1 hover:outline-gray-400"
+				: "outline-2 outline-blue-500"
+				}  rounded-sm transition duration-100 ease-in-out`}
+		>
+			<div className='bg-gray-50 min-h-[250px] flex justify-between flex-col relative'>
+
+				<div className="px-4 py-1">
+
+					<div className='flex justify-between items-center mt-6 '>
+						<div className='text-lg font-medium text-start'>
+								Cenová ponuka
+						</div>
+
+						<div className='relative'>
+							
+								<ButtonIcon
+									icon={<TrashBin/>}
+									tooltip='Zmazať ponuku'
+									onClick={(e) => {
+										settoggleDelete(!toggleDelete);
+										e.stopPropagation();
+									}}
+									id='del'
+								></ButtonIcon>
+							
+
+							<AnimatePresence mode='wait'>
+								{toggleDelete && (
+									<motion.div
+										onClick={(e) => e.stopPropagation()}
+										key={`delete-${project.id}`}
+										initial={{ opacity: 0, y: 10 }}
+										exit={{ opacity: 0, y: 10 }}
+										animate={{ opacity: 1, y: 0 }}
+										transition={{ duration: 0.2 }}
+										className='absolute left-0 mt-1 bg-white shadow-hardShadow min-w-[200px] z-20 rounded-md px-3 py-3'
+									>
+										<div className='text-lg'>Naozaj zmazať?</div>
+										<ButtonPrimary
+											color={"red"}
+											icon={<TrashBin color={"white"} />}
+											iconBefore
+											className='mt-4'
+											onClick={handleClick}
+										>
+											Potvrdiť zmazanie
+										</ButtonPrimary>
+									</motion.div>
+								)}
+							</AnimatePresence>
+						</div>
+					</div>
+
+				</div>
+
+				<div className='bg-white px-2 py-3 relative w-full flex items-center'>
+						<div>
+							<ExcelIcon/>
+						</div>
+
+						<div className="flex flex-col justify-center ml-2 w-[80%] max-h-[34px]">
+							<div className='text-sm overflow-hidden'>
+								{project.name}
+							</div>
+
+							<div className="text-gray-400" style={{ fontSize: "10px" }}>
+								Upravená {getLastModified(project?.lastModified)}
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>)
 }
 
 function Skeleton() {

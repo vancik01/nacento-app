@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+/* schedule */
+@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-calendars/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-dropdowns/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-inputs/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-lists/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-navigations/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-popups/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-react-schedule/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-react-spreadsheet/styles/material.css"; 
+
+/* gantt */
+@import '../node_modules/@syncfusion/ej2-treegrid/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-richtexteditor/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-layouts/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-grids/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-gantt/styles/material.css';
+
+
+
+
+/* @import url("https://cdn.syncfusion.com/ej2/bootstrap5.css"); */
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
@@ -47,7 +72,7 @@ p{
 }
 
 
-table {
+/* table {
     border-collapse: collapse;
     width: 100%;
     border: 1px solid white;
@@ -74,7 +99,7 @@ td, th{
 }
 td {
     @apply h-[100px];
-}
+} */
 
 /*spinner*/
 
@@ -253,6 +278,7 @@ option {
     }
   }
 
+
 #file-hidden {
     display: none;
 }
@@ -262,6 +288,13 @@ option {
   grid-template-rows: 1fr 1fr; 
   column-gap: 10px;
   row-gap: 15px;
+}
+
+.icon-two-grid{
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr; 
+  column-gap: 10px;
+  row-gap: 10px;
 }
 
 .input-red{

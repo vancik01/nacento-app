@@ -1,9 +1,7 @@
-import { act } from '@react-three/fiber'
 import React, { useState }  from 'react'
 import { useStepper } from '../../context/StepperContext'
-import { appBarClasses } from '@mui/material'
 
-function SingleChoice({ id, labels, onClick, path, grid }) {
+function SingleChoice({ id, labels, onClick, gridOfTwo, path, grid }) {
 
   const {hsdata, sethsdata, edata, setedata, vdata, setvdata, color} = useStepper()
   hsdata[parseInt(id)] = "1"
@@ -70,9 +68,13 @@ function SingleChoice({ id, labels, onClick, path, grid }) {
     )
   }
 
+  var classname = 'flex gap-1'
+  if(grid) classname = "grid icon-grid"
+  if(gridOfTwo) classname = "grid icon-two-grid"
+
   return (
 
-    <div className={grid? "grid icon-grid" : 'flex gap-1'}>
+    <div className={classname}>
         { buttons }
     </div>
   )

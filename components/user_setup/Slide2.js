@@ -1,10 +1,6 @@
-import { TextField } from "@mui/material";
-import { Input } from "@mui/material";
 import React, { useEffect } from "react";
 import { useSetup } from "../../pages/user-setup";
 
-import Spolocnost from "../../public/SVG/user_setup/Spolocnost";
-import Zivnostnik from "../../public/SVG/user_setup/Zivnostnik";
 import EditName from "../user_components/EditName";
 
 export default function Slide2() {

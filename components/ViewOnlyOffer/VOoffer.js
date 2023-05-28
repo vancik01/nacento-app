@@ -1,9 +1,7 @@
-import { AnimatePresence } from "framer-motion";
 import React from "react";
 import { useViewOnly } from "../../context/ViewOnlyContext";
 import { numberWithCommas } from "../../lib/helpers";
-import A4 from "../A4";
-import CustomerInfo from "../CustomerInfo";
+import A4 from "../editor/A4";
 import VOsection from "./VOsection";
 import { useLayout } from "../../context/LayoutContext";
 import moment from "moment/moment";

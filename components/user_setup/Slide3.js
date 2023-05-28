@@ -1,9 +1,5 @@
-import { TextField } from "@mui/material";
-import { Input } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useSetup } from "../../pages/user-setup";
-import Spolocnost from "../../public/SVG/user_setup/Spolocnost";
-import Zivnostnik from "../../public/SVG/user_setup/Zivnostnik";
 import SupplyerTemplate from "../user_components/SupplyerRegisterTemplate";
 
 export default function Slide3() {

@@ -2,10 +2,8 @@ import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { layoutConfig, themes } from "../lib/data";
 import { firestore } from "../lib/firebase";
 import { getColumnWidth, getVariantConfig } from "../lib/helpers";
-import { useData } from "./AppWrap";
 import { useAuth } from "./AuthContext";
 
 const Layout = React.createContext();

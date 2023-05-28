@@ -6,18 +6,19 @@ import FormLayout from "../FormLayout";
 import NumberInput from "../NumberInput";
 import Divider from "../Divider"
 import SingleChoice from "../SingleChoice";
+import PageLayout from "../PageLayout";
 
 export default function Vykurovanie() {
   const { vdata, sethsdata, color, setColor, ChangeHsValue } = useStepper();
 
   return (
-    <>
+    <PageLayout type={"vykurovanie"}>
         <IntroText title={"vykurovanie"} comment="bez zariaďovacích predmetov"/>
 
         <FormLayout>
 
             <Divider title={"Zdroj tepla"}
-            component={ <SingleChoice path={["v", "vykurovanie", "zdroj"]} labels={["Plynový kotol", "Peletky", "TČ vzduch/voda", "TČ zem/voda"]}/>} />
+            component={ <SingleChoice path={["v", "vykurovanie", "zdroj"]} grid labels={["Plynový kotol", "Peletky", "TČ vzduch/voda", "TČ zem/voda"]}/>} />
 
             {(vdata["vykurovanie"]["zdroj"][0] == "0" || vdata["vykurovanie"]["zdroj"][0] == "1") && 
               <Divider title={"Odvod spalín"}
@@ -96,7 +97,7 @@ export default function Vykurovanie() {
 
         </FormLayout>
     
-    </>
+    </PageLayout>
   );
 }
 

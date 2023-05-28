@@ -2,7 +2,7 @@
 const nextConfig = {
 	reactStrictMode: false,
 	swcMinify: true,
-	exportTrailingSlash: true,
+	trailingSlash: true,
 };
 
 module.exports = nextConfig;

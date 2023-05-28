@@ -1,9 +1,7 @@
-import { AnimatePresence } from "framer-motion";
 import React, {
 	useCallback,
 	useContext,
 	useEffect,
-	useRef,
 	useState,
 } from "react";
 import { lang } from "../languages/languages";
@@ -22,12 +20,11 @@ import {
 	updateSectionTotals,
 	updateTableRow,
 } from "../lib/valueChangeFunctions";
-import AddRow from "../public/SVG/AddRow";
+
 import CenovaPonukaSkeleton from "../components/skeletons/CenovaPonukaSkeleton";
-import { forEach } from "lodash";
 import { useAuth } from "./AuthContext";
-import LayoutContext, { useLayout } from "./LayoutContext";
-import ScreenLayout from "../components/ScreenLayout";
+import { useLayout } from "./LayoutContext";
+
 
 const DataContext = React.createContext();
 
@@ -60,7 +57,7 @@ export function AppWrap({ children, dbData }) {
 	const [description, setdescription] = useState(dbData.description);
 	const [templateTrigger, settemplateTrigger] = useState(null);
 	const [dataDB, setdataDB] = useState(dbData);
-	const [signature, setsignature] = useState("");
+	const [openFormulas , setOpenFormulas] = useState(false);
 	const [expiration, setexpiration] = useState(
 		dbData.expiration
 			? moment(dbData.expiration).valueOf()
@@ -70,7 +67,8 @@ export function AppWrap({ children, dbData }) {
 	const [subHeading, setsubHeading] = useState(
 		dbData.subHeading ? dbData.subHeading : "#" + today.toLocaleDateString("sk")
 	);
-
+	
+	const [ signature, setsignature ] = useState("");
 	const { userData, user } = useAuth();
 	const { getLayout } = useLayout();
 
@@ -456,6 +454,9 @@ export function AppWrap({ children, dbData }) {
 	}
 
 	function addBlock(sectionId, blockId, template) {
+		if(template && !data.sections.length){
+			addSection()
+		}
 		let newData = { ...data };
 
 		var lengthBeforeInsert = newData.sections[sectionId].blocks.length;
@@ -475,6 +476,7 @@ export function AppWrap({ children, dbData }) {
 			newBlock = template;
 		}
 
+		
 		newData.sections[sectionId].blocks.splice(blockId + 1, 0, newBlock);
 
 		if (lengthBeforeInsert === 0) {
@@ -672,7 +674,7 @@ export function AppWrap({ children, dbData }) {
 		data,
 		headers,
 		total,
-		initialTotal,
+		initialTotal, setinitialTotal,
 		changeValue,
 		deleteRow,
 		reorderRows,
@@ -718,6 +720,7 @@ export function AppWrap({ children, dbData }) {
 		setsaving,
 
 		addTableRow,
+		calculateTotals,
 
 		changeSectionTitle,
 		addSection,
@@ -733,10 +736,15 @@ export function AppWrap({ children, dbData }) {
 		triggerTemplate,
 		dataDB,
 
-		signature,
+		openFormulas,
+		setOpenFormulas,
 		setsignature,
 		expiration,
 		setexpiration,
+
+		updateBlockTotals,
+		updateSectionTotals,
+		setdata,
 
 		subHeading,
 		setsubHeading,

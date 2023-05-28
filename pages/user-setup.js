@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import Layout from "../components/Layout";
+import Layout from "../components/editor/Layout";
 import Slide1 from "../components/user_setup/Slide1";
 import ButtonPrimary from "../components/buttons/ButtonPrimary";
 import ButtonSecondary from "../components/buttons/ButtonSecondary";
-import Next from "../public/SVG/user_setup/Next";
+import Next from "../public/assets/user_setup/Next";
 import Slide2 from "../components/user_setup/Slide2";
-import Back from "../public/SVG/user_setup/Back";
+import Back from "../public/assets/user_setup/Back";
 import Slide3 from "../components/user_setup/Slide3";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material";

@@ -5,10 +5,13 @@ import Head from "next/head";
 import React from "react";
 import { AppWrap } from "../../context/AppWrap";
 import LayoutContext from "../../context/LayoutContext";
-import ScreenLayout from "../../components/ScreenLayout";
+import ScreenLayout from "../../components/editor/ScreenLayout";
 import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "../../lib/firebase";
 import ActionsContext from "../../context/ActionsContext";
+
+import { UseStepperContext } from "../../context/StepperContext";
+import { ApiContext } from "../../context/ApiContext";
 
 export default function Home({ dbData }) {
 	const theme = createTheme({
@@ -17,19 +20,27 @@ export default function Home({ dbData }) {
 			fontSize: 10,
 		},
 	});
-
+	
 	return (
 		<ThemeProvider theme={theme}>
 			<Head>
 				<title>Cenová ponuka</title>
 			</Head>
+
 			<LayoutContext layout={dbData?.layout} headers={dbData.data.headers}>
 				<AppWrap dbData={dbData}>
 					<ActionsContext>
-						<ScreenLayout />
+						<UseStepperContext>
+							<ApiContext>
+
+								<ScreenLayout />
+
+							</ApiContext>
+						</UseStepperContext>
 					</ActionsContext>
 				</AppWrap>
 			</LayoutContext>
+
 		</ThemeProvider>
 	);
 }

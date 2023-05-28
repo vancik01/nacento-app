@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect } from 'react'
 import { useStepper } from '../../context/StepperContext'
 import { useApi } from '../../context/ApiContext';
-import x from "../../public/static/x.svg";
+import x from "../../public/assets/form/x.svg";
 
 function IntroSection({title, text, ix, type}) {
   const { color } = useStepper() 
@@ -77,19 +77,20 @@ function IntroSection({title, text, ix, type}) {
 
   return (
     <div className='flex flex-col items-center gap-0 justify-between pt-6'>
-        <div className="text-lg inline-block pb-12 relative">
-          Vypíšte prosím údaje manuálne alebo vložte <u>PDF {text}</u> a údaje sa vypočítajú automaticky
-          <div className="text-sm absolute bottom-7 text-gray-400 text-left">
+        <div className="text-base inline-block pb-4 px-3 text-center relative">
+          
+        Pre automatické vyplnenie parametrov môžete nahrať výkres <span className='font-semibold'> {text} </span> v PDF formáte:
+          {/* <div className="text-sm absolute bottom-7 text-gray-400 text-left">
               (ak nechcete naceniť {title}, políčka nechajte prázdne)
-          </div>
+          </div> */}
         </div>
 
         <input id="file-hidden" className='' type="file" ref={inputRef} onChange={(e) => handleFileChange(e, setFileName, setPdf)}/>
-            <div onClick={!passed? handleClick: () => {}} className={"shadow-sm cursor-pointer border border-slate-300 trans font-medium rounded-sm text-gray-500 inline-block px-6 py-3 " + (!passed? colors[color][0] : "")}>
-               Vložiť PDF {text}
+            <div onClick={!passed? handleClick: () => {}} className={"shadow-sm cursor-pointer border border-slate-300 trans font-medium rounded-sm text-gray-500 inline-block px-4 py-2 " + (!passed? colors[color][0] : "")}>
+               Nahrať PDF {text}
             </div>
 
-        <div className="pb-4 w-[100%] relative">
+        <div className="pb-1 w-[100%] relative">
         
 
             {fileName && !passed && <div className='bg-white shadow-lg text-lg absolute bottom-2 px-6 py-4 left-[50%] rounded border' style={{transform: "translateX(-50%)"}}>
