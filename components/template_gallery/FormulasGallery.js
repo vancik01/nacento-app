@@ -93,7 +93,7 @@ export default function FormulasGallery() {
 			className="relative z-[100]"
 		>
 			<div
-				className="h-[800px] w-[1200px] bg-white rounded-md grid shadow-2xl"
+				className="h-[90vh] w-[80vw] bg-white rounded-md grid shadow-2xl"
 				style={{ gridTemplateColumns: "200px 1fr" }}
 			>
 				{!loading ? (
