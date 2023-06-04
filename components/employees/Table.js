@@ -246,7 +246,7 @@ function EmployeeValidation(){
     // Clear error and perform login...
     setError('');
 
-  };
+  }
 
 
   return(

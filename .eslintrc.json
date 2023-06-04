@@ -1,3 +1,20 @@
 {
-  "extends": ["next/babel","next/core-web-vitals"]
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module",
+    "ecmaVersion": 2018
+  },
+  "plugins": [
+    "import"
+  ],
+  "rules": {
+    "import/no-unresolved": "error"
+  }
 }
