@@ -16,7 +16,7 @@ import Logo from "../public/assets/editor/Logo";
 import { firestore } from "../lib/firebase";
 
 export default function Login() {
-	const { signInWithGoogle, loginWithEmailAndPassword, user } = useAuth();
+	const { signInWithGoogle, loginWithEmailAndPassword, user, user_is_employee } = useAuth();
 	const router = useRouter();
 	const [userloading, setuserloading] = useState(false);
 	const [googleLoading, setgoogleLoading] = useState();
@@ -30,8 +30,16 @@ export default function Login() {
 
 		loginWithEmailAndPassword(email, pass)
 			.then((user) => {
-				router.push("/dashboard");
-				//console.log(user);
+
+				if(user_is_employee(user.uid)){
+					setuserloading(false);
+					seterror("Nesprávne meno alebo heslo");
+					return;
+				}
+				
+				else{
+					router.push("/dashboard");
+				}
 			})
 			.catch((err) => {
 				setuserloading(false);

@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import FullPageLoading from "../../components/loading/FullPageLoading";
-import SimpleCenovaPonuka from "../../components/SimpleCenovaPonuka/SimpleCenovaPonuka";
 import AccountSidebarSkeleton from "../../components/skeletons/AccountSidebarSkeleton";
 import AccountSidebarMenu from "../../components/user_components/AccountSidebarMenu";
 import { useAuth } from "../../context/AuthContext";
