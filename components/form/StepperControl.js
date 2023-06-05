@@ -4,7 +4,7 @@ import { useStepper } from "../../context/StepperContext";
 import { useApi } from "../../context/ApiContext";
 
 export default function StepperControl({ handleClick, currentStep, steps, typ }) {
-  const { color, redire } = useStepper()
+  const { color } = useStepper()
   const { DataToPriceOffer } = useApi()
 
   const scrollRef = useRef(null)

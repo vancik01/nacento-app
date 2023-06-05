@@ -3,11 +3,14 @@ import { collection, doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { firestore } from "../lib/firebase";
 import moment from "moment/moment";
+import { toast } from "react-toastify";
+
 
 import { useAuth } from "../context/AuthContext";
 
 import { useStepper } from "./StepperContext";
 import { useData } from "./AppWrap";
+import { getValue } from "./ValuesContext";
 
 const UseApiContext = createContext();
 
@@ -17,7 +20,9 @@ export function ApiContext({ children }) {
 	const [dataloading, setdataloading] = useState(false);
 	const { hsdata, sethsdata, edata, vdata } = useStepper();
 
-	const { data, setdata, calculateTotals, initialTotal, setinitialTotal, setname } = useData()  
+	const { calculateTotals, initialTotal, setinitialTotal, setname } = useData()  
+
+	const [data, setData] = getValue((store) => store);
 
 	const { user } = useAuth();
 	const router = useRouter();
@@ -43,6 +48,8 @@ export function ApiContext({ children }) {
 			name = "Vykurovanie Rodinného Domu"
         }
 
+		setdataloading(true);
+
 		// fetch(`http://127.0.0.1:8000/api/data_offer_${api_route}`, {
 		fetch(`https://api.nacento.online/api/data_offer_${api_route}`, {
 			method: "POST",
@@ -51,7 +58,8 @@ export function ApiContext({ children }) {
 		}).then((response) => {
 			if (response.ok) {
 				response.json().then((CP) => {
-					setdataloading(true);
+
+					setdataloading(false);
 
                     const collectionRef = doc(collection(firestore, "/offers"));
                     //customBuild variable empty template
@@ -78,9 +86,40 @@ export function ApiContext({ children }) {
 				});
 			}
 		});
+
 	}
 
-	function DataToSectionList(type){
+	function set_new_data(sections){
+
+		setname('Hrubá Stavba Rodinného Domu')
+
+		setData(data => {
+
+			var newData = { ...data };
+
+			var dodavka = 0
+			var montaz = 0
+
+			sections.forEach(section => {
+				dodavka += section.info.total_delivery_price
+				montaz += section.info.total_construction_price
+				newData.data.sections.push(section)
+
+			});
+	
+			calculateTotals()
+
+			setinitialTotal({
+				total_delivery_price: initialTotal.total_delivery_price + dodavka,
+				total_construction_price:  initialTotal.total_construction_price + montaz,
+				total: initialTotal.total + dodavka + montaz,
+			})
+
+			return newData;
+		});	
+	}
+
+	async function DataToSectionList(type){
 		var api_route, apidata, name;
 
 		if (type == "zakladovka" || type == 'murivo' || type=="strecha") {
@@ -100,43 +139,27 @@ export function ApiContext({ children }) {
 
 		apidata.type = type
 
+		setdataloading(true);
+
 		// fetch(`http://127.0.0.1:8000/api/sectionList_${api_route}`, {
-		fetch(`https://api.nacento.online/api/sectionList_${api_route}`, {
+		await fetch(`https://api.nacento.online/api/sectionList_${api_route}`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(apidata),
 		}).then((response) => {
 			if (response.ok) {
 				response.json().then((sections) => {
-					setdataloading(true);
+					toast('Práce pridané do ponuky', { type: "success" , autoClose: 3000});
+					set_new_data(sections)
+					setdataloading(false);
 
-					var newData = {...data}
-					
-					var dodavka = 0
-					var montaz = 0
-					
-
-					sections.forEach(section => {
-						dodavka += section.info.total_delivery_price
-						montaz += section.info.total_construction_price
-						newData.sections.push(section)
-
-					});
-
-					setname('Hrubá Stavba Rodinného Domu')
-
-					setdata(newData)
-					calculateTotals()
-
-					setinitialTotal({
-						total_delivery_price: initialTotal.total_delivery_price + dodavka,
-						total_construction_price:  initialTotal.total_construction_price + montaz,
-						total: initialTotal.total + dodavka + montaz,
-					})
-
-    
 				});
 			}
+
+
+		}) .catch((err) => {
+			setdataloading(false);
+			console.log(err);
 		});
 	}
 
@@ -154,16 +177,21 @@ export function ApiContext({ children }) {
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(pdf),
 		}).then((response) => {
-			setdataloading(false);
+
 			if (response.ok) {
 				response.json().then((json) => {
 					if (type === "ZD") setZakladyData(json.data);
 					else if (type === "MP") setMurivoData(json.data);
 					else if (type === "ST") setStrechaData(json.data);
-
 					setImage(json.image);
 				});
 			}
+
+		}).catch((error) => {
+
+			toast('Súbor je príliš veľký', { type: "error" , autoClose: 5000});
+			setdataloading(false);
+
 		});
 	}
 

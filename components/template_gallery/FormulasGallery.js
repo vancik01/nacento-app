@@ -3,7 +3,6 @@ import { useTemplate } from "../../context/TemplateContext";
 import { motion } from "framer-motion";
 import { useData } from "../../context/AppWrap";
 import Close from "../../public/assets/general/Close";
-
 import Zakladovka from "../form/steps/Zakladovka";
 import Murivo from "../form/steps/Murivo";
 import Strecha from "../form/steps/Strecha";
@@ -12,6 +11,9 @@ import InstalacnePrace from "../form/steps/InstalacnePrace";
 import Bleskozvod from "../form/steps/Bleskozvod";
 import Predpripravy from "../form/steps/Predpripravy";
 import Vykurovanie from "../form/steps/Vykurovanie";
+import { useApi } from "../../context/ApiContext";
+import PopupLoading from "../loading/PopupLoading";
+import Measure from "../../public/assets/form/Measure";
 
 
 const workTypeData = {
@@ -65,10 +67,11 @@ const workTypeData = {
 }
 
 
-
 export default function FormulasGallery() {
 	const { loading, tab, workSelected } = useTemplate();
 	const { setOpenFormulas, openFormulas } = useData()
+	const { dataloading } = useApi()
+	const [hover, sethover] = useState(false)
 
 	useEffect(() => {
 		if(openFormulas) document.body.style.overflow = 'hidden';
@@ -76,10 +79,14 @@ export default function FormulasGallery() {
 	 }, [openFormulas]);
 
 
+	 function handleClick(){
+		window.open('https://api2.nacento.online/viewer', '_blank', 'noreferrer');
+	  }
+
 	const labels = {
-		"hruba_stavba" : "Hrubá stavba",
-		"elektro" : "Elektroinštalácie",
-		"kurenie" : "Vykurovanie"
+		"hruba_stavba" : "🏠 Hrubá stavba",
+		"elektro" : "⚡️ Elektroinštalácie",
+		"kurenie" : "🔥 Vykurovanie"
 	}
 
 
@@ -91,14 +98,16 @@ export default function FormulasGallery() {
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.2, delay: 0.1 }}
 			className="relative z-[100]"
-		>
+		>	
+			<PopupLoading loading={dataloading}/> 
+
 			<div
-				className="h-[90vh] w-[80vw] bg-white rounded-md grid shadow-2xl"
-				style={{ gridTemplateColumns: "200px 1fr" }}
-			>
+				className="h-[93vh] w-[80vw] bg-white rounded-lg grid shadow-2xl"
+				style={{ gridTemplateColumns: "200px 1fr" }}>
+
 				{!loading ? (
 					<>
-						<div className="border-r-[1px] pt-8 pb-8">
+						<div className="border-r-[1px] rounded-l-lg pt-8 pb-8" style={{backgroundColor: "rgb(251, 251, 250)"}}>
 							<div className="px-8 font-bold">Typ Práce</div>
 							<div className="mt-4">
 
@@ -106,12 +115,30 @@ export default function FormulasGallery() {
 								<MenuItem text={"⚡️ Elektroinštalácie"} type={"elektro"}/>
 								<MenuItem text={"🔥 Vykurovanie"} type={"kurenie"}/>
 
+
+								<div className="mt-12 text-sm opacity-80">
+
+									<div className="pb-1 mt-2 text-center "> Aplikácia pre výmery: </div>
+
+									<div onClick={handleClick} className={"shadow-sm flex justify-center w-[90%] items-center cursor-pointer gap-1 border bg-white border-slate-300 trans font-medium rounded-sm px-2 py-2 hover:border-rose-600 hover:text-rose-600 "}
+										style={{margin: "0 auto"}}
+										onMouseEnter={() => sethover(true)}
+										onMouseLeave={() => sethover(false)}>
+												
+											<Measure color={hover ? "red" : "black"}/>
+
+											<div>Vymeraj z projektu</div>
+									</div>				
+								</div>
 							</div>
+
+
 						</div>
+
 						<div className="flex flex-col">
-							<div className="px-8 pt-8">
-								<div className="flex items-center justify-between">
-									<div className="text-2xl">{labels[`${workSelected}`]}</div>
+							<div className=" pt-8">
+								<div className="flex items-center px-8 justify-between">
+									<div className="text-2xl font-medium">{labels[`${workSelected}`]}</div>
 									
 					
 										<div className="p-2 hover:bg-gray-300 hover:opacity-100 opacity-50 rounded cursor-pointer trans" 
@@ -122,13 +149,22 @@ export default function FormulasGallery() {
 									
 								</div>
 
-								<div className="mt-4 text-sm flex justify-start gap-6">
+								<div className="mt-4 text-sm flex justify-start items-center gap-4 border-b-[1px] px-8">
 
 									{workTypeData[`${workSelected}`].map((item, ix) => {
 										return(
-											<div key={`tabItem_${workSelected}_${ix}`}>
-												<Tab name={item.label} id={item.id}></Tab>
-											</div>
+											<React.Fragment key={`stepper${ix}`}>
+												<div key={`tabItem_${workSelected}_${ix}`}>
+													<Tab name={item.label} id={item.id}></Tab>
+												</div>
+
+												
+												{ ix < workTypeData[`${workSelected}`].length-1 && 
+												<div key={`dot${ix}`}
+													className={`rounded-full transition duration-500 ease-in-out border-2 border-gray-300 h-1 w-1 flex items-center justify-center  }`}>
+												</div>
+												}
+											</React.Fragment>	
 										)
 									})}
 
@@ -139,9 +175,9 @@ export default function FormulasGallery() {
 
 								</div>
 							</div>
-							<div className="w-full h-[1px] bg-gray-200"></div>
+							<div className="w-full h-[1px]"></div>
 
-							<div className="mx-4 mt-4 mb-2 h-full bg-gray-50 rounded-md relative">
+							<div className="mx-4 mt-4 mb-2 h-full rounded-md relative">
 								<div className="absolute inset-0 p-4 flex flex-col gap-4 overflow-y-scroll">
 
 									{workTypeData[`${workSelected}`].map((item, ix) => {
@@ -161,6 +197,7 @@ export default function FormulasGallery() {
 					<TemplateSkeleton></TemplateSkeleton>
 				)}
 			</div>
+
 		</motion.div>
 	);
 }
@@ -235,7 +272,7 @@ function Tab({ name, id }) {
 			}}
 			className="w-fit"
 		>
-			<div className="">{name}</div>
+			<div className="text-base">{name}</div>
 			<div
 				className={`h-[3px] rounded-tl-lg rounded-tr-lg w-full transition-all ${
 					tab === id ? "bg-blue-500" : ""

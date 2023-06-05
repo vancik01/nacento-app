@@ -12,6 +12,8 @@ import _ from "lodash";
 import "react-tooltip/dist/react-tooltip.css";
 import ButtonIcon from "../buttons/ButtonIcon";
 import ArrowDown from "../../public/assets/general/ArrowDown";
+import { getValue } from "../../context/ValuesContext";
+
 
 export default function Table({ items, variations, headers, blockId, sectionId }) {
 	const { reorderRows, getTitle } = useData();
@@ -186,9 +188,18 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId, variations }) {
 }
 
 function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variations, index }) {
-	const { changeValue, data,updateBlockTotals,updateSectionTotals, setdata } = useData();
+	const { changeValue ,updateBlockTotals, updateSectionTotals, setdata } = useData();
 	const [showvariant, setshowvariant] = useState(false)
-	const { isHorizontal } = useLayout();
+	const { isHorizontal } = useLayout();0
+
+	const fieldId = item
+
+	const [value, setValue] = getValue(
+		(data) => data?.data?.sections?.[sectionId]?.blocks?.[blockId]?.items?.[itemId]?.[fieldId]
+	);
+	if (value == undefined) {
+		return (<></>)
+	}
 
 	function variationIndex(item){
 		return parseInt(item.item_id.substring(8, item.item_id.length))
@@ -236,25 +247,22 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 
 
 	function update(e) {
-		changeValue({
-			blockId: blockId,
-			itemId: itemId,
-			valueId: item,
-			value: e.target.value,
-			sectionId: sectionId,
-		});
+		changeValue(
+			{ fieldId: fieldId, itemId: itemId, blockId:blockId, sectionId: sectionId },
+			e.target.value
+		);
 	}
 
 	if (item === "service_type") {
 		return (
 			<div className={`flex align-middle items-center ${label.short}`}>
-				{polozka.service_type}
+				{value.service_type}
 			</div>
 		);
 	} else if (item === "item_id") {
 		return (
 			<div className={`flex align-middle items-center ${label.short}`}>
-				{polozka.item_id}
+				{value.item_id}
 			</div>
 		);
 	} else if (item === "title") {
@@ -265,7 +273,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 						<TextareaAutosize
 							spellCheck="false"
 							className="w-full bg-transparent focus-visible:outline-none h-fit overflow-visible"
-							value={polozka.title}
+							value={value}
 							name={item}
 							style={{ resize: "none" }}
 							onChange={update}
@@ -293,7 +301,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 						<TextareaAutosize
 							spellCheck="false"
 							className="w-full bg-transparent focus-visible:outline-none h-fit overflow-visible"
-							value={polozka.title}
+							value={value}
 							name={item}
 							style={{ resize: "none" }}
 							onChange={update}
@@ -305,7 +313,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 		return (
 			<div className={`flex align-middle items-center w-full ${label.short}`}>
 				<select
-					defaultValue={polozka.unit}
+					defaultValue={value}
 					name={item}
 					className="w-full bg-transparent"
 					onChange={update}
@@ -329,7 +337,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.quantity.toString()}
+					value={value.toString()}
 				/>
 			</div>
 		);
@@ -341,7 +349,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.unit_delivery_price.toString()}
+					value={value.toString()}
 					endAdornment="€"
 				/>
 			</div>
@@ -354,7 +362,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.unit_construction_price.toString()}
+					value={value.toString()}
 					endAdornment="€"
 				/>
 			</div>
@@ -367,7 +375,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.total_delivery_price.toString()}
+					value={value.toString()}
 					endAdornment="€"
 				/>
 			</div>
@@ -380,7 +388,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.total_construction_price.toString()}
+					value={value.toString()}
 					endAdornment="€"
 				/>
 			</div>
@@ -393,7 +401,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.total.toString()}
+					value={value.toString()}
 					endAdornment="€"
 				/>
 

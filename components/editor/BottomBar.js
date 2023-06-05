@@ -3,33 +3,51 @@ import { useData } from "../../context/AppWrap";
 import { numberWithCommas } from "../../lib/helpers";
 import PriceChangeIndicator from "./PriceChangeIndicator";
 import ButtonSecondary from "../buttons/ButtonSecondary";
+import { getValue } from "../../context/ValuesContext";
+
 
 export default function BottomBar() {
-	const { total, initialTotal, openBulkEdit, bulkEdit, toggleTotals } =
-		useData();
-	const [changeDodavka, setchangeDodavka] = useState(
-		total.total_delivery_price - initialTotal.dodavka
-	);
+	const {initialTotal, total } = useData();
+
+	const [value, setValue] = getValue((data) => data.data.totals);
+
+	const data = {
+		total: 0,
+		total_construction_price: 0,
+		total_delivery_price: 0,
+	}
+
+
+	const [changeDodavka, setchangeDodavka] = useState(data.total_delivery_price - initialTotal.dodavka);
 	const [changeMontaz, setchangeMontaz] = useState(0);
 	const [changeTotal, setchangeTotal] = useState(0);
+
+	function format_number(number) {
+		if(!number) return 0;
+		return numberWithCommas(number.toFixed(2))
+	}
 
 	function scrollToTop() {
 		window.scrollTo({ top: 0, behavior: "smooth" });
 	}
 
 	useEffect(() => {
-		setchangeDodavka(
-			(total.total_delivery_price - initialTotal.total_delivery_price).toFixed(
-				2
-			)
-		);
-		setchangeMontaz(
-			(
-				total.total_construction_price - initialTotal.total_construction_price
-			).toFixed(2)
-		);
-		setchangeTotal((total.total - initialTotal.total).toFixed(2));
-	}, [total]);
+		if(value){
+			setchangeDodavka(
+				(value.total_delivery_price - initialTotal.total_delivery_price).toFixed(2));
+
+			setchangeMontaz(
+				(value.total_construction_price - initialTotal.total_construction_price).toFixed(2));
+
+			setchangeTotal((value.total - initialTotal.total).toFixed(2));
+		}
+
+		else{
+			setchangeDodavka(0);
+			setchangeMontaz(0);
+			setchangeTotal(0);
+		}
+	}, [value]);
 
 	return (
 		<div className="bottom-bar bg-white relative h-16">
@@ -38,7 +56,7 @@ export default function BottomBar() {
 						<PriceChangeIndicator val={changeMontaz} />
 						<div>
 							Cena Montáže:{" "}
-							{numberWithCommas(total.total_construction_price.toFixed(2))} €
+							{format_number(value?.total_construction_price)}€
 						</div>
 					</div>
 
@@ -46,14 +64,18 @@ export default function BottomBar() {
 						<PriceChangeIndicator val={changeDodavka} />
 						<div>
 							Cena Dodávky:{" "}
-							{numberWithCommas(total.total_delivery_price.toFixed(2))} €
+							{format_number(value?.total_delivery_price)}
+							{/* {numberWithCommas(value?.total_delivery_price.toFixed(2))}  */}€
 						</div>
 					</div>
 
 					<div className="relative w-fit">
 						<PriceChangeIndicator val={changeTotal} />
 						<div>
-							Spolu: {numberWithCommas(total.total.toFixed(2))} €{" "}
+							Spolu: {" "}
+							{format_number(value?.total)}
+							{/* {numberWithCommas(value?.total.toFixed(2))}  */}
+							€{" "}
 							<span className="text-[10px]">bez DPH</span>
 						</div>
 					</div>

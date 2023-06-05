@@ -362,7 +362,7 @@ function Project({project, ix, handleSelectId, setloading}) {
 
 					<div className='flex justify-between items-center mt-6'>
 						<div className='text-lg font-medium text-start'>
-							{project.data.customer.name ? "Cenová ponuka" : "Cenová ponuka"}
+							{project.data?.customer?.name ? "Cenová ponuka" : "Cenová ponuka"}
 						</div>
 
 						<div className='relative'>
@@ -406,7 +406,7 @@ function Project({project, ix, handleSelectId, setloading}) {
 					</div>
 
 					<div>
-						{project.data.customer.name && (
+						{project.data?.customer?.name && (
 							<>
 								<div className='text-left font-regular text-sm text-black mt-2'>
 									Objednávateľ:
