@@ -108,7 +108,7 @@ export function ApiContext({ children }) {
 
 			});
 	
-			// calculateTotals()
+			calculateTotals()
 
 			setinitialTotal({
 				total_delivery_price: initialTotal.total_delivery_price + dodavka,

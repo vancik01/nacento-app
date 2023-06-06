@@ -177,7 +177,7 @@ export default function FormulasGallery() {
 							</div>
 							<div className="w-full h-[1px]"></div>
 
-							<div className="mx-4 mt-4 mb-2 h-full rounded-md relative">
+							<div className="mx-4 mb-2 h-full rounded-md relative">
 								<div className="absolute inset-0 p-4 flex flex-col gap-4 overflow-y-scroll">
 
 									{workTypeData[`${workSelected}`].map((item, ix) => {

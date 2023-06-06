@@ -378,6 +378,8 @@ export function AppWrap({ children, dbData }) {
 		newPolozky.splice(obj.itemId, 1);
 		updateBlockTotals(newData.data.sections[obj.sectionId].blocks[obj.blockId]);
 		updateSectionTotals(newData.data.sections[obj.sectionId]);
+		updateTotals(newData)
+
 		setData((store) => (store = newData));
 	}
 
@@ -387,6 +389,8 @@ export function AppWrap({ children, dbData }) {
 		const [removed] = newData.data.sections[sectionId].blocks.splice(blockId, 1);
 
 		updateSectionTotals(newData.data.sections[sectionId]);
+		updateTotals(newData)
+
 		setData((store) => (store = newData));
 	}
 
@@ -396,6 +400,8 @@ export function AppWrap({ children, dbData }) {
 			const newData = { ...prevState };
 
 			newData.data.sections.splice(sectionId, 1);
+			updateTotals(newData)
+
 
 			return newData
 		});
