@@ -226,7 +226,8 @@ export function AppWrap({ children, dbData }) {
 
 	function dataInit() {
 		// inizializacia dat
-
+		if(!data.data.sections) return
+		
 		var newData ={ ...data };
 		var t = {
 			total_delivery_price: 0,
