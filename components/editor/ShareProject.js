@@ -72,7 +72,7 @@ export default function ShareProject({ close }) {
 							<a
 								target='_blank'
 								className='text-xs text-center py-2 mx-auto w-full text-blue-500'
-								href={link}
+								href={link} rel="noreferrer"
 							>
 								Zobraziť na webe
 							</a>

@@ -12,6 +12,8 @@ import ActionsContext from "../../context/ActionsContext";
 
 import { UseStepperContext } from "../../context/StepperContext";
 import { ApiContext } from "../../context/ApiContext";
+import ValuesContext from "../../context/ValuesContext";
+
 
 export default function Home({ dbData }) {
 	const theme = createTheme({
@@ -28,17 +30,19 @@ export default function Home({ dbData }) {
 			</Head>
 
 			<LayoutContext layout={dbData?.layout} headers={dbData.data.headers}>
-				<AppWrap dbData={dbData}>
-					<ActionsContext>
-						<UseStepperContext>
-							<ApiContext>
+				<ValuesContext dbData={dbData}>
+					<AppWrap dbData={dbData}>
+						<ActionsContext>
+							<UseStepperContext>
+								<ApiContext>
 
-								<ScreenLayout />
+									<ScreenLayout />
 
-							</ApiContext>
-						</UseStepperContext>
-					</ActionsContext>
-				</AppWrap>
+								</ApiContext>
+							</UseStepperContext>
+						</ActionsContext>
+					</AppWrap>
+				</ValuesContext>
 			</LayoutContext>
 
 		</ThemeProvider>

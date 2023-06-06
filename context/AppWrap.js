@@ -19,18 +19,23 @@ import {
 	updateBlockTotals,
 	updateSectionTotals,
 	updateTableRow,
+	updateTotals
 } from "../lib/valueChangeFunctions";
 
 import CenovaPonukaSkeleton from "../components/skeletons/CenovaPonukaSkeleton";
 import { useAuth } from "./AuthContext";
 import { useLayout } from "./LayoutContext";
 
+import { getValue } from "./ValuesContext";
+import { update } from "lodash";
 
 const DataContext = React.createContext();
 
 export function AppWrap({ children, dbData }) {
-	//console.log(props, "SSR data");
-	const [data, setdata] = useState(dbData.data);
+	const [data, setData] = getValue((data) => data);
+
+	const setdata = (data) => console.log(data);
+
 	const [headers, setheaders] = useState(dbData.data.headers);
 	const [errorLoading, seterrorLoading] = useState(false);
 	const [loading, setloading] = useState(false);
@@ -67,7 +72,7 @@ export function AppWrap({ children, dbData }) {
 	const [subHeading, setsubHeading] = useState(
 		dbData.subHeading ? dbData.subHeading : "#" + today.toLocaleDateString("sk")
 	);
-	
+
 	const [ signature, setsignature ] = useState("");
 	const { userData, user } = useAuth();
 	const { getLayout } = useLayout();
@@ -86,13 +91,14 @@ export function AppWrap({ children, dbData }) {
 	const [initialTotal, setinitialTotal] = useState(total);
 	const router = useRouter();
 
+
 	async function handleSave(show) {
 		const projectId = router.query.projectId;
 		const docRef = doc(firestore, `/offers/${projectId}`);
 		setsaving(true);
 		try {
 			await updateDoc(docRef, {
-				data: data,
+				data: data.data,
 				name: name,
 				totals: total,
 				description: description ? description : "",
@@ -121,7 +127,7 @@ export function AppWrap({ children, dbData }) {
 			const docRef = doc(firestore, `/offers/${projectId}`);
 			try {
 				await updateDoc(docRef, {
-					data: data,
+					data: data.data,
 					name: name,
 					totals: total,
 					description: description ? description : "",
@@ -145,38 +151,6 @@ export function AppWrap({ children, dbData }) {
 		});
 	}
 
-	// async function handleSave(show) {
-	// 	const offerId = router.query.projectId;
-	// 	setsaving(true);
-	// 	const docRef = doc(firestore, `/offers/${offerId}`);
-
-	// 	updateDoc(docRef, {
-	// 		data: data,
-	// 		name: name,
-	// 		totals: total,
-	// 		description: description ? description : "",
-	// 		layout: getLayout(),
-	// 		lastModified: moment().valueOf(),
-	// 		expiration: expiration ? moment(expiration).valueOf() : null,
-	// 		subHeading: subHeading ? subHeading : "",
-	// 		images: {
-	// 			logo: logo ? logo : "",
-	// 			signature: signature ? signature : "",
-	// 		},
-	// 	})
-	// 		.then((snap) => {
-	// 			//setdata(snap.data().data);
-	// 			if (show)
-	// 				toast("Dáta sa uložili", { autoClose: 3000, type: "success" });
-	// 			setsaving(false);
-	// 		})
-	// 		.catch((err) => {
-	// 			console.log(err);
-	// 			toast("Vyskytla sa chyba pri ukladaní", { type: "error" });
-	// 			setsaving(true);
-	// 		});
-	// }
-
 	function calculateTotals() {
 		var t = {
 			total_delivery_price: 0,
@@ -184,7 +158,7 @@ export function AppWrap({ children, dbData }) {
 			total: 0,
 		};
 
-		var newData = { ...data };
+		var newData ={ ...data.data };
 
 		newData.sections.map((section) => {
 			t.total_delivery_price += parseFloat(
@@ -206,6 +180,7 @@ export function AppWrap({ children, dbData }) {
 	);
 
 	useEffect(() => {
+		// console.log(data)
 		// vypocet total price
 		if (data != null) {
 			loadTotals();
@@ -217,7 +192,7 @@ export function AppWrap({ children, dbData }) {
 		if (data != null) {
 			dataInit();
 			loadTotals();
-			var newData = { ...data };
+			var newData ={ ...data.data };
 			newData.supplyer.company_name = userData.supplyer.company_name ? userData.supplyer.company_name : "";
 			newData.supplyer.dic = userData.supplyer.dic ? userData.supplyer.dic : "";
 			newData.supplyer.email = userData.supplyer.email
@@ -252,14 +227,14 @@ export function AppWrap({ children, dbData }) {
 	function dataInit() {
 		// inizializacia dat
 
-		var newData = { ...data };
+		var newData ={ ...data };
 		var t = {
 			total_delivery_price: 0,
 			total_construction_price: 0,
 			total: 0,
 		};
 
-		newData.sections.map((section) => {
+		newData.data.sections.map((section) => {
 			section.blocks.map((block) => {
 				t.total_delivery_price += parseFloat(
 					block.info["total_delivery_price"]
@@ -277,105 +252,159 @@ export function AppWrap({ children, dbData }) {
 		var section_total = 0,
 			section_total_delivery_price = 0,
 			section_total_construction_price = 0;
-		newData.sections.map((section, k) => {
+		newData.data.sections.map((section, k) => {
 			var section_total = 0,
 				section_total_delivery_price = 0,
 				section_total_construction_price = 0;
 			section.blocks.map((block, i) => {
-				newData.sections[k].blocks[i].info.total =
+				newData.data.sections[k].blocks[i].info.total =
 					block.info["total_construction_price"] +
 					block.info["total_delivery_price"];
 				section_total_construction_price +=
 					block.info["total_construction_price"];
 				section_total_delivery_price += block.info["total_delivery_price"];
-				section_total += newData.sections[k].blocks[i].info.total;
+				section_total += newData.data.sections[k].blocks[i].info.total;
 
 				block.items.map((item, j) => {
 					// if (item.quantity == 0) item.quantity = 1;
-					newData.sections[k].blocks[i].items[j].total =
+					newData.data.sections[k].blocks[i].items[j].total =
 						parseFloat(
-							newData.sections[k].blocks[i].items[j].total_construction_price
+							newData.data.sections[k].blocks[i].items[j].total_construction_price
 						) +
 						parseFloat(
-							newData.sections[k].blocks[i].items[j].total_delivery_price
+							newData.data.sections[k].blocks[i].items[j].total_delivery_price
 						);
 					//2 desatinn
-					newData.sections[k].blocks[i].items[j].total_construction_price =
+					newData.data.sections[k].blocks[i].items[j].total_construction_price =
 						parseFloat(
-							newData.sections[k].blocks[i].items[j].total_construction_price
+							newData.data.sections[k].blocks[i].items[j].total_construction_price
 						).toFixed(2);
-					newData.sections[k].blocks[i].items[j].total_delivery_price =
+					newData.data.sections[k].blocks[i].items[j].total_delivery_price =
 						parseFloat(
-							newData.sections[k].blocks[i].items[j].total_delivery_price
-						).toFixed(2);
-
-					newData.sections[k].blocks[i].items[j].unit_construction_price =
-						parseFloat(
-							newData.sections[k].blocks[i].items[j].unit_construction_price
+							newData.data.sections[k].blocks[i].items[j].total_delivery_price
 						).toFixed(2);
 
-					newData.sections[k].blocks[i].items[j].unit_delivery_price =
+					newData.data.sections[k].blocks[i].items[j].unit_construction_price =
 						parseFloat(
-							newData.sections[k].blocks[i].items[j].unit_delivery_price
+							newData.data.sections[k].blocks[i].items[j].unit_construction_price
 						).toFixed(2);
-					newData.sections[k].blocks[i].items[j].total = parseFloat(
-						newData.sections[k].blocks[i].items[j].total
+
+					newData.data.sections[k].blocks[i].items[j].unit_delivery_price =
+						parseFloat(
+							newData.data.sections[k].blocks[i].items[j].unit_delivery_price
+						).toFixed(2);
+					newData.data.sections[k].blocks[i].items[j].total = parseFloat(
+						newData.data.sections[k].blocks[i].items[j].total
 					).toFixed(2);
 				});
 			});
 
-			newData.sections[k].info.total = parseFloat(section_total).toFixed(2);
-			newData.sections[k].info.total_construction_price = parseFloat(
+			newData.data.sections[k].info.total = parseFloat(section_total).toFixed(2);
+			newData.data.sections[k].info.total_construction_price = parseFloat(
 				section_total_construction_price
 			).toFixed(2);
-			newData.sections[k].info.total_delivery_price = parseFloat(
+			newData.data.sections[k].info.total_delivery_price = parseFloat(
 				section_total_delivery_price
 			).toFixed(2);
 		});
 		setdata(newData);
 	}
 
-	function changeValue(obj) {
-		var newData = { ...data };
+	// function updateTotals() {
+
+	// 	setData(prevData => {
+
+	// 		var t = {
+	// 			total_delivery_price: 0,
+	// 			total_construction_price: 0,
+	// 			total: 0,
+	// 		};
+
+	// 		prevData.data.sections.map((section) => {
+	// 			t.total_delivery_price += parseFloat(
+	// 				section.info["total_delivery_price"]
+	// 			);
+
+	// 			t.total_construction_price += parseFloat(
+	// 				section.info["total_construction_price"]
+	// 			);
+	// 		});
+
+	// 		t.total = t.total_delivery_price + t.total_construction_price;
+
+	// 		console.log(t)
+
+	// 		return {
+	// 			...prevData,
+	// 			totals: {
+	// 				...prevData.totals,
+	// 				total: t.total,
+	// 				total_delivery_price: t.total_delivery_price,
+	// 				total_construction_price: t.total_construction_price,
+	// 			},
+	// 		};
+	// 	});
+
+	// }
+
+	function changeValue(cordinates, value) {
+		const { fieldId, itemId, blockId, sectionId } = cordinates;
 
 		updateTableRow(
-			newData.sections[obj.sectionId].blocks[obj.blockId].items[obj.itemId],
-			obj.valueId,
-			obj.value
+			data.data.sections[sectionId].blocks[blockId].items[itemId],
+			fieldId,
+			value
 		);
 
-		updateBlockTotals(newData.sections[obj.sectionId].blocks[obj.blockId]);
+		updateBlockTotals(data.data.sections[sectionId].blocks[blockId]);
+		updateSectionTotals(data.data.sections[sectionId]);
+		updateTotals(data);
 
-		updateSectionTotals(newData.sections[obj.sectionId]);
+		settotal(data.totals);
 
-		setdata(newData);
+		// console.log(data)
+
+		// setData((store) => ({ ...store, ...data }));
+
+		setData((store) => (store = data));
+
+		// console.log(data)
 	}
 
 	function deleteRow(obj) {
-		var newData = { ...data };
-		var newPolozky = newData.sections[obj.sectionId].blocks[obj.blockId].items;
+		var newData ={ ...data };
+		var newPolozky = newData.data.sections[obj.sectionId].blocks[obj.blockId].items;
 
 		newPolozky.splice(obj.itemId, 1);
-		updateBlockTotals(newData.sections[obj.sectionId].blocks[obj.blockId]);
-		updateSectionTotals(newData.sections[obj.sectionId]);
+		updateBlockTotals(newData.data.sections[obj.sectionId].blocks[obj.blockId]);
+		updateSectionTotals(newData.data.sections[obj.sectionId]);
+		updateTotals(newData)
 
-		setdata(newData);
+		setData((store) => (store = newData));
 	}
 
 	function deleteBlock(sectionId, blockId) {
-		var newData = { ...data };
+		var newData ={ ...data };
 
-		const [removed] = newData.sections[sectionId].blocks.splice(blockId, 1);
+		const [removed] = newData.data.sections[sectionId].blocks.splice(blockId, 1);
 
-		updateSectionTotals(newData.sections[sectionId]);
-		setdata(newData);
+		updateSectionTotals(newData.data.sections[sectionId]);
+		updateTotals(newData)
+
+		setData((store) => (store = newData));
 	}
 
 	function deleteSection(sectionId) {
-		var newData = { ...data };
+		setData(prevState => {
 
-		const [removed] = newData.sections.splice(sectionId, 1);
-		setdata(newData);
+			const newData = { ...prevState };
+
+			newData.data.sections.splice(sectionId, 1);
+			updateTotals(newData)
+
+
+			return newData
+		});
 	}
 
 	const reorder = (list, startIndex, endIndex) => {
@@ -387,7 +416,7 @@ export function AppWrap({ children, dbData }) {
 	};
 
 	function reorderRows(blockId, sectionId, e) {
-		var newData = { ...data };
+		var newData ={ ...data.data };
 
 		if (!e.destination) {
 			return;
@@ -404,7 +433,7 @@ export function AppWrap({ children, dbData }) {
 	}
 
 	function reorderBlocks(e, sectionId) {
-		var newData = { ...data };
+		var newData ={ ...data.data };
 
 		if (!e.destination) {
 			return;
@@ -420,7 +449,7 @@ export function AppWrap({ children, dbData }) {
 	}
 
 	function addBlockFull(section, block) {
-		let newData = { ...data };
+		let newData ={ ...data.data };
 		console.log(newData.sections);
 
 		let exists = false;
@@ -454,50 +483,50 @@ export function AppWrap({ children, dbData }) {
 	}
 
 	function addBlock(sectionId, blockId, template) {
-		if(template && !data.sections.length){
-			addSection()
-		}
-		let newData = { ...data };
 
-		var lengthBeforeInsert = newData.sections[sectionId].blocks.length;
-		let newBlock;
+		setData(data => {
+			var newData = { ...data };
 
-		if (!template) {
-			newBlock = {
-				info: {
-					title: "Nový blok",
-					total_delivery_price: 0,
-					total_construction_price: 0,
-					total: 0,
-				},
-				items: [],
-			};
-		} else {
-			newBlock = template;
-		}
+			var lengthBeforeInsert = newData.data.sections[sectionId].blocks.length;
+			let newBlock;
 
-		
-		newData.sections[sectionId].blocks.splice(blockId + 1, 0, newBlock);
-
-		if (lengthBeforeInsert === 0) {
-			newBlock.info.total = parseFloat(newData.sections[sectionId].info.total);
-			newBlock.info.total_construction_price = parseFloat(
-				newData.sections[sectionId].info.total_construction_price
-			);
-			newBlock.info.total_delivery_price = parseFloat(
-				newData.sections[sectionId].info.total_delivery_price
-			);
-		}
-		if (!template) {
-			if (lengthBeforeInsert == 0) {
-				addTableRow(blockId, sectionId);
+			if (!template) {
+				newBlock = {
+					info: {
+						title: "Nový blok",
+						total_delivery_price: 0,
+						total_construction_price: 0,
+						total: 0,
+					},
+					items: [],
+				};
 			} else {
-				addTableRow(blockId + 1, sectionId);
+				newBlock = template;
 			}
-		}
-		updateSectionTotals(newData.sections[sectionId]);
 
-		setdata({ ...newData });
+			newData.data.sections[sectionId].blocks.splice(blockId + 1, 0, newBlock);
+
+			if (lengthBeforeInsert === 0) {
+				newBlock.info.total = parseFloat(newData.data.sections[sectionId].info.total);
+				newBlock.info.total_construction_price = parseFloat(
+					newData.data.sections[sectionId].info.total_construction_price
+				);
+				newBlock.info.total_delivery_price = parseFloat(
+					newData.data.sections[sectionId].info.total_delivery_price
+				);
+			}
+			if (!template) {
+				if (lengthBeforeInsert == 0) {
+					addTableRow(blockId, sectionId);
+				} else {
+					addTableRow(blockId + 1, sectionId);
+				}
+			}
+			updateSectionTotals(newData.data.sections[sectionId]);
+
+
+			return newData;
+		});
 	}
 
 	function getTitle(titleId, language) {
@@ -505,19 +534,22 @@ export function AppWrap({ children, dbData }) {
 	}
 
 	function changeSupplyerData(supplyerData) {
-		var newData = { ...data };
+		var newData ={ ...data.data };
 		newData.supplyer = supplyerData;
 
 		setdata(newData);
 	}
 	function changeCustomerData(customerData) {
-		var newData = { ...data };
+
+		
+
+		var newData ={ ...data.data };
 		newData.customer = customerData;
 		setdata(newData);
 	}
 
 	function editBlockTitle(newTitle, sectionId, blockId) {
-		var newData = { ...data };
+		var newData ={ ...data.data };
 		newData.sections[sectionId].blocks[blockId].info.title = newTitle;
 
 		setdata(newData);
@@ -567,30 +599,33 @@ export function AppWrap({ children, dbData }) {
 	}
 
 	function saveBulkEdit(valueToAdd) {
-		var newData = { ...data };
+		var newData ={ ...data };
+		console.log(valueToAdd)
+		// console.log(newData)
 
 		if (bulkEditData.mode === "block") {
 			splitBetweenItems(
-				newData.sections[bulkEditData.sectionId].blocks[bulkEditData.blockId],
+				newData.data.sections[bulkEditData.sectionId].blocks[bulkEditData.blockId],
 				valueToAdd,
 				bulkEditData.valueId
 			);
-			updateSectionTotals(newData.sections[bulkEditData.sectionId]);
+			updateSectionTotals(newData.data.sections[bulkEditData.sectionId]);
 		} else if (bulkEditData.mode === "section") {
 			splitBetweenBlocks(
-				newData.sections[bulkEditData.sectionId],
+				newData.data.sections[bulkEditData.sectionId],
 				valueToAdd,
 				bulkEditData.valueId
 			);
 		} else if (bulkEditData.mode === "whole") {
 			splitBetweenSections(
-				newData.sections,
+				newData.data.sections,
 				valueToAdd,
 				bulkEditData.valueId,
-				total
+				newData.data.totals
 			);
 		}
-		setdata(newData);
+		// setdata(newData);
+		updateTotals(newData);
 		closeBulkEdit();
 	}
 
@@ -599,64 +634,77 @@ export function AppWrap({ children, dbData }) {
 	}
 
 	function addTableRow(blockId, sectionId) {
-		var newData = { ...data };
-		newData.sections[sectionId].blocks[blockId].items.push({
-			service_type: "",
-			item_id: "U000000",
-			title: "Nová položka",
-			unit: "m",
-			quantity: 0,
-			unit_delivery_price: 0.0,
-			unit_construction_price: 0.0,
-			total_delivery_price: 0.0,
-			total_construction_price: 0.0,
-			total: 0.0,
+		setData(initialState => {
+
+			var data = { ...initialState };
+
+			data.data.sections[sectionId].blocks[blockId].items.push({
+				service_type: "",
+				item_id: "U000000",
+				title: "Nová položka",
+				unit: "m",
+				quantity: 1,
+				unit_delivery_price: 0.0,
+				unit_construction_price: 0.0,
+				total_delivery_price: 0.0,
+				total_construction_price: 0.0,
+				total: 0.0,
+			});
+
+			if (data.data.sections[sectionId].blocks[blockId].items.length === 1) {
+				updateTableRow(
+					data.data.sections[sectionId].blocks[blockId].items[0],
+					"total_construction_price",
+					parseFloat(
+						data.data.sections[sectionId].blocks[blockId].info.total_construction_price
+					)
+				);
+				updateTableRow(
+					data.data.sections[sectionId].blocks[blockId].items[0],
+					"total_delivery_price",
+					parseFloat(
+						data.data.sections[sectionId].blocks[blockId].info.total_delivery_price
+					)
+				);
+			}
+
+			return data;
 		});
-
-		if (newData.sections[sectionId].blocks[blockId].items.length === 1) {
-			updateTableRow(
-				newData.sections[sectionId].blocks[blockId].items[0],
-				"total_construction_price",
-				parseFloat(
-					newData.sections[sectionId].blocks[blockId].info
-						.total_construction_price
-				)
-			);
-			updateTableRow(
-				newData.sections[sectionId].blocks[blockId].items[0],
-				"total_delivery_price",
-				parseFloat(
-					newData.sections[sectionId].blocks[blockId].info.total_delivery_price
-				)
-			);
-		}
-
-		setdata(newData);
 	}
 
 	function addSection() {
-		var newData = { ...data };
-		newData.sections.push({
-			info: {
-				title: "Nová sekcia",
-				total_delivery_price: 0,
-				total_construction_price: 0,
-				total: 0,
-			},
-			blocks: [],
+
+		setData(data => {
+
+			var newData ={ ...data };
+
+			newData.data.sections.push({
+				info: {
+					title: "Nová sekcia",
+					total_delivery_price: 0,
+					total_construction_price: 0,
+					total: 0,
+				},
+				blocks: [],
+			});
+
+			addBlock(newData.data.sections.length - 1, 0);
+
+			setTimeout(() => {
+				document
+					.getElementById("last-section")
+					.scrollIntoView({ behavior: "smooth" });
+			}, 100);
+
+			return newData;
 		});
 
-		setdata(newData);
-		addBlock(newData.sections.length - 1, 0);
-		setTimeout(() => {
-			document
-				.getElementById("last-section")
-				.scrollIntoView({ behavior: "smooth" });
-		}, 100);
+
+
 	}
 
 	function changeSectionTitle(sectionId, newTitle) {
-		var newData = { ...data };
+		var newData ={ ...data.data };
 		newData.sections[sectionId].info.title = newTitle;
 	}
 
@@ -671,7 +719,6 @@ export function AppWrap({ children, dbData }) {
 	}
 
 	const value = {
-		data,
 		headers,
 		total,
 		initialTotal, setinitialTotal,
@@ -744,7 +791,6 @@ export function AppWrap({ children, dbData }) {
 
 		updateBlockTotals,
 		updateSectionTotals,
-		setdata,
 
 		subHeading,
 		setsubHeading,

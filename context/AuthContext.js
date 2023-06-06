@@ -118,6 +118,21 @@ export default function AuthContext({ children }) {
 		});
 	}
 
+	function user_is_employee(uid){
+		var collectionRef = collection(firestore, "/employees");
+		var q = query(
+			collectionRef,
+			where("uid", "==", uid)
+		);
+		//const query = query(collectionRef,);
+		getDocs(q).then((docs) => {
+			if (!docs.empty) {
+				return true
+			}
+			return false
+		});
+	}
+
 	useEffect(() => {
 		if (!loading) {
 			if (!user) {
@@ -137,7 +152,7 @@ export default function AuthContext({ children }) {
 				getDoc(docRef).then((snap) => {
 					if (!snap.exists()) {
 						console.log("User do not exist");
-						// logOut();
+						logOut();
 					} else {
 						setuserData(snap.data());
 						if (
@@ -283,7 +298,8 @@ export default function AuthContext({ children }) {
 		updateEmployee, load_employee_data,
 		excelselected, setexcelselected,
 		excelData, handleDeleteExcel,
-		fetchImageData, handleEmployeeAdd
+		fetchImageData, handleEmployeeAdd,
+		user_is_employee
 	};
 
 	return (

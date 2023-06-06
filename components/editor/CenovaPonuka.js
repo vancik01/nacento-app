@@ -16,29 +16,28 @@ import { TextareaAutosize } from "@mui/material";
 import OfferFooter from "./OfferFooter";
 import SubHeading from "./SubHeading";
 import UploadImage from "./UploadImage";
+import { getValue } from "../../context/ValuesContext";
+
 
 export default function CenovaPonuka() {
 	const [winReady, setwinReady] = useState(false);
-	const [scrollPosition, setScrollPosition] = useState(0);
-	const [editingTitle, seteditingTitle] = useState(false);
-	//const [reorderingBlocks, setreorderingBlocks] = useState(false)
+
 	const {
-		data,
-		total,
 		name,
 		setname,
-		bulkEdit,
 		bulkEditData,
-		openBulkEdit,
-		download,
-		setdownload,
 		logo,
 		setlogo,
 		description,
 		changeDescription,
 	} = useData();
 
+
 	const { primaryColor, isHorizontal } = useLayout();
+
+	const [sections] = getValue((data) => data.data.sections);
+	// const [total] = getValue((data) => data.data.totals);
+
 
 	useEffect(() => {
 		setwinReady(true);
@@ -85,144 +84,9 @@ export default function CenovaPonuka() {
 									<SupplyerInfo scale={isHorizontal}></SupplyerInfo>
 								</div>
 
-								<div>
-									<div
-										className={`${
-											isHorizontal && "text-lg"
-										} mb-1 text-gray-300 capitalize`}
-									>
-										CENA:
-									</div>
+								<PricesComponent/>
 
-									<div
-										className={`${
-											isHorizontal ? "text-lg" : "text-sm"
-										} max-w-[220px]`}
-									>
-										<button
-											onClick={(e) => {
-												openBulkEdit(
-													{
-														blockId: -1,
-														value: total.total_construction_price,
-														valueId: "total_construction_price",
-														mode: "whole",
-													},
-													e
-												);
-											}}
-										>
-											<div className={`relative w-fit`}>
-												<div>
-													Cena Montáže:{" "}
-													{numberWithCommas(
-														total.total_construction_price.toFixed(2)
-													)}{" "}
-													€
-												</div>
-
-												<div className='absolute top-0 -right-3 w-2'>
-													<EditPen></EditPen>
-												</div>
-											</div>
-										</button>
-
-										<button
-											onClick={(e) => {
-												openBulkEdit(
-													{
-														blockId: -1,
-														value: total.total_delivery_price,
-														valueId: "total_delivery_price",
-														mode: "whole",
-													},
-													e
-												);
-											}}
-											className='w-fit'
-										>
-											<div className='relative w-fit'>
-												<div>
-													Cena Dodávky:{" "}
-													{numberWithCommas(
-														total.total_delivery_price.toFixed(2)
-													)}{" "}
-													€
-												</div>
-
-												<div className='absolute top-0 -right-3 w-2'>
-													<EditPen></EditPen>
-												</div>
-											</div>
-										</button>
-
-										<div
-											className='w-full h-[1px] my-2'
-											style={{ backgroundColor: primaryColor, opacity: 0.7 }}
-										></div>
-
-										<button
-											onClick={(e) => {
-												openBulkEdit(
-													{
-														blockId: -1,
-														value: total.total * 1.2,
-														valueId: "total_vat",
-														mode: "whole",
-													},
-													e
-												);
-											}}
-											className='w-fit'
-										>
-											<div className='relative w-fit'>
-												<div>
-													Spolu:{" "}
-													{numberWithCommas((total.total * 1.2).toFixed(2))} €{" "}
-													<span className='text-[10px]'>s DPH</span>
-												</div>
-
-												<div className='absolute top-0 -right-3 w-2'>
-													<EditPen></EditPen>
-												</div>
-											</div>
-										</button>
-
-										<div>
-											DPH 20%:{" "}
-											{numberWithCommas((total.total * 0.2).toFixed(2))} €
-										</div>
-
-										<button
-											onClick={(e) => {
-												openBulkEdit(
-													{
-														blockId: -1,
-														value: total.total,
-														valueId: "total",
-														mode: "whole",
-													},
-													e
-												);
-											}}
-										>
-											<div className='relative w-fit'>
-												<div className='mt-2 font-medium text-xl text-left'>
-													Cena spolu:
-												</div>
-												<div className='mt-2 font-medium text-xl'>
-													{numberWithCommas(total.total.toFixed(2))} €
-													<span className='text-[10px]'>bez DPH</span>
-												</div>
-
-												<div className='absolute top-0 -right-3 w-2'>
-													<EditPen></EditPen>
-												</div>
-											</div>
-										</button>
-									</div>
-								</div>
-							</div>
+							</div>		
 
 							<div className='my-10'>
 								<div className='w-full h-[1px] bg-black'></div>
@@ -234,7 +98,7 @@ export default function CenovaPonuka() {
 										}}
 									/>
 
-									<TextareaAutosize
+									{/* <TextareaAutosize
 										spellCheck='false'
 										value={description}
 										onChange={changeDescription}
@@ -245,18 +109,18 @@ export default function CenovaPonuka() {
 											resize: "none",
 										}}
 										className='w-full text-center mt-2 focus:outline-none text-gray-400 font-light'
-									></TextareaAutosize>
+									></TextareaAutosize> */}
 								</div>
 								<div className='w-full h-[1px] bg-black'></div>
 							</div>
 
 							<div>
 								{winReady &&
-									data.sections.map((section, i) => {
+									sections.map((section, i) => {
 										return (
 											<div key={`section-${i}`}>
 												<Section
-													isLast={i === data.sections.length - 1}
+													isLast={i === sections.length - 1}
 													section={section}
 													sectionId={i}
 												></Section>
@@ -280,4 +144,157 @@ export default function CenovaPonuka() {
 			)}
 		</>
 	);
+}
+
+function PricesComponent(){
+
+	const {openBulkEdit,} = useData();
+
+	const { primaryColor, isHorizontal } = useLayout();
+
+	// const [sections] = getValue((data) => data.data.sections);
+	const [total] = getValue((data) => data.data.totals);
+
+	function format_number(number) {
+		if(!number) return 0;
+		return numberWithCommas(number.toFixed(2))
+	}
+
+	return(
+		<div>
+		<div
+			className={`${
+				isHorizontal && "text-lg"
+			} mb-1 text-gray-300 capitalize`}
+		>
+			CENA:
+		</div>
+
+		<div
+			className={`${
+				isHorizontal ? "text-lg" : "text-sm"
+			} max-w-[220px]`}>
+
+			<button
+				onClick={(e) => {
+					openBulkEdit(
+						{
+							blockId: -1,
+							value: total?.total_construction_price,
+							valueId: "total_construction_price",
+							mode: "whole",
+						},
+						e
+					);
+				}}
+			>
+				<div className={`relative w-fit`}>
+					<div>
+						Cena Montáže:{" "}
+						{ format_number(total?.total_construction_price)}{" "}€
+					</div>
+
+					<div className='absolute top-0 -right-3 w-2'>
+						<EditPen></EditPen>
+					</div>
+				</div>
+			</button>
+
+			<button
+				onClick={(e) => {
+					openBulkEdit(
+						{
+							blockId: -1,
+							value: total?.total_delivery_price,
+							valueId: "total_delivery_price",
+							mode: "whole",
+						},
+						e
+					);
+				}}
+				className='w-fit'
+			>
+				<div className='relative w-fit'>
+					<div>
+						Cena Dodávky:{" "}
+						{format_number(
+							total?.total_delivery_price
+						)}{" "}
+						€
+					</div>
+
+					<div className='absolute top-0 -right-3 w-2'>
+						<EditPen></EditPen>
+					</div>
+				</div>
+			</button>
+
+			<div
+				className='w-full h-[1px] my-2'
+				style={{ backgroundColor: primaryColor, opacity: 0.7 }}
+			></div>
+
+			<button
+				onClick={(e) => {
+					openBulkEdit(
+						{
+							blockId: -1,
+							value: total?.total * 1.2,
+							valueId: "total_vat",
+							mode: "whole",
+						},
+						e
+					);
+				}}
+				className='w-fit'
+			>
+				<div className='relative w-fit'>
+					<div>
+						Spolu:{" "}
+						{format_number((total?.total * 1.2))} €{" "}
+						<span className='text-[10px]'>s DPH</span>
+					</div>
+
+					<div className='absolute top-0 -right-3 w-2'>
+						<EditPen></EditPen>
+					</div>
+				</div>
+			</button>
+
+			<div>
+				DPH 20%:{" "}
+				{format_number((total?.total * 0.2))} €
+			</div>
+
+			<button
+				onClick={(e) => {
+					openBulkEdit(
+						{
+							blockId: -1,
+							value: total?.total,
+							valueId: "total",
+							mode: "whole",
+						},
+						e
+					);
+				}}
+			>
+				<div className='relative w-fit'>
+					<div className='mt-2 font-medium text-xl text-left'>
+						Cena spolu:
+					</div>
+					<div className='mt-2 font-medium text-xl'>
+						{format_number(total?.total)} €
+						<span className='text-[10px]'>bez DPH</span>
+					</div>
+
+					<div className='absolute top-0 -right-3 w-2'>
+						<EditPen></EditPen>
+					</div>
+				</div>
+			</button>
+		</div>
+	</div>
+
+	)
 }

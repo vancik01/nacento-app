@@ -12,6 +12,8 @@ import _ from "lodash";
 import "react-tooltip/dist/react-tooltip.css";
 import ButtonIcon from "../buttons/ButtonIcon";
 import ArrowDown from "../../public/assets/general/ArrowDown";
+import { getValue } from "../../context/ValuesContext";
+import { updateTotals } from "../../lib/valueChangeFunctions";
 
 export default function Table({ items, variations, headers, blockId, sectionId }) {
 	const { reorderRows, getTitle } = useData();
@@ -186,9 +188,20 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId, variations }) {
 }
 
 function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variations, index }) {
-	const { changeValue, data,updateBlockTotals,updateSectionTotals, setdata } = useData();
+	const { changeValue ,updateBlockTotals, updateSectionTotals, setdata } = useData();
 	const [showvariant, setshowvariant] = useState(false)
 	const { isHorizontal } = useLayout();
+
+	const [data, setData] = getValue((data) => data);
+
+	const fieldId = item
+
+	const [value, setValue] = getValue(
+		(data) => data?.data?.sections?.[sectionId]?.blocks?.[blockId]?.items?.[itemId]?.[fieldId]
+	);
+	if (value == undefined) {
+		return (<></>)
+	}
 
 	function variationIndex(item){
 		return parseInt(item.item_id.substring(8, item.item_id.length))
@@ -197,64 +210,65 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 	function change_items(variant, polozka, ix) {
 		setshowvariant(false)
 
-		var newData = { ...data };
+		setData(data => {
 
-		newData.sections[sectionId].blocks[blockId].items.splice(itemId, 1);
+			var newData = { ...data };
 
-		variant.quantity = polozka.quantity
-		variant.total_construction_price = Math.round((variant.unit_construction_price * variant.quantity) * 100) /100
-		variant.total_delivery_price = Math.round((variant.unit_delivery_price * variant.quantity) * 100) /100
-		variant.total = Math.round((variant.total_construction_price + variant.total_delivery_price) * 100) /100
+			newData.data.sections[sectionId].blocks[blockId].items.splice(itemId, 1);
 
-		newData.sections[sectionId].blocks[blockId].items.splice(itemId, 0, variant)
+			variant.quantity = polozka.quantity
+			variant.total_construction_price = Math.round((variant.unit_construction_price * variant.quantity) * 100) /100
+			variant.total_delivery_price = Math.round((variant.unit_delivery_price * variant.quantity) * 100) /100
+			variant.total = Math.round((variant.total_construction_price + variant.total_delivery_price) * 100) /100
 
-		let variant_ix = 0
-		for(let i=0; i<newData.sections[sectionId].blocks[blockId].variations.length; i++){
-			if(newData.sections[sectionId].blocks[blockId].variations[i].item.item_id == polozka.item_id){
-				newData.sections[sectionId].blocks[blockId].variations[i].item = variant
-				variant_ix = i
-				break
+			newData.data.sections[sectionId].blocks[blockId].items.splice(itemId, 0, variant)
+
+			let variant_ix = 0
+			for(let i=0; i<newData.data.sections[sectionId].blocks[blockId].variations.length; i++){
+				if(newData.data.sections[sectionId].blocks[blockId].variations[i].item.item_id == polozka.item_id){
+					newData.data.sections[sectionId].blocks[blockId].variations[i].item = variant
+					variant_ix = i
+					break
+				}
 			}
-		}
 
 
-		//remove the chosen variations from the list & add the previous to the list
-		for(let i=0; i<newData.sections[sectionId].blocks[blockId].variations[variant_ix].alternatives.length; i++){
-			if(newData.sections[sectionId].blocks[blockId].variations[variant_ix].alternatives[i].item_id == variant.item_id){
-				newData.sections[sectionId].blocks[blockId].variations[variant_ix].alternatives.splice(i, 1);
-				newData.sections[sectionId].blocks[blockId].variations[variant_ix].alternatives.splice(i, 0, polozka);
-				break
+			//remove the chosen variations from the list & add the previous to the list
+			for(let i=0; i<newData.data.sections[sectionId].blocks[blockId].variations[variant_ix].alternatives.length; i++){
+				if(newData.data.sections[sectionId].blocks[blockId].variations[variant_ix].alternatives[i].item_id == variant.item_id){
+					newData.data.sections[sectionId].blocks[blockId].variations[variant_ix].alternatives.splice(i, 1);
+					newData.data.sections[sectionId].blocks[blockId].variations[variant_ix].alternatives.splice(i, 0, polozka);
+					break
+				}
+					
 			}
-				
-		}
 
-		updateBlockTotals(newData.sections[sectionId].blocks[blockId]);
-		updateSectionTotals(newData.sections[sectionId]);
+			updateBlockTotals(newData.data.sections[sectionId].blocks[blockId]);
+			updateSectionTotals(newData.data.sections[sectionId]);
+			updateTotals(newData)			
 
-		setdata(newData);
+			return newData
+		});
 	}
 
 
 	function update(e) {
-		changeValue({
-			blockId: blockId,
-			itemId: itemId,
-			valueId: item,
-			value: e.target.value,
-			sectionId: sectionId,
-		});
+		changeValue(
+			{ fieldId: fieldId, itemId: itemId, blockId:blockId, sectionId: sectionId },
+			e.target.value
+		);
 	}
 
 	if (item === "service_type") {
 		return (
 			<div className={`flex align-middle items-center ${label.short}`}>
-				{polozka.service_type}
+				{value.service_type}
 			</div>
 		);
 	} else if (item === "item_id") {
 		return (
 			<div className={`flex align-middle items-center ${label.short}`}>
-				{polozka.item_id}
+				{value.item_id}
 			</div>
 		);
 	} else if (item === "title") {
@@ -265,7 +279,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 						<TextareaAutosize
 							spellCheck="false"
 							className="w-full bg-transparent focus-visible:outline-none h-fit overflow-visible"
-							value={polozka.title}
+							value={value}
 							name={item}
 							style={{ resize: "none" }}
 							onChange={update}
@@ -293,7 +307,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 						<TextareaAutosize
 							spellCheck="false"
 							className="w-full bg-transparent focus-visible:outline-none h-fit overflow-visible"
-							value={polozka.title}
+							value={value}
 							name={item}
 							style={{ resize: "none" }}
 							onChange={update}
@@ -305,7 +319,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 		return (
 			<div className={`flex align-middle items-center w-full ${label.short}`}>
 				<select
-					defaultValue={polozka.unit}
+					defaultValue={value}
 					name={item}
 					className="w-full bg-transparent"
 					onChange={update}
@@ -329,7 +343,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.quantity.toString()}
+					value={value.toString()}
 				/>
 			</div>
 		);
@@ -341,7 +355,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.unit_delivery_price.toString()}
+					value={value.toString()}
 					endAdornment="€"
 				/>
 			</div>
@@ -354,7 +368,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.unit_construction_price.toString()}
+					value={value.toString()}
 					endAdornment="€"
 				/>
 			</div>
@@ -367,7 +381,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.total_delivery_price.toString()}
+					value={value.toString()}
 					endAdornment="€"
 				/>
 			</div>
@@ -380,7 +394,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.total_construction_price.toString()}
+					value={value.toString()}
 					endAdornment="€"
 				/>
 			</div>
@@ -393,7 +407,7 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 					inputProps={{ min: 0 }}
 					type="number"
 					onChange={update}
-					value={polozka.total.toString()}
+					value={value.toString()}
 					endAdornment="€"
 				/>
 

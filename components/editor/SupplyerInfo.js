@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { useData } from "../../context/AppWrap";
-import { useAuth } from "../../context/AuthContext";
 import Save from "../../public/assets/buttons/Save";
 import EditPen from "../../public/assets/editor/EditPen";
 import ButtonSecondary from "../buttons/ButtonSecondary";
+import { getValue } from "../../context/ValuesContext";
 
 export default function SupplyerInfo({ scale }) {
-	const { data, changeSupplyerData } = useData();
-	const { userData } = useAuth();
+	const { changeSupplyerData } = useData();
 	const [editing, setediting] = useState(false);
-	const [supplyer, setsupplyer] = useState(data.supplyer);
+
+	const [data, setData] = getValue((data) => data);
+	const [supplyer, setsupplyer] = useState(data.data.supplyer);
+	
 
 	function handleChange(e) {
 		var newData = { ...supplyer };
@@ -18,7 +20,11 @@ export default function SupplyerInfo({ scale }) {
 	}
 
 	function handleSave() {
-		changeSupplyerData(supplyer);
+		setData((data) => {
+			let newData = { ...data }
+			newData.data.supplyer = supplyer
+			return newData
+		  });
 		setediting(false);
 	}
 
@@ -43,11 +49,11 @@ export default function SupplyerInfo({ scale }) {
 
 				<div className={`${scale ? "text-lg" : "text-sm"} flex flex-col gap-1`}>
 					{supplyer.company_name && <div>{supplyer.company_name}</div>}
-					{data.supplyer.ico && <div>IČO: {data.supplyer.ico}</div>}
-					{data.supplyer.dic && <div>DIČ: {data.supplyer.dic}</div>}
-					{data.supplyer.phone && <div>{data.supplyer.phone}</div>}
-					{data.supplyer.email && <div>{data.supplyer.email}</div>}
-					{data.supplyer.web && <div>{data.supplyer.web}</div>}
+					{supplyer.ico && <div>IČO: {supplyer.ico}</div>}
+					{supplyer.dic && <div>DIČ: {supplyer.dic}</div>}
+					{supplyer.phone && <div>{supplyer.phone}</div>}
+					{supplyer.email && <div>{supplyer.email}</div>}
+					{supplyer.web && <div>{supplyer.web}</div>}
 				</div>
 			</div>
 		);

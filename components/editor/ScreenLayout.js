@@ -9,7 +9,7 @@ import EditorHeader from "./EditorHeader";
 import TemplateGallery from "../template_gallery/TemplateGallery";
 import FormulasGallery from "../template_gallery/FormulasGallery";
 import TemplateContext from "../../context/TemplateContext";
-import ExcelEditor from "../excelEditor/ExcelEditor";
+import ExcelEditor from "../excelEditor/ExcelEditor.tsx";
 
 export default function ScreenLayout({excel}) {
 	const { displaySidebar, setdisplaySidebar, loading, openTemplate, openFormulas } =

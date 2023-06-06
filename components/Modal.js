@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import Close from "../public/SVG/Close";
+import Close from "../public/assets/general/Close";
 
 export default function Modal({ children, title, close }) {
 	return (

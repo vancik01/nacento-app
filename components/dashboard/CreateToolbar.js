@@ -6,7 +6,6 @@ import { customBuild } from "../../lib/data";
 import { firestore } from "../../lib/firebase";
 
 import AddOffer from "../../public/assets/dashboard/AddOffer";
-import InteractiveOffer from "../../public/assets/dashboard/InteractiveOffer";
 import JsonOffer from "../../public/assets/dashboard/JsonOffer";
 import FullPageLoading from "../loading/FullPageLoading";
 
@@ -18,9 +17,6 @@ import Next from "../../public/assets/user_setup/Next";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 import ExcelIcon from "../../public/assets/excelEditor/ExcelIcon";
-
-import ExcelEditor from "../excelEditor/ExcelEditor";
-import { SpreadsheetComponent } from "@syncfusion/ej2-react-spreadsheet";
 
 import { useExcel } from "../../context/ExcelContext";
 

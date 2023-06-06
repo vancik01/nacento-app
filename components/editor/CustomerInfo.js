@@ -3,20 +3,26 @@ import { useData } from "../../context/AppWrap";
 import Save from "../../public/assets/buttons/Save";
 import EditPen from "../../public/assets/editor/EditPen";
 import ButtonSecondary from "../buttons/ButtonSecondary";
+import { getValue } from "../../context/ValuesContext";
 
 export default function CustomerInfo({scale}) {
-	const { data, changeCustomerData } = useData();
+	const { changeCustomerData } = useData();
 	const [editing, setediting] = useState(true);
-	const [customer, setcustomer] = useState(data.customer);
+	const [data, setData] = getValue((data) => data);
+	const [customer, setCustomer] = useState(data.data.customer);
 
 	function handleChange(e) {
-		var newData = { ...customer };
-		newData[e.target.name] = e.target.value;
-		setcustomer(newData);
+		let newCustomer = { ...customer, [e.target.name]: e.target.value }
+		setCustomer(newCustomer);
 	}
 
 	function handleSave() {
-		changeCustomerData(customer);
+		setData((data) => {
+			let newData = { ...data }
+			newData.data.customer = customer
+			return newData
+		  });
+		// changeCustomerData(customer);
 		setediting(false);
 	}
 
@@ -36,7 +42,7 @@ export default function CustomerInfo({scale}) {
 				</div>
 
 				<div className={`${scale? "text-lg" : "text-sm"}`}>
-					<div>{customer.name}</div>
+					<div>{data.data.customer.name}</div>
 				</div>
 			</div>
 		);
@@ -50,7 +56,7 @@ export default function CustomerInfo({scale}) {
 						onChange={handleChange}
 						name="name"
 						variant="standard"
-						placeholder="Meno Objednávatela"
+						placeholder="Meno Objednávateľa"
 						value={customer.name}
 					></input>
 				</div>
