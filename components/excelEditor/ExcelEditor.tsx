@@ -30,7 +30,7 @@ export default function ExcelEditor() {
 
       
 	return (
-        <div className="px-4 h-[90vh]">
+        <div className="h-[120vh]">
             <SpreadsheetComponent allowOpen={true}
                 openUrl="https://ej2services.syncfusion.com/production/web-services/api/spreadsheet/open"
                 saveUrl="https://ej2services.syncfusion.com/production/web-services/api/spreadsheet/save"

@@ -3,20 +3,15 @@ import { createTheme } from "@mui/material/styles";
 import "react-tooltip/dist/react-tooltip.css";
 import Head from "next/head";
 import React from "react";
-import { AppWrap } from "../../context/AppWrap";
-import LayoutContext from "../../context/LayoutContext";
-import ScreenLayout from "../../components/editor/ScreenLayout";
 import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "../../lib/firebase";
-import ActionsContext from "../../context/ActionsContext";
+import { useRouter } from "next/router";
 
-import { UseStepperContext } from "../../context/StepperContext";
-import { ApiContext } from "../../context/ApiContext";
+import ExcelEditor from "../../components/excelEditor/ExcelEditor";
+import ButtonSecondary from "../../components/buttons/ButtonSecondary";
+import ArrowBack from "../../public/assets/buttons/ArrowBack";
 
-
-import ExcelContext from "../../context/ExcelContext";
-
-export default function Home({ dbData }) {
+export default function Home() {
 	const theme = createTheme({
 		typography: {
 			fontFamily: "Poppins",
@@ -24,46 +19,7 @@ export default function Home({ dbData }) {
 		},
 	});
 
-
-    const data = {
-        id: "4343",
-        data: {
-            customer: {
-                name: "",
-            },
-            supplyer: {
-                company_name: "",
-                ico: "",
-                dic: "",
-                phone: "",
-                email: "",
-                web: "",
-            },
-            headers: [
-                "service_type",
-                "item_id",
-                "title",
-                "unit",
-                "quantity",
-                "unit_delivery_price",
-                "unit_construction_price",
-                "total_delivery_price",
-                "total_construction_price",
-                "total",
-            ],
-            sections: [],
-        },
-        name: "Nová cenová ponuka",
-        created:100,
-        userId: "none",
-        totals: {
-            total_delivery_price: 0,
-            total_construction_price: 0,
-            total: 0,
-        },
-        lastModified: 6546,
-    }
-
+    const router = useRouter();
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -71,19 +27,23 @@ export default function Home({ dbData }) {
 				<title>Excel Dokument</title>
 			</Head>
 
-            <LayoutContext headers={data.data.headers}>
-				<AppWrap dbData={data}>
-					<ActionsContext>
-						<UseStepperContext>
-							<ApiContext>
 
-								    <ScreenLayout excel/>
+            <div className="p-10">
+                <div className="flex gap-10 pb-4">
+                    <h1 className="text-2xl font-bold">Excel Editor</h1>
 
-							</ApiContext>
-						</UseStepperContext>
-					</ActionsContext>
-				</AppWrap>
-			</LayoutContext>
+                    <ButtonSecondary
+                        onClick={() => { router.replace("/dashboard");}}
+                        iconBefore
+                        icon={<ArrowBack color={"black"}></ArrowBack>}>
+                        Zoznam ponúk
+                    </ButtonSecondary>
+
+                </div>
+                
+                
+                <ExcelEditor/>
+            </div>
             
             
 
