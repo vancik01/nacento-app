@@ -9,19 +9,20 @@ export default function CustomerInfo({scale}) {
 	const { changeCustomerData } = useData();
 	const [editing, setediting] = useState(true);
 	const [data, setData] = getValue((data) => data);
-
-	// console.log(customer)
+	const [customer, setCustomer] = useState(data.data.customer);
 
 	function handleChange(e) {
-		setData(data => {
-			var newData ={ ...data };
-			newData.data.customer[e.target.name] = e.target.value;
-			return newData;
-		  });
+		let newCustomer = { ...customer, [e.target.name]: e.target.value }
+		setCustomer(newCustomer);
 	}
 
 	function handleSave() {
-		changeCustomerData(customer);
+		setData((data) => {
+			let newData = { ...data }
+			newData.data.customer = customer
+			return newData
+		  });
+		// changeCustomerData(customer);
 		setediting(false);
 	}
 
@@ -55,8 +56,8 @@ export default function CustomerInfo({scale}) {
 						onChange={handleChange}
 						name="name"
 						variant="standard"
-						placeholder="Meno Objednávatela"
-						value={data.data.customer.name}
+						placeholder="Meno Objednávateľa"
+						value={customer.name}
 					></input>
 				</div>
 				<ButtonSecondary

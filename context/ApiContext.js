@@ -11,6 +11,7 @@ import { useAuth } from "../context/AuthContext";
 import { useStepper } from "./StepperContext";
 import { useData } from "./AppWrap";
 import { getValue } from "./ValuesContext";
+import { updateTotals } from "../lib/valueChangeFunctions";
 
 const UseApiContext = createContext();
 
@@ -107,13 +108,15 @@ export function ApiContext({ children }) {
 
 			});
 	
-			calculateTotals()
+			// calculateTotals()
 
 			setinitialTotal({
 				total_delivery_price: initialTotal.total_delivery_price + dodavka,
 				total_construction_price:  initialTotal.total_construction_price + montaz,
 				total: initialTotal.total + dodavka + montaz,
 			})
+
+			updateTotals(newData);
 
 			return newData;
 		});	
@@ -149,7 +152,7 @@ export function ApiContext({ children }) {
 		}).then((response) => {
 			if (response.ok) {
 				response.json().then((sections) => {
-					toast('Práce pridané do ponuky', { type: "success" , autoClose: 3000});
+					toast('Položky pridané do ponuky', { type: "success" , autoClose: 3000});
 					set_new_data(sections)
 					setdataloading(false);
 

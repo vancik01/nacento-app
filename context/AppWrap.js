@@ -180,7 +180,7 @@ export function AppWrap({ children, dbData }) {
 	);
 
 	useEffect(() => {
-		console.log(data)
+		// console.log(data)
 		// vypocet total price
 		if (data != null) {
 			loadTotals();
@@ -593,31 +593,33 @@ export function AppWrap({ children, dbData }) {
 	}
 
 	function saveBulkEdit(valueToAdd) {
-		var newData ={ ...data.data };
+		var newData ={ ...data };
+		console.log(valueToAdd)
+		// console.log(newData)
 
 		if (bulkEditData.mode === "block") {
 			splitBetweenItems(
-				newData.sections[bulkEditData.sectionId].blocks[bulkEditData.blockId],
+				newData.data.sections[bulkEditData.sectionId].blocks[bulkEditData.blockId],
 				valueToAdd,
 				bulkEditData.valueId
 			);
-			updateSectionTotals(newData.sections[bulkEditData.sectionId]);
+			updateSectionTotals(newData.data.sections[bulkEditData.sectionId]);
 		} else if (bulkEditData.mode === "section") {
 			splitBetweenBlocks(
-				newData.sections[bulkEditData.sectionId],
+				newData.data.sections[bulkEditData.sectionId],
 				valueToAdd,
 				bulkEditData.valueId
 			);
 		} else if (bulkEditData.mode === "whole") {
 			splitBetweenSections(
-				newData.sections,
+				newData.data.sections,
 				valueToAdd,
 				bulkEditData.valueId,
-				total
+				newData.data.totals
 			);
 		}
 		// setdata(newData);
-		updateTotals();
+		updateTotals(newData);
 		closeBulkEdit();
 	}
 

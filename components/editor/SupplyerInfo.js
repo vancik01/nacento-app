@@ -8,7 +8,10 @@ import { getValue } from "../../context/ValuesContext";
 export default function SupplyerInfo({ scale }) {
 	const { changeSupplyerData } = useData();
 	const [editing, setediting] = useState(false);
-	const [supplyer, setsupplyer] = getValue((data) => data.data.supplyer);
+
+	const [data, setData] = getValue((data) => data);
+	const [supplyer, setsupplyer] = useState(data.data.supplyer);
+	
 
 	function handleChange(e) {
 		var newData = { ...supplyer };
@@ -17,7 +20,11 @@ export default function SupplyerInfo({ scale }) {
 	}
 
 	function handleSave() {
-		changeSupplyerData(supplyer);
+		setData((data) => {
+			let newData = { ...data }
+			newData.data.supplyer = supplyer
+			return newData
+		  });
 		setediting(false);
 	}
 

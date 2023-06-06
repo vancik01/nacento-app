@@ -13,7 +13,7 @@ import "react-tooltip/dist/react-tooltip.css";
 import ButtonIcon from "../buttons/ButtonIcon";
 import ArrowDown from "../../public/assets/general/ArrowDown";
 import { getValue } from "../../context/ValuesContext";
-
+import { updateTotals } from "../../lib/valueChangeFunctions";
 
 export default function Table({ items, variations, headers, blockId, sectionId }) {
 	const { reorderRows, getTitle } = useData();
@@ -190,7 +190,9 @@ function TableRow({ polozka, blockId, i, rowsCount, sectionId, variations }) {
 function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variations, index }) {
 	const { changeValue ,updateBlockTotals, updateSectionTotals, setdata } = useData();
 	const [showvariant, setshowvariant] = useState(false)
-	const { isHorizontal } = useLayout();0
+	const { isHorizontal } = useLayout();
+
+	const [data, setData] = getValue((data) => data);
 
 	const fieldId = item
 
@@ -208,41 +210,45 @@ function TableUnit({ item, polozka, blockId, itemId, label, sectionId, variation
 	function change_items(variant, polozka, ix) {
 		setshowvariant(false)
 
-		var newData = { ...data };
+		setData(data => {
 
-		newData.sections[sectionId].blocks[blockId].items.splice(itemId, 1);
+			var newData = { ...data };
 
-		variant.quantity = polozka.quantity
-		variant.total_construction_price = Math.round((variant.unit_construction_price * variant.quantity) * 100) /100
-		variant.total_delivery_price = Math.round((variant.unit_delivery_price * variant.quantity) * 100) /100
-		variant.total = Math.round((variant.total_construction_price + variant.total_delivery_price) * 100) /100
+			newData.data.sections[sectionId].blocks[blockId].items.splice(itemId, 1);
 
-		newData.sections[sectionId].blocks[blockId].items.splice(itemId, 0, variant)
+			variant.quantity = polozka.quantity
+			variant.total_construction_price = Math.round((variant.unit_construction_price * variant.quantity) * 100) /100
+			variant.total_delivery_price = Math.round((variant.unit_delivery_price * variant.quantity) * 100) /100
+			variant.total = Math.round((variant.total_construction_price + variant.total_delivery_price) * 100) /100
 
-		let variant_ix = 0
-		for(let i=0; i<newData.sections[sectionId].blocks[blockId].variations.length; i++){
-			if(newData.sections[sectionId].blocks[blockId].variations[i].item.item_id == polozka.item_id){
-				newData.sections[sectionId].blocks[blockId].variations[i].item = variant
-				variant_ix = i
-				break
+			newData.data.sections[sectionId].blocks[blockId].items.splice(itemId, 0, variant)
+
+			let variant_ix = 0
+			for(let i=0; i<newData.data.sections[sectionId].blocks[blockId].variations.length; i++){
+				if(newData.data.sections[sectionId].blocks[blockId].variations[i].item.item_id == polozka.item_id){
+					newData.data.sections[sectionId].blocks[blockId].variations[i].item = variant
+					variant_ix = i
+					break
+				}
 			}
-		}
 
 
-		//remove the chosen variations from the list & add the previous to the list
-		for(let i=0; i<newData.sections[sectionId].blocks[blockId].variations[variant_ix].alternatives.length; i++){
-			if(newData.sections[sectionId].blocks[blockId].variations[variant_ix].alternatives[i].item_id == variant.item_id){
-				newData.sections[sectionId].blocks[blockId].variations[variant_ix].alternatives.splice(i, 1);
-				newData.sections[sectionId].blocks[blockId].variations[variant_ix].alternatives.splice(i, 0, polozka);
-				break
+			//remove the chosen variations from the list & add the previous to the list
+			for(let i=0; i<newData.data.sections[sectionId].blocks[blockId].variations[variant_ix].alternatives.length; i++){
+				if(newData.data.sections[sectionId].blocks[blockId].variations[variant_ix].alternatives[i].item_id == variant.item_id){
+					newData.data.sections[sectionId].blocks[blockId].variations[variant_ix].alternatives.splice(i, 1);
+					newData.data.sections[sectionId].blocks[blockId].variations[variant_ix].alternatives.splice(i, 0, polozka);
+					break
+				}
+					
 			}
-				
-		}
 
-		updateBlockTotals(newData.sections[sectionId].blocks[blockId]);
-		updateSectionTotals(newData.sections[sectionId]);
+			updateBlockTotals(newData.data.sections[sectionId].blocks[blockId]);
+			updateSectionTotals(newData.data.sections[sectionId]);
+			updateTotals(newData)			
 
-		setdata(newData);
+			return newData
+		});
 	}
 
 

@@ -24,6 +24,7 @@ export default function Block({
 	const { primaryColor } = useLayout();
 
 	const [block] = getValue((data) => data.data.sections[sectionId].blocks[blockId]);
+
 	return (
 		<>
 			{block != null && (
@@ -72,6 +73,7 @@ export default function Block({
 								blockId={blockId}
 								items={block.items}
 								headers={headers}
+								variations={block.variations}
 							/>
 						)}
 

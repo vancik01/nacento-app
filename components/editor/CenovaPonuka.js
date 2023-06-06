@@ -23,11 +23,9 @@ export default function CenovaPonuka() {
 	const [winReady, setwinReady] = useState(false);
 
 	const {
-		total,
 		name,
 		setname,
 		bulkEditData,
-		openBulkEdit,
 		logo,
 		setlogo,
 		description,
@@ -100,7 +98,7 @@ export default function CenovaPonuka() {
 										}}
 									/>
 
-									<TextareaAutosize
+									{/* <TextareaAutosize
 										spellCheck='false'
 										value={description}
 										onChange={changeDescription}
@@ -111,7 +109,7 @@ export default function CenovaPonuka() {
 											resize: "none",
 										}}
 										className='w-full text-center mt-2 focus:outline-none text-gray-400 font-light'
-									></TextareaAutosize>
+									></TextareaAutosize> */}
 								</div>
 								<div className='w-full h-[1px] bg-black'></div>
 							</div>
