@@ -80,7 +80,7 @@ export default function Dashboard() {
                 Plánovač
             </div>
 
-            <div className="w-[60vw]">
+            <div className="w-[80vw]">
                 <GanttComponent dataSource={GanttData} height="450px" taskFields={taskFields}>
                     <Inject services={[Edit, Selection]}/>
                 </GanttComponent>

@@ -13,7 +13,6 @@ import { useAuth } from "../../context/AuthContext";
 
 
 
-
 loadCldr(numberingSystems, slovak, timeZoneNames, gregorian);
 L10n.load(sk)
 setCulture('sk');

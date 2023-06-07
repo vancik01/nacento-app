@@ -35,7 +35,7 @@ function PopUp({ title, open, setOpen, children}) {
                                 onClick={() => setOpen(false)}>
                                 <Close/>
                             </div>
-                            
+                            {title && <h1 className="text-2xl font-semibold pb-4">{title}</h1>}
                             {children}
                         </div>	
 
