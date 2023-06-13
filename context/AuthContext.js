@@ -5,6 +5,8 @@ import {
 	signOut,
 } from "firebase/auth";
 
+import { getDownloadURL, ref, uploadBytes, deleteObject } from "firebase/storage";
+
 import {
 	collection,
 	deleteDoc,
@@ -20,101 +22,77 @@ import {
 import 'firebase/auth';
 import React, { useContext, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, firestore } from "../lib/firebase";
-
+import { auth, firestore, storage } from "../lib/firebase";
 import moment from 'moment/moment';
-
+import { GoogleAuthProvider } from "firebase/auth";
+import { useRouter } from "next/router";
+import axios from 'axios';
+import FullPageLoading from "../components/loading/FullPageLoading";
+import { times } from "lodash";
 
 
 const publicRoutes = ["/login/", "/vytvorit-ucet/", "/view/"];
-
 const Auth = React.createContext();
-import { GoogleAuthProvider } from "firebase/auth";
-import { useRouter } from "next/router";
-import axios from 'axios'
-
-
-import FullPageLoading from "../components/loading/FullPageLoading";
-
 
 export default function AuthContext({ children }) {
 	const [user, loading, error] = useAuthState(auth);
 	const [display, setdisplay] = useState(false);
 	const [userData, setuserData] = useState(null);
+
 	const [data, setdata] = useState([]);
 	const [excelData, setExcelData] = useState([]);
-	const [employees, setEmployees] = useState([]);
-	const [sceletonLoading, setsceletonLoading] = useState(true);
+	const [sites, setSites] = useState([]);
 
-	const [selected, setselected] = useState([]);
-	const [excelselected, setexcelselected] = useState([]);
+	const [employees, setEmployees] = useState([]);
+	const [ activeItem, setActiveItem ] = useState(-1);
+
+	const [sceletonLoading, setsceletonLoading] = useState(true);
 
 	const router = useRouter();
 
 
-
-	function load_excel_data(){
+	function load_collection_data(collection_name, setData){
 		var newData = [];
-		var newExcelSelected = [];
-		var collectionRef = collection(firestore, "/excels");
+		var collectionRef = collection(firestore, `/${collection_name}`);
+
+		let orderByName = "lastModified"
+		if(collection_name == "sites" || collection_name == "employees") orderByName = "created"
+
 		var q = query(
 			collectionRef,
-			orderBy("lastModified", "desc"),
+			orderBy(orderByName, "desc"),
 			where("userId", "==", user.uid)
 		);
-		//const query = query(collectionRef,);
+		
+		setsceletonLoading(true);
+
 		getDocs(q).then((docs) => {
 			if (!docs.empty) {
 				docs.docs.map((doc) => {								
 					newData.push(doc.data());
-					newExcelSelected.push(false);
 				});
-				setExcelData(newData);
-				setexcelselected(newExcelSelected);
+				setData(newData);
+				setsceletonLoading(false);
 			}
 		});
 	}
 
-	function load_employee_data(){
-		var Employees = [];
-		var collectionRef = collection(firestore, "/employees");
-		var q = query(
-			collectionRef,
-			where("userId", "==", user.uid)
-		);
-		//const query = query(collectionRef,);
-		getDocs(q).then((docs) => {
-			if (!docs.empty) {
-				docs.docs.map((doc) => {
-					Employees.push(doc.data());
-				});
-				setEmployees(Employees);
-			}
-		});
 
-	}
-
-	function load_quote_data(){
-		var newData = [];
-		var newSelected = [];
-		var collectionRef = collection(firestore, "/offers");
-		var q = query(
-			collectionRef,
-			// orderBy("created", "desc"),
-			orderBy("lastModified", "desc"),
-			where("userId", "==", user.uid)
-		);
-		//const query = query(collectionRef,);
-		getDocs(q).then((docs) => {
-			if (!docs.empty) {
-				docs.docs.map((doc) => {								
-					newData.push(doc.data());
-					newSelected.push(false);
-				});
-				setdata(newData);
-				setselected(newSelected);
+	function load_user_data(){
+		const docRef = doc(firestore, `/users/${user.uid}`);
+			getDoc(docRef).then((snap) => {
+				if (!snap.exists()) {
+					console.log("User do not exist");
+					logOut();
+				} else {
+					setuserData(snap.data());
+					if (
+						snap.data().setup == false &&
+						!router.asPath.includes("user-setup")
+					)
+						router.push("/user-setup/");
+					setdisplay(true);
 			}
-			setsceletonLoading(false);
 		});
 	}
 
@@ -148,25 +126,13 @@ export default function AuthContext({ children }) {
 					router.push("/login");
 				}
 			} else {
-				const docRef = doc(firestore, `/users/${user.uid}`);
-				getDoc(docRef).then((snap) => {
-					if (!snap.exists()) {
-						console.log("User do not exist");
-						logOut();
-					} else {
-						setuserData(snap.data());
-						if (
-							snap.data().setup == false &&
-							!router.asPath.includes("user-setup")
-						)
-							router.push("/user-setup/");
-						setdisplay(true);
-					}
-				});
 
-				load_quote_data()
-				load_excel_data()
-				load_employee_data()
+				load_user_data()
+
+				load_collection_data("offers", setdata)
+				load_collection_data("excels", setExcelData)
+				load_collection_data("sites", setSites)
+				load_collection_data("employees", setEmployees)	
 					
 			}
 		}
@@ -187,6 +153,33 @@ export default function AuthContext({ children }) {
 			});
 	}
 
+	function handleDeleteDocument(collection_name, id) {
+		const docRef = doc(firestore, `/${collection_name}/${id}`);
+		deleteDoc(docRef)
+		.then((res) => { })
+		.catch((err) => {
+			// setloading(false);
+			console.log(err);
+		});
+
+		let newData, setNewData;
+		if(collection_name == "offers") {
+			newData = [...data];
+			setNewData = setdata;
+		}
+		else if(collection_name == "excels") {
+			newData = [...excelData];
+			setNewData = setExcelData;
+		}
+		else if(collection_name == "sites") {
+			newData = [...sites];
+			setNewData = setSites;
+		}
+
+		newData = newData.filter((offer) => offer.id != id);
+		setNewData(newData);
+	}
+
 	function handleDeleteExcel(id){
 		const docRef = doc(firestore, `/excels/${id}`);
 		var newData = [...excelData];
@@ -201,9 +194,9 @@ export default function AuthContext({ children }) {
 			});
 	}
 
-	const fetchImageData = async (name) => {
+	const fetchImageData = async (name, size) => {
 		try {
-		  const imageUrl = `https://ui-avatars.com/api/?name=${name}&size=32&rounded=true&background=random`;
+		  const imageUrl = `https://ui-avatars.com/api/?name=${name}&size=${size}&rounded=true&background=random`;
 		  const response = await axios.get(imageUrl, {
 			responseType: 'arraybuffer',
 		  });
@@ -214,7 +207,7 @@ export default function AuthContext({ children }) {
 		  console.error('Error downloading the image:', error);
 		  return null;
 		}
-	  };
+	};
 
 	async function updateEmployee(newEmployee){
 		let img = await fetchImageData(newEmployee.name);
@@ -227,12 +220,13 @@ export default function AuthContext({ children }) {
 	}
 
 	async function handleEmployeeAdd(name, email, password, setError){
+		// let img = await fetchImageData(name, 48);
+		// let largeImg = await fetchImageData(name, 256);
 
-		
-		let img = await fetchImageData(name);
+		// let url = uploadEmployeeImage(file, employee, 48)
 
-		// fetch('http://localhost:8081/create-employee/', {
-		fetch('https://api2.nacento.online/create-employee/', {
+		// fetch('http://localhost:8080/create-employee/', {
+		await fetch('https://api2.nacento.online/create-employee/', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -244,7 +238,8 @@ export default function AuthContext({ children }) {
 				userId: user != null ? user.uid : "none",
 				created: moment().valueOf(),
 				status: "Nepotvrdil",
-				img: img
+				// img: img,
+				// largeImg: largeImg,
 		})})
 		.then(response => {
 			if (!response.ok) {
@@ -253,13 +248,67 @@ export default function AuthContext({ children }) {
 			return response.json();
 		})
 		.then(data => {
-			load_employee_data()
+			load_collection_data("employees", setEmployees)
 		  })
 		.catch((error) => {
 			setError(error.message)
 		});
 
 	}
+
+	async function uploadImage(file, folder) {
+		const timestamp = Date.now();
+		const storageRef = ref(storage, `/users/${user.uid}/${folder}/${timestamp}_${file.name}`);
+
+		const snapshot = await uploadBytes(storageRef, file);
+  		const url = await getDownloadURL(snapshot.ref);
+
+		return url
+	}
+
+
+	async function uploadSiteCaption(file, site) {
+		const storageRef = ref(storage, `/users/${user.uid}/sites/${site.id}/caption.png`);
+
+		const snapshot = await uploadBytes(storageRef, file);
+  		const url = await getDownloadURL(snapshot.ref);
+
+		return url
+	}
+
+	function deleteSite(site) {
+		const docRef = doc(firestore, `/sites/${site.id}`);
+		deleteDoc(docRef)
+		.then((res) => { })
+		.catch((err) => {
+			// setloading(false);
+			console.log(err);
+		});
+
+		let newData = [...sites];
+		newData = newData.filter((data) => data.id != site.id);
+		setSites(newData);
+
+		const storageRef = ref(storage, `/users/${user.uid}/sites/${site.id}/caption.png`);
+		deleteObject(storageRef).then(() => {
+			console.log('File deleted successfully');
+		  }).catch((error) => {
+			console.error('Failed to delete file', error);
+		  });
+	}
+
+
+	async function updateDocument(collection, document, object){
+		try {
+			const docRef = doc(firestore, `/${collection}/${document}`);
+			await updateDoc(docRef, object)
+
+		} catch (error) {
+			console.log(error);
+			toast("Vyskytla sa chyba pri ukladaní záznamu", { type: "error" });
+		}
+	}
+
 
 	
 	function signInWithGoogle() {
@@ -290,16 +339,21 @@ export default function AuthContext({ children }) {
 		data,
 		setdata,
 		sceletonLoading,
-		selected,
-		setselected,
 		handleDelete,
 		employees,
 		setEmployees,
-		updateEmployee, load_employee_data,
-		excelselected, setexcelselected,
+		updateEmployee,
 		excelData, handleDeleteExcel,
 		fetchImageData, handleEmployeeAdd,
-		user_is_employee
+		user_is_employee,
+		sites, setSites, load_collection_data,
+
+		activeItem, setActiveItem,
+
+		handleDeleteDocument, uploadImage,
+
+		uploadSiteCaption, deleteSite,
+		updateDocument
 	};
 
 	return (

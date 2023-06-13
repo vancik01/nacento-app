@@ -22,8 +22,9 @@ import CheckMark from "../../public/assets/general/CheckMark";
 
 import { useExcel } from "../../context/ExcelContext";
 import ExcelIcon from "../../public/assets/excelEditor/ExcelIcon";
+import AspectGrid from "../general/AspectGrid";
 
-export default function ProjectList({ clicked }) {
+export default function ProjectList() {
 	const router = useRouter();
 	const [loading, setloading] = useState(false);
 	const [download, setdownload] = useState(false);
@@ -40,7 +41,7 @@ export default function ProjectList({ clicked }) {
 	const [isHovered, setIsHovered] = useState(null)
 	const [isSubHovered, setIsSubHovered] = useState(null)
 	
-	const { data, excelData, sceletonLoading, selected, setselected, setdata } = useAuth();
+	const { data, excelData, sceletonLoading, setdata } = useAuth();
 
 	const { setFile } = useExcel()
 
@@ -80,14 +81,6 @@ export default function ProjectList({ clicked }) {
 
 		router.push(`/z-vykazu-vymer/${project.id}`);
 	}
-
-	useEffect(() => {
-		if (selected) {
-			var newSelected = [];
-			for (let i = 0; i < selected.length; i++) newSelected.push(false);
-			setselected(newSelected);
-		}
-	}, [clicked]);
 
 
 	function dynamicSort(prop) {
@@ -135,7 +128,7 @@ export default function ProjectList({ clicked }) {
 		setsortby(new_sortby)
 		// console.log(sortby)
 
-		setsort(fal0se)
+		setsort(false)
 
 		const new_data = [...data]
 		new_data.sort(dynamicSort(sortby[sortmethod].method));
@@ -239,46 +232,39 @@ export default function ProjectList({ clicked }) {
 									</div>
 								}
 
-							
 							</div>
 
 
-
 							{!sceletonLoading ? (
-								<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 mt-6 gap-4'>
-									
-									
-									{fileType == 'quotes' ? 
+
+									// <div className={`mt-6 aspect-grid ` + (excelData.length <= 3 && `w-[${excelData.length * 400}px]`) }>
 									<>
-										{data?.map((project, i) => {
-										return (
+									{fileType == 'quotes' ?
+									<AspectGrid ratio={"8/7"} className={"mt-6"}>
+										{data?.map((project, i) => 
 											<Project
-												project={project}
-												ix={i}
-												key={i}
-												handleSelectId={handleSelectId}
-												setloading={setdownload}
-											/>
-											);
-										})}
-									</>:
-									<>
-										{excelData?.map((project, i) => {
-										return (
+											project={project}
+											ix={i}
+											key={i}
+											handleSelectId={handleSelectId}
+											setloading={setdownload}
+										/>)
+										}
+									</AspectGrid>:
+
+									<AspectGrid ratio={"4/3"} className={"mt-6"}>
+										{excelData?.map((project, i) => 
 											<ExcelProject
-												project={project}
-												ix={i}
-												handleSelectId={handleSelectExcelId}
-												setloading={setdownload}
-											/>
-										)
-									})}		
-									</>}
+											project={project}
+											ix={i}
+											handleSelectId={handleSelectExcelId}
+											setloading={setdownload}
+										/>)}
+									</AspectGrid>
+									}
+									</>
 									
-									
-									
-									
-								</div>
+				
 							) : (
 								<Skeleton></Skeleton>
 							)}
@@ -291,8 +277,8 @@ export default function ProjectList({ clicked }) {
 	);
 }
 
-function Project({project, ix, handleSelectId, setloading}) {
-	const {selected, setselected, handleDelete } = useAuth();
+function Project({project, ix, handleSelectId, setloading, style}) {
+	const { handleDelete, setActiveItem, activeItem } = useAuth();
 	const [toggleDelete, settoggleDelete] = useState(false);
 	const [hovered, sethovered] = useState(false);
 
@@ -331,30 +317,27 @@ function Project({project, ix, handleSelectId, setloading}) {
 			});
 	}
 
-	const styles = [""];
-
 	return (
 		<div
 			onClick={(e) => {
-				if (selected[ix]) handleSelectId(project.id);
-				else {
-					var newselecteded = [];
-					for (let i = 0; i < selected.length; i++) newselecteded.push(false);
-					newselecteded[ix] = true;
-					setselected(newselecteded);
-				}
+				if (activeItem === ix) handleSelectId(project.id);
+				else setActiveItem(ix)
 				e.stopPropagation();
 			}}
+
+			style={style}
 
 			onMouseEnter={() => sethovered(true)}
 			onMouseLeave={() => sethovered(false)}
 
-			className={`shadow-md cursor-default outline ${!selected[ix]
+			key={"vykaz" + project.id}
+
+			className={`shadow-md w-full flex flex-col flex-grow justify-between cursor-default outline ${activeItem !== ix
 				? "outline-gray-200 outline-1 hover:outline-gray-400"
 				: "outline-2 outline-blue-500"
-				}  rounded-sm transition duration-100 ease-in-out`}
-		>
-			<div className='bg-gray-50 min-h-[250px] flex justify-between flex-col relative'>
+				}  rounded-sm transition duration-100 ease-in-out`}>
+
+			<div className='bg-gray-50 flex justify-between flex-col relative' style={{flexGrow: 1}}>
 
 				<div className="w-full h-[18px] absolute opacity-95" style={{ backgroundColor: project?.layout?.primaryColor, borderRadius: "2px 2px 0px 0px" }}></div>
 
@@ -449,11 +432,10 @@ function Project({project, ix, handleSelectId, setloading}) {
 
 			<div className='bg-white px-2 py-3 relative w-full flex items-center'>
 				<div>
-					{/* <InteractiveOffer color="#1400FF"></InteractiveOffer> */}
 					<IconHome color={project?.layout?.primaryColor}></IconHome>
 				</div>
 
-				<div className="flex flex-col justify-center ml-2 w-[80%] max-h-[34px]">
+				<div className="flex flex-col justify-center ml-2 w-[80%]">
 					<div className='text-sm overflow-hidden'>
 						{project.name}
 					</div>
@@ -478,13 +460,14 @@ function Project({project, ix, handleSelectId, setloading}) {
 				}
 
 			</div>
+
 		</div>
 	);
 }
 
 
-function ExcelProject({ project, ix, handleSelectId, setloading }){
-	const {excelselected, setexcelselected, handleDeleteExcel } = useAuth();
+function ExcelProject({ project, ix, handleSelectId, setloading, style }){
+	const { activeItem, setActiveItem, handleDeleteExcel } = useAuth();
 	const [toggleDelete, settoggleDelete] = useState(false);
 	const [hovered, sethovered] = useState(false);
 
@@ -493,31 +476,31 @@ function ExcelProject({ project, ix, handleSelectId, setloading }){
 		settoggleDelete(false);
 	}
 
-	return(<div
+	return(
+		<div
 			onClick={(e) => {
-				if (excelselected[ix]) handleSelectId(project);
-				else {
-					var newselecteded = [];
-					for (let i = 0; i < excelselected.length; i++) newselecteded.push(false);
-					newselecteded[ix] = true;
-					setexcelselected(newselecteded);
-				}
+				if (activeItem === ix) handleSelectId(project);
+				else setActiveItem(ix)
 				e.stopPropagation();
 			}}
 
 			onMouseEnter={() => sethovered(true)}
 			onMouseLeave={() => sethovered(false)}
 
-			className={`shadow-md cursor-default outline ${!excelselected[ix]
+			style={style}
+
+			key={project.id}
+
+			className={`shadow-md flex flex-col flex-grow justify-between cursor-default outline ${activeItem !== ix
 				? "outline-gray-200 outline-1 hover:outline-gray-400"
 				: "outline-2 outline-blue-500"
-				}  rounded-sm transition duration-100 ease-in-out`}
-		>
-			<div className='bg-gray-50 min-h-[250px] flex justify-between flex-col relative'>
+				}  rounded-sm transition duration-100 ease-in-out`}>
+		
+			<div className='bg-gray-50 min-h-[250px] flex justify-between flex-col relative'  style={{flexGrow: 1}}>
 
 				<div className="px-4 py-1">
 
-					<div className='flex justify-between items-center mt-6 '>
+					<div className='flex justify-between items-center mt-6'>
 						<div className='text-lg font-medium text-start'>
 								Cenová ponuka
 						</div>
@@ -580,7 +563,8 @@ function ExcelProject({ project, ix, handleSelectId, setloading }){
 						</div>
 					</div>
 			</div>
-		</div>)
+		</div>
+	)
 }
 
 function Skeleton() {

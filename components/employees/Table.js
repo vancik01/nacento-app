@@ -25,6 +25,7 @@ import EditPen from "../../public/assets/editor/EditPen"
 import CheckMark from '../../public/assets/general/CheckMark';
 import TrashBin from '../../public/assets/editor/TrashBin';
 import PopUp from '../general/PopUp';
+import PopupLoading from '../loading/PopupLoading';
 
 const columns = [
   { id: 'name', label: 'Meno', minWidth: 170 },
@@ -98,7 +99,7 @@ export default function StickyHeadTable() {
 
 
                           {column.id === 'name'? <div className='flex items-center gap-1'>
-                              <img width={28} src={`data:image/png;base64,${employee.img}`} alt="Avatar"/>
+                              <img width={28} src={employee.img} alt="Avatar"/>
                               <span> { employee[column.id] } </span>
                           </div>:
 
@@ -142,26 +143,9 @@ export default function StickyHeadTable() {
 }
 
 
-
-
-function SubmitCheckMark({setState, newEmployee, setEmployee}){
-
-    const { updateEmployee } = useAuth()
-
-
-    function handleClick(){
-        setState(false)
-        updateEmployee(newEmployee)
-        setEmployee(newEmployee)
-    }
-
-    return(
-        <div className='cursor-pointer' onClick={handleClick}><CheckMark scale={1.2}></CheckMark></div>
-    )
-}
-
-
 function AddEmployee({ setOpen, open }){
+
+  const [loading, setLoading] = useState(false);
 
   const vyhody = [
     'Sledujte dochádzku zamestnancov',
@@ -175,9 +159,11 @@ function AddEmployee({ setOpen, open }){
   return(
     <PopUp setOpen={setOpen} open={open}>
 
+      <PopupLoading loading={loading}/>
+
       <div className='flex gap-10'>
 
-        <EmployeeValidation/>
+        <EmployeeValidation setLoading={setLoading} setOpen={setOpen}/>
 
           <div className=' pr-20 pl-10 font-light text-lg '>
             <span className='text-3xl font-semibold'> Zjednodušte si život, </span>
@@ -209,21 +195,21 @@ function AddEmployee({ setOpen, open }){
 }
 
 
-function EmployeeValidation(){
+function EmployeeValidation({ setLoading, setOpen }){
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [verifyPassword, setVerfiyPassword] = useState('');
   const [error, setError] = useState('');
 
-  const { handleEmployeeAdd} = useAuth();
+  const { handleEmployeeAdd } = useAuth();
 
   const validateEmail = (email) => {
     const re = /\S+@\S+\.\S+/;
     return re.test(String(email).toLowerCase());
   }
 
-  function handleSubmit(event){
+  async function handleSubmit(event){
     event.preventDefault();
 
     if (!validateEmail(email)) {
@@ -236,14 +222,18 @@ function EmployeeValidation(){
       return;
     }
 
-    if (password !== verifyPassword){
+  if (password !== verifyPassword){
       setError('Heslá sa nezhodujú');
       return;
     }
 
-    handleEmployeeAdd(name, email, password, setError)
-
-    // Clear error and perform login...
+    setLoading(true)
+    await handleEmployeeAdd(name, email, password, setError)
+    .then(() => {
+      setLoading(false)
+      setOpen(false)
+    })
+    
     setError('');
 
   }

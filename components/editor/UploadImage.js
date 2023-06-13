@@ -58,7 +58,7 @@ export default function UploadImage({
 
 	function uploadImage() {
 		setloading(true);
-		const storageRef = ref(storage, `/users/${user.uid}/${file.name}`);
+		const storageRef = ref(storage, `/users/${user.uid}/${file.name}$${Date.now()}}`);
 		uploadBytes(storageRef, file).then((snapshot) => {
 			getDownloadURL(snapshot.ref).then((url) => {
 				onUpload(url);
