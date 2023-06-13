@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/router";
 
@@ -35,12 +35,17 @@ export default function MenuSidebar({scope}) {
 				)} */}
 
 				<hr className="pb-3 mt-5"/>
+				{/* <MenuOption text={'Plánovanie'} href={"planning"} icon={<PlanningIcon/>} active={scope === 'planning'}/> */}
 
 				
-				<MenuOption text={'Cenové Ponuky'} href={"dashboard"} icon={<OfferGrayIcon/>} active={scope === 'dashboard'}/>
-				{/* <MenuOption text={'Plánovanie'} href={"planning"} icon={<PlanningIcon/>} active={scope === 'planning'}/> */}
+				{/* <MenuOption text={'Cenové Ponuky'} href={"dashboard"} icon={<OfferGrayIcon/>} active={scope === 'dashboard'}/>
 				<MenuOption text={'Stavby'} href={"stavby"}icon={<PlanningIcon/>} active={scope === 'stavby'}/>
 				<MenuOption text={'Zamestantci'} href={"employees"} icon={<div className="h-3 aspect-square bg-blue-500"></div>} active={scope === 'employees'}/>
+				 */}
+
+				<MenuOption text={'📋 Cenové Ponuky'} href={"dashboard"}  active={scope === 'dashboard'}/>
+				<MenuOption text={'🏗️ Stavby'} href={"stavby"} active={scope === 'stavby'}/>
+				<MenuOption text={'👨‍💼 Zamestantci'} href={"employees"}  active={scope === 'employees'}/>
 			
 
 			</div>	
@@ -51,10 +56,14 @@ export default function MenuSidebar({scope}) {
 function MenuOption({text, active, href, icon}){
 	const router = useRouter();
 
+	const [hover, sethover] = useState(false);
+
 	return(
-		<div onClick={() => router.push(`/${href}/`)} className={`w-[98%] flex pl-4 py-[5px] mx-1 rounded items-center gap-3 text-base cursor-default hover ` + (active? "bg-gray-100 font-medium" : "hover:bg-gray-100")}>
+		<div onClick={() => router.replace(`/${href}`)} onMouseEnter={() => sethover(true)} onMouseLeave={() => sethover(false)}
+		href={href} className={`w-[98%] flex pl-4 py-[8px] mx-1 cursor-pointer rounded items-center gap-4 text-lg hover ` + (active? "bg-gray-200 hover:bg-gray-200" : "hover:bg-gray-100") }>
 			{icon}
-			{text}
+			<span style={{fontWeight: !active && 300}}>{text}</span>
+			{/* filter: !active && !hover && "grayscale(100%)" */}
 		</div>
 	)
 }

@@ -4,17 +4,18 @@ import CreateToolbar from "../../components/dashboard/CreateToolbar";
 import ProjectList from "../../components/dashboard/ProjectsList";
 
 import ExcelContext from "../../context/ExcelContext";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Dashboard() {
-
-	const [clicked, setclicked] = useState(false)	
+	
+	const { setActiveItem } = useAuth()
 
 	return (
-		<div onClick={() => setclicked(!clicked)}>
+		<div onClick={() => setActiveItem(-1)}>
 			<DashboardLayout scope={"dashboard"}> 
 
 					<CreateToolbar></CreateToolbar>
-					<ProjectList clicked={clicked}></ProjectList>
+					<ProjectList></ProjectList>
 
 			</DashboardLayout>
 		</div>

@@ -1,194 +1,172 @@
-import { collection, doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import React, { useState, useRef } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { customBuild } from "../../lib/data";
+import { collection, doc, setDoc } from "firebase/firestore";
 import { firestore } from "../../lib/firebase";
 
-import AddOffer from "../../public/assets/dashboard/AddOffer";
-import JsonOffer from "../../public/assets/dashboard/JsonOffer";
-import FullPageLoading from "../loading/FullPageLoading";
+import moment from 'moment/moment';
 
-import Plus from "../../public/assets/dashboard/Plus";
-import moment from "moment/moment";
-import ButtonPrimary from "../buttons/ButtonPrimary";
 import ButtonSecondary from "../buttons/ButtonSecondary";
-import Next from "../../public/assets/user_setup/Next";
-import { AnimatePresence } from "framer-motion";
-import { motion } from "framer-motion";
-import ExcelIcon from "../../public/assets/excelEditor/ExcelIcon";
 
-import { useExcel } from "../../context/ExcelContext";
 import PopUp from "../general/PopUp";
 import { TextField } from "@mui/material";
+import MapComponent from "./MapComponent";
+
+import { DateRangePicker } from "@mui/x-date-pickers-pro";
+
+import DashboardAdd from "../buttons/DashboardAdd";
+import { toast } from "react-toastify";
+import PopupLoading from "../loading/PopupLoading";
 
 
 export default function SitesToolbar() {
+	const [openPopup, setopenPopup] = useState(false);
+
 	return (
-		<div className='flex flex-col w-fit sm:flex-row gap-2 sm:gap-8 overflow-y-auto'>
-			<AddEmpty
-				text='Nová stavba'
-				subtext='Vytvorte novú stavbu'
-				color='#73A496'
-			></AddEmpty>
-		</div>
+		<>
+			<div className='flex flex-col w-fit sm:flex-row gap-2 sm:gap-8 overflow-y-auto'>
+
+				<DashboardAdd
+					text='Nová stavba'
+					subtext='Vytvorte novú stavbu'
+					color='#73A496'
+					onClick={() => setopenPopup(true)}
+				/>
+
+			</div>
+
+			<AddSite openPopup={openPopup} setopenPopup={setopenPopup} />
+		</>
 	);
 }
 
-function AddEmpty({ text, subtext, color }) {
-	const { user } = useAuth();
-	const router = useRouter();
-	const [display, setdisplay] = useState(false);
-	const [title, settitle] = useState("");
-	const [loading, setloading] = useState(false);
-
+function AddSite({ openPopup, setopenPopup }) {
+	const { user, load_collection_data, setSites, uploadImage, uploadSiteCaption } = useAuth();
 	const [description, setDescription] = useState("");
 	const [location, setLocation] = useState("");
 	const [error, setError] = useState("");
+	const [loading, setLoading] = useState(false);
+	const [dates, setDates] = useState([null, null]);
+	const [center, setCenter] = useState({ lat: 48.669026, lng: 19.699024 })
 
-	const [openPopup, setopenPopup] = useState(false);
-
-
-	const emojis = ["🔨", "🏗️", "🚧", "🏢", "🧱", "🛠️"]
-
+	const emojis = ["🔨", "🏗️", "🚧", "🏢", "🛠️"]
 	const randomIndex = Math.floor(Math.random() * emojis.length);
 	const emoji = emojis[randomIndex];
 
 
-	function createEmpty() {
-		setopenPopup(true);
-		// setloading(true);
-		// const collectionRef = doc(collection(firestore, "/offers"));
-		// //customBuild variable empty template
-		// setDoc(collectionRef, {
-		// 	id: collectionRef.id,
-		// 	name: "Nová cenová ponuka",
-		// 	created: moment().valueOf(),
-		// 	userId: user != null ? user.uid : "none",
-		// 	totals: {
-		// 		total_delivery_price: 0,
-		// 		total_construction_price: 0,
-		// 		total: 0,
-		// 	},
-		// 	lastModified: moment().valueOf(),
-		// })
-		// 	.then((response) => {
-		// 		router.push(`/stavba/${collectionRef.id}`);
-		// 		//setloading(false);
-		// 	})
-		// 	.catch((err) => {
-		// 		console.log(err);
-		// 	});
+	function delay(seconds) {
+		return new Promise(resolve => setTimeout(resolve, seconds * 1000));
 	}
 
-	function close() {
-		setdisplay(false);
-		settitle("");
+	async function disableWatermark() {
+		await delay(0.05);
+		const divElements = document.querySelectorAll('div');
+		divElements.forEach((div) => {
+			const computedStyle = window.getComputedStyle(div);
+			if (computedStyle.getPropertyValue('z-index') === '100000')
+				div.style.display = 'none';
+		})
 	}
 
-	function handleSubmit(){
-		if(!description){
-			setError("Zadajte popis stavby")
-			return;
-		}
+
+	async function fetchMapImage(newSite) {
+		const apiKey = 'AIzaSyD06BvNjUFJ94-GC8ItmyBXaBJhxJyMR7Q';
+		const centerLocation = `${center.lat} ${center.lng}`; // The coordinates of the location you want (e.g., Empire State Building)
+		const zoomLevel = '14'; // The zoom level you want for the image
+		const size = '800x500'; // The size of the image you want
+		const markerLocation = centerLocation; // The coordinates of the location you want the marker on
 		
-		if(!location){
-			setError("Zadajte lokáciu")
-			return;
-		}
+		// with marker
+		// const response = await fetch(`https://maps.googleapis.com/maps/api/staticmap?center=${centerLocation}&zoom=${zoomLevel}&size=${size}&markers=${markerLocation}&key=${apiKey}`);
+
+		// whitout marker
+		const response = await fetch(`https://maps.googleapis.com/maps/api/staticmap?center=${centerLocation}&zoom=${zoomLevel}&size=${size}&key=${apiKey}`);
+
+		if (!response.ok) throw new Error('Network response was not ok.');
+		
+		const blob = await response.blob();
+		const file = new File([blob], `map_image.png`, { type: 'image/png' });
+
+		// let url = await uploadImage(file, "maps")
+		let url = await uploadSiteCaption(file, newSite)
+		return url
 	}
+
+
+	async function createSite(event) {
+		event.preventDefault();
+
+		let newDates = { ...dates } 
+		if (newDates[0]) newDates[0] = newDates[0].valueOf()
+		if (newDates[1]) newDates[1] = newDates[1].valueOf()
+
+		setLoading(true);
+
+		const collectionRef = doc(collection(firestore, "/sites"));
+		let newSite = {
+			id: collectionRef.id,
+			diary: [],
+			location: location,
+			permissions: [],
+			dates: newDates,
+			name: description,
+			images: [],
+			icon: emoji,
+			captionImage: '',
+			created: moment().valueOf(),
+			userId: user != null ? user.uid : "none",
+			lastModified: moment().valueOf(),
+		}
+
+		newSite.captionImage = await fetchMapImage(newSite);
+
+		setDoc(collectionRef, newSite)
+		.then((response) => {
+			// router.push(`/stavba/${collectionRef.id}`);
+			toast("Stavba pridaná", { type: "success" })
+			setopenPopup(false);
+			setLoading(false);
+			load_collection_data("sites", setSites);
+		})
+		.catch((err) => {
+			console.log(err);
+			setLoading(false);
+		});
+	}
+
 
 	return (
-		<div className=''>
-			<FullPageLoading loading={loading}></FullPageLoading>
-			<button
-				onClick={() => {
-					//setdisplay(true);
-					createEmpty();
-				}}
-				className='w-full py-3 px-3 cursor-default border rounded-md flex items-center justify-between sm:justify-center gap-2 text-start trans hover:bg-gray-100 transition-all'
-			>
-				{/* <IconHome color={color}></IconHome> */}
-				<AddOffer color={color}></AddOffer>
-				<div>
-					<div className='text-xs md:text-sm font-regular'>{text}</div>
-					<div className='text-xs font-light text-gray-400'>{subtext}</div>
-				</div>
+		<PopUp title={"Pridať stavbu"} open={openPopup} setOpen={setopenPopup}>
 
-				<div className='ml-8'>
-					<Plus></Plus>
-				</div>
-			</button>
-			<AnimatePresence>
-				{display && (
-					<motion.div
-						initial={{ opacity: 0, y: 1 }}
-						exit={{ opacity: 0, y: 1 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.1 }}
-						key='create-empty-modal'
-						className='absolute shadow-hardShadow z-30 mt-2 p-3 bg-white min-w-[300px] rounded-sm'
-					>
-						<input
-							onChange={(e) => {
-								settitle(e.target.value);
-							}}
-							className='p-2 bg-gray-100'
-							autoFocus
-							placeholder='Zadajte názov...'
-						></input>
-						{error && <div className='text-sm text-red-500 mt-1'>{error}</div>}
-						<div className='flex items-center gap-2 mt-4'>
-							<ButtonPrimary
-								onClick={createEmpty}
-								className=''
-								icon={<Next></Next>}
-								iconAfter
-							>
-								Vytvoriť ponuku
-							</ButtonPrimary>
-							<ButtonSecondary onClick={close} className=''>
-								Zrušiť
-							</ButtonSecondary>
-						</div>
-					</motion.div>
-				)}
-			</AnimatePresence>
+			<PopupLoading loading={loading}></PopupLoading>
+			<form onSubmit={createSite} className='ml-1'>
+				<div className='flex flex-col gap-3 my-5'>
 
-			<PopUp title={"Pridať stavbu"} open={openPopup} setOpen={setopenPopup}>
-						
-			<form onSubmit={handleSubmit} className='ml-1'>
-       		 	<div className='flex flex-col gap-2 my-5'>
-
-					<TextField 
-					label='🖊️ Popis stavby' 
-					type='title' 
-					value={description} 
-					onChange={e => setDescription(e.target.value)}
-					required
+					<TextField
+						label='🖊️ Názov stavby'
+						type='text'
+						value={description}
+						onChange={e => setDescription(e.target.value)}
+						required
 					/>
 
-					<TextField 
-					label='📌 Lokácia' 
-					type='location' 
-					value={location} 
-					onChange={e => setLocation(e.target.value)}
-					required
-					/>
+					<MapComponent value={location} setValue={setLocation} center={center} setCenter={setCenter} />
+
+						<DateRangePicker onOpen={disableWatermark}
+							localeText={{ start: '🏗️ Predpokladadný začiatok výstavby', end: '🏁 Predpokladadný koniec výstavby' }}
+							value={dates}
+							onChange={(newDates) => setDates(newDates)} />
 
 				</div>
-
-				{error && <p>*{error}</p>}
 
 				<button>
 					<ButtonSecondary type={"submit"}>
-							Pridať
+						Pridať stavbu
 					</ButtonSecondary>
 				</button>
 
 			</form>
 
-			</PopUp>
-		</div>
-	);
+		</PopUp>
+	)
 }
